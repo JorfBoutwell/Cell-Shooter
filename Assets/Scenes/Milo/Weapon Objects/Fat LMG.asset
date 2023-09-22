@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3d26025aaa3d944b5e90d90c55a047, type: 3}
   m_Name: Fat LMG
   m_EditorClassIdentifier: 
-  maxAmmo: 0
+  maxAmmo: 100
   fireRate: 0.2
   damage: 3
   reloadTime: 0
+  weaponRange: 100
   fireMode: hitscan
+  modelPrefab: {fileID: 4494149317107203607, guid: c6ac865e714956f4cad037c13df208db, type: 3}

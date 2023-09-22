@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3d26025aaa3d944b5e90d90c55a047, type: 3}
   m_Name: Neurotransmitter
   m_EditorClassIdentifier: 
-  maxAmmo: 30
-  fireRate: 0.05
+  maxAmmo: 32
+  fireRate: 0.15
   damage: 15
   reloadTime: 1.5
+  weaponRange: 100
   fireMode: burst
+  modelPrefab: {fileID: 2472187522479640051, guid: 358029712d5e52d47851a9629824b90f, type: 3}

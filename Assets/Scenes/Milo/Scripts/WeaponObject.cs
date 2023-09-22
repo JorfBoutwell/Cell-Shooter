@@ -7,10 +7,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MiloRey/Weapon Object")]
 public class WeaponObject : ScriptableObject
 {
-    public float maxAmmo;
+    public int maxAmmo;
     public float fireRate;
     public float damage;
     public float reloadTime;
     public float weaponRange;
     public string fireMode;
+    public GameObject modelPrefab;
+
 }

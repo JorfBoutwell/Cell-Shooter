@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Bone Marrow Shotgun
   m_EditorClassIdentifier: 
   maxAmmo: 6
-  fireRate: 0.75
+  fireRate: 1.2
   damage: 3
   reloadTime: 2
+  weaponRange: 20
   fireMode: shotgun
+  modelPrefab: {fileID: 6486028041665338091, guid: 2d08d20809b5ae54e9ebdcecc04314bc, type: 3}

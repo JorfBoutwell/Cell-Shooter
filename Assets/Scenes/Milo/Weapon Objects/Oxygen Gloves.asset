@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3d26025aaa3d944b5e90d90c55a047, type: 3}
   m_Name: Oxygen Gloves
   m_EditorClassIdentifier: 
-  maxAmmo: 12
+  maxAmmo: 10
   fireRate: 1
   damage: 25
   reloadTime: 1.5
+  weaponRange: 50
   fireMode: projectile
+  modelPrefab: {fileID: 5814301362073404094, guid: f623b6126b219c849a4a6d1e5dab01ba, type: 3}

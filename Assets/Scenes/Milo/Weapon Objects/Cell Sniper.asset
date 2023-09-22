@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3d26025aaa3d944b5e90d90c55a047, type: 3}
   m_Name: Cell Sniper
   m_EditorClassIdentifier: 
-  maxAmmo: 0
+  maxAmmo: 6
   fireRate: 0
   damage: 100
   reloadTime: 0
-  weaponRange: 3
+  weaponRange: 100
   fireMode: hitscan
+  modelPrefab: {fileID: 8809775215893905974, guid: 4577f6d9af271cb409cbcdfdd2b1fd25, type: 3}
