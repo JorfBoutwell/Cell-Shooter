@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: CountdownOverlay
+    uniqueID: 2046903903
+    locked: 0
+  - name: UI
+    uniqueID: 222916165
+    locked: 0

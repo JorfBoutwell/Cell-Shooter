@@ -8,12 +8,16 @@ public class WaveStart : MonoBehaviour
     static public bool playersReady;
     static public bool enemySpawnActive;
     static public bool pickUpSpawn;
-    //public TextMeshPro countdownText;
+
     [SerializeField] TextMeshPro countdownText;
+    public GameObject countdownOverlay;
     public TextMeshPro bulletCount;
 
     public float currentTime = 0f;
     public float countdownTime = 10f;
+
+    public bool startCountdown = false;
+    public bool gameStart;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +29,30 @@ public class WaveStart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*while (countdownTime == 10 && countdownTime >= 0)
-        {
-            countdownText.text = countdownTime.ToString("0");
-            countdownTime -= Time.deltaTime;
-            Debug.Log(countdownTime);
-        }*/
+        if (startCountdown) { 
+            currentTime -= 1 * Time.deltaTime;
+            countdownText.text = currentTime.ToString("0");
+            if(currentTime <= 3)
+            {
+                //countdownText.enabled = false;
+                countdownOverlay.SetActive(true);
+                countdownText.color = Color.red;
+                countdownText.fontSize = 50;
+                countdownText.transform.position = new Vector3(9f, .5f, 0);
+            }
+            if (currentTime <= 0)
+            {
+                currentTime = 0;
+                startCountdown = false;
+            }
+        }
+    }
+
+    private void Reset()
+    {
+        //Countdown
+        currentTime = 10f;
+        //EnemyDespawn
     }
 
     private void StartEnemySpawn()
@@ -62,13 +84,13 @@ public class WaveStart : MonoBehaviour
     public void StartCountdown()
     {
         Debug.Log(currentTime);
-        //float time = 0f;
 
+        startCountdown = true;
 
-        /*for (float j = 0; j < 10; j += time)
+        /*for (float j = 10f; j >= 0; j -= 1 * Time.deltaTime)
         {
-            time += Time.deltaTime;
-            countdownText.text = countdownTime.ToString("0");
+            
+            countdownText.text = j.ToString("0");
             countdownTime -= 1;
             Debug.Log(countdownTime);
 
