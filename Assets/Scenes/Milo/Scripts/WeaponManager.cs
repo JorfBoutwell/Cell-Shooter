@@ -31,20 +31,27 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         m_player = GetComponent<PlayerController>();
-        m_autoTimer = currentWeapon.fireRate;
-        currentAmmo = currentWeapon.maxAmmo;
-        var weaponPrefab = Instantiate(currentWeapon.modelPrefab, m_armTransform);
-        m_bulletTransform = weaponPrefab.transform.GetChild(0);
-        m_shootingSystem = weaponPrefab.transform.GetChild(1).GetComponent<ParticleSystem>();
+        
     }
 
     private void Update()
     {
         FireWeapon(currentWeapon);
+        if (!isShooting)
+            m_fireLimit = 3;
         if (currentAmmo == 0)
         {
             StartCoroutine(Reload());
         }
+    }
+
+    public void SwitchWeapon()
+    {
+        var weaponPrefab = Instantiate(currentWeapon.modelPrefab, m_armTransform);
+        m_bulletTransform = weaponPrefab.transform.GetChild(0);
+        m_shootingSystem = weaponPrefab.transform.GetChild(1).GetComponent<ParticleSystem>();
+        m_autoTimer = currentWeapon.fireRate;
+        currentAmmo = currentWeapon.maxAmmo;
     }
 
     public void FireWeapon(WeaponObject weapon)
