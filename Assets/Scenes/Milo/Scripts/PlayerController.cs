@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Variables")]
     Vector3 m_playerVelocity;
-    [SerializeField] float m_speed = 10f;
+    public float speed;
+    public int maxjumpCount = 1;
+    [SerializeField] int m_jumpCount = 0;
     [SerializeField] float m_jumpForce = 8f;
     [SerializeField] float m_gravity = 9.8f;
     private bool m_canMove = true;
@@ -68,20 +70,22 @@ public class PlayerController : MonoBehaviour
     {
         if (m_canMove)
         {
+            if (m_controller.isGrounded)
+                m_jumpCount = maxjumpCount;
             Vector2 movementInput;
             movementInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>();
 
             if (m_isSprinting && !m_isCrouching)
-                m_speed = 14f;
+                speed = 14f;
             else if (m_isCrouching)
-                m_speed = 5f;
+                speed = 5f;
             else
-                m_speed = 8f;
+                speed = 8f;
 
             float moveDirectionY = m_playerVelocity.y;
             m_playerVelocity = new Vector3(movementInput.x, 0, movementInput.y);
             m_playerVelocity = FPS_camera.transform.TransformDirection(m_playerVelocity);
-            m_playerVelocity *= m_speed;
+            m_playerVelocity *= speed;
             m_playerVelocity.y = moveDirectionY;
 
             if (!m_controller.isGrounded)
@@ -119,8 +123,19 @@ public class PlayerController : MonoBehaviour
     {
         if (!m_isWallRunning)
         {
-            if (m_controller.isGrounded)
-                m_playerVelocity.y = m_jumpForce;
+            if (maxjumpCount != 0)
+            {
+                if (m_jumpCount != 0)
+                {
+                    m_playerVelocity.y = m_jumpForce;
+                    m_jumpCount--;
+                }
+            }
+            else
+            {
+                if(m_controller.isGrounded)
+                    m_playerVelocity.y = m_jumpForce;
+            }
         }
     }
 
@@ -200,7 +215,7 @@ public class PlayerController : MonoBehaviour
             if (m_wallRight || m_wallLeft)
             {
                 m_isWallRunning = true;
-                m_speed = 8;
+                speed = 8;
 
                 Vector3 wallNormal = m_wallRight ? rightWallHit.normal : leftWallHit.normal;
                 Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
