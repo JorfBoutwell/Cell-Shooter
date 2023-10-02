@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    InputActions m_inputActions;
+    InputManager m_input;
     CharacterController m_controller;
-    Camera m_FPS_Camera;
+    public Camera FPS_camera;
 
     [Header("Movement Variables")]
     Vector3 m_playerVelocity;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_slideTimer = 0.5f;
 
     [SerializeField] LayerMask m_wallRunMask;
-    [SerializeField] float m_wallCheckDistance = 7f;
+    [SerializeField] float m_wallCheckDistance = 2f;
     [SerializeField] float m_wallRunForce = 15f;
     private bool m_wallRight = false;
     private bool m_wallLeft = false;
@@ -42,36 +42,15 @@ public class PlayerController : MonoBehaviour
     private bool m_isCrouching;
     private bool m_isSliding;
     private bool m_isWallRunning;
-
-
-
+    
     private void Awake()
-    {
-        m_inputActions = new InputActions();
-        m_controller = GetComponent<CharacterController>();
-        m_FPS_Camera = Camera.main;
-
-        m_inputActions.Movement.Jump.performed += ctx => Jump();
-        m_inputActions.Movement.Sprint.performed += ctx => ToggleSprint();
-        m_inputActions.Movement.Sprint.canceled += ctx => ToggleSprint();
-        m_inputActions.Movement.Crouch.performed += ctx => ToggleCrouch();
-        m_inputActions.Movement.Crouch.canceled += ctx => ToggleCrouch();
-    }
-
-    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-    }
 
-    private void OnEnable()
-    {
-        m_inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        m_inputActions.Disable();
+        m_input = GetComponent<InputManager>();
+        m_controller = GetComponent<CharacterController>();
+        FPS_camera = Camera.main;
     }
 
     private void Update()
@@ -90,7 +69,7 @@ public class PlayerController : MonoBehaviour
         if (m_canMove)
         {
             Vector2 movementInput;
-            movementInput = m_inputActions.Movement.Locomotion.ReadValue<Vector2>();
+            movementInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>();
 
             if (m_isSprinting && !m_isCrouching)
                 m_speed = 14f;
@@ -101,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
             float moveDirectionY = m_playerVelocity.y;
             m_playerVelocity = new Vector3(movementInput.x, 0, movementInput.y);
-            m_playerVelocity = m_FPS_Camera.transform.TransformDirection(m_playerVelocity);
+            m_playerVelocity = FPS_camera.transform.TransformDirection(m_playerVelocity);
             m_playerVelocity *= m_speed;
             m_playerVelocity.y = moveDirectionY;
 
@@ -116,27 +95,27 @@ public class PlayerController : MonoBehaviour
     private void UpdateCamera()
     {
         Vector2 mouseInput;
-        mouseInput = m_inputActions.Movement.Look.ReadValue<Vector2>();
+        mouseInput = m_input.inputActions.Movement.Look.ReadValue<Vector2>();
 
         if (m_isSprinting && !m_isCrouching)
-            m_FPS_Camera.fieldOfView = Mathf.Lerp(m_FPS_Camera.fieldOfView, 70, Time.deltaTime * 5);
+            FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 70, Time.deltaTime * 5);
         else if (m_isCrouching)
-            m_FPS_Camera.fieldOfView = Mathf.Lerp(m_FPS_Camera.fieldOfView, 50, Time.deltaTime * 5);
+            FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 50, Time.deltaTime * 5);
         else
-            m_FPS_Camera.fieldOfView = Mathf.Lerp(m_FPS_Camera.fieldOfView, 60, Time.deltaTime * 5);
+            FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 60, Time.deltaTime * 5);
 
         float mouseX = mouseInput.x * m_mouseSensitivityX * Time.deltaTime;
         float mouseY = mouseInput.y * m_mouseSensitivityY * Time.deltaTime;
 
         m_xRotation -= mouseY;
         m_xRotation = Mathf.Clamp(m_xRotation, -90f, m_minViewDistance);
-        m_FPS_Camera.transform.localRotation = Quaternion.Euler(m_xRotation, 0f, m_tiltAmount);
+        FPS_camera.transform.localRotation = Quaternion.Euler(m_xRotation, 0f, m_tiltAmount);
         transform.rotation *= Quaternion.Euler(0, mouseX, 0);
     }
 
     // Movement Actions
 
-    private void Jump()
+    public void Jump()
     {
         if (!m_isWallRunning)
         {
@@ -145,12 +124,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ToggleSprint()
+    public void ToggleSprint()
     {
         m_isSprinting = !m_isSprinting;
     }
 
-    private void ToggleCrouch()
+    public void ToggleCrouch()
     {
         m_isCrouching = !m_isCrouching;
     }
@@ -161,12 +140,12 @@ public class PlayerController : MonoBehaviour
         {
             if (m_isCrouching)
             {
-                m_FPS_Camera.transform.position = Vector3.Lerp(m_FPS_Camera.transform.position, m_crouchPos.position, Time.deltaTime * 5f);
+                FPS_camera.transform.position = Vector3.Lerp(FPS_camera.transform.position, m_crouchPos.position, Time.deltaTime * 5f);
                 transform.localScale = new Vector3(transform.localScale.x, m_crouchYScale, transform.localScale.z);
             }
             else
             {
-                m_FPS_Camera.transform.position = Vector3.Lerp(m_FPS_Camera.transform.position, m_cameraPos.position, Time.deltaTime * 5f);
+                FPS_camera.transform.position = Vector3.Lerp(FPS_camera.transform.position, m_cameraPos.position, Time.deltaTime * 5f);
                 transform.localScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
             }
         }
@@ -189,7 +168,7 @@ public class PlayerController : MonoBehaviour
             if (m_isSliding)
             {
                 Vector2 movementInput;
-                movementInput = m_inputActions.Movement.Locomotion.ReadValue<Vector2>();
+                movementInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>();
 
                 Vector3 slideDirection = transform.forward * movementInput.y + transform.right * movementInput.x;
 
