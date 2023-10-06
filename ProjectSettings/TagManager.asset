@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - ground
+  - adrenaline
+  - dopamine
+  - gaba
+  - glutamate
+  - player
   layers:
   - Default
   - TransparentFX

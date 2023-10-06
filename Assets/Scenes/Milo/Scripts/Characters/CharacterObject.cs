@@ -15,4 +15,5 @@ public class CharacterObject : ScriptableObject
     [Header("Character Objects")]
     public WeaponObject[] characterWeapons;
     //public string[] characterAbilities
+
 }

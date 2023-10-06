@@ -222,15 +222,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Scope",
-                    "type": "Button",
-                    "id": "0bd39cdc-54af-455d-94c3-00b7a94a4581",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "41e2c4a9-f00b-4fc5-ada8-9bd226a31bbe",
@@ -287,28 +278,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a927c4a9-7d55-4027-a523-990a3b41011a",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Scope",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5bae056a-cfd4-4e63-80c9-82b5e4c201c0",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Scope",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -493,6 +462,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Secondary Fire",
+                    "type": "Button",
+                    "id": "1ffe65f0-057e-49c5-ba78-6fd99ae0bb25",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -537,6 +515,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Ability 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de271b6d-0ee2-42d8-8314-37aedb7f2f5c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cd5e30a-071b-489d-a7bc-da80e7660dba",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "203a3eb1-a548-4ea0-b623-8c8e41ea3c51",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

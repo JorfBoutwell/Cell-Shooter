@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Variables")]
     Vector3 m_playerVelocity;
-    public float speed;
+    public float speed = 8f;
     public int maxjumpCount = 1;
     [SerializeField] int m_jumpCount = 0;
     [SerializeField] float m_jumpForce = 8f;
@@ -79,8 +79,7 @@ public class PlayerController : MonoBehaviour
                 speed = 14f;
             else if (m_isCrouching)
                 speed = 5f;
-            else
-                speed = 8f;
+                
 
             float moveDirectionY = m_playerVelocity.y;
             m_playerVelocity = new Vector3(movementInput.x, 0, movementInput.y);
