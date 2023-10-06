@@ -244,15 +244,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Scope"",
-                    ""type"": ""Button"",
-                    ""id"": ""0bd39cdc-54af-455d-94c3-00b7a94a4581"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""41e2c4a9-f00b-4fc5-ada8-9bd226a31bbe"",
@@ -309,28 +300,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a927c4a9-7d55-4027-a523-990a3b41011a"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Scope"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5bae056a-cfd4-4e63-80c9-82b5e4c201c0"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Scope"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -515,6 +484,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Secondary Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ffe65f0-057e-49c5-ba78-6fd99ae0bb25"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -559,6 +537,39 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Ability 2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de271b6d-0ee2-42d8-8314-37aedb7f2f5c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Secondary Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cd5e30a-071b-489d-a7bc-da80e7660dba"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Secondary Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""203a3eb1-a548-4ea0-b623-8c8e41ea3c51"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Secondary Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -678,7 +689,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Fire = m_Weapon.FindAction("Fire", throwIfNotFound: true);
-        m_Weapon_Scope = m_Weapon.FindAction("Scope", throwIfNotFound: true);
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
         m_Weapon_SwapWeapon = m_Weapon.FindAction("Swap Weapon", throwIfNotFound: true);
         m_Weapon_Inspect = m_Weapon.FindAction("Inspect", throwIfNotFound: true);
@@ -691,6 +701,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Ability = asset.FindActionMap("Ability", throwIfNotFound: true);
         m_Ability_Ability1 = m_Ability.FindAction("Ability 1", throwIfNotFound: true);
         m_Ability_Ability2 = m_Ability.FindAction("Ability 2", throwIfNotFound: true);
+        m_Ability_SecondaryFire = m_Ability.FindAction("Secondary Fire", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_PauseMenu = m_Menu.FindAction("Pause Menu", throwIfNotFound: true);
@@ -836,7 +847,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Weapon;
     private List<IWeaponActions> m_WeaponActionsCallbackInterfaces = new List<IWeaponActions>();
     private readonly InputAction m_Weapon_Fire;
-    private readonly InputAction m_Weapon_Scope;
     private readonly InputAction m_Weapon_Reload;
     private readonly InputAction m_Weapon_SwapWeapon;
     private readonly InputAction m_Weapon_Inspect;
@@ -846,7 +856,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         private @InputActions m_Wrapper;
         public WeaponActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Fire => m_Wrapper.m_Weapon_Fire;
-        public InputAction @Scope => m_Wrapper.m_Weapon_Scope;
         public InputAction @Reload => m_Wrapper.m_Weapon_Reload;
         public InputAction @SwapWeapon => m_Wrapper.m_Weapon_SwapWeapon;
         public InputAction @Inspect => m_Wrapper.m_Weapon_Inspect;
@@ -863,9 +872,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @Scope.started += instance.OnScope;
-            @Scope.performed += instance.OnScope;
-            @Scope.canceled += instance.OnScope;
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
@@ -885,9 +891,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @Scope.started -= instance.OnScope;
-            @Scope.performed -= instance.OnScope;
-            @Scope.canceled -= instance.OnScope;
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
@@ -977,12 +980,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IAbilityActions> m_AbilityActionsCallbackInterfaces = new List<IAbilityActions>();
     private readonly InputAction m_Ability_Ability1;
     private readonly InputAction m_Ability_Ability2;
+    private readonly InputAction m_Ability_SecondaryFire;
     public struct AbilityActions
     {
         private @InputActions m_Wrapper;
         public AbilityActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Ability1 => m_Wrapper.m_Ability_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Ability_Ability2;
+        public InputAction @SecondaryFire => m_Wrapper.m_Ability_SecondaryFire;
         public InputActionMap Get() { return m_Wrapper.m_Ability; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -998,6 +1003,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Ability2.started += instance.OnAbility2;
             @Ability2.performed += instance.OnAbility2;
             @Ability2.canceled += instance.OnAbility2;
+            @SecondaryFire.started += instance.OnSecondaryFire;
+            @SecondaryFire.performed += instance.OnSecondaryFire;
+            @SecondaryFire.canceled += instance.OnSecondaryFire;
         }
 
         private void UnregisterCallbacks(IAbilityActions instance)
@@ -1008,6 +1016,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Ability2.started -= instance.OnAbility2;
             @Ability2.performed -= instance.OnAbility2;
             @Ability2.canceled -= instance.OnAbility2;
+            @SecondaryFire.started -= instance.OnSecondaryFire;
+            @SecondaryFire.performed -= instance.OnSecondaryFire;
+            @SecondaryFire.canceled -= instance.OnSecondaryFire;
         }
 
         public void RemoveCallbacks(IAbilityActions instance)
@@ -1098,7 +1109,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IWeaponActions
     {
         void OnFire(InputAction.CallbackContext context);
-        void OnScope(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnSwapWeapon(InputAction.CallbackContext context);
         void OnInspect(InputAction.CallbackContext context);
@@ -1113,6 +1123,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
+        void OnSecondaryFire(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

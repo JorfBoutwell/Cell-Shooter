@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
     public bool isShooting;
     public WeaponObject currentWeapon;
     [SerializeField] Transform m_armTransform;
-    public Transform m_bulletTransform;
+    public Transform bulletTransform;
     [SerializeField] LayerMask m_enemyMask;
 
     public int currentAmmo;
@@ -48,7 +48,7 @@ public class WeaponManager : MonoBehaviour
     public void SwitchWeapon()
     {
         var weaponPrefab = Instantiate(currentWeapon.modelPrefab, m_armTransform);
-        m_bulletTransform = weaponPrefab.transform.GetChild(0);
+        bulletTransform = weaponPrefab.transform.GetChild(0);
         m_shootingSystem = weaponPrefab.transform.GetChild(1).GetComponent<ParticleSystem>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
@@ -176,7 +176,7 @@ public class WeaponManager : MonoBehaviour
         {
             currentAmmo--;
             m_shootingSystem.Play();
-            if (Physics.Raycast(m_bulletTransform.transform.position, m_bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
+            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 Debug.Log(hit.transform.name);
             }
