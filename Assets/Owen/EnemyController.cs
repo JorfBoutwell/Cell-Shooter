@@ -5,19 +5,19 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    public Vector3 targetDestination;
     NavMeshAgent agent;
+    GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.destination = targetDestination;
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        agent.destination = player.transform.position;
     }
 }

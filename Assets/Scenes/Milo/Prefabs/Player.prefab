@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7571454749124051587}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FPS_camera: {fileID: 322680308720756344}
-  m_speed: 10
+  speed: 0
+  maxjumpCount: 1
+  m_jumpCount: 0
   m_jumpForce: 6
   m_gravity: 9.8
   m_mouseSensitivityX: 40
