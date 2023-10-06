@@ -5,26 +5,39 @@ using TMPro;
 
 public class WaveStart : MonoBehaviour
 {
+    //Start variables
     static public bool playersReady;
     static public bool enemySpawnActive;
     static public bool pickUpSpawn;
-
-    [SerializeField] TextMeshPro countdownText;
-    public GameObject countdownOverlay;
-
-    public GameObject cooldownOverlayC;
-    public GameObject cooldownOverlayBarC;
-
-    public TextMeshPro bulletCount;
-
-    public float currentTime = 0f;
-    public float countdownTime = 10f;
-
-    public bool startCountdown = false;
     public bool gameStart;
 
+    //Countdown variables
+    [SerializeField] TextMeshPro countdownText;
+    public GameObject countdownOverlay;
+    public float currentTime = 0f;
+    public float countdownTime = 10f;
+    public bool startCountdown = false;
+
+    //Bullet variables
+    public TextMeshPro bulletCount;
+    float bulletAmount = 100f;
+
+    //Cooldown variables
+    public GameObject cooldownOverlayC;
+    public GameObject cooldownOverlayBarC;
     public bool cooldownActiveC = false;
     float newHeight = 100;
+
+    //Healthbar variables
+    public GameObject healthBar;
+    public GameObject healthBarShadow;
+    float health = 680;
+    float healthShadow = 680;
+
+    float damageTaken = 100f;
+
+    //Death variables
+    public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +49,11 @@ public class WaveStart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startCountdown) { 
+        if (startCountdown) {
             currentTime -= 1 * Time.deltaTime;
             countdownText.text = currentTime.ToString("0");
-            if(currentTime <= 3)
+            if (currentTime <= 3)
             {
-                //countdownText.enabled = false;
                 countdownOverlay.SetActive(true);
                 countdownText.color = Color.red;
                 countdownText.fontSize = 50;
@@ -56,28 +68,51 @@ public class WaveStart : MonoBehaviour
             }
         }
 
-        if(cooldownActiveC == false)
+        if (cooldownActiveC == false)
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
                 CooldownActive();
                 Debug.Log("hi");
                 cooldownActiveC = true;
-                
+
             }
         }
 
         if (newHeight > 0 && cooldownActiveC)
         {
             Debug.Log("yo");
-            //cooldownOverlayBarC.GetComponent<RectTransform>().transform.localScale = ();
             cooldownOverlayBarC.GetComponent<RectTransform>().sizeDelta = new Vector2(100, newHeight);
             newHeight -= 10 * Time.deltaTime;
+
         }
         else if (newHeight <= 0)
         {
             cooldownActiveC = false;
+            cooldownOverlayC.SetActive(false);
+            cooldownOverlayBarC.SetActive(false);
+            newHeight = 100;
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            health -= damageTaken;
+            healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(health, 90);
+            Debug.Log("hey" + health);
+
+        }
+
+        if (healthShadow > health)
+        {
+            healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(healthShadow, 90);
+            healthShadow -= 100 * Time.deltaTime;
+        }
+
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+
 
     }
 
@@ -98,15 +133,15 @@ public class WaveStart : MonoBehaviour
 
     private void StartEnemySpawn()
     {
-        if(enemySpawnActive)
+        if (enemySpawnActive)
         {
-            
+
         }
     }
 
     private void StartPickUpSpawn()
     {
-        if(pickUpSpawn)
+        if (pickUpSpawn)
         {
 
         }
@@ -127,7 +162,26 @@ public class WaveStart : MonoBehaviour
         Debug.Log(currentTime);
 
         startCountdown = true;
-        
+
+    }
+
+    
+
+    public void Shoot()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            Debug.Log("hola");
+            bulletAmount -= 1f;
+            bulletCount.text = bulletAmount.ToString("0");
+        }
+
+        if(Input.GetMouseButtonDown(0) && bulletAmount > 0)
+        {
+            Debug.Log("hola");
+            bulletAmount -= 1f;
+            bulletCount.text = bulletAmount.ToString("0");
+        }
     }
 }
 
