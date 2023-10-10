@@ -27,9 +27,6 @@ public class InputManager : MonoBehaviour
         inputActions.Weapon.Fire.performed += ctx => m_weapon.isShooting = true;
         inputActions.Weapon.Fire.canceled += ctx => m_weapon.isShooting = false;
         inputActions.Weapon.Reload.performed += ctx => m_weapon.StartCoroutine("Reload");
-
-        inputActions.Ability.Ability1.performed += ctx => m_neuron.Ability1();
-        inputActions.Ability.SecondaryFire.performed += ctx => m_neuron.SecondaryFire();
     }
 
     private void OnEnable()
