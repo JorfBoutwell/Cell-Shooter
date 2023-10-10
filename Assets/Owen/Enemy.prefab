@@ -143,4 +143,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194f64d0e132b4ebb9bb327aa00bc108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDestination: {x: -11.5, y: 7, z: -25}
