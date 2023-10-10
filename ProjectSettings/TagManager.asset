@@ -4,7 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
+  - Wall
+  - ground
+  - adrenaline
+  - dopamine
+  - gaba
+  - glutamate
+  - player
   layers:
   - Default
   - TransparentFX
@@ -12,9 +18,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Wall
+  - Enemy
+  - Slope
   - 
   - 
   - 
@@ -41,4 +47,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: CountdownOverlay
+    uniqueID: 2046903903
+    locked: 0
+  - name: UI
+    uniqueID: 222916165
     locked: 0
