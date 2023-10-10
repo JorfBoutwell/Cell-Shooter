@@ -22,12 +22,6 @@ public class WaveStart : MonoBehaviour
     public TextMeshPro bulletCount;
     float bulletAmount = 100f;
 
-    //Cooldown variables
-    public GameObject cooldownOverlayC;
-    public GameObject cooldownOverlayBarC;
-    public bool cooldownActiveC = false;
-    float newHeight = 100;
-
     //Healthbar variables
     public GameObject healthBar;
     public GameObject healthBarShadow;
@@ -68,32 +62,6 @@ public class WaveStart : MonoBehaviour
             }
         }
 
-        if (cooldownActiveC == false)
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                CooldownActive();
-                Debug.Log("hi");
-                cooldownActiveC = true;
-
-            }
-        }
-
-        if (newHeight > 0 && cooldownActiveC)
-        {
-            Debug.Log("yo");
-            cooldownOverlayBarC.GetComponent<RectTransform>().sizeDelta = new Vector2(100, newHeight);
-            newHeight -= 10 * Time.deltaTime;
-
-        }
-        else if (newHeight <= 0)
-        {
-            cooldownActiveC = false;
-            cooldownOverlayC.SetActive(false);
-            cooldownOverlayBarC.SetActive(false);
-            newHeight = 100;
-        }
-
         if (Input.GetKeyDown(KeyCode.L))
         {
             health -= damageTaken;
@@ -121,14 +89,6 @@ public class WaveStart : MonoBehaviour
         //Countdown
         currentTime = 10f;
         //EnemyDespawn
-    }
-
-    private void CooldownActive()
-    {
-        cooldownOverlayC.SetActive(true);
-        cooldownOverlayBarC.SetActive(true);
-
-        //StartCoroutine("");
     }
 
     private void StartEnemySpawn()
