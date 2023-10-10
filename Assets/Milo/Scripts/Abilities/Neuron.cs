@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class Neuron : MonoBehaviour
 {
+    [Header("Input Variables")]
+    InputActions m_input;
+
+    [Header("Ability Variables")]
     WeaponManager m_weapon;
     [SerializeField] string[] m_neuro = new string[] { "adrenaline", "gaba", "dopamine", "glutamate" };
     [SerializeField] GameObject[] m_neuroObjects = new GameObject[4];
@@ -18,6 +22,20 @@ public class Neuron : MonoBehaviour
     {
         currentNeuro = m_neuro[0];
         m_weapon = GetComponent<WeaponManager>();
+        m_input = new InputActions();
+
+        m_input.Ability.Ability1.performed += ctx => Ability1();
+        m_input.Ability.SecondaryFire.performed += ctx => SecondaryFire();
+    }
+
+    private void OnEnable()
+    {
+        m_input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        m_input.Disable();
     }
 
     public void SecondaryFire() // Fire Neurotransmitter
