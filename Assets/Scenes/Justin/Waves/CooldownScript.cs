@@ -54,9 +54,21 @@ public class CooldownScript : MonoBehaviour
                 CooldownActive(cooldownOverlay);
                 cooldownActiveE = true;
             }
+        else if (Input.GetKeyDown(KeyCode.X) && cooldownActiveX == false)
+        {
+            cooldownOverlay = cooldownOverlayX;
+            CooldownActive(cooldownOverlay);
+            cooldownActiveX = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Q) && cooldownActiveQ == false)
+        {
+            cooldownOverlay = cooldownOverlayQ;
+            CooldownActive(cooldownOverlay);
+            cooldownActiveQ = true;
+        }
 
         //Cooldown decrease
-        if(heightC > 0 && cooldownActiveC)
+        if (heightC > 0 && cooldownActiveC)
             {
                 cooldownOverlayBarC.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightC);
                 heightC -= 10 * Time.deltaTime;
@@ -66,6 +78,16 @@ public class CooldownScript : MonoBehaviour
                 cooldownOverlayBarE.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightE);
                 heightE -= 10 * Time.deltaTime;
             }
+        if (heightX > 0 && cooldownActiveX)
+        {
+            cooldownOverlayBarX.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightX);
+            heightX -= 10 * Time.deltaTime;
+        }
+        if (heightQ > 0 && cooldownActiveQ)
+        {
+            cooldownOverlayBarQ.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightQ);
+            heightQ -= 10 * Time.deltaTime;
+        }
 
         //Cooldown reset
         if (cooldownActiveC && heightC <= 0)
@@ -84,6 +106,22 @@ public class CooldownScript : MonoBehaviour
                 cooldownOverlayE.SetActive(false);
                 cooldownOverlayBarE.SetActive(false);
             }
+        else if (cooldownActiveX && heightX <= 0)
+        {
+            cooldownActiveX = false;
+            heightX = 100;
+
+            cooldownOverlayX.SetActive(false);
+            cooldownOverlayBarX.SetActive(false);
+        }
+        else if (cooldownActiveQ && heightQ <= 0)
+        {
+            cooldownActiveQ = false;
+            heightQ = 100;
+
+            cooldownOverlayQ.SetActive(false);
+            cooldownOverlayBarQ.SetActive(false);
+        }
     }
 
    private void CooldownActive(GameObject cooldownOverlay)
@@ -97,6 +135,16 @@ public class CooldownScript : MonoBehaviour
         {
             cooldownOverlayE.SetActive(true);
             cooldownOverlayBarE.SetActive(true);
+        }
+        else if (cooldownOverlay == cooldownOverlayX)
+        {
+            cooldownOverlayX.SetActive(true);
+            cooldownOverlayBarX.SetActive(true);
+        }
+        else if (cooldownOverlay == cooldownOverlayQ)
+        {
+            cooldownOverlayQ.SetActive(true);
+            cooldownOverlayBarQ.SetActive(true);
         }
     }
 
