@@ -12,9 +12,12 @@ public class KillFeed : MonoBehaviour
     public GameObject canvas1;
     public List<GameObject> boxes = new List<GameObject>();
     public int count = 1;
-    public bool remove = false;
 
-    public int current = 0;
+    //Alert Box variables
+    public GameObject alertBox;
+
+    //Player variables
+    public List<string> usernames = new List<string>();
 
     //Kill Feed Animation variables
     [SerializeField]
@@ -26,48 +29,93 @@ public class KillFeed : MonoBehaviour
     [SerializeField]
     private Ease animationType = Ease.Linear;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        for(int i = 0; i < 4; i++)
+        {
+            //8 character cap and no CAPS
+            usernames.Add("killers" + i);
+            Debug.Log(usernames[i]);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        int boxesCount = boxes.Count;
+
         if (Input.GetKeyDown(KeyCode.K))
         {
-            int boxesCount = boxes.Count;
             yPos = 125 * count;
             count++;
-            boxes.Add(Instantiate(killFeedBox, new Vector3(1700f, 1100f - yPos, 0f), transform.rotation) as GameObject);
+            boxes.Add(Instantiate(killFeedBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
+            boxes[boxesCount].transform.DOMoveX(1695f, 0.1f);
+
             boxes[boxesCount].transform.SetParent(canvas1.transform);
-            StartCoroutine("KillFeedTimer", boxesCount);
-            //Raise(boxesCount);
+            KillFeedText(boxesCount);
+            StartCoroutine("KillFeedTimer");
+        }
+
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            Alert(boxesCount);
         }
     }
 
-    public IEnumerator KillFeedTimer(int boxesCounts)
+    public IEnumerator KillFeedTimer()
     {
         yield return new WaitForSeconds(4f);
-        Debug.Log("p" + boxesCounts);
+
         Destroy(boxes[0]);
         boxes.RemoveAt(0);
-        //count--;
+
         for (int i = 0; i < boxes.Count; i++)
         {
-            boxes[i].transform.DOMoveY(975f - (i * 125), animationDuration);
+            boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
         }
 
         count--;
 
     }
 
-    /*public void Raise(int boxesCounts)
+    public void KillFeedText(int boxesCounts)
     {
-        for (int i = 0; i < boxesCounts; i++)
+        boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = usernames[0] + " -> " + usernames[1];
+    }
+
+    public void Alert(int boxesCounts)
+    {
+        yPos = 125 * count;
+        count++;
+        boxes.Add(Instantiate(alertBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
+        boxes[boxesCounts].transform.DOMoveX(1695f, 0.1f);
+
+        boxes[boxesCounts].transform.SetParent(canvas1.transform);
+        AlertText(boxesCounts);
+        StartCoroutine("AlertTimer");
+    }
+
+    public void AlertText(int boxesCounts)
+    {
+        boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "INCOMING BOSS";
+
+
+    }
+
+    public IEnumerator AlertTimer()
+    {
+        yield return new WaitForSeconds(8f);
+
+        Destroy(boxes[0]);
+        boxes.RemoveAt(0);
+
+        for (int i = 0; i < boxes.Count; i++)
         {
-            boxes[i].transform.DOMoveY(700f, animationDuration);
+            boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
         }
-    }*/
+
+        count--;
+    }
 }
