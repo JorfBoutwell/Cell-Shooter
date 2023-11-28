@@ -32,11 +32,7 @@ public class CooldownScript : MonoBehaviour
     public GameObject cooldownOverlayBar;
     public bool cooldownActive;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    public float cooldownTime;
 
     // Update is called once per frame
     void Update()
@@ -71,22 +67,26 @@ public class CooldownScript : MonoBehaviour
         if (heightC > 0 && cooldownActiveC)
             {
                 cooldownOverlayBarC.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightC);
-                heightC -= 10 * Time.deltaTime;
+                cooldownTime = 5f; //Change cooldown time
+                heightC -= cooldownTime * Time.deltaTime;
             }
         if (heightE > 0 && cooldownActiveE)
             {
                 cooldownOverlayBarE.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightE);
-                heightE -= 10 * Time.deltaTime;
+                cooldownTime = 20f; //Change cooldown time
+                heightE -= cooldownTime * Time.deltaTime;
             }
         if (heightX > 0 && cooldownActiveX)
         {
             cooldownOverlayBarX.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightX);
-            heightX -= 10 * Time.deltaTime;
+            cooldownTime = 10f; //Change cooldown time
+            heightX -= cooldownTime * Time.deltaTime;
         }
         if (heightQ > 0 && cooldownActiveQ)
         {
             cooldownOverlayBarQ.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightQ);
-            heightQ -= 10 * Time.deltaTime;
+            cooldownTime = 15f; //Change cooldown time
+            heightQ -= cooldownTime * Time.deltaTime;
         }
 
         //Cooldown reset

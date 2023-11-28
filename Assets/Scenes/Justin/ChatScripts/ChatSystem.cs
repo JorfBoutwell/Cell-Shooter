@@ -14,7 +14,7 @@ public class ChatSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerText.text = inputField.text;
+        //playerText.text = inputField.text;
     }
 
     // Update is called once per frame
