@@ -9,6 +9,7 @@ public class WeaponManager : MonoBehaviour
     PlayerController m_player;
 
     public bool isShooting;
+    public bool isReloading;
     public WeaponObject currentWeapon;
     [SerializeField] Transform m_armTransform;
     public Transform bulletTransform;
@@ -188,9 +189,12 @@ public class WeaponManager : MonoBehaviour
         if (currentAmmo != currentWeapon.maxAmmo)
         {
             Debug.Log("Reloading...");
+            isReloading = true;
+
             yield return new WaitForSeconds(currentWeapon.reloadTime);
             currentAmmo = currentWeapon.maxAmmo;
             Debug.Log("Reloaded. Your ammo is " + currentAmmo);
+            isReloading = false;
         }
         else
         {

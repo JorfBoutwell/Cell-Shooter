@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform m_crouchPos;
     [SerializeField] Transform m_cameraPos;
     [SerializeField] float m_crouchYScale;
+    public bool canFOV = true;
 
     [SerializeField] float m_slideSpeed = 25;
     [SerializeField] float m_slideTimer = 0.5f;
@@ -100,12 +101,16 @@ public class PlayerController : MonoBehaviour
         Vector2 mouseInput;
         mouseInput = m_input.inputActions.Movement.Look.ReadValue<Vector2>();
 
-        if (m_isSprinting && !m_isCrouching)
-            FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 70, Time.deltaTime * 5);
-        else if (m_isCrouching)
-            FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 50, Time.deltaTime * 5);
-        else
-            FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 60, Time.deltaTime * 5);
+        if(canFOV)
+        {
+            if (m_isSprinting && !m_isCrouching)
+                FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 70, Time.deltaTime * 5);
+            else if (m_isCrouching)
+                FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 50, Time.deltaTime * 5);
+            else
+                FPS_camera.fieldOfView = Mathf.Lerp(FPS_camera.fieldOfView, 60, Time.deltaTime * 5);
+        }
+        
 
         float mouseX = mouseInput.x * m_mouseSensitivityX * Time.deltaTime;
         float mouseY = mouseInput.y * m_mouseSensitivityY * Time.deltaTime;
