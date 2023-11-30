@@ -18,10 +18,6 @@ public class WaveStart : MonoBehaviour
     public float countdownTime = 10f;
     public bool startCountdown = false;
 
-    //Bullet variables
-    public TextMeshPro bulletCount;
-    float bulletAmount = 100f;
-
     //Healthbar variables
     public GameObject healthBar;
     public GameObject healthBarShadow;
@@ -127,22 +123,7 @@ public class WaveStart : MonoBehaviour
 
     
 
-    public void Shoot()
-    {
-        if(Input.GetMouseButton(0))
-        {
-            Debug.Log("hola");
-            bulletAmount -= 1f;
-            bulletCount.text = bulletAmount.ToString("0");
-        }
-
-        if(Input.GetMouseButtonDown(0) && bulletAmount > 0)
-        {
-            Debug.Log("hola");
-            bulletAmount -= 1f;
-            bulletCount.text = bulletAmount.ToString("0");
-        }
-    }
+    
 }
 
 
