@@ -5,12 +5,12 @@ using UnityEngine;
 public class Animator : MonoBehaviour
 {
 
-    public Animator animator;
+    //public Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator.SetBool("Idle", true);
+        //animator.SetBool("Idle", true);
     }
 
     // Update is called once per frame
