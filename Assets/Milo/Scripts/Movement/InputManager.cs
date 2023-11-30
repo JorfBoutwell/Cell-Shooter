@@ -24,7 +24,8 @@ public class InputManager : MonoBehaviour
         inputActions.Movement.Crouch.performed += ctx => m_player.ToggleCrouch();
         inputActions.Movement.Crouch.canceled += ctx => m_player.ToggleCrouch();
 
-        inputActions.Weapon.Fire.performed += ctx => m_weapon.isShooting = true;
+        // we'll add camera animations to the above functions later. -George
+
         inputActions.Weapon.Fire.canceled += ctx => m_weapon.isShooting = false;
         inputActions.Weapon.Reload.performed += ctx => m_weapon.StartCoroutine("Reload");
     }
