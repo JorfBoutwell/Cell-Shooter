@@ -20,19 +20,13 @@ public class InputManager : MonoBehaviour
 
         
         inputActions.Movement.Jump.performed += ctx => m_player.Jump();
-<<<<<<< Updated upstream
+        // Updated upstream
         inputActions.Movement.Sprint.performed += ctx => m_player.ToggleSprint();
         inputActions.Movement.Sprint.canceled += ctx => m_player.ToggleSprint();
         inputActions.Movement.Crouch.performed += ctx => m_player.ToggleCrouch();
         inputActions.Movement.Crouch.canceled += ctx => m_player.ToggleCrouch();
 
         // we'll add camera animations to the above functions later. -George
-
-=======
-        inputActions.Movement.Sprint.performed += ctx => m_player.isSprinting = !m_player.isSprinting;
-        inputActions.Movement.Sprint.canceled += ctx => m_player.isSprinting = !m_player.isSprinting;
-        inputActions.Movement.Crouch.performed += ctx => m_player.isCrouching = !m_player.isCrouching;
-        inputActions.Movement.Crouch.canceled += ctx => m_player.isCrouching = !m_player.isCrouching;
         
         /*
         inputActions.Weapon.Fire.performed += ctx => m_weapon.isShooting = true;
