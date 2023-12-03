@@ -27,7 +27,16 @@ public class WeaponManager : MonoBehaviour
     [Header("Particle System")]
     [SerializeField] ParticleSystem m_shootingSystem;
 
-    
+    public enum WeaponState
+    {
+        idle,
+        shooting,
+        reloading,
+        melee, 
+        abilty1,
+    }
+
+    public WeaponState state = WeaponState.idle;
 
     private void Awake()
     {
@@ -44,6 +53,8 @@ public class WeaponManager : MonoBehaviour
         {
             StartCoroutine(Reload());
         }
+
+        StateHandler();
     }
 
     public void SwitchWeapon()
@@ -53,6 +64,22 @@ public class WeaponManager : MonoBehaviour
         m_shootingSystem = weaponPrefab.transform.GetChild(1).GetComponent<ParticleSystem>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
+    }
+
+    private void StateHandler()
+    {
+        if(isShooting)
+        {
+            state = WeaponState.shooting;
+        }else if (isReloading){
+            state = WeaponState.reloading;
+        }else{
+            state = WeaponState.idle;
+        }
+
+        /*
+        Use inputs for other states: press e -> ability 1 = true -> state = ability one
+        */
     }
 
     public void FireWeapon(WeaponObject weapon)
