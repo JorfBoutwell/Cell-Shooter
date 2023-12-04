@@ -20,11 +20,11 @@ public class PlayerControllerNEW : MonoBehaviour
     [Header("Movement Flags")]
     public bool canMove = true;
     public bool isGrounded;
-    [SerializeField] bool m_isJumping;
-    [SerializeField] bool m_isSprinting;
-    [SerializeField] bool m_isCrouching;
-    [SerializeField] bool m_isSliding;
-    [SerializeField] bool m_isWallRunning;
+    public bool isJumping;
+    public bool isSprinting;
+    public bool isCrouching;
+    public bool isSliding;
+    public bool isWallRunning;
 
     [Header("Movement Variables")]
     Vector3 m_moveDirection;
@@ -63,10 +63,7 @@ public class PlayerControllerNEW : MonoBehaviour
     [Header("Wallrun Variables")]
     [SerializeField] LayerMask m_wallLayer;
     [SerializeField] float m_wallRunForce;
-    [SerializeField] float m_maxWallRunTime;
-    [SerializeField] float m_wallRunTimer;
     [SerializeField] float m_wallCheckDistance;
-    [SerializeField] float m_minJumpHeight;
     private RaycastHit m_leftWallHit;
     private RaycastHit m_rightWallHit;
     private bool m_wallLeft;
@@ -123,7 +120,7 @@ public class PlayerControllerNEW : MonoBehaviour
             m_groundDrag = 5;
         }
 
-        if (OnSlope() && !m_isJumping)
+        if (OnSlope() && !isJumping)
         {
             m_rb.AddForce(GetSlopeMoveDirection() * 20f, ForceMode.Force);
 
@@ -197,20 +194,20 @@ public class PlayerControllerNEW : MonoBehaviour
         if ((m_wallLeft || m_wallRight) && m_moveInput.y > 0 && !isGrounded)
         {
             state = MovementState.wallrunning;
-            m_isWallRunning = true;
+            isWallRunning = true;
         }
-        else if (m_isSprinting && m_isCrouching && m_rb.velocity != Vector3.zero)
+        else if (isSprinting && isCrouching && m_rb.velocity != Vector3.zero)
         {
             state = MovementState.sliding;
-            m_isSliding = true;
+            isSliding = true;
         }
-        else if (isGrounded && m_isSprinting && m_moveDirection != Vector3.zero)
+        else if (isGrounded && isSprinting && m_moveDirection != Vector3.zero)
         {
             state = MovementState.sprinting;
             m_movementSpeed = m_sprintSpeed;
             m_FPSCam.fieldOfView = Mathf.Lerp(m_FPSCam.fieldOfView, 75, Time.deltaTime * 5f);
         }
-        else if (isGrounded && m_isCrouching)
+        else if (isGrounded && isCrouching)
         {
             state = MovementState.crouching;
             m_movementSpeed = m_crouchSpeed;
@@ -221,27 +218,27 @@ public class PlayerControllerNEW : MonoBehaviour
         {
             state = MovementState.walking;
             m_movementSpeed = m_walkSpeed;
-            m_isJumping = false;
+            isJumping = false;
             m_FPSCam.fieldOfView = Mathf.Lerp(m_FPSCam.fieldOfView, 60, Time.deltaTime * 5f);
         }
         else
         {
             state = MovementState.air;
-            m_isJumping = true;
+            isJumping = true;
         }
 
-        if(!m_isCrouching)
+        if(!isCrouching)
             m_FPSCam.transform.position = Vector3.Lerp(m_FPSCam.transform.position, new Vector3(m_FPSCam.transform.position.x, transform.position.y + 0.2f, m_FPSCam.transform.position.z), Time.deltaTime * 5f);
     }
 
     public void ToggleSprint()
     {
-        m_isSprinting = !m_isSprinting;
+        isSprinting = !isSprinting;
     }
 
     public void ToggleCrouch()
     {
-        m_isCrouching = !m_isCrouching;
+        isCrouching = !isCrouching;
     }
 
     public void Jump()
@@ -256,7 +253,7 @@ public class PlayerControllerNEW : MonoBehaviour
 
     private void HandleSliding()
     {
-        if(m_isSliding && m_slideTimer > 0)
+        if(isSliding && m_slideTimer > 0)
         {
             m_FPSCam.transform.position = Vector3.Lerp(m_FPSCam.transform.position, new Vector3(m_FPSCam.transform.position.x, crouchCamY, m_FPSCam.transform.position.z), Time.deltaTime * 10f);
             m_rb.AddForce(m_orientation.forward.normalized * m_slideForce, ForceMode.Force);
@@ -267,7 +264,7 @@ public class PlayerControllerNEW : MonoBehaviour
         {
             m_slideTimer = maxSlideTime;
             canMove = true;
-            m_isSliding = false;
+            isSliding = false;
         }
     }
 
@@ -281,34 +278,30 @@ public class PlayerControllerNEW : MonoBehaviour
     {
         if(state == MovementState.wallrunning)
         {
-            if(m_wallRunTimer > 0)
-            {
-                m_rb.useGravity = false;
-                m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
-                m_movementSpeed = m_wallRunSpeed;
-                m_wallRunTimer -= Time.deltaTime;
+            isWallRunning = true;
+            m_rb.useGravity = false;
+            m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
+            m_movementSpeed = m_wallRunSpeed;
 
-                Vector3 wallNormal = m_wallRight ? m_rightWallHit.normal : m_leftWallHit.normal;
-                Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+            Vector3 wallNormal = m_wallRight ? m_rightWallHit.normal : m_leftWallHit.normal;
+            Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
-                if ((m_orientation.forward - wallForward).magnitude > (m_orientation.forward - -wallForward).magnitude)
-                    wallForward = -wallForward;
+            if ((m_orientation.forward - wallForward).magnitude > (m_orientation.forward - -wallForward).magnitude)
+                wallForward = -wallForward;
 
-                m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
+            m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
 
-                if (!(m_wallLeft && m_moveInput.x > 0) && !(m_wallRight && m_moveInput.x < 0))
-                    m_rb.AddForce(-wallNormal * 100, ForceMode.Force);
+            if (!(m_wallLeft && m_moveInput.x > 0) && !(m_wallRight && m_moveInput.x < 0))
+                m_rb.AddForce(-wallNormal * 100, ForceMode.Force);
 
-                if (m_wallRight)
-                    m_tilt = Mathf.Lerp(m_tilt, 5, Time.deltaTime * 5);
-                else if (m_wallLeft)
-                    m_tilt = Mathf.Lerp(m_tilt, -5, Time.deltaTime * 5);
-            }
+            if (m_wallRight)
+                m_tilt = Mathf.Lerp(m_tilt, 5, Time.deltaTime * 5);
+            else if (m_wallLeft)
+                m_tilt = Mathf.Lerp(m_tilt, -5, Time.deltaTime * 5);
         }
         else
         {
-            m_wallRunTimer = m_maxWallRunTime;
-            m_isWallRunning = false;
+            isWallRunning = false;
             m_rb.useGravity = true;
             m_tilt = Mathf.Lerp(m_tilt, 0, Time.deltaTime * 5);
         }
