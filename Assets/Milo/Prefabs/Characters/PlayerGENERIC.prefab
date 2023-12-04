@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2136828476531580617}
   - component: {fileID: 8542557609069857026}
   - component: {fileID: 3475740908745778152}
-  - component: {fileID: 7571454749124051587}
   m_Layer: 0
   m_Name: PlayerGENERIC
   m_TagString: Untagged
@@ -140,6 +139,7 @@ MonoBehaviour:
   m_crouchPos: {fileID: 3268262368429936854}
   m_cameraPos: {fileID: 4746328294470139063}
   m_crouchYScale: 0.8
+  canFOV: 1
   m_slideSpeed: 25
   m_slideTimer: 0.5
   m_wallRunMask:
@@ -159,28 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e25015d5954b9e4bb5c8e4dd32afca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7571454749124051587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576989017386804971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 816954ac130494648916a67bf77be0d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isShooting: 0
-  currentWeapon: {fileID: 11400000, guid: 75fa26a0e9d2c194aa79e4dba9568059, type: 2}
-  m_armTransform: {fileID: 1579537894278776632}
-  bulletTransform: {fileID: 0}
-  m_enemyMask:
-    serializedVersion: 2
-    m_Bits: 128
-  currentAmmo: 0
-  m_projectile: {fileID: 7541553118109344113, guid: 3174ea8918eb4cb46a70a8126028e285, type: 3}
-  m_shootingSystem: {fileID: 0}
 --- !u!1 &3094850359333309711
 GameObject:
   m_ObjectHideFlags: 0
