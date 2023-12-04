@@ -436,6 +436,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 155993773880852280, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: movementScript
+      value: 
+      objectReference: {fileID: 576615851}
     - target: {fileID: 1739428506457384112, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_Name
       value: GameUI
@@ -1140,27 +1144,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9be7703e6de7fab41818aedb99915bad, type: 3}
---- !u!1 &1219338886 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5060542844339862687, guid: f61710afb9da0472d969323947e82c78, type: 3}
-  m_PrefabInstance: {fileID: 195679474}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1219338891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219338886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce6758fd6b7cca9469679447cd81dd5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponScript: {fileID: 0}
-  movementScript: {fileID: 576615851}
-  displaySprite: {fileID: 0}
-  displayAnimator: {fileID: 0}
 --- !u!1 &1264457809
 GameObject:
   m_ObjectHideFlags: 0

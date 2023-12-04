@@ -15,7 +15,26 @@ public class AnimationController : MonoBehaviour
 
     private void Awake() {
 
-       displaySprite = GetComponent<Image>();
-       displayAnimator = GetComponent<Animator>();
+    }
+
+    private void Update() {
+        WeaponAnimationController(weaponScript.state);
+    }
+
+    public void WeaponAnimationController(WeaponManager.WeaponState state)
+    {
+        switch(state)
+        {
+            case WeaponManager.WeaponState.idle:
+                if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronIdle")) displayAnimator.Play("NeuronIdle");
+                break;
+            case WeaponManager.WeaponState.shooting:
+                if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronPrimaryFire")) displayAnimator.Play("NeuronPrimaryFire");
+                break;
+            case WeaponManager.WeaponState.reloading:
+                if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronReload_Temp")) displayAnimator.Play("NeuronReload_Temp");
+                break;  
+            default: return;
+        }
     }
 }
