@@ -2,26 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class AbilityImage : MonoBehaviour
 {
-    public static string currentCharacter;
-    public GameObject canvas;
+    public string currentCharacter;
 
-    //Character Ability Image Holders
+    [Header ("Ability Image Holders")]
     public GameObject abilityImageC;
     public GameObject abilityImageE;
     public GameObject abilityImageX;
     public GameObject abilityImageQ;
 
-    //Neuron Ability Images
+    [Header("Neuron Images")]
     public Texture NeuronC;
     public Texture NeuronE;
     public Texture NeuronX;
     public Texture NeuronQ;
 
-    //Red Blood Cell Ability Images
+    [Header("Red Blood Cell Images")]
     public Texture RedBloodCellC;
     public Texture RedBloodCellE;
     public Texture RedBloodCellX;

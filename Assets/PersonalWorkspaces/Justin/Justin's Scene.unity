@@ -225,11 +225,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &610001461 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4561149456645161785, guid: f61710afb9da0472d969323947e82c78, type: 3}
-  m_PrefabInstance: {fileID: 7762265955676227881}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &715706443
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83e1aa0d468e445daefbe2550ad1102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 610001461}
+  currentCharacter: 
   abilityImageC: {fileID: 1841570543}
   abilityImageE: {fileID: 1822632034}
   abilityImageX: {fileID: 2019897198}
@@ -470,7 +465,7 @@ GameObject:
   - component: {fileID: 1371576641}
   - component: {fileID: 1371576640}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: CharacterPortraitImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,6 +525,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371576638}
   m_CullTransparentMesh: 1
+--- !u!1 &1387216356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1387216357}
+  - component: {fileID: 1387216358}
+  m_Layer: 0
+  m_Name: CharacterPortraitObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1387216357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387216356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7762265955676227882}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1387216358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387216356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ec0312360f1436babba4ffe33a9d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCharacterPortrait: {fileID: 1371576638}
+  NeuronPFP: {fileID: 2800000, guid: 86ae9e00a176503459f98a6f079d4a3c, type: 3}
+  RedBloodCellPFP: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+  AbilityImage: {fileID: 715706443}
+  currentCharacter: 
 --- !u!224 &1413915080 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7729180039715711833, guid: f61710afb9da0472d969323947e82c78, type: 3}
@@ -846,6 +890,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2076405219339629817, guid: f61710afb9da0472d969323947e82c78, type: 3}
       insertIndex: 7
       addedObject: {fileID: 715706444}
+    - targetCorrespondingSourceObject: {fileID: 2076405219339629817, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      insertIndex: 8
+      addedObject: {fileID: 1387216357}
     - targetCorrespondingSourceObject: {fileID: 7729180039715711833, guid: f61710afb9da0472d969323947e82c78, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1841570544}

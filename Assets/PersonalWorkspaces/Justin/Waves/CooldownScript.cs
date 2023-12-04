@@ -5,19 +5,23 @@ using TMPro;
 
 public class CooldownScript : MonoBehaviour
 {
-    //Cooldown variables
+    [Header("C Cooldown Overlay")]
     public GameObject cooldownOverlayC;
     public GameObject cooldownOverlayBarC;
 
+    [Header("E Cooldown Overlay")]
     public GameObject cooldownOverlayE;
     public GameObject cooldownOverlayBarE;
 
+    [Header("X Cooldown Overlay")]
     public GameObject cooldownOverlayX;
     public GameObject cooldownOverlayBarX;
 
+    [Header("Q Cooldown Overlay")]
     public GameObject cooldownOverlayQ;
     public GameObject cooldownOverlayBarQ;
 
+    [Header("Ability Actives")]
     public bool cooldownActiveC = false;
     public bool cooldownActiveE = false;
     public bool cooldownActiveX = false;
@@ -28,6 +32,7 @@ public class CooldownScript : MonoBehaviour
     float heightX = 100;
     float heightQ = 100;
 
+    [Header("Cooldown Variables")]
     public GameObject cooldownOverlay;
     public GameObject cooldownOverlayBar;
     public bool cooldownActive;
