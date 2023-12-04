@@ -1,6 +1,9 @@
 //Milo Reynolds
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerControllerNEW : MonoBehaviour
 {
@@ -34,8 +37,8 @@ public class PlayerControllerNEW : MonoBehaviour
     [Header("Camera Variables")]
     [SerializeField] float m_sensitivityX;
     [SerializeField] float m_sensitivityY;
+    [SerializeField] Transform m_camHolder;
     [SerializeField] Transform m_orientation;
-    [SerializeField] float m_tilt;
     private float m_xRot;
     private float m_yRot;
 
@@ -63,11 +66,22 @@ public class PlayerControllerNEW : MonoBehaviour
     [Header("Wallrun Variables")]
     [SerializeField] LayerMask m_wallLayer;
     [SerializeField] float m_wallRunForce;
+    [SerializeField] float m_wallJumpUpForce;
+    [SerializeField] float m_wallJumpSideForce;
+    [SerializeField] float m_maxWallRunTime;
+    [SerializeField] float m_exitWallTime;
+    [SerializeField] bool m_useGravity;
     [SerializeField] float m_wallCheckDistance;
+    [SerializeField] float m_gravityCounterForce;
+    private float m_wallRunTimer;
     private RaycastHit m_leftWallHit;
     private RaycastHit m_rightWallHit;
     private bool m_wallLeft;
     private bool m_wallRight;
+    private bool m_exitingWall;
+    private float m_exitWallTimer;
+    
+    
 
 
     void Awake()
@@ -105,9 +119,11 @@ public class PlayerControllerNEW : MonoBehaviour
         CheckGrounded();
         CheckForWall();
 
-        StateHandler();
+        StateMachine();
         HandleSliding();
-        HandleWallRunning();
+
+        if(isWallRunning)
+            HandleWallRunning();
     }
 
     private void HandleMovement()
@@ -144,7 +160,8 @@ public class PlayerControllerNEW : MonoBehaviour
             m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed * 10f * m_airMultiplier, ForceMode.Force);
         }
 
-        m_rb.useGravity = !OnSlope();
+        if(!isWallRunning)
+            m_rb.useGravity = !OnSlope();
 
         if (flatVel.magnitude > m_movementSpeed && !OnSlope())
         {
@@ -162,7 +179,7 @@ public class PlayerControllerNEW : MonoBehaviour
         m_xRot -= (mouseInput.y * (m_sensitivityY/100));
         m_xRot = Mathf.Clamp(m_xRot, -90f, 90f);
 
-        m_FPSCam.transform.rotation = Quaternion.Euler(m_xRot, m_yRot, m_tilt);
+        m_camHolder.transform.rotation = Quaternion.Euler(m_xRot, m_yRot, 0);
         m_orientation.rotation = Quaternion.Euler(0, m_yRot, 0);
     }
 
@@ -189,12 +206,34 @@ public class PlayerControllerNEW : MonoBehaviour
 
     /*Movement Actions*/
 
-    private void StateHandler()
+    private void StateMachine()
     {
-        if ((m_wallLeft || m_wallRight) && m_moveInput.y > 0 && !isGrounded)
+        if ((m_wallLeft || m_wallRight) && m_moveInput.y > 0 && !isGrounded && !m_exitingWall)
         {
             state = MovementState.wallrunning;
-            isWallRunning = true;
+            if (!isWallRunning)
+                StartWallRun();
+
+            if (m_wallRunTimer > 0)
+                m_wallRunTimer -= Time.deltaTime;
+
+            if (m_wallRunTimer <= 0 && isWallRunning)
+            {
+                m_exitingWall = true;
+                m_exitWallTimer = m_exitWallTime;
+            }
+        }
+        else if(m_exitingWall)
+        {
+            if (isWallRunning)
+                StopWallRun();
+
+            if (m_exitWallTimer > 0)
+                m_exitWallTimer -= Time.deltaTime;
+
+            if (m_exitWallTimer <= 0)
+                m_exitingWall = false;
+
         }
         else if (isSprinting && isCrouching && m_rb.velocity != Vector3.zero)
         {
@@ -205,26 +244,29 @@ public class PlayerControllerNEW : MonoBehaviour
         {
             state = MovementState.sprinting;
             m_movementSpeed = m_sprintSpeed;
-            m_FPSCam.fieldOfView = Mathf.Lerp(m_FPSCam.fieldOfView, 75, Time.deltaTime * 5f);
+            DoFOV(90f);
         }
         else if (isGrounded && isCrouching)
         {
             state = MovementState.crouching;
             m_movementSpeed = m_crouchSpeed;
             m_FPSCam.transform.position = Vector3.Lerp(m_FPSCam.transform.position, new Vector3(m_FPSCam.transform.position.x, crouchCamY, m_FPSCam.transform.position.z), Time.deltaTime * 5f);
-            m_FPSCam.fieldOfView = Mathf.Lerp(m_FPSCam.fieldOfView, 55, Time.deltaTime * 5f);
+            DoFOV(70f);
         }
         else if(isGrounded)
         {
             state = MovementState.walking;
             m_movementSpeed = m_walkSpeed;
             isJumping = false;
-            m_FPSCam.fieldOfView = Mathf.Lerp(m_FPSCam.fieldOfView, 60, Time.deltaTime * 5f);
+            DoFOV(80f);
         }
         else
         {
             state = MovementState.air;
+            isWallRunning = false;
             isJumping = true;
+            DoFOV(80f);
+            DoTilt(0f);
         }
 
         if(!isCrouching)
@@ -248,6 +290,10 @@ public class PlayerControllerNEW : MonoBehaviour
             m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
 
             m_rb.AddForce(transform.up * m_jumpForce, ForceMode.Impulse);
+        }
+        if(isWallRunning)
+        {
+            WallJump();
         }
     }
 
@@ -274,36 +320,71 @@ public class PlayerControllerNEW : MonoBehaviour
         m_wallLeft = Physics.Raycast(transform.position, -m_orientation.right, out m_leftWallHit, m_wallCheckDistance, m_wallLayer);
     }
 
+
+    private void StartWallRun()
+    {
+        isWallRunning = true;
+
+        m_wallRunTimer = m_maxWallRunTime;
+
+        m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
+
+        DoFOV(90f);
+        if(m_wallLeft)
+            DoTilt(-5f);
+        if (m_wallRight)
+            DoTilt(5f);
+    }
+
     private void HandleWallRunning()
     {
-        if(state == MovementState.wallrunning)
-        {
-            isWallRunning = true;
-            m_rb.useGravity = false;
-            m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
-            m_movementSpeed = m_wallRunSpeed;
+        m_rb.useGravity = m_useGravity;
 
-            Vector3 wallNormal = m_wallRight ? m_rightWallHit.normal : m_leftWallHit.normal;
-            Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+        Vector3 wallNormal = m_wallRight ? m_rightWallHit.normal : m_leftWallHit.normal;
 
-            if ((m_orientation.forward - wallForward).magnitude > (m_orientation.forward - -wallForward).magnitude)
-                wallForward = -wallForward;
+        Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
-            m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
+        if ((m_orientation.forward - wallForward).magnitude > (m_orientation.forward - -wallForward).magnitude)
+            wallForward = -wallForward;
 
-            if (!(m_wallLeft && m_moveInput.x > 0) && !(m_wallRight && m_moveInput.x < 0))
-                m_rb.AddForce(-wallNormal * 100, ForceMode.Force);
+        m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
 
-            if (m_wallRight)
-                m_tilt = Mathf.Lerp(m_tilt, 5, Time.deltaTime * 5);
-            else if (m_wallLeft)
-                m_tilt = Mathf.Lerp(m_tilt, -5, Time.deltaTime * 5);
-        }
-        else
-        {
-            isWallRunning = false;
-            m_rb.useGravity = true;
-            m_tilt = Mathf.Lerp(m_tilt, 0, Time.deltaTime * 5);
-        }
+        if (!(m_wallLeft && m_moveInput.x > 0) && !(m_wallRight && m_moveInput.x < 0))
+            m_rb.AddForce(-wallNormal * 100, ForceMode.Force);
+
+        if (m_rb.useGravity)
+            m_rb.AddForce(transform.up * m_gravityCounterForce, ForceMode.Force);
+    }
+
+    private void StopWallRun()
+    {
+        Debug.Log("Meow");
+        isWallRunning = false;
+
+        DoFOV(80f);
+        DoTilt(0f);
+    }
+
+    private void WallJump()
+    {
+        m_exitingWall = true;
+        m_exitWallTimer = m_exitWallTime;
+
+        Vector3 wallNormal = m_wallRight ? m_rightWallHit.normal : m_leftWallHit.normal;
+
+        Vector3 forceToApply = transform.up * m_wallJumpUpForce + wallNormal * m_wallJumpSideForce;
+
+        m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
+        m_rb.AddForce(forceToApply, ForceMode.Impulse);
+    }
+
+    public void DoFOV(float endValue)
+    {
+        m_FPSCam.GetComponent<Camera>().DOFieldOfView(endValue, 0.5f);
+    }
+
+    public void DoTilt(float zTilt)
+    {
+        m_FPSCam.transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.5f);
     }
 }
