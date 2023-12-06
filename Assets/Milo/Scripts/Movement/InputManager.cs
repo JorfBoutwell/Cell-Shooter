@@ -24,12 +24,12 @@ public class InputManager : MonoBehaviour
         inputActions.Movement.Sprint.canceled += ctx => m_player.isSprinting = !m_player.isSprinting;
         inputActions.Movement.Crouch.performed += ctx => m_player.isCrouching = !m_player.isCrouching;
         inputActions.Movement.Crouch.canceled += ctx => m_player.isCrouching = !m_player.isCrouching;
-        
-        /*
+
         inputActions.Weapon.Fire.performed += ctx => m_weapon.isShooting = true;
         inputActions.Weapon.Fire.canceled += ctx => m_weapon.isShooting = false;
+        inputActions.Weapon.Fire.canceled += ctx => m_weapon.isShooting = false;
         inputActions.Weapon.Reload.performed += ctx => m_weapon.StartCoroutine("Reload");
-        */
+       // */
     }
 
     private void OnEnable()

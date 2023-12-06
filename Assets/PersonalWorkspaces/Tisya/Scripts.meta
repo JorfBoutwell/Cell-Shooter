@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 88d43d7942ef04e72804035b6bfb7a0f
+labels:
+- Weapon
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
