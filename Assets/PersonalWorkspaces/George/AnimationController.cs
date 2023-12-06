@@ -8,6 +8,8 @@ public class AnimationController : MonoBehaviour
     public WeaponManager weaponScript;
     public PlayerControllerNEW movementScript;
 
+    public WeaponManager.WeaponState state;
+
     public Image displaySprite; //set to different sprite when player switches character
     public Animator displayAnimator; //plays animations; set to different when player switches character
 
@@ -35,6 +37,22 @@ public class AnimationController : MonoBehaviour
                 if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronReload_Temp")) displayAnimator.Play("NeuronReload_Temp");
                 break;  
             default: return;
+        }
+    }
+
+    private void Update()
+    {
+       
+    }
+
+    public void WeaponAnimator(WeaponManager.WeaponState state)
+    {
+        switch (state)
+        {
+            case WeaponManager.WeaponState.shooting:
+                break;
+            default: break;
+
         }
     }
 }

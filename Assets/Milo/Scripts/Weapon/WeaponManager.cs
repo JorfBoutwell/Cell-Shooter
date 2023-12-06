@@ -122,7 +122,6 @@ public class WeaponManager : MonoBehaviour
     {
         if (isShooting)
         {
-            m_autoTimer -= Time.deltaTime;
 
             if (m_autoTimer <= 0)
             {
@@ -203,7 +202,7 @@ public class WeaponManager : MonoBehaviour
         if (currentAmmo > 0)
         {
             currentAmmo--;
-            m_shootingSystem.Play();
+            //m_shootingSystem.Play();
             if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 Debug.Log(hit.transform.name);
