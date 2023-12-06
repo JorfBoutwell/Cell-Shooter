@@ -41,6 +41,8 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         m_player = GetComponent<PlayerController>();
+
+        currentAmmo = 100;
         
     }
 
@@ -113,7 +115,7 @@ public class WeaponManager : MonoBehaviour
     {
         if (isShooting)
         {
-            Shoot();
+            StartCoroutine(Shoot());
             isShooting = false;
         }
     }
@@ -125,7 +127,7 @@ public class WeaponManager : MonoBehaviour
 
             if (m_autoTimer <= 0)
             {
-                Shoot();
+                StartCoroutine(Shoot());
                 m_autoTimer = currentWeapon.fireRate;
             }
         }
@@ -143,7 +145,7 @@ public class WeaponManager : MonoBehaviour
             {
                 if (m_fireLimit != 0)
                 {
-                    Shoot();
+                    StartCoroutine(Shoot());
                     m_autoTimer = weapon.fireRate;
                     m_fireLimit--;
                 }
@@ -172,7 +174,7 @@ public class WeaponManager : MonoBehaviour
 
             if (m_autoTimer <= 0)
             {
-                Shoot();
+                StartCoroutine(Shoot());
                 m_autoTimer = currentWeapon.fireRate;
             }
         }
@@ -184,7 +186,7 @@ public class WeaponManager : MonoBehaviour
     {
         if(isShooting)
         {
-            Shoot();
+            StartCoroutine(Shoot());
             isShooting = false;
         
             m_autoTimer -= Time.deltaTime;
@@ -197,12 +199,13 @@ public class WeaponManager : MonoBehaviour
         }   
     }
 
-    private void Shoot()
+    private IEnumerator Shoot()
     {
+        yield return new WaitForSeconds(currentWeapon.fireRate);
         if (currentAmmo > 0)
         {
             currentAmmo--;
-            //m_shootingSystem.Play();
+            isShooting = false;
             if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 Debug.Log(hit.transform.name);
@@ -214,12 +217,10 @@ public class WeaponManager : MonoBehaviour
     {
         if (currentAmmo != currentWeapon.maxAmmo)
         {
-            Debug.Log("Reloading...");
             isReloading = true;
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
             currentAmmo = currentWeapon.maxAmmo;
-            Debug.Log("Reloaded. Your ammo is " + currentAmmo);
             isReloading = false;
         }
         else

@@ -39,20 +39,4 @@ public class AnimationController : MonoBehaviour
             default: return;
         }
     }
-
-    private void Update()
-    {
-       
-    }
-
-    public void WeaponAnimator(WeaponManager.WeaponState state)
-    {
-        switch (state)
-        {
-            case WeaponManager.WeaponState.shooting:
-                break;
-            default: break;
-
-        }
-    }
 }
