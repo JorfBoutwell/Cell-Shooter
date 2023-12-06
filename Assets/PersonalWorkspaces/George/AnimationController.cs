@@ -15,10 +15,6 @@ public class AnimationController : MonoBehaviour
 
     //Animator cameraAnimator (when we implement camera animations during movement)
 
-    private void Awake() {
-
-    }
-
     private void Update() {
         WeaponAnimationController(weaponScript.state);
     }
@@ -37,22 +33,6 @@ public class AnimationController : MonoBehaviour
                 if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronReload_Temp")) displayAnimator.Play("NeuronReload_Temp");
                 break;  
             default: return;
-        }
-    }
-
-    private void Update()
-    {
-       
-    }
-
-    public void WeaponAnimator(WeaponManager.WeaponState state)
-    {
-        switch (state)
-        {
-            case WeaponManager.WeaponState.shooting:
-                break;
-            default: break;
-
         }
     }
 }

@@ -281,7 +281,7 @@ public class PlayerControllerNEW : MonoBehaviour
         if (!isCrouching)
             DoCrouch(0f);
     }
-
+    //Do either togglesprint or crouch do anything?
     public void ToggleSprint()
     {
         isSprinting = !isSprinting;
