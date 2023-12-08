@@ -9,6 +9,7 @@ public class WeaponManager : MonoBehaviour
     PlayerController m_player;
 
     public bool isShooting = false;
+    public bool isAutoFiring = false;
     public bool isReloading = false;
     public WeaponObject currentWeapon;
     [SerializeField] Transform m_armTransform;
@@ -201,13 +202,21 @@ public class WeaponManager : MonoBehaviour
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireRate);
-            isShooting = false;
 
-            currentAmmo--;
             if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 Debug.Log(hit.transform.name);
             }
+
+            if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
+            {
+                StartCoroutine(Shoot());
+            }else{
+                isShooting = false;
+            }
+
+            currentAmmo--;
+            yield return null;
         }else{
             isShooting = false;
             StartCoroutine(Reload());

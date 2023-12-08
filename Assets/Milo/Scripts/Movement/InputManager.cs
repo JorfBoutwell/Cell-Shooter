@@ -25,7 +25,10 @@ public class InputManager : MonoBehaviour
         inputActions.Movement.Crouch.performed += ctx => m_player.isCrouching = !m_player.isCrouching;
         inputActions.Movement.Crouch.canceled += ctx => m_player.isCrouching = !m_player.isCrouching;
 
-        inputActions.Weapon.Fire.performed += ctx => m_weapon.FireWeapon();
+        inputActions.Weapon.Fire.started += ctx => m_weapon.FireWeapon();
+        inputActions.Weapon.Fire.performed += ctx => m_weapon.isAutoFiring = true;
+        inputActions.Weapon.Fire.canceled += ctx => m_weapon.isAutoFiring = false;
+
         inputActions.Weapon.Reload.performed += ctx => m_weapon.StartCoroutine(m_weapon.Reload());
     }
 
