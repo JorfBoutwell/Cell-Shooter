@@ -436,6 +436,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &657130847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7873566891943989746, guid: f61710afb9da0472d969323947e82c78, type: 3}
+  m_PrefabInstance: {fileID: 7762265955676227881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &715706443
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +831,42 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7729180039715711833, guid: f61710afb9da0472d969323947e82c78, type: 3}
   m_PrefabInstance: {fileID: 7762265955676227881}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1643891547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643891548}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1643891548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643891547}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -71.246346, y: -159.3879, z: -619.73944}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1774281151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3580195446297262955, guid: f61710afb9da0472d969323947e82c78, type: 3}
+  m_PrefabInstance: {fileID: 7762265955676227881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1822632034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,12 +1163,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnLocation: {x: 0, y: 0, z: 0}
-  playerLocation: {x: 0, y: 0, z: 0}
-  player: {fileID: 0}
+  player: {fileID: 1643891547}
   playerTeam: 
   deathOverlay: {fileID: 60639481}
   deathText: {fileID: 2107596586}
   deathTimer: {fileID: 278002399}
+  waveStart: {fileID: 1774281151}
   transformPosition: {x: 0, y: 0}
   animationDuration: 5
   animationScale: 1.75
@@ -1327,6 +1368,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4902178381130067210, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: countdownUnderline
+      value: 
+      objectReference: {fileID: 657130847}
+    - target: {fileID: 5908430223672993821, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -950.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160093353864160246, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_fontSize
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160093353864160246, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7237321300866891886, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 125
@@ -1358,6 +1415,14 @@ PrefabInstance:
     - target: {fileID: 7746380828384929974, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123133809998870555, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 8123133809998870555, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 430
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1418,3 +1483,4 @@ SceneRoots:
   - {fileID: 7762265955676227881}
   - {fileID: 2004706415}
   - {fileID: 763726576}
+  - {fileID: 1643891548}

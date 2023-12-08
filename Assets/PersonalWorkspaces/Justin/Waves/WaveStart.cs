@@ -13,6 +13,7 @@ public class WaveStart : MonoBehaviour
 
     //Countdown variables
     [SerializeField] TextMeshPro countdownText;
+    public GameObject countdownUnderline;
     public GameObject countdownOverlay;
     public float currentTime = 0f;
     public float countdownTime = 10f;
@@ -21,8 +22,8 @@ public class WaveStart : MonoBehaviour
     //Healthbar variables
     public GameObject healthBar;
     public GameObject healthBarShadow;
-    float health = 680;
-    float healthShadow = 680;
+    public float health = 680;
+    public float healthShadow = 680;
 
     float damageTaken = 100f;
 
@@ -54,6 +55,7 @@ public class WaveStart : MonoBehaviour
                 currentTime = 0;
                 startCountdown = false;
                 countdownOverlay.SetActive(false);
+                countdownUnderline.SetActive(false);
                 countdownText.enabled = false;
             }
         }
@@ -76,8 +78,6 @@ public class WaveStart : MonoBehaviour
         {
             isDead = true;
         }
-
-
     }
 
     private void Reset()
@@ -85,14 +85,6 @@ public class WaveStart : MonoBehaviour
         //Countdown
         currentTime = 10f;
         //EnemyDespawn
-    }
-
-    private void StartEnemySpawn()
-    {
-        if (enemySpawnActive)
-        {
-
-        }
     }
 
     private void StartPickUpSpawn()

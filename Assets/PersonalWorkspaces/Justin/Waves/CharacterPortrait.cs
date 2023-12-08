@@ -27,7 +27,6 @@ public class CharacterPortrait : MonoBehaviour
     void Update()
     {
         currentCharacter = abilityImageScript.currentCharacter;
-        //Debug.Log("HELLO" + currentCharacter + "HI");
 
         switch (currentCharacter)
         {

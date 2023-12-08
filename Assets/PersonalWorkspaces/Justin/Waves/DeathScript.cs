@@ -6,9 +6,8 @@ using TMPro;
 
 public class DeathScript : MonoBehaviour
 {
-    [Header("Spawn Locations")]
+    [Header("Player Team/Spawn")]
     public Vector3 spawnLocation;
-    public Vector3 playerLocation;
     public GameObject player;
     public string playerTeam;
 
@@ -16,6 +15,9 @@ public class DeathScript : MonoBehaviour
     public GameObject deathOverlay;
     public TextMeshProUGUI deathText;
     public TextMeshProUGUI deathTimer;
+
+    public GameObject waveStart;
+    private WaveStart waveStartScript;
 
     float currentTime;
     bool deathCondition = false;
@@ -38,21 +40,25 @@ public class DeathScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Player Team
         playerTeam = "A";
 
+        //CHANGE AFTER DEATH WORKS
         deathCondition = true;
+
+        waveStartScript = waveStart.GetComponent<WaveStart>();
+
         currentTime = 5f;
         spawnLocation = new Vector3(0, 0, 0);
-        playerLocation = player.GetComponent<Vector3>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (deathCondition) {
+        if (waveStartScript.isDead) { //or deathCondition for testing
             onoff = true;
             DeathScreen(onoff);
-//            deathText.DOColor(color, animationDuration);
+            //deathText.DOColor(color, animationDuration);
             currentTime -= 1 * Time.deltaTime;
             deathTimer.text = currentTime.ToString("0");
             deathText.transform.DOScale(animationScale, animationDuration);
@@ -61,7 +67,12 @@ public class DeathScript : MonoBehaviour
         if(currentTime <= 0)
         {
             deathCondition = false;
-            currentTime = 0f;
+
+            waveStartScript.isDead = false;
+            waveStartScript.health = 680;
+            waveStartScript.healthShadow = 680;
+
+            currentTime = 5f;
             onoff = false;
             DeathScreen(onoff);
             SpawnPlayer();
@@ -78,18 +89,20 @@ public class DeathScript : MonoBehaviour
         {
         deathOverlay.SetActive(false);
         }
+        return;
     }
 
     private void SpawnPlayer()
     {
-        
         if (playerTeam == "A") {
-        //spawnLocation = Find
-        playerLocation = spawnLocation;
+            
+            spawnLocation = GameObject.FindGameObjectWithTag("SpawnA").transform.position;
+            player.transform.position = spawnLocation;
         }
         else if (playerTeam == "B")
         {
-
+            spawnLocation = GameObject.FindGameObjectWithTag("SpawnB").transform.position;
+            player.transform.position = spawnLocation;
         }
     }
 }
