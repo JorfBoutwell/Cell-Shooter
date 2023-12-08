@@ -198,7 +198,6 @@ public class WeaponManager : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        yield return new WaitForSeconds(currentWeapon.fireRate);
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireRate);

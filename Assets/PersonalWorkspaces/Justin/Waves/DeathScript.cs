@@ -52,7 +52,7 @@ public class DeathScript : MonoBehaviour
         if (deathCondition) {
             onoff = true;
             DeathScreen(onoff);
-            deathText.DOColor(color, animationDuration);
+//            deathText.DOColor(color, animationDuration);
             currentTime -= 1 * Time.deltaTime;
             deathTimer.text = currentTime.ToString("0");
             deathText.transform.DOScale(animationScale, animationDuration);
