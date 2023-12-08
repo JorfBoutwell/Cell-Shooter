@@ -8,14 +8,12 @@ public class AnimationController : MonoBehaviour
     public WeaponManager weaponScript;
     public PlayerControllerNEW movementScript;
 
+    public WeaponManager.WeaponState state;
+
     public Image displaySprite; //set to different sprite when player switches character
     public Animator displayAnimator; //plays animations; set to different when player switches character
 
     //Animator cameraAnimator (when we implement camera animations during movement)
-
-    private void Awake() {
-
-    }
 
     private void Update() {
         WeaponAnimationController(weaponScript.state);

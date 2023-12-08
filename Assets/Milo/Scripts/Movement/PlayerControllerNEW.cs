@@ -18,7 +18,6 @@ public class PlayerControllerNEW : MonoBehaviour
     [SerializeField] float m_walkSpeed;
     [SerializeField] float m_sprintSpeed;
     [SerializeField] float m_crouchSpeed;
-    [SerializeField] float m_wallRunSpeed;
 
     [Header("Movement Flags")]
     public bool canMove = true;
@@ -70,16 +69,16 @@ public class PlayerControllerNEW : MonoBehaviour
     [SerializeField] float m_wallJumpSideForce;
     [SerializeField] float m_maxWallRunTime;
     [SerializeField] float m_exitWallTime;
-    [SerializeField] bool m_useGravity;
     [SerializeField] float m_wallCheckDistance;
+    [SerializeField] bool m_useGravity;
     [SerializeField] float m_gravityCounterForce;
-    private float m_wallRunTimer;
+    public float m_wallRunTimer;
     private RaycastHit m_leftWallHit;
     private RaycastHit m_rightWallHit;
     private bool m_wallLeft;
     private bool m_wallRight;
-    private bool m_exitingWall;
-    private float m_exitWallTimer;
+    public bool m_exitingWall;
+    public float m_exitWallTimer;
     
     
 
@@ -99,6 +98,9 @@ public class PlayerControllerNEW : MonoBehaviour
         m_rb.freezeRotation = true;
 
         m_slideTimer = maxSlideTime;
+
+        m_wallRunTimer = m_maxWallRunTime;
+        m_exitWallTimer = m_exitWallTime;
     }
 
     public enum MovementState
@@ -109,6 +111,7 @@ public class PlayerControllerNEW : MonoBehaviour
         crouching,
         sliding,
         wallrunning,
+        exitingwall,
         air
     }
 
@@ -128,7 +131,7 @@ public class PlayerControllerNEW : MonoBehaviour
 
     private void HandleMovement()
     {
-        m_moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>();
+        m_moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>() * Time.deltaTime;
         Vector3 flatVel = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
         if (canMove)
         {
@@ -152,12 +155,12 @@ public class PlayerControllerNEW : MonoBehaviour
         if (isGrounded)
         {
             m_rb.drag = m_groundDrag;
-            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed * 10f, ForceMode.Force);
+            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed, ForceMode.Force);
         }
         else
         {
             m_rb.drag = 0;
-            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed * 10f * m_airMultiplier, ForceMode.Force);
+            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed * m_airMultiplier, ForceMode.Force);
         }
 
         if(!isWallRunning)
@@ -172,8 +175,7 @@ public class PlayerControllerNEW : MonoBehaviour
 
     private void HandleCamera()
     {
-        Vector2 mouseInput;
-        mouseInput = m_input.inputActions.Movement.Look.ReadValue<Vector2>();
+        Vector2 mouseInput = m_input.inputActions.Movement.Look.ReadValue<Vector2>();
 
         m_yRot += (mouseInput.x * (m_sensitivityX/100));
         m_xRot -= (mouseInput.y * (m_sensitivityY/100));
@@ -216,6 +218,7 @@ public class PlayerControllerNEW : MonoBehaviour
 
             if (m_wallRunTimer > 0)
                 m_wallRunTimer -= Time.deltaTime;
+                
 
             if (m_wallRunTimer <= 0 && isWallRunning)
             {
@@ -225,14 +228,20 @@ public class PlayerControllerNEW : MonoBehaviour
         }
         else if(m_exitingWall)
         {
+            state = MovementState.exitingwall;
             if (isWallRunning)
                 StopWallRun();
 
             if (m_exitWallTimer > 0)
+            {
                 m_exitWallTimer -= Time.deltaTime;
+            }
 
             if (m_exitWallTimer <= 0)
+            {
+                m_wallRunTimer = m_maxWallRunTime;
                 m_exitingWall = false;
+            }
 
         }
         else if (isSprinting && isCrouching && m_rb.velocity != Vector3.zero)
@@ -250,7 +259,7 @@ public class PlayerControllerNEW : MonoBehaviour
         {
             state = MovementState.crouching;
             m_movementSpeed = m_crouchSpeed;
-            m_FPSCam.transform.position = Vector3.Lerp(m_FPSCam.transform.position, new Vector3(m_FPSCam.transform.position.x, crouchCamY, m_FPSCam.transform.position.z), Time.deltaTime * 5f);
+            DoCrouch(-0.5f);
             DoFOV(70f);
         }
         else if(isGrounded)
@@ -269,10 +278,10 @@ public class PlayerControllerNEW : MonoBehaviour
             DoTilt(0f);
         }
 
-        if(!isCrouching)
-            m_FPSCam.transform.position = Vector3.Lerp(m_FPSCam.transform.position, new Vector3(m_FPSCam.transform.position.x, transform.position.y + 0.2f, m_FPSCam.transform.position.z), Time.deltaTime * 5f);
+        if (!isCrouching)
+            DoCrouch(0f);
     }
-
+    //Do either togglesprint or crouch do anything?
     public void ToggleSprint()
     {
         isSprinting = !isSprinting;
@@ -301,7 +310,7 @@ public class PlayerControllerNEW : MonoBehaviour
     {
         if(isSliding && m_slideTimer > 0)
         {
-            m_FPSCam.transform.position = Vector3.Lerp(m_FPSCam.transform.position, new Vector3(m_FPSCam.transform.position.x, crouchCamY, m_FPSCam.transform.position.z), Time.deltaTime * 10f);
+            DoCrouch(-0.8f);
             m_rb.AddForce(m_orientation.forward.normalized * m_slideForce, ForceMode.Force);
             canMove = false;
             m_slideTimer -= Time.deltaTime;
@@ -324,9 +333,6 @@ public class PlayerControllerNEW : MonoBehaviour
     private void StartWallRun()
     {
         isWallRunning = true;
-
-        m_wallRunTimer = m_maxWallRunTime;
-
         m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
 
         DoFOV(90f);
@@ -353,12 +359,14 @@ public class PlayerControllerNEW : MonoBehaviour
             m_rb.AddForce(-wallNormal * 100, ForceMode.Force);
 
         if (m_rb.useGravity)
-            m_rb.AddForce(transform.up * m_gravityCounterForce, ForceMode.Force);
+            m_rb.AddForce(transform.up * -m_gravityCounterForce, ForceMode.Force);
+
+        if (isWallRunning && isGrounded)
+            m_exitingWall = true;
     }
 
     private void StopWallRun()
     {
-        Debug.Log("Meow");
         isWallRunning = false;
 
         DoFOV(80f);
@@ -386,5 +394,12 @@ public class PlayerControllerNEW : MonoBehaviour
     public void DoTilt(float zTilt)
     {
         m_FPSCam.transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.5f);
+    }
+
+    public void DoCrouch(float moveAmount)
+    {
+        m_FPSCam.transform.DOLocalMoveY(moveAmount, 0.5f);
+        if(moveAmount == 0)
+            transform.DOScaleY(1, 0.5f);
     }
 }

@@ -19,7 +19,7 @@ public class KillFeed : MonoBehaviour
     //Player variables
     public List<string> usernames = new List<string>();
 
-    //Kill Feed Animation variables
+    [Header("Animation Variables")]
     [SerializeField]
     private Vector2 transformPosition = Vector2.zero;
 

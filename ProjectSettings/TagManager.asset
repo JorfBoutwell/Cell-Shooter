@@ -11,6 +11,8 @@ TagManager:
   - gaba
   - glutamate
   - player
+  - SpawnA
+  - SpawnB
   layers:
   - Default
   - TransparentFX
