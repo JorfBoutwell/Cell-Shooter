@@ -15,10 +15,6 @@ public class AnimationController : MonoBehaviour
 
     //Animator cameraAnimator (when we implement camera animations during movement)
 
-    private void Awake() {
-
-    }
-
     private void Update() {
         WeaponAnimationController(weaponScript.state);
     }

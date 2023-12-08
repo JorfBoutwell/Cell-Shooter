@@ -8,8 +8,8 @@ public class WeaponManager : MonoBehaviour
 {
     PlayerController m_player;
 
-    public bool isShooting;
-    public bool isReloading;
+    public bool isShooting = false;
+    public bool isReloading = false;
     public WeaponObject currentWeapon;
     [SerializeField] Transform m_armTransform;
     public Transform bulletTransform;
@@ -41,14 +41,12 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         m_player = GetComponent<PlayerController>();
-
-        currentAmmo = 100;
-        
+        m_autoTimer = currentWeapon.fireRate;
+        currentAmmo = currentWeapon.maxAmmo;
     }
 
     private void Update()
     {
-        FireWeapon(currentWeapon);
         if (!isShooting)
             m_fireLimit = 3;
         if (currentAmmo == 0)
@@ -84,58 +82,57 @@ public class WeaponManager : MonoBehaviour
         */
     }
 
-    public void FireWeapon(WeaponObject weapon)
+    public void FireWeapon()
     {
-        if (weapon.fireMode == "hitscan")
+        if(isShooting == false)
         {
-            if (weapon.fireRate == 0f) // Semi Auto
+            isShooting = true;
+            if (currentWeapon.fireMode == "hitscan")
             {
-                SemiFire(weapon);
+                if (currentWeapon.fireRate == 0f) // Semi Auto
+                {
+                    SemiFire();
+                }
+                else //Full Auto
+                {
+                    AutoFire();
+                }
             }
-            else //Full Auto
+            else if (currentWeapon.fireMode == "burst") // Burst Fire
             {
-                AutoFire(weapon);
+                BurstFire();
             }
-        }
-        else if (weapon.fireMode == "burst") // Burst Fire
-        {
-            BurstFire(weapon);
-        }
-        else if (weapon.fireMode == "projectile")
-        {
-            Projectile(weapon);
-        }
-        else if (weapon.fireMode == "shotgun")
-        {
-            Shotgun(weapon);
+            else if (currentWeapon.fireMode == "projectile")
+            {
+                Projectile();
+            }
+            else if (currentWeapon.fireMode == "shotgun")
+            {
+                Shotgun();
+            }
         }
     }
 
-    private void SemiFire(WeaponObject weapon)
+    private void SemiFire()
     {
         if (isShooting)
         {
             StartCoroutine(Shoot());
-            isShooting = false;
         }
     }
 
-    private void AutoFire(WeaponObject weapon)
+    private void AutoFire()
     {
         if (isShooting)
         {
-
-            if (m_autoTimer <= 0)
-            {
-                StartCoroutine(Shoot());
-                m_autoTimer = currentWeapon.fireRate;
-            }
+            StartCoroutine(Shoot());
         }
-        else
-            m_autoTimer -= Time.deltaTime;
+
     }
 
-    private void BurstFire(WeaponObject weapon)
+    //Burst fire, Projectile, and Shotgun still rely on a timer ticking down every frame, so they won't work and need to be rewritten. As it stands, auto isn't "auto"
+    //you still have to click once per fire. However, we can get to holding down to fire another time. Should be easy to implement. Hopefully :,-)
+    private void BurstFire()
     {
         if (isShooting)
         {
@@ -146,7 +143,7 @@ public class WeaponManager : MonoBehaviour
                 if (m_fireLimit != 0)
                 {
                     StartCoroutine(Shoot());
-                    m_autoTimer = weapon.fireRate;
+                    m_autoTimer =currentWeapon.fireRate;
                     m_fireLimit--;
                 }
                 else
@@ -166,7 +163,7 @@ public class WeaponManager : MonoBehaviour
             m_autoTimer -= Time.deltaTime;
     }
 
-    private void Projectile(WeaponObject weapon)
+    private void Projectile()
     {
         if (isShooting)
         {
@@ -182,7 +179,7 @@ public class WeaponManager : MonoBehaviour
             m_autoTimer -= Time.deltaTime;
     }
 
-    private void Shotgun(WeaponObject weapon)
+    private void Shotgun()
     {
         if(isShooting)
         {
@@ -194,7 +191,7 @@ public class WeaponManager : MonoBehaviour
             if (m_autoTimer <= 0)
             {
                 isShooting = true;
-                m_autoTimer = weapon.fireRate;
+                m_autoTimer = currentWeapon.fireRate;
             }
         }   
     }
@@ -204,12 +201,18 @@ public class WeaponManager : MonoBehaviour
         yield return new WaitForSeconds(currentWeapon.fireRate);
         if (currentAmmo > 0)
         {
-            currentAmmo--;
+            yield return new WaitForSeconds(currentWeapon.fireRate);
             isShooting = false;
+
+            currentAmmo--;
             if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 Debug.Log(hit.transform.name);
             }
+        }else{
+            isShooting = false;
+            StartCoroutine(Reload());
+            yield return null;
         }
     }
 
