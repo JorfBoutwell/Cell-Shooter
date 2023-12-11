@@ -3,8 +3,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class InputManager : MonoBehaviour
+public class InputManager : NetworkBehaviour
 {
     public InputActions inputActions;
     PlayerControllerNEW m_player;
@@ -30,6 +31,11 @@ public class InputManager : MonoBehaviour
         inputActions.Weapon.Fire.canceled += ctx => m_weapon.isAutoFiring = false;
 
         inputActions.Weapon.Reload.performed += ctx => m_weapon.StartCoroutine(m_weapon.Reload());
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) Destroy(this);
     }
 
     private void OnEnable()

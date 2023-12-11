@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.Netcode;
 
-public class PlayerControllerNEW : MonoBehaviour
+public class PlayerControllerNEW : NetworkBehaviour
 {
     InputManager m_input;
     Rigidbody m_rb;
@@ -101,6 +102,15 @@ public class PlayerControllerNEW : MonoBehaviour
 
         m_wallRunTimer = m_maxWallRunTime;
         m_exitWallTimer = m_exitWallTime;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner)
+        {
+            Destroy(this.gameObject.transform.GetChild(1).transform.GetChild(0).gameObject);
+            Destroy(this);
+        }
     }
 
     public enum MovementState
