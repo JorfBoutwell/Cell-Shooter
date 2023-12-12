@@ -831,6 +831,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7729180039715711833, guid: f61710afb9da0472d969323947e82c78, type: 3}
   m_PrefabInstance: {fileID: 7762265955676227881}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1517684488 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8281710828065144727, guid: f61710afb9da0472d969323947e82c78, type: 3}
+  m_PrefabInstance: {fileID: 7762265955676227881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1643891547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1174,7 @@ MonoBehaviour:
   deathText: {fileID: 2107596586}
   deathTimer: {fileID: 278002399}
   waveStart: {fileID: 1774281151}
+  cooldowns: {fileID: 1517684488}
   transformPosition: {x: 0, y: 0}
   animationDuration: 5
   animationScale: 1.75

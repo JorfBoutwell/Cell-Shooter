@@ -27,10 +27,11 @@ public class CooldownScript : MonoBehaviour
     public bool cooldownActiveX = false;
     public bool cooldownActiveQ = false;
 
-    float heightC = 100;
-    float heightE = 100;
-    float heightX = 100;
-    float heightQ = 100;
+    [Header("Ability Cooldowns")]
+    public float heightC = 100;
+    public float heightE = 100;
+    public float heightX = 100;
+    public float heightQ = 100;
 
     [Header("Cooldown Variables")]
     public GameObject cooldownOverlay;

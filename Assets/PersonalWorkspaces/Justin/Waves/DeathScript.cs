@@ -19,9 +19,15 @@ public class DeathScript : MonoBehaviour
     public GameObject waveStart;
     private WaveStart waveStartScript;
 
+    public GameObject cooldowns;
+    private CooldownScript cooldownScript;
+
     float currentTime;
     bool deathCondition = false;
     bool onoff;
+    bool abilityActivationState;
+    bool cooldownActivationState;
+    float originalAnimationScale;
     Color color = Color.red;
 
     [Header("Animation Variables")]
@@ -47,7 +53,9 @@ public class DeathScript : MonoBehaviour
         deathCondition = true;
 
         waveStartScript = waveStart.GetComponent<WaveStart>();
+        cooldownScript = cooldowns.GetComponent<CooldownScript>();
 
+        originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
         currentTime = 5f;
         spawnLocation = new Vector3(0, 0, 0);
     }
@@ -62,15 +70,25 @@ public class DeathScript : MonoBehaviour
             currentTime -= 1 * Time.deltaTime;
             deathTimer.text = currentTime.ToString("0");
             deathText.transform.DOScale(animationScale, animationDuration);
+
+            //Deactiviating ability cooldowns
+            abilityActivationState = true;
+            cooldownActivationState = false;
+            AbilityActivation(abilityActivationState, cooldownActivationState);
+            
         }
          
         if(currentTime <= 0)
         {
             deathCondition = false;
 
-            waveStartScript.isDead = false;
-            waveStartScript.health = 680;
-            waveStartScript.healthShadow = 680;
+            HealthReset();
+
+            deathText.transform.DOScale(originalAnimationScale, animationDuration);
+
+            //Deactiviating ability cooldowns
+            abilityActivationState = false;
+            AbilityActivation(abilityActivationState, cooldownActivationState);
 
             currentTime = 5f;
             onoff = false;
@@ -104,5 +122,40 @@ public class DeathScript : MonoBehaviour
             spawnLocation = GameObject.FindGameObjectWithTag("SpawnB").transform.position;
             player.transform.position = spawnLocation;
         }
+    }
+
+    private void HealthReset()
+    {
+        waveStartScript.isDead = false;
+        waveStartScript.health = 680;
+        waveStartScript.healthShadow = 680;
+        waveStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(waveStartScript.health, 90);
+        waveStartScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(waveStartScript.healthShadow, 90);
+    }
+
+    private void AbilityActivation(bool abilityActivationState, bool cooldownActivationState)
+    {
+        cooldownScript.cooldownActiveC = abilityActivationState;
+        cooldownScript.cooldownActiveX = abilityActivationState;
+        cooldownScript.cooldownActiveQ = abilityActivationState;
+        cooldownScript.cooldownActiveE = abilityActivationState;
+
+        cooldownScript.heightC = 100f;
+        cooldownScript.heightX = 100f;
+        cooldownScript.heightQ = 100f;
+        cooldownScript.heightE = 100f;
+
+        cooldownScript.cooldownOverlayC.SetActive(cooldownActivationState);
+        cooldownScript.cooldownOverlayBarC.SetActive(cooldownActivationState);
+
+        cooldownScript.cooldownOverlayX.SetActive(cooldownActivationState);
+        cooldownScript.cooldownOverlayBarX.SetActive(cooldownActivationState);
+
+        cooldownScript.cooldownOverlayQ.SetActive(cooldownActivationState);
+        cooldownScript.cooldownOverlayBarQ.SetActive(cooldownActivationState);
+
+        cooldownScript.cooldownOverlayE.SetActive(cooldownActivationState);
+        cooldownScript.cooldownOverlayBarE.SetActive(cooldownActivationState);
+
     }
 }
