@@ -14,6 +14,8 @@ public class PlayerControllerNEW : NetworkBehaviour
 
     public MovementState state;
 
+    public AnimationController animController;
+
     [Header("Movement Speed Variables")]
     [SerializeField] float m_movementSpeed;
     [SerializeField] float m_walkSpeed;
@@ -76,8 +78,8 @@ public class PlayerControllerNEW : NetworkBehaviour
     public float m_wallRunTimer;
     private RaycastHit m_leftWallHit;
     private RaycastHit m_rightWallHit;
-    private bool m_wallLeft;
-    private bool m_wallRight;
+    public bool m_wallLeft;
+    public bool m_wallRight;
     public bool m_exitingWall;
     public float m_exitWallTimer;
     
@@ -88,6 +90,7 @@ public class PlayerControllerNEW : NetworkBehaviour
     {
         m_input = GetComponent<InputManager>();
         m_rb = GetComponent<Rigidbody>();
+        animController = GetComponentInChildren<AnimationController>();
         m_FPSCam = Camera.main;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -220,6 +223,8 @@ public class PlayerControllerNEW : NetworkBehaviour
 
     private void StateMachine()
     {
+        MovementState tempState = state;
+
         if ((m_wallLeft || m_wallRight) && m_moveInput.y > 0 && !isGrounded && !m_exitingWall)
         {
             state = MovementState.wallrunning;
@@ -263,33 +268,39 @@ public class PlayerControllerNEW : NetworkBehaviour
         {
             state = MovementState.sprinting;
             m_movementSpeed = m_sprintSpeed;
-            DoFOV(90f);
+           // DoFOV(90f);
         }
         else if (isGrounded && isCrouching)
         {
             state = MovementState.crouching;
             m_movementSpeed = m_crouchSpeed;
-            DoCrouch(-0.5f);
-            DoFOV(70f);
+           // DoCrouch(-0.5f);
+           // DoFOV(70f);
         }
         else if(isGrounded)
         {
             state = MovementState.walking;
             m_movementSpeed = m_walkSpeed;
             isJumping = false;
-            DoFOV(80f);
+           // DoFOV(80f);
         }
         else
         {
             state = MovementState.air;
             isWallRunning = false;
             isJumping = true;
-            DoFOV(80f);
-            DoTilt(0f);
+           // DoFOV(80f);
+           // DoTilt(0f);
         }
 
         if (!isCrouching)
             DoCrouch(0f);
+
+        //if state has changed, play new animation
+        if(tempState != state) 
+        {
+            animController.MovementAnimationController(state);
+        }
     }
     //Do either togglesprint or crouch do anything?
     public void ToggleSprint()
@@ -345,11 +356,11 @@ public class PlayerControllerNEW : NetworkBehaviour
         isWallRunning = true;
         m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
 
-        DoFOV(90f);
-        if(m_wallLeft)
-            DoTilt(-5f);
-        if (m_wallRight)
-            DoTilt(5f);
+       // DoFOV(90f);
+        //if(m_wallLeft)
+           // DoTilt(-5f);
+       // if (m_wallRight)
+           // DoTilt(5f);
     }
 
     private void HandleWallRunning()
@@ -379,8 +390,8 @@ public class PlayerControllerNEW : NetworkBehaviour
     {
         isWallRunning = false;
 
-        DoFOV(80f);
-        DoTilt(0f);
+       // DoFOV(80f);
+       // DoTilt(0f);
     }
 
     private void WallJump()

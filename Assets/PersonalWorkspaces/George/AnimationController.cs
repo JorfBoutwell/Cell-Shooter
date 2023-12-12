@@ -13,10 +13,11 @@ public class AnimationController : MonoBehaviour
     public Image displaySprite; //set to different sprite when player switches character
     public Animator displayAnimator; //plays animations; set to different when player switches character
 
-    //Animator cameraAnimator (when we implement camera animations during movement)
+    public Animator cameraAnimator;
 
-    private void Update() {
-        WeaponAnimationController(weaponScript.state);
+    private void Start()
+    {
+        cameraAnimator = GetComponent<Animator>();
     }
 
     public void WeaponAnimationController(WeaponManager.WeaponState state)
@@ -32,6 +33,27 @@ public class AnimationController : MonoBehaviour
             case WeaponManager.WeaponState.reloading:
                 if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronReload_Temp")) displayAnimator.Play("NeuronReload_Temp");
                 break;  
+            default: return;
+        }
+    }
+
+    public void MovementAnimationController(PlayerControllerNEW.MovementState state)
+    {
+        switch(state)
+        {
+            case PlayerControllerNEW.MovementState.idle:
+                cameraAnimator.Play("Idle");
+                break;
+            case PlayerControllerNEW.MovementState.wallrunning:
+                if(movementScript.m_wallLeft)
+                {
+                    cameraAnimator.Play("EnterWallRun_Left");
+                }
+                else
+                {
+                    cameraAnimator.Play("EnterWallRun_Left");
+                }
+                break;
             default: return;
         }
     }
