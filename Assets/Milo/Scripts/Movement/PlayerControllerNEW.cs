@@ -111,6 +111,7 @@ public class PlayerControllerNEW : NetworkBehaviour
     {
         if (!IsOwner)
         {
+            Destroy(this.gameObject.transform.GetChild(0));
             Destroy(this.gameObject.transform.GetChild(2).transform.GetChild(0).gameObject);
             Destroy(this);
         }

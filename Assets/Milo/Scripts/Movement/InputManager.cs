@@ -37,7 +37,6 @@ public class InputManager : NetworkBehaviour
     {
         if (!IsOwner) Destroy(this);
     }
-
     private void OnEnable()
     {
         inputActions.Enable();
