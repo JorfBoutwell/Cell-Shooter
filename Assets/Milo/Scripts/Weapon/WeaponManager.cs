@@ -7,6 +7,8 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     PlayerController m_player;
+    
+    public AnimationController animController;
 
     public bool isShooting = false;
     public bool isAutoFiring = false;
@@ -42,6 +44,7 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         m_player = GetComponent<PlayerController>();
+        animController = GetComponentInChildren<AnimationController>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
     }
@@ -55,7 +58,7 @@ public class WeaponManager : MonoBehaviour
             StartCoroutine(Reload());
         }
 
-        StateHandler();
+        StateMachine();
     }
 
     public void SwitchWeapon()
@@ -67,8 +70,10 @@ public class WeaponManager : MonoBehaviour
         currentAmmo = currentWeapon.maxAmmo;
     }
 
-    private void StateHandler()
+    private void StateMachine()
     {
+        WeaponState tempState = state;
+
         if(isShooting)
         {
             state = WeaponState.shooting;
@@ -78,9 +83,10 @@ public class WeaponManager : MonoBehaviour
             state = WeaponState.idle;
         }
 
-        /*
-        Use inputs for other states: press e -> ability 1 = true -> state = ability one
-        */
+        if(tempState != state) //If state has changed this frame, play new anim
+        {
+            animController.WeaponAnimationController(state);
+        }
     }
 
     public void FireWeapon()

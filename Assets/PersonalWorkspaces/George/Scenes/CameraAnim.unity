@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -791,31 +791,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &576615857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576989015695966642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 816954ac130494648916a67bf77be0d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isShooting: 0
-  isAutoFiring: 0
-  isReloading: 0
-  currentWeapon: {fileID: 11400000, guid: 1c3b201c85810cb40b513067f0e3d9f3, type: 2}
-  m_armTransform: {fileID: 6518575551507937443}
-  bulletTransform: {fileID: 6518575551507937443}
-  m_enemyMask:
-    serializedVersion: 2
-    m_Bits: 128
-  currentAmmo: 0
-  m_projectile: {fileID: 0}
-  m_shootingSystem: {fileID: 0}
-  state: 0
 --- !u!1 &599421512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,9 +1689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6758fd6b7cca9469679447cd81dd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponScript: {fileID: 483602283829672011}
-  movementScript: {fileID: 3030497476053921914}
-  state: 0
   displaySprite: {fileID: 2063776283}
   displayAnimator: {fileID: 2063776282}
   cameraAnimator: {fileID: 0}
@@ -2103,6 +2075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816954ac130494648916a67bf77be0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animController: {fileID: 0}
   isShooting: 0
   isAutoFiring: 0
   isReloading: 0
@@ -2561,6 +2534,10 @@ MonoBehaviour:
   cooldownActiveE: 0
   cooldownActiveX: 0
   cooldownActiveQ: 0
+  heightC: 100
+  heightE: 100
+  heightX: 100
+  heightQ: 100
   cooldownOverlay: {fileID: 0}
   cooldownOverlayBar: {fileID: 0}
   cooldownActive: 0
@@ -2914,7 +2891,6 @@ GameObject:
   - component: {fileID: 7364476667130522621}
   - component: {fileID: 483602283829672011}
   - component: {fileID: 576615849}
-  - component: {fileID: 576615857}
   - component: {fileID: 7364476667130522622}
   m_Layer: 0
   m_Name: PlayerGENERIC NEW
@@ -4175,8 +4151,6 @@ MonoBehaviour:
   m_useGravity: 1
   m_gravityCounterForce: 2
   m_wallRunTimer: 0
-  m_wallLeft: 0
-  m_wallRight: 0
   m_exitingWall: 0
   m_exitWallTimer: 0
 --- !u!1 &3072802281671887459
@@ -6096,7 +6070,7 @@ PrefabInstance:
     - target: {fileID: 5071441261282802897, guid: 7c484ae6187dc4ef091ede6086318a90, type: 3}
       propertyPath: weaponScript
       value: 
-      objectReference: {fileID: 576615857}
+      objectReference: {fileID: 0}
     - target: {fileID: 5071441261282802897, guid: 7c484ae6187dc4ef091ede6086318a90, type: 3}
       propertyPath: movementScript
       value: 

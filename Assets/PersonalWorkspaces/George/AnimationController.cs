@@ -5,39 +5,30 @@ using UnityEngine.UI;
 
 public class AnimationController : MonoBehaviour
 {
-    public WeaponManager weaponScript;
-    public PlayerControllerNEW movementScript;
-
-    public WeaponManager.WeaponState state;
 
     public Image displaySprite; //set to different sprite when player switches character
     public Animator displayAnimator; //plays animations; set to different when player switches character
 
     public Animator cameraAnimator;
 
-    private void Start()
-    {
-        cameraAnimator = GetComponent<Animator>();
-    }
-
     public void WeaponAnimationController(WeaponManager.WeaponState state)
     {
         switch(state)
         {
             case WeaponManager.WeaponState.idle:
-                if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronIdle")) displayAnimator.Play("NeuronIdle");
+                displayAnimator.Play("NeuronIdle");
                 break;
             case WeaponManager.WeaponState.shooting:
-                if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronPrimaryFire")) displayAnimator.Play("NeuronPrimaryFire");
+                displayAnimator.Play("NeuronPrimaryFire");
                 break;
             case WeaponManager.WeaponState.reloading:
-                if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronReload_Temp")) displayAnimator.Play("NeuronReload_Temp");
+                displayAnimator.Play("NeuronReload_Temp");
                 break;  
             default: return;
         }
     }
 
-    public void MovementAnimationController(PlayerControllerNEW.MovementState state)
+    public void MovementAnimationController(PlayerControllerNEW.MovementState state, bool wallLeft, bool wallRight)
     {
         switch(state)
         {
@@ -45,13 +36,22 @@ public class AnimationController : MonoBehaviour
                 cameraAnimator.Play("Idle");
                 break;
             case PlayerControllerNEW.MovementState.wallrunning:
-                if(movementScript.m_wallLeft)
+                if(wallLeft)
                 {
                     cameraAnimator.Play("EnterWallRun_Left");
                 }
                 else
                 {
-                    cameraAnimator.Play("EnterWallRun_Left");
+                    cameraAnimator.Play("EnterWallRun_Right");
+                }
+                break;
+            case PlayerControllerNEW.MovementState.exitingwall:
+                if(wallLeft)
+                {
+                    cameraAnimator.Play("ExitWallRun_Left");
+                }else
+                {
+                    cameraAnimator.Play("ExitWallRun_Right");
                 }
                 break;
             default: return;

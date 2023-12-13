@@ -78,8 +78,8 @@ public class PlayerControllerNEW : NetworkBehaviour
     public float m_wallRunTimer;
     private RaycastHit m_leftWallHit;
     private RaycastHit m_rightWallHit;
-    public bool m_wallLeft;
-    public bool m_wallRight;
+    private bool m_wallLeft;
+    private bool m_wallRight;
     public bool m_exitingWall;
     public float m_exitWallTimer;
     
@@ -279,8 +279,14 @@ public class PlayerControllerNEW : NetworkBehaviour
         }
         else if(isGrounded)
         {
-            state = MovementState.walking;
-            m_movementSpeed = m_walkSpeed;
+            if(m_rb.velocity != Vector3.zero)
+            {
+                state = MovementState.walking;
+                m_movementSpeed = m_walkSpeed;
+            }else{
+                state = MovementState.idle;
+            }
+
             isJumping = false;
            // DoFOV(80f);
         }
@@ -299,7 +305,7 @@ public class PlayerControllerNEW : NetworkBehaviour
         //if state has changed, play new animation
         if(tempState != state) 
         {
-            animController.MovementAnimationController(state);
+            animController.MovementAnimationController(state, m_wallLeft, m_wallRight);
         }
     }
     //Do either togglesprint or crouch do anything?

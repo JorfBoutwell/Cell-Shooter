@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4809376081102077246}
   - component: {fileID: 8195455655437507225}
   - component: {fileID: 8822352682986334715}
-  - component: {fileID: 5071441261282802897}
   m_Layer: 5
   m_Name: CharacterDisplayFP
   m_TagString: Untagged
@@ -33,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -80,7 +78,7 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!95 &8822352682986334715
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -97,20 +95,5 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5071441261282802897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176198458331873142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce6758fd6b7cca9469679447cd81dd5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponScript: {fileID: 0}
-  movementScript: {fileID: 0}
-  displaySprite: {fileID: 8195455655437507225}
-  displayAnimator: {fileID: 8822352682986334715}
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
