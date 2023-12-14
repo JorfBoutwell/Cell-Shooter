@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class AbilityImage : MonoBehaviour
 {
-    public string currentCharacter;
+    //public string currentCharacter;
+
+    public GameObject playerManager;
+    private PlayerManager playerManagerScript;
 
     [Header ("Ability Image Holders")]
     public GameObject abilityImageC;
@@ -27,10 +30,10 @@ public class AbilityImage : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    { 
-        currentCharacter = "Neuron";
+    {
+        playerManagerScript = playerManager.GetComponent<PlayerManager>();
 
-        switch (currentCharacter)
+        switch (playerManagerScript.character)
         {
             case "Neuron":
                 abilityImageC.GetComponent<RawImage>().texture = NeuronC;

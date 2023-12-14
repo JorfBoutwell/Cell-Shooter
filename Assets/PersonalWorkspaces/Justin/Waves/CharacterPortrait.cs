@@ -12,21 +12,21 @@ public class CharacterPortrait : MonoBehaviour
     public Texture NeuronPFP;
     public Texture RedBloodCellPFP;
 
-    public GameObject AbilityImage;
-    private AbilityImage abilityImageScript;
+    public GameObject playerManager;
+    private PlayerManager playerManagerScript;
 
     public string currentCharacter;
     
     // Start is called before the first frame update
     void Start()
     {
-        abilityImageScript = AbilityImage.GetComponent<AbilityImage>();
+        playerManagerScript = playerManager.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentCharacter = abilityImageScript.currentCharacter;
+        currentCharacter = playerManagerScript.character;
 
         switch (currentCharacter)
         {

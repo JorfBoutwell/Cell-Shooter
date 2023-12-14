@@ -11,7 +11,8 @@ public class WaveStart : MonoBehaviour
     static public bool pickUpSpawn;
     public bool gameStart;
 
-    PlayerManager playerVariables;
+    public GameObject playerManager;
+    private PlayerManager playerManagerScript;
 
     //Countdown variables
     [SerializeField] TextMeshPro countdownText;
@@ -26,6 +27,7 @@ public class WaveStart : MonoBehaviour
     public GameObject healthBarShadow;
     public float health = 680;
     public float healthShadow = 680;
+    //public float healthShadow = 100;
 
     float damageTaken = 100f;
 
@@ -38,7 +40,7 @@ public class WaveStart : MonoBehaviour
     {
         currentTime = countdownTime;
         StartCountdown();
-        playerVariables = GetComponent<PlayerManager>();
+        playerManagerScript = playerManager.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -68,21 +70,19 @@ public class WaveStart : MonoBehaviour
         //Health Damage Test
         if (Input.GetKeyDown(KeyCode.L))
         {
-            playerVariables.health -= damageTaken;
-            healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerVariables.health, 90);
+            playerManagerScript.health -= damageTaken;
+            healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
         }
 
-        //Debug.Log("fire" + playerVariables.health);
-
-        if (healthShadow > health)
+        if (healthShadow > playerManagerScript.health)
         {
             healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(healthShadow, 90);
             healthShadow -= 100 * Time.deltaTime;
         }
 
-        if (health <= 0)
+        if (playerManagerScript.health <= 0)
         {
-            isDead = true;
+            playerManagerScript.isDead = true;
         }
     }
 

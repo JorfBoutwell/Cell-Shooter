@@ -18,7 +18,9 @@ public class DeathScript : MonoBehaviour
 
     public GameObject waveStart;
     private WaveStart waveStartScript;
-    PlayerManager playerVariables;
+
+    public GameObject playerManager;
+    private PlayerManager playerManagerScript;
 
     public GameObject cooldowns;
     private CooldownScript cooldownScript;
@@ -48,7 +50,7 @@ public class DeathScript : MonoBehaviour
     void Start()
     {
         //Player Team
-        playerTeam = "A";
+        
 
         //CHANGE AFTER DEATH WORKS
         deathCondition = true;
@@ -56,7 +58,7 @@ public class DeathScript : MonoBehaviour
         waveStartScript = waveStart.GetComponent<WaveStart>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
 
-        playerVariables = GetComponent<PlayerManager>();
+        playerManagerScript = playerManager.GetComponent<PlayerManager>();
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
         currentTime = 5f;
@@ -66,7 +68,7 @@ public class DeathScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (waveStartScript.isDead) { //or deathCondition for testing
+        if (playerManagerScript.isDead) { //or deathCondition for testing
             onoff = true;
             DeathScreen(onoff);
             //deathText.DOColor(color, animationDuration);
@@ -115,12 +117,12 @@ public class DeathScript : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        if (playerTeam == "A") {
+        if (playerManagerScript.team == "A") {
             
             spawnLocation = GameObject.FindGameObjectWithTag("SpawnA").transform.position;
             player.transform.position = spawnLocation;
         }
-        else if (playerTeam == "B")
+        else if (playerManagerScript.team == "B")
         {
             spawnLocation = GameObject.FindGameObjectWithTag("SpawnB").transform.position;
             player.transform.position = spawnLocation;
@@ -129,10 +131,10 @@ public class DeathScript : MonoBehaviour
 
     private void HealthReset()
     {
-        waveStartScript.isDead = false;
-        playerVariables.health = 680;
+        playerManagerScript.isDead = false;
+        playerManagerScript.health = 680;
         waveStartScript.healthShadow = 680;
-        waveStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerVariables.health, 90);
+        waveStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
         waveStartScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(waveStartScript.healthShadow, 90);
     }
 

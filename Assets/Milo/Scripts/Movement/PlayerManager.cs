@@ -21,9 +21,13 @@ public class PlayerManager : NetworkBehaviour
     public int style; //not implemented yet
     public string team;
     public string character;
+    public bool isDead = false;
 
     private void Awake()
     {
+        team = "A";
+        character = "Neuron";
+
         inputActions = new InputActions();
         m_player = GetComponent<PlayerControllerNEW>();
         m_weapon = GetComponent<WeaponManager>();
