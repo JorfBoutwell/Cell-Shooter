@@ -40,7 +40,7 @@ public class AnimationController : MonoBehaviour
                 {
                     cameraAnimator.Play("EnterWallRun_Left");
                 }
-                else if (wallRight)
+                else
                 {
                     cameraAnimator.Play("EnterWallRun_Right");
                 }
@@ -49,7 +49,7 @@ public class AnimationController : MonoBehaviour
                 if(wallLeft)
                 {
                     cameraAnimator.Play("ExitWallRun_Left");
-                }else if (wallRight)
+                }else
                 {
                     cameraAnimator.Play("ExitWallRun_Right");
                 }

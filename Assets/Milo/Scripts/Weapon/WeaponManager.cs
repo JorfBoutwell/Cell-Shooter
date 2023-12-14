@@ -91,7 +91,7 @@ public class WeaponManager : MonoBehaviour
 
     public void FireWeapon()
     {
-        if(isShooting == false)
+        if(isShooting == false && isReloading == false)
         {
             isShooting = true;
             if (currentWeapon.fireMode == "hitscan")
