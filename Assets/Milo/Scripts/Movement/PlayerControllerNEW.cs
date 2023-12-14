@@ -10,7 +10,7 @@ public class PlayerControllerNEW : NetworkBehaviour
 {
     PlayerManager m_input;
     Rigidbody m_rb;
-    Camera m_FPSCam;
+    [SerializeField] Camera m_FPSCam;
 
     public MovementState state;
 
@@ -91,7 +91,7 @@ public class PlayerControllerNEW : NetworkBehaviour
         m_input = GetComponent<PlayerManager>();
         m_rb = GetComponent<Rigidbody>();
         animController = GetComponentInChildren<AnimationController>();
-        m_FPSCam = Camera.main;
+        m_FPSCam = GetComponentInChildren<Camera>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -141,6 +141,10 @@ public class PlayerControllerNEW : NetworkBehaviour
 
         if(isWallRunning)
             HandleWallRunning();
+
+        //tie FOV to movement speed
+        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
+            m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f); 
     }
 
     private void HandleMovement()
