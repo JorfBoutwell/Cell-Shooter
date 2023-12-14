@@ -15,7 +15,7 @@ public class PlayerManager : NetworkBehaviour
 
     public InputActions inputActions;
 
-    public int health = 100;
+    public float health = 100;
     public int ammo;
     public int stamina; // not implemented yet
     public int style; //not implemented yet

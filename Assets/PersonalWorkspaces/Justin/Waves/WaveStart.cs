@@ -11,6 +11,8 @@ public class WaveStart : MonoBehaviour
     static public bool pickUpSpawn;
     public bool gameStart;
 
+    PlayerManager playerVariables;
+
     //Countdown variables
     [SerializeField] TextMeshPro countdownText;
     public GameObject countdownUnderline;
@@ -30,16 +32,19 @@ public class WaveStart : MonoBehaviour
     //Death variables
     public bool isDead = false;
 
+    //void Awake() {}
     // Start is called before the first frame update
     void Start()
     {
         currentTime = countdownTime;
         StartCountdown();
+        playerVariables = GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Game Countdown
         if (startCountdown) {
             currentTime -= 1 * Time.deltaTime;
             countdownText.text = currentTime.ToString("0");
@@ -60,13 +65,14 @@ public class WaveStart : MonoBehaviour
             }
         }
 
+        //Health Damage Test
         if (Input.GetKeyDown(KeyCode.L))
         {
-            health -= damageTaken;
-            healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(health, 90);
-            Debug.Log("hey" + health);
-
+            playerVariables.health -= damageTaken;
+            healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerVariables.health, 90);
         }
+
+        //Debug.Log("fire" + playerVariables.health);
 
         if (healthShadow > health)
         {
@@ -84,25 +90,6 @@ public class WaveStart : MonoBehaviour
     {
         //Countdown
         currentTime = 10f;
-        //EnemyDespawn
-    }
-
-    private void StartPickUpSpawn()
-    {
-        if (pickUpSpawn)
-        {
-
-        }
-    }
-
-    private void StartWave()
-    {
-        if (playersReady)
-        {
-            enemySpawnActive = true;
-            pickUpSpawn = true;
-            StartCountdown();
-        }
     }
 
     public void StartCountdown()
@@ -113,9 +100,6 @@ public class WaveStart : MonoBehaviour
 
     }
 
-    
-
-    
 }
 
 

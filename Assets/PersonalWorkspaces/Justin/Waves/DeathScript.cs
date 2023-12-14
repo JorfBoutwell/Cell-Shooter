@@ -18,6 +18,7 @@ public class DeathScript : MonoBehaviour
 
     public GameObject waveStart;
     private WaveStart waveStartScript;
+    PlayerManager playerVariables;
 
     public GameObject cooldowns;
     private CooldownScript cooldownScript;
@@ -54,6 +55,8 @@ public class DeathScript : MonoBehaviour
 
         waveStartScript = waveStart.GetComponent<WaveStart>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
+
+        playerVariables = GetComponent<PlayerManager>();
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
         currentTime = 5f;
@@ -127,9 +130,9 @@ public class DeathScript : MonoBehaviour
     private void HealthReset()
     {
         waveStartScript.isDead = false;
-        waveStartScript.health = 680;
+        playerVariables.health = 680;
         waveStartScript.healthShadow = 680;
-        waveStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(waveStartScript.health, 90);
+        waveStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerVariables.health, 90);
         waveStartScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(waveStartScript.healthShadow, 90);
     }
 
