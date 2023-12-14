@@ -8,7 +8,7 @@ using Unity.Netcode;
 
 public class PlayerControllerNEW : NetworkBehaviour
 {
-    InputManager m_input;
+    PlayerManager m_input;
     Rigidbody m_rb;
     Camera m_FPSCam;
 
@@ -88,7 +88,7 @@ public class PlayerControllerNEW : NetworkBehaviour
 
     void Awake()
     {
-        m_input = GetComponent<InputManager>();
+        m_input = GetComponent<PlayerManager>();
         m_rb = GetComponent<Rigidbody>();
         animController = GetComponentInChildren<AnimationController>();
         m_FPSCam = Camera.main;

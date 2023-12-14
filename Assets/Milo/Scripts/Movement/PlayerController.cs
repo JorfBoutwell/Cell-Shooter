@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    InputManager m_input;
+    PlayerManager m_input;
     CharacterController m_controller;
     public Camera FPS_camera;
 
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        m_input = GetComponent<InputManager>();
+        m_input = GetComponent<PlayerManager>();
         m_controller = GetComponent<CharacterController>();
         FPS_camera = Camera.main;
     }
