@@ -5,12 +5,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-public class InputManager : NetworkBehaviour
+public class PlayerManager : NetworkBehaviour
 {
-    public InputActions inputActions;
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
     Neuron m_neuron;
+
+    [SerializeField] GameObject UI;
+
+    public InputActions inputActions;
+
+    public int health = 100;
+    public int ammo;
+    public int stamina; // not implemented yet
+    public int style; //not implemented yet
+    public string team;
+    public string character;
 
     private void Awake()
     {
@@ -19,7 +29,20 @@ public class InputManager : NetworkBehaviour
         m_weapon = GetComponent<WeaponManager>();
         m_neuron = GetComponent<Neuron>();
 
-        
+        ammo = m_weapon.currentWeapon.maxAmmo;
+
+        AssignInputs();
+    }
+
+    private void Update()
+    {
+        if(ammo != m_weapon.currentAmmo)
+        {
+            ammo = m_weapon.currentAmmo;
+        }
+    }
+    private void AssignInputs()
+    {
         inputActions.Movement.Jump.performed += ctx => m_player.Jump();
         inputActions.Movement.Sprint.performed += ctx => m_player.isSprinting = !m_player.isSprinting;
         inputActions.Movement.Sprint.canceled += ctx => m_player.isSprinting = !m_player.isSprinting;
@@ -37,6 +60,7 @@ public class InputManager : NetworkBehaviour
     {
         if (!IsOwner) Destroy(this);
     }
+
     private void OnEnable()
     {
         inputActions.Enable();
