@@ -43,7 +43,7 @@ public class CooldownScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Key down
+        //Cooldown Activation
         if (Input.GetKeyDown(KeyCode.C) && cooldownActiveC == false)
             {
                 cooldownOverlay = cooldownOverlayC;
@@ -69,7 +69,7 @@ public class CooldownScript : MonoBehaviour
             cooldownActiveQ = true;
         }
 
-        //Cooldown decrease
+        //Cooldown Decrease Overlay
         if (heightC > 0 && cooldownActiveC)
             {
                 cooldownOverlayBarC.GetComponent<RectTransform>().sizeDelta = new Vector2(100, heightC);
@@ -95,7 +95,7 @@ public class CooldownScript : MonoBehaviour
             heightQ -= cooldownTime * Time.deltaTime;
         }
 
-        //Cooldown reset
+        //Cooldown Reset Overlay
         if (cooldownActiveC && heightC <= 0)
             {
                 cooldownActiveC = false;
@@ -130,6 +130,7 @@ public class CooldownScript : MonoBehaviour
         }
     }
 
+    //Cooldown Overlay Activate
    private void CooldownActive(GameObject cooldownOverlay)
     {
         if(cooldownOverlay == cooldownOverlayC)

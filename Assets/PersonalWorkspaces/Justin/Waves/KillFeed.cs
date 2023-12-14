@@ -6,7 +6,7 @@ using TMPro;
 
 public class KillFeed : MonoBehaviour
 {
-    //Kill Feed variables
+    [Header("Kill Feed Variables")]
     public GameObject killFeedBox;
     float yPos = 0f;
     public GameObject canvas1;
@@ -100,8 +100,6 @@ public class KillFeed : MonoBehaviour
     public void AlertText(int boxesCounts)
     {
         boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "INCOMING BOSS";
-
-
     }
 
     public IEnumerator AlertTimer()
