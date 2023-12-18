@@ -24,11 +24,11 @@ TagManager:
   - Enemy
   - Slope
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
+  - EnemyHead
+  - TeamA
+  - TeamAHead
+  - TeamB
+  - TeamBHead
   - 
   - 
   - 

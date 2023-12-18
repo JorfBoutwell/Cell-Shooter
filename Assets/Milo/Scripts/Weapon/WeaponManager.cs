@@ -211,7 +211,32 @@ public class WeaponManager : MonoBehaviour
 
             if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
-                Debug.Log(hit.transform.name);
+                switch (hit.transform.gameObject.layer)
+                {
+                    case 7: //"enemy"
+                        Debug.Log("enemy");
+                        hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
+                        break;
+                    case 10: //"enemyHead"
+                        Debug.Log("enemyHead");
+                        hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= (currentWeapon.damage * 2);
+                        break;
+
+                    //Make it so you only deal damage to players you aren't on a team with.
+                    case 11: //teamA
+                        Debug.Log("teamA");
+                        break;
+                    case 12: //teamAhead
+                        Debug.Log("teamAHead");
+                        break;
+                    case 13: //teamB
+                        Debug.Log("TeamB");
+                        break;
+                    case 14: //teamBHead
+                        Debug.Log("TeamBHead");
+                        break;
+                    default: break;
+                }
             }
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
