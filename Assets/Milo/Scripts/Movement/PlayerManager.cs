@@ -44,6 +44,15 @@ public class PlayerManager : NetworkBehaviour
         {
             ammo = m_weapon.currentAmmo;
         }
+
+        if(isDead)
+        {
+            inputActions.Disable();
+        }
+        else
+        {
+            inputActions.Enable(); //this seems slow. better way?
+        }
     }
     private void AssignInputs()
     {

@@ -1857,6 +1857,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -6192874562500077789, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
+      propertyPath: m_exitWallTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -6192874562500077789, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
       propertyPath: m_playerHeight
       value: 2
       objectReference: {fileID: 0}
