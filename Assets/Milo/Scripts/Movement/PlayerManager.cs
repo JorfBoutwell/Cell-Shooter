@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Photon.Pun;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -23,6 +24,8 @@ public class PlayerManager : NetworkBehaviour
     public string character;
     public bool isDead = false;
 
+    PhotonView view;
+
     private void Awake()
     {
         team = "A";
@@ -36,6 +39,9 @@ public class PlayerManager : NetworkBehaviour
         ammo = m_weapon.currentWeapon.maxAmmo;
 
         AssignInputs();
+
+        view = GetComponent<PhotonView>();
+        if (!view.IsMine) Destroy(this);
     }
 
     private void Update()
@@ -68,12 +74,6 @@ public class PlayerManager : NetworkBehaviour
 
         inputActions.Weapon.Reload.performed += ctx => m_weapon.StartCoroutine(m_weapon.Reload());
     }
-
-    public override void OnNetworkSpawn()
-    {
-        if (!IsOwner) Destroy(this);
-    }
-
     private void OnEnable()
     {
         inputActions.Enable();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Unity.Netcode;
+using Photon.Pun;
 
 public class PlayerControllerNEW : NetworkBehaviour
 {
@@ -82,6 +83,8 @@ public class PlayerControllerNEW : NetworkBehaviour
     private bool m_wallRight;
     public bool m_exitingWall;
     public float m_exitWallTimer;
+
+    PhotonView view;
     
     
 
@@ -105,11 +108,9 @@ public class PlayerControllerNEW : NetworkBehaviour
 
         m_wallRunTimer = m_maxWallRunTime;
         m_exitWallTimer = m_exitWallTime;
-    }
 
-    public override void OnNetworkSpawn()
-    {
-        if (!IsOwner)
+        view = GetComponent<PhotonView>();
+        if (!view.IsMine)
         {
             Destroy(this.gameObject.transform.GetChild(0));
             Destroy(this.gameObject.transform.GetChild(2).transform.GetChild(0).gameObject);
@@ -131,6 +132,7 @@ public class PlayerControllerNEW : NetworkBehaviour
 
     private void Update()
     {
+
         HandleMovement();
         HandleCamera();
         CheckGrounded();
