@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 6171185398387241877}
   - component: {fileID: 1593117140981142163}
   - component: {fileID: 3401707365016627963}
+  - component: {fileID: -8587109705302898430}
   - component: {fileID: 1795612977865479481}
   - component: {fileID: 7396714062562600157}
   - component: {fileID: 6837602783939032185}
@@ -206,6 +207,7 @@ MonoBehaviour:
   m_crouchPos: {fileID: 2789483034221721738}
   m_cameraPos: {fileID: 1203827782557119044}
   m_crouchYScale: 0.8
+  canFOV: 1
   m_slideSpeed: 25
   m_slideTimer: 0.5
   m_wallRunMask:
@@ -213,6 +215,26 @@ MonoBehaviour:
     m_Bits: 64
   m_wallCheckDistance: 2
   m_wallRunForce: 15
+--- !u!114 &-8587109705302898430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5322467672047204803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3489925346
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &1795612977865479481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +247,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e25015d5954b9e4bb5c8e4dd32afca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI: {fileID: 0}
+  health: 100
+  ammo: 0
+  stamina: 0
+  style: 0
+  team: 
+  character: 
+  isDead: 0
 --- !u!114 &7396714062562600157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816954ac130494648916a67bf77be0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animController: {fileID: 0}
   isShooting: 0
+  isAutoFiring: 0
+  isReloading: 0
   currentWeapon: {fileID: 0}
   m_armTransform: {fileID: 3673548317061493117}
   bulletTransform: {fileID: 0}
@@ -247,6 +280,7 @@ MonoBehaviour:
   currentAmmo: 0
   m_projectile: {fileID: 7541553118109344113, guid: 3174ea8918eb4cb46a70a8126028e285, type: 3}
   m_shootingSystem: {fileID: 0}
+  state: 0
 --- !u!114 &6837602783939032185
 MonoBehaviour:
   m_ObjectHideFlags: 0

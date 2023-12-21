@@ -3,10 +3,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 using Photon.Pun;
 
-public class PlayerManager : NetworkBehaviour
+public class PlayerManager : MonoBehaviourPun
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;

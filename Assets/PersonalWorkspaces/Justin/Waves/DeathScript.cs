@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+//using DG.Tweening;
 using TMPro;
 
 public class DeathScript : MonoBehaviour
@@ -44,7 +44,7 @@ public class DeathScript : MonoBehaviour
     private float animationScale = 1.75f;
 
     [SerializeField]
-    private Ease animationType = Ease.Linear;
+   // private Ease animationType = Ease.Linear;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +74,7 @@ public class DeathScript : MonoBehaviour
             //deathText.DOColor(color, animationDuration);
             currentTime -= 1 * Time.deltaTime;
             deathTimer.text = currentTime.ToString("0");
-            deathText.transform.DOScale(animationScale, animationDuration);
+           // deathText.transform.DOScale(animationScale, animationDuration);
 
             //Deactiviating ability cooldowns
             abilityActivationState = true;
@@ -89,7 +89,7 @@ public class DeathScript : MonoBehaviour
 
             HealthReset();
 
-            deathText.transform.DOScale(originalAnimationScale, animationDuration);
+         //   deathText.transform.DOScale(originalAnimationScale, animationDuration);
 
             //Deactiviating ability cooldowns
             abilityActivationState = false;

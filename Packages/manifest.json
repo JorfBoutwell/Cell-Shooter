@@ -6,8 +6,6 @@
     "com.unity.feature.2d": "2.0.0",
     "com.unity.feature.development": "1.0.1",
     "com.unity.inputsystem": "1.6.3",
-    "com.unity.multiplayer.samples.coop": "https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main",
-    "com.unity.netcode.gameobjects": "1.7.1",
     "com.unity.probuilder": "5.1.1",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.7.5",
