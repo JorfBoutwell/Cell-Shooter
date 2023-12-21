@@ -112,7 +112,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         if (!view.IsMine)
         {
             Destroy(this.gameObject.transform.GetChild(0));
-            Destroy(this.gameObject.transform.GetChild(2).transform.GetChild(0).gameObject);
+            Destroy(this.gameObject.transform.GetChild(1).transform.GetChild(1).gameObject);
             Destroy(this);
         }
     }
