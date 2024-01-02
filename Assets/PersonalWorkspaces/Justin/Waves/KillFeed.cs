@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using DG.Tweening;
+using DG.Tweening;
 using TMPro;
 
 public class KillFeed : MonoBehaviour
@@ -27,7 +27,7 @@ public class KillFeed : MonoBehaviour
     private float animationDuration = 5f;
 
     [SerializeField]
-//    private Ease animationType = Ease.Linear;
+    private Ease animationType = Ease.Linear;
 
 
     // Start is called before the first frame update
@@ -51,7 +51,7 @@ public class KillFeed : MonoBehaviour
             yPos = 125 * count;
             count++;
             boxes.Add(Instantiate(killFeedBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
-           // boxes[boxesCount].transform.DOMoveX(1695f, 0.1f);
+            boxes[boxesCount].transform.DOMoveX(1695f, 0.1f);
 
             boxes[boxesCount].transform.SetParent(canvas1.transform);
             KillFeedText(boxesCount);
@@ -73,7 +73,7 @@ public class KillFeed : MonoBehaviour
 
         for (int i = 0; i < boxes.Count; i++)
         {
-     //       boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
+            boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
         }
 
         count--;
@@ -90,7 +90,7 @@ public class KillFeed : MonoBehaviour
         yPos = 125 * count;
         count++;
         boxes.Add(Instantiate(alertBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
-    //    boxes[boxesCounts].transform.DOMoveX(1695f, 0.1f);
+        boxes[boxesCounts].transform.DOMoveX(1695f, 0.1f);
 
         boxes[boxesCounts].transform.SetParent(canvas1.transform);
         AlertText(boxesCounts);
@@ -111,7 +111,7 @@ public class KillFeed : MonoBehaviour
 
         for (int i = 0; i < boxes.Count; i++)
         {
-        //    boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
+            boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
         }
 
         count--;
