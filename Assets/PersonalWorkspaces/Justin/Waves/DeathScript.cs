@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using DG.Tweening;
+using DG.Tweening;
 using TMPro;
 
 public class DeathScript : MonoBehaviour
@@ -74,7 +74,7 @@ public class DeathScript : MonoBehaviour
             //deathText.DOColor(color, animationDuration);
             currentTime -= 1 * Time.deltaTime;
             deathTimer.text = currentTime.ToString("0");
-           // deathText.transform.DOScale(animationScale, animationDuration);
+            deathText.transform.DOScale(animationScale, animationDuration);
 
             //Deactiviating ability cooldowns
             abilityActivationState = true;
