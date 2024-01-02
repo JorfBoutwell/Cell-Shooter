@@ -3,11 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using Unity.Netcode;
+//using DG.Tweening;
 using Photon.Pun;
 
-public class PlayerControllerNEW : NetworkBehaviour
+public class PlayerControllerNEW : MonoBehaviourPun
 {
     PlayerManager m_input;
     Rigidbody m_rb;
@@ -113,7 +112,7 @@ public class PlayerControllerNEW : NetworkBehaviour
         if (!view.IsMine)
         {
             Destroy(this.gameObject.transform.GetChild(0));
-            Destroy(this.gameObject.transform.GetChild(2).transform.GetChild(0).gameObject);
+            Destroy(this.gameObject.transform.GetChild(1).transform.GetChild(1).gameObject);
             Destroy(this);
         }
     }
@@ -145,8 +144,8 @@ public class PlayerControllerNEW : NetworkBehaviour
             HandleWallRunning();
 
         //tie FOV to movement speed
-        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
-            m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f); 
+//        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
+       //     m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f); 
     }
 
     private void HandleMovement()
@@ -422,18 +421,18 @@ public class PlayerControllerNEW : NetworkBehaviour
 
     public void DoFOV(float endValue)
     {
-        m_FPSCam.GetComponent<Camera>().DOFieldOfView(endValue, 0.5f);
+      //  m_FPSCam.GetComponent<Camera>().DOFieldOfView(endValue, 0.5f);
     }
 
     public void DoTilt(float zTilt)
     {
-        m_FPSCam.transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.5f);
+    //    m_FPSCam.transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.5f);
     }
 
     public void DoCrouch(float moveAmount)
     {
-        m_FPSCam.transform.DOLocalMoveY(moveAmount, 0.5f);
-        if(moveAmount == 0)
-            transform.DOScaleY(1, 0.5f);
+  //      m_FPSCam.transform.DOLocalMoveY(moveAmount, 0.5f);
+//        if(moveAmount == 0)
+         //   transform.DOScaleY(1, 0.5f);
     }
 }
