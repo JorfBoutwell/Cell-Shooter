@@ -108,6 +108,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         m_wallRunTimer = m_maxWallRunTime;
         m_exitWallTimer = m_exitWallTime;
 
+        //destroyts this, the camera, and the UI of the others in the room to avoid issues
         view = GetComponent<PhotonView>();
         if (!view.IsMine)
         {
