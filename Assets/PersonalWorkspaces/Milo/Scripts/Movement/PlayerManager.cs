@@ -39,6 +39,7 @@ public class PlayerManager : MonoBehaviourPun
 
         AssignInputs();
 
+        //if this isn't the users it will destroy to avoid managing the other player
         view = GetComponent<PhotonView>();
         if (!view.IsMine) Destroy(this);
     }

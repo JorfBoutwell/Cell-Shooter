@@ -4,9 +4,16 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+///
+/// This script is the what connects the player to the server.
+/// Lobby is what will be the menu
+/// This script is used in loading screen, if you make a logo you could put it there like you see in other scenes when it says connecting
+/// 
+/// </summary>
 public class Connection : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
+    
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
