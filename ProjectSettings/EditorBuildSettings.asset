@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/PersonalWorkspaces/Henry/Loading Screen.unity
     guid: 289cf1f28ceda4c1d9b6cc210660826b
   - enabled: 1
-    path: Assets/PersonalWorkspaces/Henry/Lobby.unity
+    path: Assets/InGame/Scenes/Lobby.unity
     guid: 1ca7f02a373ed4bbbaa11e94e96bd759
   - enabled: 1
     path: Assets/PersonalWorkspaces/Henry/Multiplayer World.unity
