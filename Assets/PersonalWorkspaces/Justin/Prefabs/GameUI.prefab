@@ -959,7 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83e1aa0d468e445daefbe2550ad1102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 2537140294465061360}
+  currentCharacter: 
   abilityImageC: {fileID: 7626797163888190350}
   abilityImageE: {fileID: 584295055173621493}
   abilityImageX: {fileID: 7381929080083346939}
@@ -1136,7 +1136,6 @@ Transform:
   - {fileID: 41023335310393338}
   - {fileID: 370912521210399882}
   - {fileID: 3793182970145321119}
-  - {fileID: 3570048573508894596}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767124901413035168
@@ -1333,7 +1332,7 @@ MonoBehaviour:
   currentCharacterPortrait: {fileID: 1807997906353302175}
   NeuronPFP: {fileID: 2800000, guid: 86ae9e00a176503459f98a6f079d4a3c, type: 3}
   RedBloodCellPFP: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
-  playerManager: {fileID: 2537140294465061360}
+  AbilityImage: {fileID: 1280219287019145347}
   currentCharacter: 
 --- !u!1 &1865671552836607722
 GameObject:
@@ -2130,58 +2129,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &2537140294465061360
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3570048573508894596}
-  - component: {fileID: 3496292478316814493}
-  m_Layer: 0
-  m_Name: PlayerManagerObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3570048573508894596
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2537140294465061360}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2076405219339629817}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3496292478316814493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2537140294465061360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e25015d5954b9e4bb5c8e4dd32afca1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 0}
-  health: 100
-  ammo: 0
-  stamina: 0
-  style: 0
-  team: 
-  character: 
-  isDead: 0
 --- !u!1 &2570129184905598486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2647,7 +2594,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameStart: 0
-  playerManager: {fileID: 2537140294465061360}
   countdownText: {fileID: 6160093353864160246}
   countdownUnderline: {fileID: 7873566891943989746}
   countdownOverlay: {fileID: 4069033721564317370}
@@ -2751,7 +2697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4299729946748338478
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2974,7 +2920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1557250826490218741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4228,7 +4174,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletCount: {fileID: 7036127364325901577}
-  player: {fileID: 1576989017386804971, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
   reloadActive: 0
 --- !u!1 &5852064802006390040
 GameObject:
@@ -4845,7 +4790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3764870029569157645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7750,11 +7695,11 @@ MonoBehaviour:
   deathText: {fileID: 5752288924612249800}
   deathTimer: {fileID: 1406219618731391705}
   waveStart: {fileID: 3580195446297262955}
-  playerManager: {fileID: 2537140294465061360}
   cooldowns: {fileID: 8281710828065144727}
   transformPosition: {x: 0, y: 0}
   animationDuration: 5
   animationScale: 1.75
+  animationType: 1
 --- !u!1 &9128772381715973432
 GameObject:
   m_ObjectHideFlags: 0
@@ -7770,7 +7715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3187347425790550578
 RectTransform:
   m_ObjectHideFlags: 0
