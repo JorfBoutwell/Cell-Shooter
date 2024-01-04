@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+//NEEDS UPDATE WHEN ABILITIES ARE IMPLEMENTED
 public class CooldownScript : MonoBehaviour
 {
     [Header("C Cooldown Overlay")]

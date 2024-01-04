@@ -17,7 +17,7 @@ public class DeathScript : MonoBehaviour
     public TextMeshProUGUI deathTimer;
 
     public GameObject waveStart;
-    private WaveStart waveStartScript;
+    private WaveStart roundStartScript;
 
     public GameObject playerManager;
     private PlayerManager playerManagerScript;
@@ -55,7 +55,7 @@ public class DeathScript : MonoBehaviour
         //CHANGE AFTER DEATH WORKS
         deathCondition = true;
 
-        waveStartScript = waveStart.GetComponent<WaveStart>();
+        roundStartScript = waveStart.GetComponent<WaveStart>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
 
         playerManagerScript = playerManager.GetComponent<PlayerManager>();
@@ -133,9 +133,9 @@ public class DeathScript : MonoBehaviour
     {
         playerManagerScript.isDead = false;
         playerManagerScript.health = 680;
-        waveStartScript.healthShadow = 680;
-        waveStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
-        waveStartScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(waveStartScript.healthShadow, 90);
+        roundStartScript.healthShadow = 680;
+        roundStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
+        roundStartScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(roundStartScript.healthShadow, 90);
     }
 
     private void AbilityActivation(bool abilityActivationState, bool cooldownActivationState)
