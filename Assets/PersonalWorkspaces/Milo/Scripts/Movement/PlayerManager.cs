@@ -3,10 +3,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 using Photon.Pun;
 
-public class PlayerManager : NetworkBehaviour
+public class PlayerManager : MonoBehaviourPun
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
@@ -40,6 +39,7 @@ public class PlayerManager : NetworkBehaviour
 
         AssignInputs();
 
+        //if this isn't the users it will destroy to avoid managing the other player
         view = GetComponent<PhotonView>();
         if (!view.IsMine) Destroy(this);
     }
