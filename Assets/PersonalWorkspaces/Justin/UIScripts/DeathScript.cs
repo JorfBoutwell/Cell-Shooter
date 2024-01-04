@@ -16,6 +16,7 @@ public class DeathScript : MonoBehaviour
     public TextMeshProUGUI deathText;
     public TextMeshProUGUI deathTimer;
 
+    //References
     public GameObject waveStart;
     private WaveStart roundStartScript;
 
@@ -25,13 +26,14 @@ public class DeathScript : MonoBehaviour
     public GameObject cooldowns;
     private CooldownScript cooldownScript;
 
+    //Floats and Bools
     float currentTime;
-    bool deathCondition = false;
     bool onoff;
     bool abilityActivationState;
     bool cooldownActivationState;
     float originalAnimationScale;
-    Color color = Color.red;
+
+    //Color color = Color.red;
 
     [Header("Animation Variables")]
     [SerializeField]
@@ -44,35 +46,37 @@ public class DeathScript : MonoBehaviour
     private float animationScale = 1.75f;
 
     [SerializeField]
-   // private Ease animationType = Ease.Linear;
+    //private Ease animationType = Ease.Linear;
 
-    // Start is called before the first frame update
     void Start()
     {
-        //Player Team
-        
-
-        //CHANGE AFTER DEATH WORKS
-        deathCondition = true;
-
+        //Setting References
         roundStartScript = waveStart.GetComponent<WaveStart>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
 
         playerManagerScript = playerManager.GetComponent<PlayerManager>();
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
+
+        //Setting Default Spawn Location and Death Timer
         currentTime = 5f;
         spawnLocation = new Vector3(0, 0, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (playerManagerScript.isDead) { //or deathCondition for testing
+        //Activates When The Player is Dead
+        if (playerManagerScript.isDead) {
+
+            //Activates Death Overlay
             onoff = true;
             DeathScreen(onoff);
-            //deathText.DOColor(color, animationDuration);
+            deathText.DOColor(Color.red, animationDuration);
+
+            //Stars Death Timer
             currentTime -= 1 * Time.deltaTime;
+
+            //Activates Death Overlay UI
             deathTimer.text = currentTime.ToString("0");
             deathText.transform.DOScale(animationScale, animationDuration);
 
@@ -85,24 +89,32 @@ public class DeathScript : MonoBehaviour
          
         if(currentTime <= 0)
         {
-            deathCondition = false;
-
+            //Reset Health
             HealthReset();
 
-         //   deathText.transform.DOScale(originalAnimationScale, animationDuration);
+            //Reset Death Text and Color to Default Size and Color
+            deathText.transform.DOScale(originalAnimationScale, animationDuration);
+            deathText.DOColor(Color.white, animationDuration);
+
 
             //Deactiviating ability cooldowns
             abilityActivationState = false;
             AbilityActivation(abilityActivationState, cooldownActivationState);
 
+            //Resets Death Timer to Default Count
             currentTime = 5f;
+
+            //Deactivate Death Overlay
             onoff = false;
             DeathScreen(onoff);
+
+            //Respawns Player
             SpawnPlayer();
         }
 
     }
 
+    //Activates Death Overlay
     private void DeathScreen(bool onoff)
     {
         if (onoff) { 
@@ -115,6 +127,7 @@ public class DeathScript : MonoBehaviour
         return;
     }
 
+    //Spawn Locations
     private void SpawnPlayer()
     {
         if (playerManagerScript.team == "A") {
@@ -129,27 +142,32 @@ public class DeathScript : MonoBehaviour
         }
     }
 
+    //Resets Health After Respawn
     private void HealthReset()
     {
         playerManagerScript.isDead = false;
-        playerManagerScript.health = 680;
-        roundStartScript.healthShadow = 680;
+        playerManagerScript.health = 680; //Subject to change
+        roundStartScript.healthShadow = 680; //Subject to change
         roundStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
         roundStartScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(roundStartScript.healthShadow, 90);
     }
 
+    //Resets Ability Cooldowns After Respawn
     private void AbilityActivation(bool abilityActivationState, bool cooldownActivationState)
     {
+        //Resets Ability Active
         cooldownScript.cooldownActiveC = abilityActivationState;
         cooldownScript.cooldownActiveX = abilityActivationState;
         cooldownScript.cooldownActiveQ = abilityActivationState;
         cooldownScript.cooldownActiveE = abilityActivationState;
 
+        //Resets UI Cooldown Bar
         cooldownScript.heightC = 100f;
         cooldownScript.heightX = 100f;
         cooldownScript.heightQ = 100f;
         cooldownScript.heightE = 100f;
 
+        //Resets UI Active
         cooldownScript.cooldownOverlayC.SetActive(cooldownActivationState);
         cooldownScript.cooldownOverlayBarC.SetActive(cooldownActivationState);
 

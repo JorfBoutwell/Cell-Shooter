@@ -8,16 +8,13 @@ public class BulletUI : MonoBehaviour
     //Bullet variables
     public GameObject bulletCount;
     float bulletAmount = 100f;
-    float time = 0f;
 
+    //References
     public GameObject player;
     private PlayerManager playerManagerScript;
     private WeaponManager weaponManagerScript;
 
-
-    public bool reloadActive = false;
-
-    // Start is called before the first frame update
+    //Sets Bullet UI
     void Start()
     {
         bulletCount.GetComponentInChildren<TextMeshProUGUI>().text = bulletAmount.ToString("0");
@@ -26,7 +23,7 @@ public class BulletUI : MonoBehaviour
         weaponManagerScript = player.GetComponent<WeaponManager>();
     }
 
-    // Update is called once per frame
+    //Updates Bullet UI
     void Update()
     {
 

@@ -7,13 +7,13 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseCanvas;
     public bool pauseActive = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    //Activates Pause Menu
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

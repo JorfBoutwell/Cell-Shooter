@@ -34,8 +34,6 @@ public class WaveStart : MonoBehaviour
     //Death variables
     public bool isDead = false;
 
-    //void Awake() {}
-    // Start is called before the first frame update
     void Start()
     {
         currentTime = countdownTime;
@@ -43,32 +41,36 @@ public class WaveStart : MonoBehaviour
         playerManagerScript = playerManager.GetComponent<PlayerManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Game Countdown
         if (startCountdown) {
             currentTime -= 1 * Time.deltaTime;
             countdownText.text = currentTime.ToString("0");
+
+            //Activates Final Countdown Overlay and Changes
             if (currentTime <= 3)
             {
                 countdownOverlay.SetActive(true);
                 countdownText.color = Color.red;
                 countdownText.fontSize = 50;
-                countdownText.transform.position = new Vector3(9f, 1f, 0);
+                countdownText.transform.position = new Vector3(0f, 1f, 0f);
             }
+
+            //Deactivats Final Countdown Overlay and Countdown
             if (currentTime <= 0)
             {
                 currentTime = 0;
-                startCountdown = false;
+                //startCountdown = false;
                 countdownOverlay.SetActive(false);
-                countdownUnderline.SetActive(false);
-                countdownText.enabled = false;
+                //countdownUnderline.SetActive(false);
+                //countdownText.enabled = false;
+                Reset();
             }
         }
 
-        //Health Damage Test
-        if (Input.GetKeyDown(KeyCode.L))
+        //Health UI Damage
+        if (Input.GetKeyDown(KeyCode.L)) //For Testing
         {
             playerManagerScript.health -= damageTaken;
             healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
@@ -86,12 +88,17 @@ public class WaveStart : MonoBehaviour
         }
     }
 
+    //Resets Countdown to Start Game Timer
     private void Reset()
     {
-        //Countdown
-        currentTime = 10f;
+        currentTime = 180f;
+        StartCountdown();
+        countdownText.color = Color.white;
+        countdownText.fontSize = 12.5f;
+        countdownText.transform.position = new Vector3(0f, 4.4f, 0f);
     }
 
+    //Starts Countdown/Game Timer
     public void StartCountdown()
     {
         Debug.Log(currentTime);

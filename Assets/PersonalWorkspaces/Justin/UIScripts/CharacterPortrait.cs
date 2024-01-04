@@ -12,28 +12,30 @@ public class CharacterPortrait : MonoBehaviour
     public Texture NeuronPFP;
     public Texture RedBloodCellPFP;
 
+    //References
     public GameObject playerManager;
     private PlayerManager playerManagerScript;
 
     public string currentCharacter;
     
-    // Start is called before the first frame update
     void Start()
     {
         playerManagerScript = playerManager.GetComponent<PlayerManager>();
     }
 
-    // Update is called once per frame
+    //Sets Character Portrait
     void Update()
     {
         currentCharacter = playerManagerScript.character;
 
         switch (currentCharacter)
         {
+            //Sets Neuron Character Portrait
             case "Neuron":
                 currentCharacterPortrait.GetComponent<RawImage>().texture = NeuronPFP;
                 break;
 
+            //Sets Red Blood Cell Character Portrait
             case "RedBloodCell":
                 currentCharacterPortrait.GetComponent<RawImage>().texture = RedBloodCellPFP;
                 break;

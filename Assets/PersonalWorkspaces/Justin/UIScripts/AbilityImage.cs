@@ -35,6 +35,7 @@ public class AbilityImage : MonoBehaviour
 
         switch (playerManagerScript.character)
         {
+            //Sets Neuron Ability Icons
             case "Neuron":
                 abilityImageC.GetComponent<RawImage>().texture = NeuronC;
                 abilityImageE.GetComponent<RawImage>().texture = NeuronE;
@@ -42,6 +43,7 @@ public class AbilityImage : MonoBehaviour
                 abilityImageQ.GetComponent<RawImage>().texture = NeuronQ;
                 break;
 
+            //Sets Red Blood Cell Ability Icons
             case "RedBloodCell":
                 abilityImageC.GetComponent<RawImage>().texture = RedBloodCellC;
                 abilityImageE.GetComponent<RawImage>().texture = RedBloodCellE;

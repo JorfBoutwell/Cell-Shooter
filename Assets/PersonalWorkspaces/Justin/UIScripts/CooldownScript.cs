@@ -41,7 +41,6 @@ public class CooldownScript : MonoBehaviour
 
     public float cooldownTime;
 
-    // Update is called once per frame
     void Update()
     {
         //Cooldown Activation

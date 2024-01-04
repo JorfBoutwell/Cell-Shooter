@@ -16,7 +16,7 @@ public class KillFeed : MonoBehaviour
     //Alert Box variables
     public GameObject alertBox;
 
-    //Player variables
+    //Username Variables
     public List<string> usernames = new List<string>();
 
     [Header("Animation Variables")]
@@ -27,43 +27,50 @@ public class KillFeed : MonoBehaviour
     private float animationDuration = 5f;
 
     [SerializeField]
-    private Ease animationType = Ease.Linear;
+    //private Ease animationType = Ease.Linear;
 
 
-    // Start is called before the first frame update
     void Start()
     {
+        //Sets Player Usernames
         for(int i = 0; i < 4; i++)
         {
-            //8 character cap and no CAPS
-            usernames.Add("killers" + i);
+            usernames.Add("killers" + i); //8 Character Limit and no CAPS based on UI Size
             Debug.Log(usernames[i]);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         int boxesCount = boxes.Count;
 
+        //Calls KillFeedInstantiate
         if (Input.GetKeyDown(KeyCode.K))
         {
-            yPos = 125 * count;
-            count++;
-            boxes.Add(Instantiate(killFeedBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
-            boxes[boxesCount].transform.DOMoveX(1695f, 0.1f);
-
-            boxes[boxesCount].transform.SetParent(canvas1.transform);
-            KillFeedText(boxesCount);
-            StartCoroutine("KillFeedTimer");
+            KillFeedInstantiate(boxesCount);
         }
 
+        //Calls AlertFeedInstantiate
         if(Input.GetKeyDown(KeyCode.J))
         {
-            Alert(boxesCount);
+            AlertFeedInstantiate(boxesCount);
         }
     }
 
+    //Instantiates Kill Feeds
+    public void KillFeedInstantiate(int boxesCount)
+    {
+        yPos = 125 * count;
+        count++;
+        boxes.Add(Instantiate(killFeedBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
+        boxes[boxesCount].transform.DOMoveX(1695f, 0.1f);
+
+        boxes[boxesCount].transform.SetParent(canvas1.transform);
+        KillFeedText(boxesCount);
+        StartCoroutine("KillFeedTimer");
+    }
+
+    //Kill Feed Duration
     public IEnumerator KillFeedTimer()
     {
         yield return new WaitForSeconds(4f);
@@ -80,12 +87,14 @@ public class KillFeed : MonoBehaviour
 
     }
 
+    //Sets Usernames in Kill Feed
     public void KillFeedText(int boxesCounts)
     {
         boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = usernames[0] + " -> " + usernames[1];
     }
 
-    public void Alert(int boxesCounts)
+    //Instantiates Alert Feeds
+    public void AlertFeedInstantiate(int boxesCounts)
     {
         yPos = 125 * count;
         count++;
@@ -97,11 +106,7 @@ public class KillFeed : MonoBehaviour
         StartCoroutine("AlertTimer");
     }
 
-    public void AlertText(int boxesCounts)
-    {
-        boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "INCOMING BOSS";
-    }
-
+    //Alert Feed Duration
     public IEnumerator AlertTimer()
     {
         yield return new WaitForSeconds(8f);
@@ -116,4 +121,11 @@ public class KillFeed : MonoBehaviour
 
         count--;
     }
+
+    //Sets Text in Alert Feed
+    public void AlertText(int boxesCounts)
+    {
+        boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "INCOMING BOSS";
+    }
+
 }
