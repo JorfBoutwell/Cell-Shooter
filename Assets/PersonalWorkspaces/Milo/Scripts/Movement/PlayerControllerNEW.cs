@@ -112,8 +112,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
         view = GetComponent<PhotonView>();
         if (!view.IsMine)
         {
-            Destroy(this.gameObject.transform.GetChild(0));
-            Destroy(this.gameObject.transform.GetChild(1).transform.GetChild(1).gameObject);
+            Destroy(this.gameObject.transform.GetComponentInChildren<Camera>());
+            Destroy(this.gameObject.transform.GetComponentInChildren<Canvas>());
             Destroy(this);
         }
     }
