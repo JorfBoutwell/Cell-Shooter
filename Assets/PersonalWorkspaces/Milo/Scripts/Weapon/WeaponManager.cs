@@ -228,12 +228,14 @@ public class WeaponManager : MonoBehaviour
                     case 11: //teamA
                         if(team != "A")
                         {
+                            Debug.Log("Team A");
                             hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
                         }
                         break;
                     case 13: //teamB
                         if (team != "B")
                         {
+                            Debug.Log("Team B");
                             hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
                         }
                         break;
