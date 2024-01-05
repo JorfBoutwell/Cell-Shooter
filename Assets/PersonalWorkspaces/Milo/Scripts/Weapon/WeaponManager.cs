@@ -25,6 +25,8 @@ public class WeaponManager : MonoBehaviour
     private float m_resetBurstTimer = 1;
     private int m_fireLimit = 3;
 
+    private string team;
+
     [SerializeField] GameObject m_projectile;
 
     [Header("Particle System")]
@@ -47,6 +49,8 @@ public class WeaponManager : MonoBehaviour
         animController = GetComponentInChildren<AnimationController>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
+
+        team = GetComponent<PlayerManager>().team;
     }
 
     private void Update()
@@ -221,19 +225,17 @@ public class WeaponManager : MonoBehaviour
                         Debug.Log("enemyHead");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= (currentWeapon.damage * 2);
                         break;
-
-                    //Make it so you only deal damage to players you aren't on a team with.
                     case 11: //teamA
-                        Debug.Log("teamA");
-                        break;
-                    case 12: //teamAhead
-                        Debug.Log("teamAHead");
+                        if(team != "A")
+                        {
+                            hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+                        }
                         break;
                     case 13: //teamB
-                        Debug.Log("TeamB");
-                        break;
-                    case 14: //teamBHead
-                        Debug.Log("TeamBHead");
+                        if (team != "B")
+                        {
+                            hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+                        }
                         break;
                     default: break;
                 }

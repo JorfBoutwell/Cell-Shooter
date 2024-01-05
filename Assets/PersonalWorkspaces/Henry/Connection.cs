@@ -26,6 +26,6 @@ public class Connection : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadSceneAsync("InGame/Scenes/Lobby");
     }
 }

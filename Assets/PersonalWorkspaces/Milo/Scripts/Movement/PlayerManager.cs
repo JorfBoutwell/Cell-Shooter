@@ -27,7 +27,16 @@ public class PlayerManager : MonoBehaviourPun
 
     private void Awake()
     {
-        team = "A";
+        //set team layer
+        if(team == "A")
+        {
+            this.transform.gameObject.layer = 11;
+        }
+        else
+        {
+            this.transform.gameObject.layer = 13;
+        }
+
         character = "Neuron";
 
         inputActions = new InputActions();
@@ -59,6 +68,10 @@ public class PlayerManager : MonoBehaviourPun
         {
             inputActions.Enable(); //this seems slow. better way?
         }
+    }
+    public void SetTeam(string teamName)
+    {
+        team = teamName;
     }
     private void AssignInputs()
     {

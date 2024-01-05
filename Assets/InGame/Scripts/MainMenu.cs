@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void Multiplayer()
     {
-        SceneManager.LoadSceneAsync("InGame/Scenes/Lobby");
+        SceneManager.LoadSceneAsync("InGame/Scenes/LoadingScreen");
     }
 
     public void Quit()

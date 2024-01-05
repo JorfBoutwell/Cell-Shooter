@@ -54,6 +54,15 @@ public class AnimationController : MonoBehaviour
                     cameraAnimator.Play("ExitWallRun_Right");
                 }
                 break;
+            case PlayerControllerNEW.MovementState.sprinting:
+                cameraAnimator.Play("Sprint");
+                break;
+            case PlayerControllerNEW.MovementState.walking:
+                cameraAnimator.Play("Walk");
+                break;
+            case PlayerControllerNEW.MovementState.air:
+                cameraAnimator.Play("Air");
+                break;
             default: return;
         }
     }
