@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class WeaponManager : MonoBehaviour
     private int m_fireLimit = 3;
 
     private string team;
+
+    PhotonView view;
 
     [SerializeField] GameObject m_projectile;
 
@@ -51,6 +54,8 @@ public class WeaponManager : MonoBehaviour
         currentAmmo = currentWeapon.maxAmmo;
 
         team = GetComponent<PlayerManager>().team;
+
+        view = GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -275,4 +280,5 @@ public class WeaponManager : MonoBehaviour
             yield return null;
         }
     }
+    
 }

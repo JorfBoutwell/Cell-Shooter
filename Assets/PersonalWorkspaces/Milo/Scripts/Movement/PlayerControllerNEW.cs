@@ -112,9 +112,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
         view = GetComponent<PhotonView>();
         if (!view.IsMine)
         {
-            Destroy(this.gameObject.transform.GetComponentInChildren<Camera>());
-            Destroy(this.gameObject.transform.GetComponentInChildren<Canvas>());
-            Destroy(this);
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(m_rb);
         }
     }
 
@@ -132,7 +131,12 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     private void Update()
     {
-
+        //stops people from controlling eachother
+        if (!view.IsMine)
+        {
+            return;
+        }
+        
         HandleMovement();
         HandleCamera();
         CheckGrounded();
@@ -141,12 +145,12 @@ public class PlayerControllerNEW : MonoBehaviourPun
         StateMachine();
         HandleSliding();
 
-        if(isWallRunning)
+        if (isWallRunning)
             HandleWallRunning();
 
         //tie FOV to movement speed
-//        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
-       //     m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f); 
+        //        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
+        //     m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f);
     }
 
     private void HandleMovement()
