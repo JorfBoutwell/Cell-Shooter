@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class AnimationController : MonoBehaviour
 {
-    //hello
     public Image displaySprite; //set to different sprite when player switches character
     public Animator displayAnimator; //plays animations; set to different when player switches character
 
@@ -13,7 +12,7 @@ public class AnimationController : MonoBehaviour
 
     public void WeaponAnimationController(WeaponManager.WeaponState state)
     {
-        switch(state)
+        switch (state)
         {
             case WeaponManager.WeaponState.idle:
                 displayAnimator.Play("NeuronIdle");
@@ -23,20 +22,20 @@ public class AnimationController : MonoBehaviour
                 break;
             case WeaponManager.WeaponState.reloading:
                 displayAnimator.Play("NeuronReload_Temp");
-                break;  
+                break;
             default: return;
         }
     }
 
     public void MovementAnimationController(PlayerControllerNEW.MovementState state, bool wallLeft, bool wallRight)
     {
-        switch(state)
+        switch (state)
         {
             case PlayerControllerNEW.MovementState.idle:
                 cameraAnimator.Play("Idle");
                 break;
             case PlayerControllerNEW.MovementState.wallrunning:
-                if(wallLeft)
+                if (wallLeft)
                 {
                     cameraAnimator.Play("EnterWallRun_Left");
                 }
@@ -46,10 +45,11 @@ public class AnimationController : MonoBehaviour
                 }
                 break;
             case PlayerControllerNEW.MovementState.exitingwall:
-                if(wallLeft)
+                if (wallLeft)
                 {
                     cameraAnimator.Play("ExitWallRun_Left");
-                }else
+                }
+                else
                 {
                     cameraAnimator.Play("ExitWallRun_Right");
                 }
