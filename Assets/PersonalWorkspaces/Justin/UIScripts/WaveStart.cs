@@ -11,34 +11,21 @@ public class WaveStart : MonoBehaviour
     static public bool pickUpSpawn;
     public bool gameStart;
 
-    public GameObject playerManager;
-    private PlayerManager playerManagerScript;
-
     //Countdown variables
     [SerializeField] TextMeshPro countdownText;
     public GameObject countdownUnderline;
     public GameObject countdownOverlay;
-    public float currentTime = 0f;
+    public float currentTime;
     public float countdownTime = 10f;
+    public float gameTimeSeconds;
+    public float gameTimeMinutes;
     public bool startCountdown = false;
-
-    //Healthbar variables
-    public GameObject healthBar;
-    public GameObject healthBarShadow;
-    public float health = 680;
-    public float healthShadow = 680;
-    //public float healthShadow = 100;
-
-    float damageTaken = 100f;
-
-    //Death variables
-    public bool isDead = false;
+    public bool gameTimerStart = false;
 
     void Start()
     {
         currentTime = countdownTime;
         StartCountdown();
-        playerManagerScript = playerManager.GetComponent<PlayerManager>();
     }
 
     void Update()
@@ -47,6 +34,12 @@ public class WaveStart : MonoBehaviour
         if (startCountdown) {
             currentTime -= 1 * Time.deltaTime;
             countdownText.text = currentTime.ToString("0");
+            if(gameTimerStart)
+            {
+                gameTimeMinutes = Mathf.FloorToInt(currentTime / 60);
+                gameTimeSeconds = Mathf.FloorToInt(currentTime % 60);
+                countdownText.text = string.Format("{0:00}:{1:00}", gameTimeMinutes, gameTimeSeconds);
+            }
 
             //Activates Final Countdown Overlay and Changes
             if (currentTime <= 3)
@@ -57,7 +50,7 @@ public class WaveStart : MonoBehaviour
                 countdownText.transform.position = new Vector3(0f, 1f, 0f);
             }
 
-            //Deactivats Final Countdown Overlay and Countdown
+            //Deactivates Final Countdown Overlay and Countdown
             if (currentTime <= 0)
             {
                 currentTime = 0;
@@ -68,30 +61,14 @@ public class WaveStart : MonoBehaviour
                 Reset();
             }
         }
-
-        //Health UI Damage
-        if (Input.GetKeyDown(KeyCode.L)) //For Testing
-        {
-            playerManagerScript.health -= damageTaken;
-            healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
-        }
-
-        if (healthShadow > playerManagerScript.health)
-        {
-            healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(healthShadow, 90);
-            healthShadow -= 100 * Time.deltaTime;
-        }
-
-        if (playerManagerScript.health <= 0)
-        {
-            playerManagerScript.isDead = true;
-        }
     }
 
     //Resets Countdown to Start Game Timer
     private void Reset()
     {
         currentTime = 180f;
+        gameTimerStart = true;
+
         StartCountdown();
         countdownText.color = Color.white;
         countdownText.fontSize = 12.5f;
@@ -101,8 +78,6 @@ public class WaveStart : MonoBehaviour
     //Starts Countdown/Game Timer
     public void StartCountdown()
     {
-        Debug.Log(currentTime);
-
         startCountdown = true;
 
     }
