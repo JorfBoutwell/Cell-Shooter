@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AnimationController : MonoBehaviour
 {
-
+    //hello
     public Image displaySprite; //set to different sprite when player switches character
     public Animator displayAnimator; //plays animations; set to different when player switches character
 
