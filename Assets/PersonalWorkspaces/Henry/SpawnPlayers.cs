@@ -25,7 +25,7 @@ public class SpawnPlayers : MonoBehaviour
 
 
         //gets the UI element
-        code = player.transform.GetChild(1).GetChild(1).GetChild(1).gameObject.GetComponent<TMP_Text>();
+        code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
         //changes the UI element to the rooms code
         code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
     }
