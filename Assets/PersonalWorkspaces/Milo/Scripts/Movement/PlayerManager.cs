@@ -53,8 +53,14 @@ public class PlayerManager : MonoBehaviourPun
         if (!view.IsMine)
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
-            Destroy(GetComponentInChildren<Canvas>().gameObject);
             Destroy(m_player.m_rb);
+            Canvas[] canvases = GetComponentsInChildren<Canvas>();
+            foreach(Canvas canvas in canvases)
+            {
+                Destroy(canvas);
+            }
+
+
         }
     }
 
