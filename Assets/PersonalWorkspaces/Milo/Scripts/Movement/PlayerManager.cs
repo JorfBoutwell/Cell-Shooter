@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviourPun
             Canvas[] canvases = GetComponentsInChildren<Canvas>();
             foreach(Canvas canvas in canvases)
             {
-                Destroy(canvas);
+              //  Destroy(canvas);
             }
 
 

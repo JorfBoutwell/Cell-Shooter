@@ -217,8 +217,8 @@ public class WeaponManager : MonoBehaviour
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireRate);
-            RaycastHit hit;
-            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out hit, currentWeapon.weaponRange, m_enemyMask))
+
+            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 switch (hit.transform.gameObject.layer)
                 {
