@@ -234,7 +234,7 @@ public class WeaponManager : MonoBehaviour
                         //if(team != "A")
                         //{
                             Debug.Log("Team A");
-                            hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, hit.transform.gameObject);
                         //}
                         break;
                     case 13: //teamB
@@ -280,5 +280,14 @@ public class WeaponManager : MonoBehaviour
             yield return null;
         }
     }
-    
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage, GameObject player)
+    {
+        if (!view.IsMine)
+            return;
+
+        player.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+        Debug.Log("take damage");
+    }
 }
