@@ -38,7 +38,7 @@ public class WaveStart : MonoBehaviour
     {
         currentTime = countdownTime;
         StartCountdown();
-        playerManagerScript = playerManager.GetComponent<PlayerManager>();
+        playerManagerScript = GetComponentInParent<PlayerManager>();
     }
 
     void Update()

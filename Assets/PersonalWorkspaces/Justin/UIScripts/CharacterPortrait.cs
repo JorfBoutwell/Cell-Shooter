@@ -20,7 +20,7 @@ public class CharacterPortrait : MonoBehaviour
     
     void Start()
     {
-        playerManagerScript = playerManager.GetComponent<PlayerManager>();
+        playerManagerScript = GetComponentInParent<PlayerManager>();
     }
 
     //Sets Character Portrait
