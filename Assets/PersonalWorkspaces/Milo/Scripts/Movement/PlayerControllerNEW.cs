@@ -9,7 +9,7 @@ using Photon.Pun;
 public class PlayerControllerNEW : MonoBehaviourPun
 {
     PlayerManager m_input;
-    Rigidbody m_rb;
+    public Rigidbody m_rb;
     [SerializeField] Camera m_FPSCam;
 
     public MovementState state;
@@ -108,13 +108,6 @@ public class PlayerControllerNEW : MonoBehaviourPun
         m_wallRunTimer = m_maxWallRunTime;
         m_exitWallTimer = m_exitWallTime;
 
-        //destroyts this, the camera, and the UI of the others in the room to avoid issues
-        view = GetComponent<PhotonView>();
-        if (!view.IsMine)
-        {
-            Destroy(GetComponentInChildren<Camera>().gameObject);
-            Destroy(m_rb);
-        }
     }
 
     public enum MovementState

@@ -50,12 +50,21 @@ public class PlayerManager : MonoBehaviourPun
 
         //if this isn't the users it will destroy to avoid managing the other player
         view = GetComponent<PhotonView>();
-        if (!view.IsMine) Destroy(this);
+        if (!view.IsMine)
+        {
+            Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(GetComponentInChildren<Canvas>().gameObject);
+            Destroy(m_player.m_rb);
+        }
     }
 
     private void Update()
     {
-        if(ammo != m_weapon.currentAmmo)
+        if (!view.IsMine)
+        {
+            return;
+        }
+        if (ammo != m_weapon.currentAmmo)
         {
             ammo = m_weapon.currentAmmo;
         }
