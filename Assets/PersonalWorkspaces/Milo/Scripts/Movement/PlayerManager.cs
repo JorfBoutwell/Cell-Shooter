@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviourPun
 
     private void Awake()
     {
+        team = "A";
         //set team layer
         if(team == "A")
         {
