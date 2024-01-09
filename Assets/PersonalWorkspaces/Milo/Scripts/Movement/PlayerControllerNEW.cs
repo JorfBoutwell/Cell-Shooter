@@ -108,6 +108,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         m_wallRunTimer = m_maxWallRunTime;
         m_exitWallTimer = m_exitWallTime;
 
+        view = GetComponent<PhotonView>();
     }
 
     public enum MovementState
