@@ -37,11 +37,11 @@ public class AnimationController : MonoBehaviour
             case PlayerControllerNEW.MovementState.wallrunning:
                 if (wallLeft)
                 {
-                    cameraAnimator.Play("EnterWallRun_Left");
+                    cameraAnimator.Play("EnterWallRun_Right");
                 }
                 else
                 {
-                    cameraAnimator.Play("EnterWallRun_Right");
+                    cameraAnimator.Play("EnterWallRun_Left");
                 }
                 break;
             case PlayerControllerNEW.MovementState.exitingwall:
