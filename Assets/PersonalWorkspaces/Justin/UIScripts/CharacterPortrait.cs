@@ -13,15 +13,9 @@ public class CharacterPortrait : MonoBehaviour
     public Texture RedBloodCellPFP;
 
     //References
-    public GameObject playerManager;
-    private PlayerManager playerManagerScript;
+    public PlayerManager playerManagerScript;
 
     public string currentCharacter;
-    
-    void Start()
-    {
-        playerManagerScript = GetComponentInParent<PlayerManager>();
-    }
 
     //Sets Character Portrait
     void Update()

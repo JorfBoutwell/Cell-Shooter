@@ -17,11 +17,10 @@ public class DeathScript : MonoBehaviour
     public TextMeshProUGUI deathTimer;
 
     //References
-    public GameObject waveStart;
-    private WaveStart roundStartScript;
+    public GameObject healthUI;
+    private HealthUI healthUIScript;
 
-    public GameObject playerManager;
-    private PlayerManager playerManagerScript;
+    public PlayerManager playerManagerScript;
 
     public GameObject cooldowns;
     private CooldownScript cooldownScript;
@@ -51,10 +50,8 @@ public class DeathScript : MonoBehaviour
     void Start()
     {
         //Setting References
-        roundStartScript = waveStart.GetComponent<WaveStart>();
+        healthUIScript = healthUI.GetComponent<HealthUI>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
-
-        playerManagerScript = GetComponentInParent<PlayerManager>();
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
 
@@ -146,10 +143,11 @@ public class DeathScript : MonoBehaviour
     private void HealthReset()
     {
         playerManagerScript.isDead = false;
-        playerManagerScript.health = 680; //Subject to change
-        roundStartScript.healthShadow = 680; //Subject to change
-        roundStartScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(playerManagerScript.health, 90);
-        roundStartScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(roundStartScript.healthShadow, 90);
+        playerManagerScript.health = 100; //Subject to change
+        healthUIScript.healthBarUI = 680;
+        healthUIScript.healthShadow = healthUIScript.healthBarUI;
+        healthUIScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(healthUIScript.healthBarUI, 90);
+        healthUIScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(healthUIScript.healthShadow, 90);
     }
 
     //Resets Ability Cooldowns After Respawn

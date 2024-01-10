@@ -7,8 +7,7 @@ public class AbilityImage : MonoBehaviour
 {
     //public string currentCharacter;
 
-    public GameObject playerManager;
-    private PlayerManager playerManagerScript;
+    public PlayerManager playerManagerScript;
 
     [Header ("Ability Image Holders")]
     public GameObject abilityImageC;
@@ -31,7 +30,6 @@ public class AbilityImage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerManagerScript = playerManager.GetComponent<PlayerManager>();
 
         switch (playerManagerScript.character)
         {
