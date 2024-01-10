@@ -220,7 +220,7 @@ public class WeaponManager : MonoBehaviour
             Debug.Log(bulletTransform.transform.position);
             Debug.Log(bulletTransform.transform.forward);
 
-            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, 11))
+            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 switch (hit.transform.gameObject.layer)
                 {
