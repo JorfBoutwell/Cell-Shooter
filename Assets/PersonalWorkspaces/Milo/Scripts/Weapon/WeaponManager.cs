@@ -249,7 +249,6 @@ public class WeaponManager : MonoBehaviour
                     default: break;
                 }
 
-                Debug.DrawRay(bulletTransform.transform.position, bulletTransform.transform.forward);
             }
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
