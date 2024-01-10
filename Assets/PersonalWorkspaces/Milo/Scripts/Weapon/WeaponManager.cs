@@ -288,6 +288,7 @@ public class WeaponManager : MonoBehaviour
     void RPC_TakeDamage(float damage, GameObject player)
     {
         if (!view.IsMine)
+            Debug.Log("npt mine");
             return;
 
         PlayerManager playerScript = player.GetComponentInParent<PlayerManager>();
