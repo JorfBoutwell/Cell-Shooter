@@ -73,7 +73,7 @@ public class WeaponManager : MonoBehaviour
     public void SwitchWeapon()
     {
         var weaponPrefab = Instantiate(currentWeapon.modelPrefab, m_armTransform);
-        bulletTransform = weaponPrefab.transform.GetChild(0);
+        //bulletTransform = weaponPrefab.transform.GetChild(0);
         m_shootingSystem = weaponPrefab.transform.GetChild(1).GetComponent<ParticleSystem>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
@@ -220,7 +220,7 @@ public class WeaponManager : MonoBehaviour
             Debug.Log(bulletTransform.transform.position);
             Debug.Log(bulletTransform.transform.forward);
 
-            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
+            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange))
             {
                 switch (hit.transform.gameObject.layer)
                 {
@@ -248,6 +248,8 @@ public class WeaponManager : MonoBehaviour
                         break;
                     default: break;
                 }
+
+                Debug.DrawRay(bulletTransform.transform.position, bulletTransform.transform.forward);
             }
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
