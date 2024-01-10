@@ -20,8 +20,7 @@ public class DeathScript : MonoBehaviour
     public GameObject healthUI;
     private HealthUI healthUIScript;
 
-    public GameObject playerManager;
-    private PlayerManager playerManagerScript;
+    public PlayerManager playerManagerScript;
 
     public GameObject cooldowns;
     private CooldownScript cooldownScript;

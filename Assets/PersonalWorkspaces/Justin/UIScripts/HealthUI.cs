@@ -5,8 +5,7 @@ using TMPro;
 
 public class HealthUI : MonoBehaviour
 {
-    public GameObject playerManager;
-    private PlayerManager playerManagerScript;
+    public PlayerManager playerManagerScript;
 
     //Healthbar variables
     public GameObject healthBar;
@@ -20,7 +19,6 @@ public class HealthUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerManagerScript = playerManager.GetComponent<PlayerManager>();
         healthShadow = healthBarUI;
         damageTakenUI = damageTaken * 6.8f; //6.8 to scale with the UI
     }

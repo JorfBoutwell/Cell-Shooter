@@ -7,8 +7,7 @@ public class AbilityImage : MonoBehaviour
 {
     //public string currentCharacter;
 
-    public GameObject playerManager;
-    private PlayerManager playerManagerScript;
+    public PlayerManager playerManagerScript;
 
     [Header ("Ability Image Holders")]
     public GameObject abilityImageC;
