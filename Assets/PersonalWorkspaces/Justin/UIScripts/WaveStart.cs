@@ -12,7 +12,8 @@ public class WaveStart : MonoBehaviour
     public bool gameStart;
 
     //Countdown variables
-    [SerializeField] TextMeshPro countdownText;
+    public GameObject countdownText;
+    public TextMeshProUGUI countdownTimer;
     public GameObject countdownUnderline;
     public GameObject countdownOverlay;
     public float currentTime;
@@ -26,7 +27,7 @@ public class WaveStart : MonoBehaviour
     {
         currentTime = countdownTime;
         StartCountdown();
-
+        countdownTimer = countdownText.GetComponentInChildren<TextMeshProUGUI>();
         PlayerManager playerManagerScript = GetComponentInParent<PlayerManager>();
     }
 
@@ -35,21 +36,21 @@ public class WaveStart : MonoBehaviour
         //Game Countdown
         if (startCountdown) {
             currentTime -= 1 * Time.deltaTime;
-            countdownText.text = currentTime.ToString("0");
+            countdownTimer.text = currentTime.ToString("0");
             if(gameTimerStart)
             {
                 gameTimeMinutes = Mathf.FloorToInt(currentTime / 60);
                 gameTimeSeconds = Mathf.FloorToInt(currentTime % 60);
-                countdownText.text = string.Format("{0:00}:{1:00}", gameTimeMinutes, gameTimeSeconds);
+                countdownTimer.text = string.Format("{0:00}:{1:00}", gameTimeMinutes, gameTimeSeconds);
             }
 
             //Activates Final Countdown Overlay and Changes
             if (currentTime <= 3)
             {
                 countdownOverlay.SetActive(true);
-                countdownText.color = Color.red;
-                countdownText.fontSize = 50;
-                countdownText.transform.position = new Vector3(0f, 1f, 0f);
+                countdownTimer.color = Color.red;
+                countdownTimer.fontSize = 200;
+                countdownText.transform.position = new Vector3(1000f, 200f, 0f);
             }
 
             //Deactivates Final Countdown Overlay and Countdown
@@ -72,9 +73,9 @@ public class WaveStart : MonoBehaviour
         gameTimerStart = true;
 
         StartCountdown();
-        countdownText.color = Color.white;
-        countdownText.fontSize = 12.5f;
-        countdownText.transform.position = new Vector3(0f, 4.4f, 0f);
+        countdownTimer.color = Color.white;
+        countdownTimer.fontSize = 55f;
+        countdownText.transform.position = new Vector3(958f, 540f, 0f);
     }
 
     //Starts Countdown/Game Timer
