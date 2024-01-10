@@ -377,7 +377,7 @@ MonoBehaviour:
   bulletTransform: {fileID: 1886300677312939649}
   m_enemyMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 30720
   currentAmmo: 0
   m_projectile: {fileID: 0}
   m_shootingSystem: {fileID: 0}
