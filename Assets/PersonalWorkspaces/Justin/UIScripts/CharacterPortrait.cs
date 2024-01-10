@@ -17,11 +17,6 @@ public class CharacterPortrait : MonoBehaviour
     private PlayerManager playerManagerScript;
 
     public string currentCharacter;
-    
-    void Start()
-    {
-        playerManagerScript = GetComponentInParent<PlayerManager>();
-    }
 
     //Sets Character Portrait
     void Update()

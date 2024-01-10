@@ -31,7 +31,6 @@ public class AbilityImage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerManagerScript = playerManager.GetComponent<PlayerManager>();
 
         switch (playerManagerScript.character)
         {
