@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class WeaponManager : MonoBehaviour
 
     private float m_resetBurstTimer = 1;
     private int m_fireLimit = 3;
+
+    private string team;
+
+    PhotonView view;
 
     [SerializeField] GameObject m_projectile;
 
@@ -47,6 +52,10 @@ public class WeaponManager : MonoBehaviour
         animController = GetComponentInChildren<AnimationController>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
+
+        team = GetComponent<PlayerManager>().team;
+
+        view = GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -64,7 +73,7 @@ public class WeaponManager : MonoBehaviour
     public void SwitchWeapon()
     {
         var weaponPrefab = Instantiate(currentWeapon.modelPrefab, m_armTransform);
-        bulletTransform = weaponPrefab.transform.GetChild(0);
+        //bulletTransform = weaponPrefab.transform.GetChild(0);
         m_shootingSystem = weaponPrefab.transform.GetChild(1).GetComponent<ParticleSystem>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
@@ -208,8 +217,10 @@ public class WeaponManager : MonoBehaviour
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireRate);
+            Debug.Log(bulletTransform.transform.position);
+            Debug.Log(bulletTransform.transform.forward);
 
-            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
+            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange))
             {
                 switch (hit.transform.gameObject.layer)
                 {
@@ -221,22 +232,24 @@ public class WeaponManager : MonoBehaviour
                         Debug.Log("enemyHead");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= (currentWeapon.damage * 2);
                         break;
-
-                    //Make it so you only deal damage to players you aren't on a team with.
                     case 11: //teamA
-                        Debug.Log("teamA");
-                        break;
-                    case 12: //teamAhead
-                        Debug.Log("teamAHead");
+                        //if(team != "A")
+                        //{
+                            Debug.Log("Team A");
+                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, hit.transform.gameObject);
+                        //}
                         break;
                     case 13: //teamB
-                        Debug.Log("TeamB");
-                        break;
-                    case 14: //teamBHead
-                        Debug.Log("TeamBHead");
+                        //if (team != "B")
+                        //{
+                            Debug.Log("Team B");
+                            hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+                        //}
                         break;
                     default: break;
                 }
+
+                Debug.DrawRay(bulletTransform.transform.position, bulletTransform.transform.forward);
             }
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
@@ -270,5 +283,15 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("Already at max ammo");
             yield return null;
         }
+    }
+
+    [PunRPC]
+    void RPC_TakeDamage(float damage, GameObject player)
+    {
+        if (!view.IsMine)
+            return;
+
+        player.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+        Debug.Log("take damage");
     }
 }

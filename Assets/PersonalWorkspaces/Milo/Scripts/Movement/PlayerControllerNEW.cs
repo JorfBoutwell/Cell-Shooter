@@ -9,7 +9,7 @@ using Photon.Pun;
 public class PlayerControllerNEW : MonoBehaviourPun
 {
     PlayerManager m_input;
-    Rigidbody m_rb;
+    public Rigidbody m_rb;
     [SerializeField] Camera m_FPSCam;
 
     public MovementState state;
@@ -108,14 +108,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         m_wallRunTimer = m_maxWallRunTime;
         m_exitWallTimer = m_exitWallTime;
 
-        //destroyts this, the camera, and the UI of the others in the room to avoid issues
         view = GetComponent<PhotonView>();
-        if (!view.IsMine)
-        {
-            Destroy(this.gameObject.transform.GetChild(0));
-            Destroy(this.gameObject.transform.GetChild(1).transform.GetChild(1).gameObject);
-            Destroy(this);
-        }
     }
 
     public enum MovementState
@@ -132,7 +125,12 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     private void Update()
     {
-
+        //stops people from controlling eachother
+        if (!view.IsMine)
+        {
+            return;
+        }
+        
         HandleMovement();
         HandleCamera();
         CheckGrounded();
@@ -141,12 +139,12 @@ public class PlayerControllerNEW : MonoBehaviourPun
         StateMachine();
         HandleSliding();
 
-        if(isWallRunning)
+        if (isWallRunning)
             HandleWallRunning();
 
         //tie FOV to movement speed
-//        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
-       //     m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f); 
+        //        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
+        //     m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f);
     }
 
     private void HandleMovement()

@@ -54,7 +54,7 @@ public class DeathScript : MonoBehaviour
         healthUIScript = healthUI.GetComponent<HealthUI>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
 
-        playerManagerScript = playerManager.GetComponent<PlayerManager>();
+        playerManagerScript = GetComponentInParent<PlayerManager>();
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
 

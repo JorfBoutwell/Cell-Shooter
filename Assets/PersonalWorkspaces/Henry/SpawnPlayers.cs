@@ -21,8 +21,11 @@ public class SpawnPlayers : MonoBehaviour
     {
         //spawns in player at -15, 2, -20 (this can be changed to a spawn point by changing the vector 3 to something else
         player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-15, 2, -20), Quaternion.identity);
+
+
+
         //gets the UI element
-        code = player.transform.GetChild(1).GetChild(1).GetChild(1).gameObject.GetComponent<TMP_Text>();
+        code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
         //changes the UI element to the rooms code
         code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
     }
