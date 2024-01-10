@@ -290,7 +290,13 @@ public class WeaponManager : MonoBehaviour
         if (!view.IsMine)
             return;
 
-        player.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+        PlayerManager playerScript = player.GetComponentInParent<PlayerManager>();
+        playerScript.health -= currentWeapon.damage;
+        if(playerScript.health <= 0)
+        {
+            playerScript.isDead = true;
+        }
+
         Debug.Log("take damage");
     }
 }
