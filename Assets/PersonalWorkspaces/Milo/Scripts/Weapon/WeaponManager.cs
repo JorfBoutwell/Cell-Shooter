@@ -237,6 +237,11 @@ public class WeaponManager : MonoBehaviour
                         //{
                             Debug.Log("Team A");
                             view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, hit.transform.parent.gameObject);
+                        hit.transform.parent.gameObject.GetComponent<PlayerManager>().health -= currentWeapon.damage;
+                        if(hit.transform.parent.gameObject.GetComponent<PlayerManager>().health <= 0)
+                        {
+                            hit.transform.parent.gameObject.GetComponent<PlayerManager>().isDead = true;
+                        }
                         //}
                         break;
                     case 13: //teamB
