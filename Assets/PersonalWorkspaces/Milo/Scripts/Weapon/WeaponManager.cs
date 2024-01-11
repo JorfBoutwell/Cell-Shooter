@@ -236,15 +236,16 @@ public class WeaponManager : MonoBehaviour
                         //if(team != "A")
                         //{
                             Debug.Log("Team A");
-                            PhotonView targetPhotonView = hit.transform.GetComponentInParent<PhotonView>();
-                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonView.ViewID);
+                            PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
+                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
                         //}
                         break;
                     case 13: //teamB
                         //if (team != "B")
                         //{
                             Debug.Log("Team B");
-                            hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+                            PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
+                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
                         //}
                         break;
                     default: Debug.Log("nothing");  break;
@@ -290,19 +291,9 @@ public class WeaponManager : MonoBehaviour
     {
         PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
 
-        if(targetPhotonView != null)
+        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
         {
             targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
         }
-
-
-        /*PlayerManager playerScript = player.GetComponentInParent<PlayerManager>();
-        playerScript.health -= currentWeapon.damage;
-        if(playerScript.health <= 0)
-        {
-            playerScript.isDead = true;
-        }*/
-
-        Debug.Log("take damage");
     }
 }
