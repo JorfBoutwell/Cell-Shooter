@@ -94,6 +94,11 @@ public class PlayerManager : MonoBehaviourPun
     public void ApplyDamage(float damage)
     {
         health -= damage;
+        if(health <= 0)
+        {
+            isDead = true;
+        }
+
         return;
     }
 
