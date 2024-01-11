@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 100
   fireRate: 0.66
-  damage: 2
+  damage: 50
   reloadTime: 1.5
   weaponRange: 100000
   fireMode: hitscan

@@ -28,7 +28,7 @@ public class HealthUI : MonoBehaviour
     void Update()
     {
         //Health UI Damage
-        if (Input.GetKeyDown(KeyCode.L)) //For Testing
+        /*if (Input.GetKeyDown(KeyCode.L)) //For Testing
         {
             
             playerManagerScript.health -= damageTaken;
@@ -38,7 +38,7 @@ public class HealthUI : MonoBehaviour
             {
                 playerManagerScript.isDead = true;
             }
-        }
+        }*/
 
         if(lastHealth != playerManagerScript.health)
         {

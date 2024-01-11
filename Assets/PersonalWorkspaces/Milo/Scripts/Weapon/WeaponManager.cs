@@ -236,12 +236,8 @@ public class WeaponManager : MonoBehaviour
                         //if(team != "A")
                         //{
                             Debug.Log("Team A");
-                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, hit.transform.parent.gameObject);
-                        hit.transform.parent.gameObject.GetComponent<PlayerManager>().health -= currentWeapon.damage;
-                        if(hit.transform.parent.gameObject.GetComponent<PlayerManager>().health <= 0)
-                        {
-                            hit.transform.parent.gameObject.GetComponent<PlayerManager>().isDead = true;
-                        }
+                            PhotonView targetPhotonView = hit.transform.GetComponentInParent<PhotonView>();
+                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonView.ViewID);
                         //}
                         break;
                     case 13: //teamB
@@ -290,20 +286,22 @@ public class WeaponManager : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float damage, GameObject player)
+    void RPC_TakeDamage(float damage, int targetPhotonViewID)
     {
-        if (!view.IsMine)
+        PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
+
+        if(targetPhotonView != null)
         {
-            Debug.Log("npt mine");
-            return;
+            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
         }
 
-        PlayerManager playerScript = player.GetComponentInParent<PlayerManager>();
+
+        /*PlayerManager playerScript = player.GetComponentInParent<PlayerManager>();
         playerScript.health -= currentWeapon.damage;
         if(playerScript.health <= 0)
         {
             playerScript.isDead = true;
-        }
+        }*/
 
         Debug.Log("take damage");
     }
