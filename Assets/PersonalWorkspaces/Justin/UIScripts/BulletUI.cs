@@ -27,13 +27,13 @@ public class BulletUI : MonoBehaviour
     void Update()
     {
 
-        if ((weaponManagerScript.state == WeaponManager.WeaponState.shooting) && playerManagerScript.ammo > 0f && !weaponManagerScript.isReloading)
+       /* if ((weaponManagerScript.state == WeaponManager.WeaponState.shooting) && playerManagerScript.ammo > 0f && !weaponManagerScript.isReloading)
         {
             if (Input.GetMouseButtonUp(0)) {
 
-                bulletCount.GetComponentInChildren<TextMeshProUGUI>().text = playerManagerScript.ammo.ToString("0");
+                bulletUI.text = ammo.ToString("0");
             }
-        }
+        }*/
 
     }
 

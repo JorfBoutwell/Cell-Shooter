@@ -222,6 +222,8 @@ public class WeaponManager : MonoBehaviour
         {
             yield return new WaitForSeconds(currentWeapon.fireRate);
 
+            currentAmmo--;
+
             bulletUI.text = currentAmmo.ToString("0");
             Debug.Log(bulletTransform.transform.position);
             Debug.Log(bulletTransform.transform.forward);
@@ -265,8 +267,6 @@ public class WeaponManager : MonoBehaviour
             }else{
                 isShooting = false;
             }
-
-            currentAmmo--;
             yield return null;
         }else{
             isShooting = false;
