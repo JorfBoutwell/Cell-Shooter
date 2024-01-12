@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 100
   fireRate: 0.66
-  damage: 2
+  damage: 50
   reloadTime: 1.5
-  weaponRange: 50
+  weaponRange: 100000
   fireMode: hitscan
   modelPrefab: {fileID: 6397069616505952210, guid: f05ddbee0e15f1140983e409b6cfd9c7, type: 3}

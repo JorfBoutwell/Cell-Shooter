@@ -220,7 +220,7 @@ public class WeaponManager : MonoBehaviour
             Debug.Log(bulletTransform.transform.position);
             Debug.Log(bulletTransform.transform.forward);
 
-            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange))
+            if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
                 switch (hit.transform.gameObject.layer)
                 {
@@ -236,20 +236,21 @@ public class WeaponManager : MonoBehaviour
                         //if(team != "A")
                         //{
                             Debug.Log("Team A");
-                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, hit.transform.gameObject);
+                            PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
+                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
                         //}
                         break;
                     case 13: //teamB
                         //if (team != "B")
                         //{
                             Debug.Log("Team B");
-                            hit.transform.gameObject.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
+                            PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
+                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
                         //}
                         break;
-                    default: break;
+                    default: Debug.Log("nothing");  break;
                 }
 
-                Debug.DrawRay(bulletTransform.transform.position, bulletTransform.transform.forward);
             }
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
@@ -286,12 +287,13 @@ public class WeaponManager : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float damage, GameObject player)
+    void RPC_TakeDamage(float damage, int targetPhotonViewID)
     {
-        if (!view.IsMine)
-            return;
+        PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
 
-        player.GetComponentInParent<PlayerManager>().health -= currentWeapon.damage;
-        Debug.Log("take damage");
+        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
+        {
+            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
+        }
     }
 }

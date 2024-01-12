@@ -14,6 +14,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     //input variables for room codes
     public string createInput;
     public InputField joinInput;
+    public InputField Nickname;
 
     //runs when you create a room, makes a room in server
     public void CreateRoom()
@@ -31,6 +32,14 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     //opens the scene that the room is in
     public override void OnJoinedRoom()
     {
+        if (Nickname.text != "")
+        {
+            PhotonNetwork.NickName = Nickname.text;
+        }
+        else
+        {
+            PhotonNetwork.NickName = "IM a Loser LOL";
+        }
         PhotonNetwork.LoadLevel("Multiplayer World");
     }
 }

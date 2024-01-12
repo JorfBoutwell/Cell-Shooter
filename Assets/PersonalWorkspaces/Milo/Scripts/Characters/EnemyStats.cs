@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    private float m_hp = 100;
     public bool marked = false;
     private GameObject m_markObject;
 

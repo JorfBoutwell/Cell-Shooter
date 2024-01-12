@@ -17,6 +17,7 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject player;
     public TMP_Text code;
 
+
     private void Start()
     {
         //spawns in player at -15, 2, -20 (this can be changed to a spawn point by changing the vector 3 to something else

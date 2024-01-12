@@ -89,6 +89,19 @@ public class PlayerManager : MonoBehaviourPun
     {
         team = teamName;
     }
+
+    [PunRPC]
+    public void ApplyDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            isDead = true;
+        }
+
+        return;
+    }
+
     private void AssignInputs()
     {
         inputActions.Movement.Jump.performed += ctx => m_player.Jump();
