@@ -42,6 +42,8 @@ public class HealthUI : MonoBehaviour
 
         if(lastHealth != playerManagerScript.health)
         {
+            healthBarUI = playerManagerScript.health * 6.8f;
+
             damageTaken = lastHealth - playerManagerScript.health;
             damageTakenUI = damageTaken * 6.8f;
             healthBarUI -= damageTakenUI;

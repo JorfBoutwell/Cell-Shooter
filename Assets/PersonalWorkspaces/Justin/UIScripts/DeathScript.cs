@@ -144,7 +144,7 @@ public class DeathScript : MonoBehaviour
     {
         playerManagerScript.isDead = false;
         playerManagerScript.health = 100; //Subject to change
-        healthUIScript.healthBarUI = 680;
+        healthUIScript.healthBarUI = playerManagerScript.health * 6.8f;
         healthUIScript.healthShadow = healthUIScript.healthBarUI;
         healthUIScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(healthUIScript.healthBarUI, 90);
         healthUIScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(healthUIScript.healthShadow, 90);
