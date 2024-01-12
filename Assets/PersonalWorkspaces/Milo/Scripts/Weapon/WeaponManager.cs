@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Transform m_armTransform;
     public Transform bulletTransform;
     [SerializeField] LayerMask m_enemyMask;
+
+    public TextMeshProUGUI bulletUI;
 
     public int currentAmmo;
 
@@ -52,6 +55,7 @@ public class WeaponManager : MonoBehaviour
         animController = GetComponentInChildren<AnimationController>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
+        bulletUI.text = currentWeapon.maxAmmo.ToString("0");
 
         team = GetComponent<PlayerManager>().team;
 
@@ -217,6 +221,8 @@ public class WeaponManager : MonoBehaviour
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireRate);
+
+            bulletUI.text = currentAmmo.ToString("0");
             Debug.Log(bulletTransform.transform.position);
             Debug.Log(bulletTransform.transform.forward);
 
@@ -277,6 +283,7 @@ public class WeaponManager : MonoBehaviour
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
             currentAmmo = currentWeapon.maxAmmo;
+            bulletUI.text = currentAmmo.ToString("0");
             isReloading = false;
         }
         else

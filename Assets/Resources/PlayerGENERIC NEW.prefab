@@ -378,6 +378,7 @@ MonoBehaviour:
   m_enemyMask:
     serializedVersion: 2
     m_Bits: 30720
+  bulletUI: {fileID: 6550541714398719811}
   currentAmmo: 0
   m_projectile: {fileID: 0}
   m_shootingSystem: {fileID: 0}
@@ -1335,6 +1336,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1865671552836607722, guid: f61710afb9da0472d969323947e82c78, type: 3}
+    - {fileID: 5638732128653022983, guid: f61710afb9da0472d969323947e82c78, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1107212518475778363, guid: f61710afb9da0472d969323947e82c78, type: 3}
       insertIndex: -1
@@ -1363,6 +1365,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeamA: []
   TeamB: []
+--- !u!114 &6550541714398719811 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+  m_PrefabInstance: {fileID: 7406348969651712959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7608049606889765508 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1107212518475778363, guid: f61710afb9da0472d969323947e82c78, type: 3}
