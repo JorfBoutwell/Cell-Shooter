@@ -33,7 +33,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     [Header("Movement Variables")]
     Vector3 m_moveDirection;
-    Vector3 m_moveInput;
+    public Vector3 moveInput;
     [SerializeField] float m_groundDrag;
 
     [Header("Camera Variables")]
@@ -149,11 +149,11 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     private void HandleMovement()
     {
-        m_moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>() * Time.deltaTime;
+        moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>() * Time.deltaTime;
         Vector3 flatVel = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
         if (canMove)
         {
-            m_moveDirection = m_orientation.forward * m_moveInput.y + m_orientation.right * m_moveInput.x;
+            m_moveDirection = m_orientation.forward * moveInput.y + m_orientation.right * moveInput.x;
             m_groundDrag = 5;
         }
 
@@ -230,7 +230,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
     {
         MovementState tempState = state;
 
-        if ((m_wallLeft || m_wallRight) && m_moveInput.y > 0 && !isGrounded && !m_exitingWall)
+        if ((m_wallLeft || m_wallRight) && moveInput.y > 0 && !isGrounded && !m_exitingWall)
         {
             state = MovementState.wallrunning;
             if (!isWallRunning)
@@ -387,7 +387,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
         m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
 
-        if (!(m_wallLeft && m_moveInput.x > 0) && !(m_wallRight && m_moveInput.x < 0))
+        if (!(m_wallLeft && moveInput.x > 0) && !(m_wallRight && moveInput.x < 0))
             m_rb.AddForce(-wallNormal * 100, ForceMode.Force);
 
         if (m_rb.useGravity)
