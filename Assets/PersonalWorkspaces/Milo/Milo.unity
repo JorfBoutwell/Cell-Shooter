@@ -751,7 +751,8 @@ PrefabInstance:
       value: -72.479996
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1948159588298996727, guid: f61710afb9da0472d969323947e82c78, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7144287037603065320, guid: f61710afb9da0472d969323947e82c78, type: 3}
@@ -1137,6 +1138,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e25015d5954b9e4bb5c8e4dd32afca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &576615872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576615847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebef38ebb016583458e6d1706a347c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityList:
+  - {fileID: 11400000, guid: 4dea3adee2b25e54db2dc08d4c530830, type: 2}
+  - {fileID: 11400000, guid: 9fb0c1d791db3454b929e316594ebee4, type: 2}
+  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
+  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
+  currentAbility: {fileID: 0}
 --- !u!1001 &595664775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2407,6 +2426,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: c98c7065d3017a2499c419f82d6b13c9, type: 2}
+    - target: {fileID: 7382929218300462246, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9205376155456986774, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.5
@@ -2431,6 +2454,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 810303580}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1576989017386804971, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 576615872}
     - targetCorrespondingSourceObject: {fileID: 1576989017386804971, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 576615849}

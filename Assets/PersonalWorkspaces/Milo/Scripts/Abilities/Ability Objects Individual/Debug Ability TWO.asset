@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d662e7e9b8a60e479c8b5842c8b6b88, type: 3}
   m_Name: Debug Ability TWO
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: Debug 2
   iconImage: {fileID: 0}
-  cooldownTime: 0
-  activeTime: 0
+  cooldownTime: 3
+  activeTime: 1

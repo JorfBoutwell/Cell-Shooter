@@ -398,7 +398,7 @@
                 {
                     "name": "",
                     "id": "c61b3850-8a03-460c-86a3-00ba7f8468d2",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -458,6 +458,24 @@
                     "name": "Ability 2",
                     "type": "Button",
                     "id": "ddb54851-bcb8-4854-90f6-1a99ff1730f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability 3",
+                    "type": "Button",
+                    "id": "8e9d87b0-14a1-4ab8-ac99-715c02786210",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability 4",
+                    "type": "Button",
+                    "id": "d64765f1-c662-4a6c-9881-7e2f4ee92ee5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -548,6 +566,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Secondary Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba884243-78f2-4618-bc46-d0005af52636",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95e69059-3e07-4717-a022-93cf1bd71fdc",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability 4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

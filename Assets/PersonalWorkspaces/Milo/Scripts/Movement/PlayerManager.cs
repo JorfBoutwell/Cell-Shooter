@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviourPun
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
-    AbilityHolder m_abilityManger;
+    AbilityManager m_abilityManger;
     Neuron m_neuron;
 
     [SerializeField] GameObject UI;
@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviourPun
         inputActions = new InputActions();
         m_player = GetComponent<PlayerControllerNEW>();
         m_weapon = GetComponent<WeaponManager>();
-        m_abilityManger = GetComponent<AbilityHolder>();
+        m_abilityManger = GetComponent<AbilityManager>();
         m_neuron = GetComponent<Neuron>();
 
         ammo = m_weapon.currentWeapon.maxAmmo;
@@ -120,6 +120,8 @@ public class PlayerManager : MonoBehaviourPun
 
         inputActions.Ability.Ability1.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[0];
         inputActions.Ability.Ability2.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[1];
+        inputActions.Ability.Ability3.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[2];
+        inputActions.Ability.Ability3.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[3];
     }
     private void OnEnable()
     {

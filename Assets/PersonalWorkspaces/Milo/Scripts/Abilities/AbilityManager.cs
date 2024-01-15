@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityHolder : MonoBehaviour
+public class AbilityManager : MonoBehaviour
 {
     public Ability[] abilityList;
     public Ability currentAbility;
