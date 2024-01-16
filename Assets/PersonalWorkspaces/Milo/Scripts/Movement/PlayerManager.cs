@@ -122,6 +122,7 @@ public class PlayerManager : MonoBehaviourPun
         inputActions.Ability.Ability2.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[1];
         inputActions.Ability.Ability3.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[2];
         inputActions.Ability.Ability3.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[3];
+        inputActions.Weapon.Melee.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[4];
     }
     private void OnEnable()
     {

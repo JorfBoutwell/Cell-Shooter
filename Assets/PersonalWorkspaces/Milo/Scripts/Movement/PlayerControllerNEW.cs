@@ -51,7 +51,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
     [Header("Slope Variables")]
     [SerializeField] float m_maxSlopeAngle;
     private RaycastHit m_slopeHit;
-    [SerializeField] Vector3 slopeMoveDirection;
+    [SerializeField] Vector3 m_slopeMoveDirection;
+    [SerializeField] float m_slopeDownForce;
 
     [Header("Jump Variables")]
     [SerializeField] float m_jumpForce;
@@ -140,7 +141,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         StateMachine();
         HandleSliding();
 
-        slopeMoveDirection = Vector3.ProjectOnPlane(m_moveDirection, m_slopeHit.normal);
+        m_slopeMoveDirection = Vector3.ProjectOnPlane(m_moveDirection, m_slopeHit.normal);
 
         if (isWallRunning)
             HandleWallRunning();
@@ -173,8 +174,11 @@ public class PlayerControllerNEW : MonoBehaviourPun
         else if (isGrounded && OnSlope())
         {
             m_rb.drag = m_groundDrag;
-            m_rb.AddForce(slopeMoveDirection.normalized * m_movementSpeed, ForceMode.Acceleration);
+            m_rb.AddForce(m_slopeMoveDirection.normalized * m_movementSpeed, ForceMode.Acceleration);
             m_rb.useGravity = false;
+            if(m_moveDirection != Vector3.zero)
+                m_rb.AddForce(Vector3.down * m_slopeDownForce, ForceMode.Force);
+                
         }
         else if (!isGrounded)
         {
