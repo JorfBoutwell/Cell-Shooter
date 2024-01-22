@@ -33,7 +33,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     [Header("Movement Variables")]
     Vector3 m_moveDirection;
-    Vector3 m_moveInput;
+    public Vector3 moveInput;
     [SerializeField] float m_groundDrag;
 
     [Header("Camera Variables")]
@@ -48,6 +48,12 @@ public class PlayerControllerNEW : MonoBehaviourPun
     [SerializeField] float m_playerHeight;
     [SerializeField] LayerMask m_groundLayer;
 
+    [Header("Slope Variables")]
+    [SerializeField] float m_maxSlopeAngle;
+    private RaycastHit m_slopeHit;
+    [SerializeField] Vector3 m_slopeMoveDirection;
+    [SerializeField] float m_slopeDownForce;
+
     [Header("Jump Variables")]
     [SerializeField] float m_jumpForce;
     [SerializeField] float m_airMultiplier;
@@ -55,10 +61,6 @@ public class PlayerControllerNEW : MonoBehaviourPun
     [Header("Sprint/Crouch Variables")]
     [SerializeField] float startCamY;
     [SerializeField] float crouchCamY;
-
-    [Header("Slope Variables")]
-    [SerializeField] float m_maxSlopeAngle;
-    [SerializeField] RaycastHit m_slopeHit;
 
     [Header("Slide Variables")]
     [SerializeField] float m_slideForce;
@@ -139,6 +141,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
         StateMachine();
         HandleSliding();
 
+        m_slopeMoveDirection = Vector3.ProjectOnPlane(m_moveDirection, m_slopeHit.normal);
+
         if (isWallRunning)
             HandleWallRunning();
 
@@ -149,42 +153,41 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     private void HandleMovement()
     {
-        m_moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>() * Time.deltaTime;
+        moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>() * Time.deltaTime;
+
+        
+
         Vector3 flatVel = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
         if (canMove)
         {
-            m_moveDirection = m_orientation.forward * m_moveInput.y + m_orientation.right * m_moveInput.x;
+            m_moveDirection = m_orientation.forward * moveInput.y + m_orientation.right * moveInput.x;
             m_groundDrag = 5;
         }
 
-        if (OnSlope() && !isJumping)
-        {
-            m_rb.AddForce(GetSlopeMoveDirection() * 20f, ForceMode.Force);
 
-            if (m_rb.velocity.y > 0)
-                m_rb.AddForce(Vector3.down * 40f, ForceMode.Force);
-
-            if (m_rb.velocity.magnitude > m_movementSpeed)
-            {
-                m_rb.velocity = m_rb.velocity.normalized * m_movementSpeed;
-            }
-        }
-
-        if (isGrounded)
+        if (isGrounded && !OnSlope())
         {
             m_rb.drag = m_groundDrag;
-            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed, ForceMode.Force);
+            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed, ForceMode.Acceleration);
+            m_rb.useGravity = true;
         }
-        else
+        else if (isGrounded && OnSlope())
+        {
+            m_rb.drag = m_groundDrag;
+            m_rb.AddForce(m_slopeMoveDirection.normalized * m_movementSpeed, ForceMode.Acceleration);
+            m_rb.useGravity = false;
+            if(m_moveDirection != Vector3.zero)
+                m_rb.AddForce(Vector3.down * m_slopeDownForce, ForceMode.Force);
+                
+        }
+        else if (!isGrounded)
         {
             m_rb.drag = 0;
-            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed * m_airMultiplier, ForceMode.Force);
+            m_rb.AddForce(m_moveDirection.normalized * m_movementSpeed * m_airMultiplier, ForceMode.Acceleration);
+            m_rb.useGravity = true;
         }
 
-        if(!isWallRunning)
-            m_rb.useGravity = !OnSlope();
-
-        if (flatVel.magnitude > m_movementSpeed && !OnSlope())
+        if (flatVel.magnitude > m_movementSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * m_movementSpeed;
             m_rb.velocity = new Vector3(limitedVel.x, m_rb.velocity.y, limitedVel.z);
@@ -219,18 +222,13 @@ public class PlayerControllerNEW : MonoBehaviourPun
         return false;
     }
 
-    private Vector3 GetSlopeMoveDirection()
-    {
-        return Vector3.ProjectOnPlane(m_moveDirection, m_slopeHit.normal).normalized;
-    }
-
     /*Movement Actions*/
 
     private void StateMachine()
     {
         MovementState tempState = state;
 
-        if ((m_wallLeft || m_wallRight) && m_moveInput.y > 0 && !isGrounded && !m_exitingWall)
+        if ((m_wallLeft || m_wallRight) && moveInput.y > 0 && !isGrounded && !m_exitingWall)
         {
             state = MovementState.wallrunning;
             if (!isWallRunning)
@@ -387,7 +385,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
         m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
 
-        if (!(m_wallLeft && m_moveInput.x > 0) && !(m_wallRight && m_moveInput.x < 0))
+        if (!(m_wallLeft && moveInput.x > 0) && !(m_wallRight && moveInput.x < 0))
             m_rb.AddForce(-wallNormal * 100, ForceMode.Force);
 
         if (m_rb.useGravity)
