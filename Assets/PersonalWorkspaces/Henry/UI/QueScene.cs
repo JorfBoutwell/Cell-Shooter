@@ -9,6 +9,9 @@ public class QueScene : MonoBehaviourPunCallbacks
     private static readonly string TeamPropKey = "TeamBlue?";
     private bool teamBlue = false;
 
+    private static readonly string ReadyPropKey = "ReadyUp";
+    private bool ready = false;
+
     private void Start()
     {
         if (photonView.IsMine)
@@ -34,6 +37,15 @@ public class QueScene : MonoBehaviourPunCallbacks
         }
     }
 
+    public void updateReadyState(bool value)
+    {
+        if (photonView.IsMine)
+        {
+            ready = value;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { ReadyPropKey, value } });
+        }
+    }
+
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         if (targetPlayer != null && targetPlayer == PhotonNetwork.LocalPlayer)
@@ -49,6 +61,18 @@ public class QueScene : MonoBehaviourPunCallbacks
                     Debug.Log("Player is team Red:" + targetPlayer.NickName);
                 }
                 
+            }
+
+            if (changedProps.ContainsKey(ReadyPropKey))
+            {
+                ready = (bool)changedProps[ReadyPropKey];
+                if (ready)
+                {
+                    Debug.Log(targetPlayer.NickName + " is ready");
+                } else
+                {
+                    Debug.Log(targetPlayer.NickName + " is not ready");
+                }
             }
         }
     }
