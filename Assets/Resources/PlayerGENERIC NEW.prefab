@@ -275,6 +275,7 @@ MonoBehaviour:
   isCrouching: 0
   isSliding: 0
   isWallRunning: 0
+  moveInput: {x: 0, y: 0, z: 0}
   m_groundDrag: 0
   m_sensitivityX: 15
   m_sensitivityY: 15
@@ -284,11 +285,13 @@ MonoBehaviour:
   m_groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  m_maxSlopeAngle: 40
+  m_slopeMoveDirection: {x: 0, y: 0, z: 0}
+  m_slopeDownForce: 0
   m_jumpForce: 7
   m_airMultiplier: 0.6
   startCamY: 0
   crouchCamY: 0
-  m_maxSlopeAngle: 40
   m_slideForce: 150
   m_slideTimer: 0
   maxSlideTime: 0.5
