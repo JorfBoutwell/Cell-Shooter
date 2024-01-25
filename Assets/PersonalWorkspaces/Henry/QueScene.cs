@@ -16,7 +16,7 @@ public class QueScene : MonoBehaviourPunCallbacks
 
     public GameObject start;
 
-    int recentJoin = 0;
+    int recentJoin = 60;
 
     private void Start()
     {
