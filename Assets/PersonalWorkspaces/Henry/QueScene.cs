@@ -146,6 +146,7 @@ public class QueScene : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            PhotonNetwork.AutomaticallySyncScene = true;
             PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }
