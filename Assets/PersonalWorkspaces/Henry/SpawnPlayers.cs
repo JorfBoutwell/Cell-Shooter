@@ -15,7 +15,7 @@ public class SpawnPlayers : MonoBehaviour
     //variabels needed
     public GameObject playerPrefab;
     public GameObject player;
-    public string code;
+    public TMP_Text code;
 
 
     private void Start()
@@ -26,10 +26,10 @@ public class SpawnPlayers : MonoBehaviour
 
 
         //gets the UI element
-        //code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
-        code = PhotonNetwork.CurrentRoom.Name;
+        code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
+        //code = PhotonNetwork.CurrentRoom.Name;
         //changes the UI element to the rooms code
-        //code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
+        code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
     }
 
 

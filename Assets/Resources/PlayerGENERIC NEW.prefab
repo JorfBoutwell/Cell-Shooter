@@ -1366,8 +1366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb49ac1ac57641f8aa9e8263f82b415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamA: []
-  TeamB: []
+  start: {fileID: 0}
 --- !u!114 &6550541714398719811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
