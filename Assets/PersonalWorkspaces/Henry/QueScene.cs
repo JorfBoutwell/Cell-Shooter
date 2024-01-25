@@ -22,7 +22,7 @@ public class QueScene : MonoBehaviourPunCallbacks
         {
             //get list of all team blue players
             List<Player> teamBlue = GetTeamBlue();
-            if (teamBlue.Count <= PhotonNetwork.PlayerList.Length / 2)
+            if (teamBlue.Count < PhotonNetwork.PlayerList.Length / 2)
             {
                 //if less than or equal # of players are blue to red
                 SetTeam(true);
