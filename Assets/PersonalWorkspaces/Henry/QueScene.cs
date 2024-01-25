@@ -16,10 +16,13 @@ public class QueScene : MonoBehaviourPunCallbacks
 
     public GameObject start;
 
+    int recentJoin = 0;
+
     private void Start()
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && recentJoin > 0)
         {
+            recentJoin -= 1;
             //get list of all team blue players
             List<Player> teamBlue = GetTeamBlue();
             if (teamBlue.Count < PhotonNetwork.PlayerList.Length / 2)
@@ -58,6 +61,10 @@ public class QueScene : MonoBehaviourPunCallbacks
             //makes custom variable in photon for ready status, will always be with player in the game
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { ReadyPropKey, value } });
         }
+    }
+    private void OnPlayerConnected()
+    {
+        recentJoin = 60;
     }
 
     //runs every time a property is updated
