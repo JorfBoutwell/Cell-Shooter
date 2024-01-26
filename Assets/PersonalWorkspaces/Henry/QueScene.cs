@@ -147,7 +147,13 @@ public class QueScene : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.AutomaticallySyncScene = true;
-            PhotonNetwork.LoadLevel("Multiplayer World");
+            photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
         }
+    }
+
+    [PunRPC]
+    void RPC_NewScene()
+    {
+        PhotonNetwork.LoadLevel("Multiplayer World");
     }
 }
