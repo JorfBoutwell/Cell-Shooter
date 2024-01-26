@@ -39,7 +39,7 @@ public class QueScene : MonoBehaviourPunCallbacks
         updateReadyState(false);
     }
 
-    //sets team based on what is passed
+    //sets team based on what is passeds
     public void SetTeam(bool value)
     {
         if (photonView.IsMine)
@@ -70,6 +70,28 @@ public class QueScene : MonoBehaviourPunCallbacks
     //runs every time a property is updated
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
+        int readyCount = 0;
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            object readyUp;
+            if (player.CustomProperties.TryGetValue(ReadyPropKey, out readyUp))
+            {
+                if ((bool)readyUp)
+                {
+                    readyCount++;
+                }
+            }
+
+        }
+        if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.PlayerList.Length)
+        {
+            Debug.Log(readyCount + "      " + PhotonNetwork.PlayerList.Length);
+            start.SetActive(true);
+        }
+        else
+        {
+            start.SetActive(false);
+        }
         //if the change being made is for the local user
         if (targetPlayer != null && targetPlayer == PhotonNetwork.LocalPlayer)
         {
@@ -100,26 +122,7 @@ public class QueScene : MonoBehaviourPunCallbacks
                     Debug.Log(targetPlayer.NickName + " is not ready");
                 }
 
-                int readyCount = 0;
-                foreach (Player player in PhotonNetwork.PlayerList)
-                {
-                    object readyUp;
-                    if (player.CustomProperties.TryGetValue(ReadyPropKey, out readyUp)) {
-                        if ((bool)readyUp)
-                        {
-                            readyCount++;
-                        }
-                    }
-
-                }
-                if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.PlayerList.Length)
-                {
-                    Debug.Log(readyCount + "      " + PhotonNetwork.PlayerList.Length);
-                    start.SetActive(true);
-                } else
-                {
-                    start.SetActive(false);
-                }
+                
             }
         }
     }
