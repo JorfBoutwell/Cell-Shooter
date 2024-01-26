@@ -8,12 +8,12 @@ using TMPro;
 
 public class DisplayTeams : MonoBehaviourPunCallbacks
 {
-    private static readonly string TeamPropKey = "TeamBlue?";
+    private static readonly string TeamPropKey = "TeamA?";
 
     private static readonly string ReadyPropKey = "ReadyUp";
 
-    public VerticalLayoutGroup TeamBlue;
-    public VerticalLayoutGroup TeamRed;
+    public VerticalLayoutGroup teamA;
+    public VerticalLayoutGroup teamB;
 
     private void Update()
     {
@@ -21,39 +21,39 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
         int redCounter = 0;
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            object blueTeam;
+            object aTeam;
             object ready;
-            if (player.CustomProperties.TryGetValue(TeamPropKey, out blueTeam) && player.CustomProperties.TryGetValue(ReadyPropKey, out ready))
+            if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam) && player.CustomProperties.TryGetValue(ReadyPropKey, out ready))
             {
-                if ((bool)blueTeam)
+                if ((bool)aTeam)
                 {
-                    TeamBlue.transform.GetChild(blueCounter).gameObject.SetActive(true);
-                    TeamBlue.transform.GetChild(blueCounter).GetComponent<TMP_Text>().SetText(player.NickName);
+                    teamA.transform.GetChild(blueCounter).gameObject.SetActive(true);
+                    teamA.transform.GetChild(blueCounter).GetComponent<TMP_Text>().SetText(player.NickName);
 
                     if ((bool)ready)
                     {
-                        TeamBlue.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(true);
-                        TeamBlue.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(false);
+                        teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(true);
+                        teamA.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(false);
                     } else
                     {
-                        TeamBlue.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(true);
-                        TeamBlue.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(false);
+                        teamA.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(true);
+                        teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(false);
                     }
                     blueCounter++;
                 } else
                 {
-                    TeamRed.transform.GetChild(redCounter).gameObject.SetActive(true);
-                    TeamRed.transform.GetChild(redCounter).GetComponent<TMP_Text>().SetText(player.NickName);
+                    teamB.transform.GetChild(redCounter).gameObject.SetActive(true);
+                    teamB.transform.GetChild(redCounter).GetComponent<TMP_Text>().SetText(player.NickName);
 
                     if ((bool)ready)
                     {
-                        TeamRed.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(true);
-                        TeamRed.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(false);
+                        teamB.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(true);
+                        teamB.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(false);
                     }
                     else
                     {
-                        TeamRed.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(true);
-                        TeamRed.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(false);
+                        teamB.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(true);
+                        teamB.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(false);
                     }
                     redCounter++;
                 }

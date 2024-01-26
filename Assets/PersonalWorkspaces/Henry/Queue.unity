@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Blue Team
+  m_text: A Team
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1249,7 +1249,7 @@ GameObject:
   - component: {fileID: 657161505}
   - component: {fileID: 657161504}
   m_Layer: 0
-  m_Name: Blue
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1644,8 +1644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21b041438cfc41119702e8f66d16a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamBlue: {fileID: 1787760867}
-  TeamRed: {fileID: 1271339438}
+  teamA: {fileID: 1787760867}
+  teamB: {fileID: 1271339438}
 --- !u!1 &1225452859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 1225452862}
   - component: {fileID: 1225452861}
   m_Layer: 0
-  m_Name: Red
+  m_Name: B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1856,7 +1856,7 @@ GameObject:
   - component: {fileID: 1271339437}
   - component: {fileID: 1271339438}
   m_Layer: 0
-  m_Name: TeamANames
+  m_Name: TeamBNames
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2632,7 +2632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Blue Team
+  m_text: B Team
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

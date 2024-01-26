@@ -4,11 +4,11 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class QueScene : MonoBehaviourPunCallbacks
+public class QueueScene : MonoBehaviourPunCallbacks
 {
     //key and local players team variable
-    private static readonly string TeamPropKey = "TeamBlue?";
-    private bool teamBlue = false;
+    private static readonly string TeamPropKey = "TeamA?";
+    private bool teamA = false;
 
     //key and local players ready status
     private static readonly string ReadyPropKey = "ReadyUp";
@@ -18,14 +18,17 @@ public class QueScene : MonoBehaviourPunCallbacks
 
     int recentJoin = 60;
 
+    public GameObject dictionary;
+
     private void Start()
     {
+        //dictionary = 
         if (photonView.IsMine && recentJoin > 0)
         {
             recentJoin -= 1;
             //get list of all team blue players
-            List<Player> teamBlue = GetTeamBlue();
-            if (teamBlue.Count < PhotonNetwork.PlayerList.Length / 2)
+            List<Player> teamA = GetTeamA();
+            if (teamA.Count < PhotonNetwork.PlayerList.Length / 2)
             {
                 //if less than or equal # of players are blue to red
                 SetTeam(true);
@@ -71,7 +74,7 @@ public class QueScene : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             //stores passed variable
-            teamBlue = value;
+            teamA = value;
             //makes a custom variable in photon for team, will always be with player while in the game
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamPropKey, value } });
         }
@@ -103,13 +106,13 @@ public class QueScene : MonoBehaviourPunCallbacks
             if (changedProps.ContainsKey(TeamPropKey))
             {
                 //check if the player is blue or red and report to all
-                teamBlue = (bool)changedProps[TeamPropKey];
-                if (teamBlue)
+                teamA = (bool)changedProps[TeamPropKey];
+                if (teamA)
                 {
-                    Debug.Log("Player is team Blue:" + targetPlayer.NickName);
+                    Debug.Log("Player is team A:" + targetPlayer.NickName);
                 } else
                 {
-                    Debug.Log("Player is team Red:" + targetPlayer.NickName);
+                    Debug.Log("Player is team B:" + targetPlayer.NickName);
                 }
                 
             }
@@ -131,22 +134,22 @@ public class QueScene : MonoBehaviourPunCallbacks
         }
     }
     //gets list of all players on the blue team
-    public List<Player> GetTeamBlue()
+    public List<Player> GetTeamA()
     {
-        List<Player> bluePlayers = new List<Player>();
+        List<Player> aPlayers = new List<Player>();
 
         foreach(Player player in PhotonNetwork.PlayerList)
         {
-            object blueTeam;
-            if (player.CustomProperties.TryGetValue(TeamPropKey, out blueTeam))
+            object aTeam;
+            if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam))
             {
-                if ((bool)blueTeam)
+                if ((bool)aTeam)
                 {
-                    bluePlayers.Add(player);
+                    aPlayers.Add(player);
                 }
             }
         }
-        return bluePlayers;
+        return aPlayers;
     }
 
     public void StartGame()
@@ -154,6 +157,12 @@ public class QueScene : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.AutomaticallySyncScene = true;
+            foreach (Player player in PhotonNetwork.PlayerList)
+            {
+                object aTeam;
+                dictionary.GetComponent<CustomVariableDictionary>().team.Add(player.ActorNumber, player.CustomProperties.TryGetValue(TeamPropKey, out aTeam));
+            }
+            
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
         }
     }
@@ -161,6 +170,8 @@ public class QueScene : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_NewScene()
     {
+        PlayerManager.DontDestroyOnLoad(dictionary);
         PhotonNetwork.LoadLevel("Multiplayer World");
+        
     }
 }

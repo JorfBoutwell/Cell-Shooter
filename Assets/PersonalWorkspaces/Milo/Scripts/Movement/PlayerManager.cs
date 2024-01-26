@@ -24,19 +24,27 @@ public class PlayerManager : MonoBehaviourPun
     public string character;
     public bool isDead = false;
 
+    //key to team custom variable
+    private static readonly string TeamPropKey = "TeamBlue?";
+
     PhotonView view;
 
     private void Awake()
     {
-        team = "A";
         //set team layer
-        if(team == "A")
+        object teamA;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(TeamPropKey, out teamA))
         {
-            this.transform.gameObject.layer = 11;
-        }
-        else
-        {
-            this.transform.gameObject.layer = 13;
+            if ((bool)teamA)
+            {
+                this.transform.gameObject.layer = 13;
+                team = "A";
+            } else
+            {
+                Debug.Log("team B");
+                this.transform.gameObject.layer = 13;
+                team = "B";
+            }
         }
 
         character = "Neuron";
