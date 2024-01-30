@@ -16,9 +16,13 @@ public class WeaponManager : MonoBehaviour
     public bool isAutoFiring = false;
     public bool isReloading = false;
     public WeaponObject currentWeapon;
-    [SerializeField] Transform m_armTransform;
+    public Transform m_armTransform;
     public Transform bulletTransform;
+    public Transform trailTransform;
     [SerializeField] LayerMask m_enemyMask;
+    public TrailRenderer bulletTrail;
+    [SerializeField]
+    private float bulletSpeed = 5;
 
     public TextMeshProUGUI bulletUI;
 
@@ -225,8 +229,6 @@ public class WeaponManager : MonoBehaviour
             currentAmmo--;
 
             bulletUI.text = currentAmmo.ToString("0");
-            Debug.Log(bulletTransform.transform.position);
-            Debug.Log(bulletTransform.transform.forward);
 
             if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
@@ -258,7 +260,9 @@ public class WeaponManager : MonoBehaviour
                         break;
                     default: Debug.Log("nothing");  break;
                 }
-
+    
+                TrailRenderer trail = Instantiate(bulletTrail, trailTransform.position, Quaternion.identity);
+                StartCoroutine(SpawnTrail(trail, hit));
             }
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
@@ -291,6 +295,28 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("Already at max ammo");
             yield return null;
         }
+    }
+
+    public IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
+    {
+        Debug.Log("spawn trail");
+        Vector3 startPos = trail.transform.position;
+
+        float distance = Vector3.Distance(startPos, hit.transform.position);
+        float startDistance = distance;
+        Debug.Log(distance);
+
+        while(distance > 0)
+        {
+            Debug.Log("move");
+            trail.transform.position = Vector3.Lerp(startPos, hit.transform.position, 1 - (distance / startDistance));
+            distance -= Time.deltaTime * bulletSpeed;
+            yield return null;
+        }
+
+        trail.transform.position = hit.transform.position;
+
+        Destroy(trail.gameObject, trail.time);
     }
 
     [PunRPC]
