@@ -57,11 +57,11 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
 
         }
-        if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.PlayerList.Length)
+        if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.PlayerList.Length && start != null)
         {
             start.SetActive(true);
         }
-        else
+        else if (start!= null)
         {
             start.SetActive(false);
         }
