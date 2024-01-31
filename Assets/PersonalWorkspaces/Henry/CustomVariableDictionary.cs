@@ -15,10 +15,12 @@ public class CustomVariableDictionary : MonoBehaviourPunCallbacks
     {
         if(team.Count <= 0)
         {
-            string aTeam = "aTeam";
-            if (photonView.IsMine && team[PhotonNetwork.LocalPlayer.ActorNumber] == aTeam)
+            if (photonView.IsMine && team[PhotonNetwork.LocalPlayer.ActorNumber] == "aTeam")
             {
-               
+                SetTeam(true);
+            } else if (photonView.IsMine)
+            {
+                SetTeam(false);
             }
         }
     }

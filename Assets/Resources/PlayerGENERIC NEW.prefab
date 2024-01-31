@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 0}
+  HitBox: {fileID: 6981733931615658127}
   health: 100
   ammo: 0
   stamina: 0
