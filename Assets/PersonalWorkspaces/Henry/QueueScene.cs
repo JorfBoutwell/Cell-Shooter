@@ -22,7 +22,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        //dictionary = 
+        dictionary = GameObject.Find("CustomVariableStorage");
         if (photonView.IsMine && recentJoin > 0)
         {
             recentJoin -= 1;
@@ -59,7 +59,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
         }
         if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.PlayerList.Length)
         {
-            Debug.Log(readyCount + "      " + PhotonNetwork.PlayerList.Length);
             start.SetActive(true);
         }
         else
@@ -159,8 +158,17 @@ public class QueueScene : MonoBehaviourPunCallbacks
             PhotonNetwork.AutomaticallySyncScene = true;
             foreach (Player player in PhotonNetwork.PlayerList)
             {
-               // object aTeam;
-               // dictionary.GetComponent<CustomVariableDictionary>().team.Add(player.ActorNumber, player.CustomProperties.TryGetValue(TeamPropKey, out aTeam));
+                string teamInput;
+                object aTeam;
+                if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam) && (bool)aTeam)
+                {
+                    teamInput = "aTeam";
+
+                } else
+                {
+                    teamInput = "bTeam";
+                }
+                dictionary.GetComponent<CustomVariableDictionary>().team.Add(player.ActorNumber, teamInput);
             }
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
@@ -170,7 +178,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_NewScene()
     {
-        //PlayerManager.DontDestroyOnLoad(dictionary);
+        PlayerManager.DontDestroyOnLoad(dictionary);
         PhotonNetwork.LoadLevel("Multiplayer World");
         
     }

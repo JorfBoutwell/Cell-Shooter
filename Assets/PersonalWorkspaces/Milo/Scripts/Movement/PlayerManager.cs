@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviourPun
     public bool isDead = false;
 
     //key to team custom variable
-    private static readonly string TeamPropKey = "TeamBlue?";
+    private static readonly string TeamPropKey = "TeamA?";
 
     PhotonView view;
 
@@ -37,7 +37,7 @@ public class PlayerManager : MonoBehaviourPun
         {
             if ((bool)teamA)
             {
-                this.transform.gameObject.layer = 13;
+                this.transform.gameObject.layer = 11;
                 team = "A";
             } else
             {
