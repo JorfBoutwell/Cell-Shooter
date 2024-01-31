@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 7364476668653571236}
   - component: {fileID: 6422867380615020166}
   - component: {fileID: 483602285896933138}
+  - component: {fileID: 3715125640333123823}
   - component: {fileID: -655466026383108972}
   - component: {fileID: 7894135386633626600}
   - component: {fileID: 7904016881856551529}
@@ -389,6 +390,25 @@ MonoBehaviour:
   m_projectile: {fileID: 0}
   m_shootingSystem: {fileID: 0}
   state: 0
+--- !u!114 &3715125640333123823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576989017386804971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebef38ebb016583458e6d1706a347c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityList:
+  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
+  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
+  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
+  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
+  - {fileID: 11400000, guid: 10ffcaa069c281244af57e8680c5d8df, type: 2}
+  currentAbility: {fileID: 0}
 --- !u!114 &-655466026383108972
 MonoBehaviour:
   m_ObjectHideFlags: 0
