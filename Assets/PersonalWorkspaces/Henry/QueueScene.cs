@@ -159,8 +159,8 @@ public class QueueScene : MonoBehaviourPunCallbacks
             PhotonNetwork.AutomaticallySyncScene = true;
             foreach (Player player in PhotonNetwork.PlayerList)
             {
-                object aTeam;
-                dictionary.GetComponent<CustomVariableDictionary>().team.Add(player.ActorNumber, player.CustomProperties.TryGetValue(TeamPropKey, out aTeam));
+               // object aTeam;
+               // dictionary.GetComponent<CustomVariableDictionary>().team.Add(player.ActorNumber, player.CustomProperties.TryGetValue(TeamPropKey, out aTeam));
             }
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
@@ -170,7 +170,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_NewScene()
     {
-        PlayerManager.DontDestroyOnLoad(dictionary);
+        //PlayerManager.DontDestroyOnLoad(dictionary);
         PhotonNetwork.LoadLevel("Multiplayer World");
         
     }
