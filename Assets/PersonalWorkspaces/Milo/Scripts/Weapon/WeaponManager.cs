@@ -243,20 +243,20 @@ public class WeaponManager : MonoBehaviour
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= (currentWeapon.damage * 2);
                         break;
                     case 11: //teamA
-                        //if(team != "A")
-                        //{
+                        if(team != "A")
+                        {
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
-                        //}
+                        }
                         break;
                     case 13: //teamB
-                        //if (team != "B")
-                        //{
+                        if (team != "B")
+                        {
                             Debug.Log("Team B");
                             PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
-                        //}
+                        }
                         break;
                     default: Debug.Log("nothing");  break;
                 }
