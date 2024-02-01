@@ -224,7 +224,7 @@ public class WeaponManager : MonoBehaviour
     {
         if (currentAmmo > 0)
         {
-            yield return new WaitForSeconds(currentWeapon.fireRate);
+            yield return new WaitForSeconds(currentWeapon.fireFrame / 24);
 
             currentAmmo--;
 
@@ -261,9 +261,11 @@ public class WeaponManager : MonoBehaviour
                     default: Debug.Log("nothing");  break;
                 }
     
-                TrailRenderer trail = Instantiate(bulletTrail, trailTransform.position, Quaternion.identity);
+                GameObject trail = PhotonNetwork.Instantiate(bulletTrail.name, trailTransform.position, Quaternion.identity);
                 StartCoroutine(SpawnTrail(trail, hit));
             }
+
+            yield return new WaitForSeconds(currentWeapon.fireRate - (currentWeapon.fireFrame / 24));
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
             {
@@ -297,7 +299,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
+    public IEnumerator SpawnTrail(GameObject trail, RaycastHit hit)
     {
         Debug.Log("spawn trail");
         Vector3 startPos = trail.transform.position;
@@ -309,14 +311,14 @@ public class WeaponManager : MonoBehaviour
         while(distance > 0)
         {
             Debug.Log("move");
-            trail.transform.position = Vector3.Lerp(startPos, hit.transform.position, 1 - (distance / startDistance));
+            trail.transform.position = Vector3.Lerp(startPos, hit.point, 1 - (distance / startDistance));
             distance -= Time.deltaTime * bulletSpeed;
             yield return null;
         }
 
-        trail.transform.position = hit.transform.position;
+        trail.transform.position = hit.point;
 
-        Destroy(trail.gameObject, trail.time);
+        Destroy(trail, trail.GetComponent<TrailRenderer>().time);
     }
 
     [PunRPC]

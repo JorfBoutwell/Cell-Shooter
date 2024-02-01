@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3d26025aaa3d944b5e90d90c55a047, type: 3}
   m_Name: Light Raygun
   m_EditorClassIdentifier: 
-  maxAmmo: 100
+  maxAmmo: 10
   fireRate: 0.66
+  fireFrame: 9
   damage: 10
   reloadTime: 1.4
   weaponRange: 100000

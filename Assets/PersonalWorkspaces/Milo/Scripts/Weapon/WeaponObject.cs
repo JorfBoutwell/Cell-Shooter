@@ -9,6 +9,7 @@ public class WeaponObject : ScriptableObject
 {
     public int maxAmmo;
     public float fireRate;
+    public float fireFrame;
     public float damage;
     public float reloadTime;
     public float weaponRange;
