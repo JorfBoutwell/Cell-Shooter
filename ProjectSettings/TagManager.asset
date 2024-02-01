@@ -13,6 +13,7 @@ TagManager:
   - player
   - SpawnA
   - SpawnB
+  - BoneWall
   layers:
   - Default
   - TransparentFX
