@@ -15,9 +15,11 @@ public class PointCollectorScript : MonoBehaviour
     public float pointsA;
     public float pointsB;
 
-    private bool alreadyPressed = false;
+    private bool alreadyPressedA = false;
+    private bool alreadyPressedB = false;
 
     private string currentTeam;
+    public GameObject currentPlayer;
 
 
 
@@ -59,11 +61,14 @@ public class PointCollectorScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player" && !alreadyPressed)
+
+        if (collision.gameObject.tag == "Player" && !alreadyPressedA)
         {
             Debug.Log("Hellooo");
 
-            alreadyPressed = true;
+            currentPlayer = collision.gameObject;
+
+            alreadyPressedA = true;
 
             playerManagerScript.buttonsPressed += 1;
 

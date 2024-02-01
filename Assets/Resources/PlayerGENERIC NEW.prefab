@@ -250,6 +250,10 @@ MonoBehaviour:
   team: 
   character: 
   isDead: 0
+  updatePoints: 
+  buttonsPressed: 0
+  pointCollectors: []
+  currentPointCollectorsA: 0
 --- !u!114 &-6192874562500077789
 MonoBehaviour:
   m_ObjectHideFlags: 0
