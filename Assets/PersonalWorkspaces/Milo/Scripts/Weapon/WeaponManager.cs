@@ -108,6 +108,10 @@ public class WeaponManager : MonoBehaviour
 
     public void FireWeapon()
     {
+        if(!view.IsMine)
+        {
+            return;
+        }
         if(isShooting == false && isReloading == false)
         {
             isShooting = true;

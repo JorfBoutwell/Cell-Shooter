@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviourPun
     
 
     [SerializeField] GameObject UI;
-    [SerializeField] GameObject HitBox;
+    [SerializeField] GameObject hitbox;
 
     public InputActions inputActions;
 
@@ -76,11 +76,13 @@ public class PlayerManager : MonoBehaviourPun
             {
                 view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 11);
                 team = "A";
+                hitbox.layer = 11;
+
             }
             else
             {
                 Debug.Log("team B");
-                HitBox.layer = 13;
+                hitbox.layer = 13;
                 view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 13);
                 team = "B";
             }
@@ -160,7 +162,7 @@ public class PlayerManager : MonoBehaviourPun
 
         if (photonView.IsMine)
         {
-            HitBox.layer = Layer;
+            hitbox.layer = Layer;
         }
     }
 
