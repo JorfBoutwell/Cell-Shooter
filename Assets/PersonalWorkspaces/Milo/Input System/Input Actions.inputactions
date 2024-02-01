@@ -398,7 +398,7 @@
                 {
                     "name": "",
                     "id": "c61b3850-8a03-460c-86a3-00ba7f8468d2",
-                    "path": "<Keyboard>/x",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -464,6 +464,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Ability 3",
+                    "type": "Button",
+                    "id": "8e9d87b0-14a1-4ab8-ac99-715c02786210",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ability 4",
+                    "type": "Button",
+                    "id": "d64765f1-c662-4a6c-9881-7e2f4ee92ee5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Secondary Fire",
                     "type": "Button",
                     "id": "1ffe65f0-057e-49c5-ba78-6fd99ae0bb25",
@@ -477,7 +495,7 @@
                 {
                     "name": "",
                     "id": "0574faea-9938-475b-9683-bfae84f7b56e",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -499,7 +517,7 @@
                 {
                     "name": "",
                     "id": "4d4c4ddd-8273-452d-b1d5-417aacd845a5",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -548,6 +566,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Secondary Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba884243-78f2-4618-bc46-d0005af52636",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability 3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95e69059-3e07-4717-a022-93cf1bd71fdc",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability 4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

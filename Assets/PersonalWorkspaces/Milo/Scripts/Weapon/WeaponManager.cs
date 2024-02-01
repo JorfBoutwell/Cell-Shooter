@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class WeaponManager : MonoBehaviour
 {
@@ -15,9 +16,15 @@ public class WeaponManager : MonoBehaviour
     public bool isAutoFiring = false;
     public bool isReloading = false;
     public WeaponObject currentWeapon;
-    [SerializeField] Transform m_armTransform;
+    public Transform m_armTransform;
     public Transform bulletTransform;
+    public Transform trailTransform;
     [SerializeField] LayerMask m_enemyMask;
+    public TrailRenderer bulletTrail;
+    [SerializeField]
+    private float bulletSpeed = 5;
+
+    public TextMeshProUGUI bulletUI;
 
     public int currentAmmo;
 
@@ -52,6 +59,7 @@ public class WeaponManager : MonoBehaviour
         animController = GetComponentInChildren<AnimationController>();
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
+        bulletUI.text = currentWeapon.maxAmmo.ToString("0");
 
         team = GetComponent<PlayerManager>().team;
 
@@ -216,9 +224,11 @@ public class WeaponManager : MonoBehaviour
     {
         if (currentAmmo > 0)
         {
-            yield return new WaitForSeconds(currentWeapon.fireRate);
-            Debug.Log(bulletTransform.transform.position);
-            Debug.Log(bulletTransform.transform.forward);
+            yield return new WaitForSeconds(currentWeapon.fireFrame / 24);
+
+            currentAmmo--;
+
+            bulletUI.text = currentAmmo.ToString("0");
 
             if (Physics.Raycast(bulletTransform.transform.position, bulletTransform.transform.forward, out RaycastHit hit, currentWeapon.weaponRange, m_enemyMask))
             {
@@ -233,25 +243,29 @@ public class WeaponManager : MonoBehaviour
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= (currentWeapon.damage * 2);
                         break;
                     case 11: //teamA
-                        //if(team != "A")
-                        //{
+                        if(team != "A")
+                        {
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
-                        //}
+                        }
                         break;
                     case 13: //teamB
-                        //if (team != "B")
-                        //{
+                        if (team != "B")
+                        {
                             Debug.Log("Team B");
                             PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
-                        //}
+                        }
                         break;
                     default: Debug.Log("nothing");  break;
                 }
-
+    
+                GameObject trail = PhotonNetwork.Instantiate(bulletTrail.name, trailTransform.position, Quaternion.identity);
+                StartCoroutine(SpawnTrail(trail, hit));
             }
+
+            yield return new WaitForSeconds(currentWeapon.fireRate - (currentWeapon.fireFrame / 24));
 
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
             {
@@ -259,8 +273,6 @@ public class WeaponManager : MonoBehaviour
             }else{
                 isShooting = false;
             }
-
-            currentAmmo--;
             yield return null;
         }else{
             isShooting = false;
@@ -277,6 +289,7 @@ public class WeaponManager : MonoBehaviour
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
             currentAmmo = currentWeapon.maxAmmo;
+            bulletUI.text = currentAmmo.ToString("0");
             isReloading = false;
         }
         else
@@ -284,6 +297,28 @@ public class WeaponManager : MonoBehaviour
             Debug.Log("Already at max ammo");
             yield return null;
         }
+    }
+
+    public IEnumerator SpawnTrail(GameObject trail, RaycastHit hit)
+    {
+        Debug.Log("spawn trail");
+        Vector3 startPos = trail.transform.position;
+
+        float distance = Vector3.Distance(startPos, hit.transform.position);
+        float startDistance = distance;
+        Debug.Log(distance);
+
+        while(distance > 0)
+        {
+            Debug.Log("move");
+            trail.transform.position = Vector3.Lerp(startPos, hit.point, 1 - (distance / startDistance));
+            distance -= Time.deltaTime * bulletSpeed;
+            yield return null;
+        }
+
+        trail.transform.position = hit.point;
+
+        Destroy(trail, trail.GetComponent<TrailRenderer>().time);
     }
 
     [PunRPC]

@@ -420,7 +420,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c61b3850-8a03-460c-86a3-00ba7f8468d2"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -486,6 +486,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Ability 3"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e9d87b0-14a1-4ab8-ac99-715c02786210"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ability 4"",
+                    ""type"": ""Button"",
+                    ""id"": ""d64765f1-c662-4a6c-9881-7e2f4ee92ee5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Secondary Fire"",
                     ""type"": ""Button"",
                     ""id"": ""1ffe65f0-057e-49c5-ba78-6fd99ae0bb25"",
@@ -499,7 +517,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0574faea-9938-475b-9683-bfae84f7b56e"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -521,7 +539,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4d4c4ddd-8273-452d-b1d5-417aacd845a5"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -570,6 +588,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Secondary Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba884243-78f2-4618-bc46-d0005af52636"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability 3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95e69059-3e07-4717-a022-93cf1bd71fdc"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability 4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -701,6 +741,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Ability = asset.FindActionMap("Ability", throwIfNotFound: true);
         m_Ability_Ability1 = m_Ability.FindAction("Ability 1", throwIfNotFound: true);
         m_Ability_Ability2 = m_Ability.FindAction("Ability 2", throwIfNotFound: true);
+        m_Ability_Ability3 = m_Ability.FindAction("Ability 3", throwIfNotFound: true);
+        m_Ability_Ability4 = m_Ability.FindAction("Ability 4", throwIfNotFound: true);
         m_Ability_SecondaryFire = m_Ability.FindAction("Secondary Fire", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
@@ -980,6 +1022,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IAbilityActions> m_AbilityActionsCallbackInterfaces = new List<IAbilityActions>();
     private readonly InputAction m_Ability_Ability1;
     private readonly InputAction m_Ability_Ability2;
+    private readonly InputAction m_Ability_Ability3;
+    private readonly InputAction m_Ability_Ability4;
     private readonly InputAction m_Ability_SecondaryFire;
     public struct AbilityActions
     {
@@ -987,6 +1031,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public AbilityActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Ability1 => m_Wrapper.m_Ability_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Ability_Ability2;
+        public InputAction @Ability3 => m_Wrapper.m_Ability_Ability3;
+        public InputAction @Ability4 => m_Wrapper.m_Ability_Ability4;
         public InputAction @SecondaryFire => m_Wrapper.m_Ability_SecondaryFire;
         public InputActionMap Get() { return m_Wrapper.m_Ability; }
         public void Enable() { Get().Enable(); }
@@ -1003,6 +1049,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Ability2.started += instance.OnAbility2;
             @Ability2.performed += instance.OnAbility2;
             @Ability2.canceled += instance.OnAbility2;
+            @Ability3.started += instance.OnAbility3;
+            @Ability3.performed += instance.OnAbility3;
+            @Ability3.canceled += instance.OnAbility3;
+            @Ability4.started += instance.OnAbility4;
+            @Ability4.performed += instance.OnAbility4;
+            @Ability4.canceled += instance.OnAbility4;
             @SecondaryFire.started += instance.OnSecondaryFire;
             @SecondaryFire.performed += instance.OnSecondaryFire;
             @SecondaryFire.canceled += instance.OnSecondaryFire;
@@ -1016,6 +1068,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Ability2.started -= instance.OnAbility2;
             @Ability2.performed -= instance.OnAbility2;
             @Ability2.canceled -= instance.OnAbility2;
+            @Ability3.started -= instance.OnAbility3;
+            @Ability3.performed -= instance.OnAbility3;
+            @Ability3.canceled -= instance.OnAbility3;
+            @Ability4.started -= instance.OnAbility4;
+            @Ability4.performed -= instance.OnAbility4;
+            @Ability4.canceled -= instance.OnAbility4;
             @SecondaryFire.started -= instance.OnSecondaryFire;
             @SecondaryFire.performed -= instance.OnSecondaryFire;
             @SecondaryFire.canceled -= instance.OnSecondaryFire;
@@ -1123,6 +1181,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
+        void OnAbility3(InputAction.CallbackContext context);
+        void OnAbility4(InputAction.CallbackContext context);
         void OnSecondaryFire(InputAction.CallbackContext context);
     }
     public interface IMenuActions
