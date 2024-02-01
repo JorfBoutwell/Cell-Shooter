@@ -25,6 +25,8 @@ public class DeathScript : MonoBehaviour
     public GameObject cooldowns;
     private CooldownScript cooldownScript;
 
+    public GameObject pointCollector;
+
     //Floats and Bools
     float currentTime;
     bool onoff;
@@ -81,7 +83,10 @@ public class DeathScript : MonoBehaviour
             abilityActivationState = true;
             cooldownActivationState = false;
             AbilityActivation(abilityActivationState, cooldownActivationState);
-            
+
+            //Deactivates point collector
+            PointCollecterReset();
+
         }
          
         if(currentTime <= 0)
@@ -98,15 +103,15 @@ public class DeathScript : MonoBehaviour
             abilityActivationState = false;
             AbilityActivation(abilityActivationState, cooldownActivationState);
 
-            //Resets Death Timer to Default Count
-            currentTime = 5f;
-
             //Deactivate Death Overlay
             onoff = false;
             DeathScreen(onoff);
 
             //Respawns Player
             SpawnPlayer();
+
+            //Resets Death Timer to Default Count
+            currentTime = 5f;
         }
 
     }
@@ -139,14 +144,35 @@ public class DeathScript : MonoBehaviour
         }
     }
 
+    private void PointCollecterReset()
+    {
+
+        for(int i = 0; i < playerManagerScript.pointCollectors.Count; i++)
+        {
+            playerManagerScript.pointCollectors[i].GetComponentInChildren<Renderer>().material.color = Color.grey;
+        }
+
+        playerManagerScript.pointCollectors.Clear();
+
+        if (playerManagerScript.team == "A")
+           {
+            playerManagerScript.currentPointCollectorsA = 0;
+           }
+    }
+
     //Resets Health After Respawn
     private void HealthReset()
     {
         playerManagerScript.isDead = false;
+        Debug.Log("y" + playerManagerScript.isDead);
         playerManagerScript.health = 100; //Subject to change
+        Debug.Log("c" + playerManagerScript.health);
         healthUIScript.healthBarUI = playerManagerScript.health * 6.8f;
+        Debug.Log("e" + healthUIScript.healthBarUI);
         healthUIScript.healthShadow = healthUIScript.healthBarUI;
+        Debug.Log("r" + healthUIScript.healthShadow);
         healthUIScript.healthBar.GetComponent<RectTransform>().sizeDelta = new Vector2(healthUIScript.healthBarUI, 90);
+        Debug.Log("q" + healthUIScript.healthBarUI);
         healthUIScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(healthUIScript.healthShadow, 90);
     }
 

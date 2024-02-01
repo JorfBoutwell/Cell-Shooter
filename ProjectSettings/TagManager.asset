@@ -13,6 +13,7 @@ TagManager:
   - player
   - SpawnA
   - SpawnB
+  - PointCollector
   layers:
   - Default
   - TransparentFX

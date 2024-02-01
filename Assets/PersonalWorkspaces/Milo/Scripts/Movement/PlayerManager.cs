@@ -23,6 +23,11 @@ public class PlayerManager : MonoBehaviourPun
     public string character;
     public bool isDead = false;
 
+    public string updatePoints;
+    public int buttonsPressed;
+    public List<GameObject> pointCollectors = new List<GameObject>();
+    public int currentPointCollectorsA = 0;
+
     PhotonView view;
 
     private void Awake()
@@ -124,5 +129,16 @@ public class PlayerManager : MonoBehaviourPun
     private void OnDisable()
     {
         inputActions.Disable();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "PointCollector")
+        {
+          if (buttonsPressed > 0) { 
+              pointCollectors.Add(collision.gameObject as GameObject);
+              Debug.Log("Yeah" + pointCollectors[0]);
+          }
+        }
     }
 }
