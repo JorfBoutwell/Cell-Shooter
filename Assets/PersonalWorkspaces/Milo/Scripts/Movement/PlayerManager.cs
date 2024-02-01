@@ -27,9 +27,11 @@ public class PlayerManager : MonoBehaviourPun
     public string character;
     public bool isDead = false;
 
-    //key to team custom variable
     private static readonly string TeamPropKey = "TeamA?";
-
+    public string updatePoints;
+    public int buttonsPressed;
+    public List<GameObject> pointCollectors = new List<GameObject>();
+    public int currentPointCollectorsA = 0;
     PhotonView view;
 
     private void Awake()
@@ -159,6 +161,17 @@ public class PlayerManager : MonoBehaviourPun
         if (photonView.IsMine)
         {
             HitBox.layer = Layer;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "PointCollector")
+        {
+          if (buttonsPressed > 0) { 
+              pointCollectors.Add(collision.gameObject as GameObject);
+              Debug.Log("Yeah" + pointCollectors[0]);
+          }
         }
     }
 }
