@@ -164,7 +164,7 @@ public class PlayerManager : MonoBehaviourPun
 
         if (photonView.IsMine)
         {
-            hitbox.layer = Layer;
+            gameObject.layer = Layer;
         }
     }
 
