@@ -326,7 +326,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_TakeDamage(float damage, int targetPhotonViewID)
+    void RPC_TakeDamage(int damage, int targetPhotonViewID)
     {
         PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
 

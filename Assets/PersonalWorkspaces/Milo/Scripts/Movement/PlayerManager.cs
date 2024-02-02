@@ -159,12 +159,13 @@ public class PlayerManager : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RPC_ChangeLayer(int Layer)
+    void RPC_ChangeLayer(int Layer, int targetPhotonViewID)
     {
+        PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
 
-        if (photonView.IsMine)
+        if (targetPhotonView != null)
         {
-            gameObject.layer = Layer;
+            targetPhotonView.GetComponent<PlayerManager>().gameObject.layer = Layer;
         }
     }
 
