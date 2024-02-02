@@ -262,7 +262,7 @@ public class WeaponManager : MonoBehaviour
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
                         }
                         break;
-                    default: Debug.Log("nothing");  break;
+                    default: Debug.Log("nothing          " + hit.transform.gameObject.layer);  break;
                 }
     
                 GameObject trail = PhotonNetwork.Instantiate(bulletTrail.name, trailTransform.position, Quaternion.identity);
