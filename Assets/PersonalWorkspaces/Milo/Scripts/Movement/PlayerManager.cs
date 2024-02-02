@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerManager : MonoBehaviourPun
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
@@ -68,25 +69,26 @@ public class PlayerManager : MonoBehaviourPun
 
     private void Start()
     {
-        //set team layer
-        object teamA;
-        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(TeamPropKey, out teamA) && view.IsMine)
-        {
-            if ((bool)teamA)
-            {
-                view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 11);
-                team = "A";
-                transform.GetChild(0).gameObject.layer = 11;
-                gameObject.layer = 11;
 
-            }
-            else
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if(photonView.Owner.ActorNumber == player.ActorNumber)
             {
-                Debug.Log("team B");
-                transform.GetChild(0).gameObject.layer = 13;
-                gameObject.layer = 13;
-                view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 13);
-                team = "B";
+                object teamA;
+                player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
+
+                if ((bool)teamA)
+                {
+                    team = "A";
+                    transform.GetChild(0).gameObject.layer = 11;
+                    gameObject.layer = 11;
+                } else
+                {
+                    team = "B";
+                    transform.GetChild(0).gameObject.layer = 13;
+                    gameObject.layer = 13;
+                }
+                
             }
         }
     }
@@ -156,17 +158,6 @@ public class PlayerManager : MonoBehaviourPun
     private void OnDisable()
     {
         inputActions.Disable();
-    }
-
-    [PunRPC]
-    void RPC_ChangeLayer(int Layer, int targetPhotonViewID)
-    {
-        PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
-
-        if (targetPhotonView != null)
-        {
-            targetPhotonView.GetComponent<PlayerManager>().gameObject.layer = Layer;
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
