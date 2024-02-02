@@ -76,13 +76,15 @@ public class PlayerManager : MonoBehaviourPun
             {
                 view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 11);
                 team = "A";
-                transform.GetChild(0).gameObject.layer = 13;
+                transform.GetChild(0).gameObject.layer = 11;
+                gameObject.layer = 11;
 
             }
             else
             {
                 Debug.Log("team B");
                 transform.GetChild(0).gameObject.layer = 13;
+                gameObject.layer = 13;
                 view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 13);
                 team = "B";
             }
