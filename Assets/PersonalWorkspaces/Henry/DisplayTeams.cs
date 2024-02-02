@@ -15,6 +15,8 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
     public VerticalLayoutGroup teamA;
     public VerticalLayoutGroup teamB;
 
+    public bool game;
+
     private void Update()
     {
         int blueCounter = 0;
@@ -30,11 +32,11 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     teamA.transform.GetChild(blueCounter).gameObject.SetActive(true);
                     teamA.transform.GetChild(blueCounter).GetComponent<TMP_Text>().SetText(player.NickName);
 
-                    if ((bool)ready)
+                    if ((bool)ready && !game)
                     {
                         teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(true);
                         teamA.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(false);
-                    } else
+                    } else if (!game)
                     {
                         teamA.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(true);
                         teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(false);
@@ -45,12 +47,12 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     teamB.transform.GetChild(redCounter).gameObject.SetActive(true);
                     teamB.transform.GetChild(redCounter).GetComponent<TMP_Text>().SetText(player.NickName);
 
-                    if ((bool)ready)
+                    if ((bool)ready && !game)
                     {
                         teamB.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(true);
                         teamB.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(false);
                     }
-                    else
+                    else if (!game)
                     {
                         teamB.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(true);
                         teamB.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(false);

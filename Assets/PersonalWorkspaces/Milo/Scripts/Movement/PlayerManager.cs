@@ -70,19 +70,19 @@ public class PlayerManager : MonoBehaviourPun
     {
         //set team layer
         object teamA;
-        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(TeamPropKey, out teamA))
+        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(TeamPropKey, out teamA) && view.IsMine)
         {
             if ((bool)teamA)
             {
                 view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 11);
                 team = "A";
-                hitbox.layer = 11;
+                transform.GetChild(0).gameObject.layer = 13;
 
             }
             else
             {
                 Debug.Log("team B");
-                hitbox.layer = 13;
+                transform.GetChild(0).gameObject.layer = 13;
                 view.RPC("RPC_TakeDamage", RpcTarget.OthersBuffered, 13);
                 team = "B";
             }
