@@ -13,7 +13,7 @@ public class CustomVariableDictionary : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if(team.Count <= 0)
+        if(team.Count > 0)
         {
             if (photonView.IsMine && team[PhotonNetwork.LocalPlayer.ActorNumber] == "aTeam")
             {
