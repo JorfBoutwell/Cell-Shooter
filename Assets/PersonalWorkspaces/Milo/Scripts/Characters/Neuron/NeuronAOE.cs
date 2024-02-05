@@ -6,8 +6,15 @@ using UnityEngine;
 
 public class NeuronAOE : MonoBehaviour
 {
+    PlayerManager playerManager;
+
     private float m_timer = 5;
     public int type;
+
+    private void Awake()
+    {
+        playerManager = FindObjectOfType<PlayerManager>();
+    }
 
     private void Update()
     {
@@ -24,9 +31,13 @@ public class NeuronAOE : MonoBehaviour
             if(gameObject.activeSelf == true)
             {
                 if (type == 1)
-                    col.gameObject.GetComponent<PlayerControllerNEW>().movementSpeed *= 2;
+                    if(!playerManager.activeEffects.Contains("adrenaline"))
+                        playerManager.activeEffects.Add("adrenaline");
                 if (type == 2)
-                    Debug.Log("Dopamine Effect");
+                    if(!playerManager.activeEffects.Contains("dopamine"))
+                        playerManager.activeEffects.Add("dopamine");
+
+                playerManager.HandleEffects();
             }
         }
     }

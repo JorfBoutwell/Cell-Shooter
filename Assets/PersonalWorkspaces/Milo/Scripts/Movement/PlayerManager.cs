@@ -33,12 +33,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public int buttonsPressed;
     public List<GameObject> pointCollectors = new List<GameObject>();
     public int currentPointCollectorsA = 0;
+    public List<string> activeEffects;
+
     PhotonView view;
 
     private void Awake()
     {
-        
-
         character = "Neuron";
 
         inputActions = new InputActions();
@@ -104,7 +104,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             ammo = m_weapon.currentAmmo;
         }
 
-        if(isDead)
+        if (isDead)
         {
             inputActions.Disable();
         }
@@ -168,6 +168,42 @@ public class PlayerManager : MonoBehaviourPunCallbacks
               pointCollectors.Add(collision.gameObject as GameObject);
               Debug.Log("Yeah" + pointCollectors[0]);
           }
+        }
+    }
+
+    public void HandleEffects()
+    {
+        if(activeEffects.Contains("adrenaline"))
+        {
+            StartCoroutine(AdrenalineEffect());
+        }
+        else if(activeEffects.Contains("dopamine"))
+        {
+            StartCoroutine(DopamineEffect());
+        }
+    }
+
+    IEnumerator AdrenalineEffect()
+    {
+        m_player.walkSpeed = 14;
+        m_player.sprintSpeed = 28;
+        m_player.crouchSpeed = 8;
+        m_player.airSpeed = 20;
+        yield return new WaitForSeconds(5);
+        m_player.walkSpeed = 7;
+        m_player.sprintSpeed = 14;
+        m_player.crouchSpeed = 4;
+        m_player.airSpeed = 10;
+        activeEffects.Remove("adrenaline");
+        yield return null;
+    }
+
+    IEnumerator DopamineEffect()
+    {
+        while(health < 120)
+        {
+            health = health + 2;
+            yield return new WaitForSeconds(1);
         }
     }
 }

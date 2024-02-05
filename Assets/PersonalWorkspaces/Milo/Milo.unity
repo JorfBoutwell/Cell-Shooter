@@ -53563,9 +53563,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -6192874562500077789, guid: 5cc175882f58bd24b9343f5786e3c633, type: 3}
+      propertyPath: airSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -6192874562500077789, guid: 5cc175882f58bd24b9343f5786e3c633, type: 3}
+      propertyPath: walkSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -6192874562500077789, guid: 5cc175882f58bd24b9343f5786e3c633, type: 3}
+      propertyPath: crouchSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -6192874562500077789, guid: 5cc175882f58bd24b9343f5786e3c633, type: 3}
       propertyPath: orientation
       value: 
       objectReference: {fileID: 2128629656}
+    - target: {fileID: -6192874562500077789, guid: 5cc175882f58bd24b9343f5786e3c633, type: 3}
+      propertyPath: sprintSpeed
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: -655466026383108972, guid: 5cc175882f58bd24b9343f5786e3c633, type: 3}
       propertyPath: sceneViewId
       value: 1

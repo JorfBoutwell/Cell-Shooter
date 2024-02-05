@@ -18,9 +18,10 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     [Header("Movement Speed Variables")]
     public float movementSpeed;
-    [SerializeField] float m_walkSpeed;
-    [SerializeField] float m_sprintSpeed;
-    [SerializeField] float m_crouchSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
+    public float crouchSpeed;
+    public float airSpeed;
 
     [Header("Movement Flags")]
     public bool canMove = true;
@@ -40,7 +41,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
     [SerializeField] float m_sensitivityX;
     [SerializeField] float m_sensitivityY;
     [SerializeField] Transform m_camHolder;
-    private Transform orientation;
+    private Transform m_orientation;
     private float m_xRot;
     private float m_yRot;
 
@@ -56,7 +57,6 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     [Header("Jump Variables")]
     [SerializeField] float m_jumpForce;
-    [SerializeField] float m_airMultiplier;
     
     [Header("Sprint/Crouch Variables")]
     [SerializeField] float startCamY;
@@ -110,6 +110,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
         m_wallRunTimer = m_maxWallRunTime;
         m_exitWallTimer = m_exitWallTime;
 
+        m_orientation = gameObject.transform.GetChild(1).GetChild(2);
+
         view = GetComponent<PhotonView>();
     }
 
@@ -153,14 +155,14 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     private void HandleMovement()
     {
-        moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>() * Time.deltaTime;
+        moveInput = m_input.inputActions.Movement.Locomotion.ReadValue<Vector2>();
 
         
 
         Vector3 flatVel = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
         if (canMove)
         {
-            m_moveDirection = orientation.forward * moveInput.y + orientation.right * moveInput.x;
+            m_moveDirection = m_orientation.forward * moveInput.y + m_orientation.right * moveInput.x;
             m_groundDrag = 5;
         }
 
@@ -183,7 +185,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         else if (!isGrounded)
         {
             m_rb.drag = 0;
-            m_rb.AddForce(m_moveDirection.normalized * movementSpeed * m_airMultiplier, ForceMode.Acceleration);
+            m_rb.AddForce(m_moveDirection.normalized * movementSpeed, ForceMode.Acceleration);
             m_rb.useGravity = true;
         }
 
@@ -203,7 +205,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         m_xRot = Mathf.Clamp(m_xRot, -90f, 90f);
 
         m_camHolder.transform.rotation = Quaternion.Euler(m_xRot, m_yRot, 0);
-        orientation.rotation = Quaternion.Euler(0, m_yRot, 0);
+        m_orientation.rotation = Quaternion.Euler(0, m_yRot, 0);
     }
 
     private void CheckGrounded()
@@ -270,13 +272,13 @@ public class PlayerControllerNEW : MonoBehaviourPun
         else if (isGrounded && isSprinting && m_moveDirection != Vector3.zero)
         {
             state = MovementState.sprinting;
-            movementSpeed = m_sprintSpeed;
+            movementSpeed = sprintSpeed;
            // DoFOV(90f);
         }
         else if (isGrounded && isCrouching)
         {
             state = MovementState.crouching;
-            movementSpeed = m_crouchSpeed;
+            movementSpeed = crouchSpeed;
            // DoCrouch(-0.5f);
            // DoFOV(70f);
         }
@@ -285,7 +287,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
             if(m_rb.velocity != Vector3.zero)
             {
                 state = MovementState.walking;
-                movementSpeed = m_walkSpeed;
+                movementSpeed = walkSpeed;
             }else{
                 state = MovementState.idle;
             }
@@ -296,6 +298,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         else
         {
             state = MovementState.air;
+            movementSpeed = airSpeed;
             isWallRunning = false;
             isJumping = true;
            // DoFOV(80f);
@@ -341,7 +344,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         if(isSliding && m_slideTimer > 0)
         {
             DoCrouch(-0.8f);
-            m_rb.AddForce(orientation.forward.normalized * m_slideForce, ForceMode.Force);
+            m_rb.AddForce(m_orientation.forward.normalized * m_slideForce, ForceMode.Force);
             canMove = false;
             m_slideTimer -= Time.deltaTime;
         }
@@ -355,8 +358,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     private void CheckForWall()
     {
-        m_wallRight = Physics.Raycast(transform.position, orientation.right, out m_rightWallHit, m_wallCheckDistance, m_wallLayer);
-        m_wallLeft = Physics.Raycast(transform.position, -orientation.right, out m_leftWallHit, m_wallCheckDistance, m_wallLayer);
+        m_wallRight = Physics.Raycast(transform.position, m_orientation.right, out m_rightWallHit, m_wallCheckDistance, m_wallLayer);
+        m_wallLeft = Physics.Raycast(transform.position, -m_orientation.right, out m_leftWallHit, m_wallCheckDistance, m_wallLayer);
     }
 
 
@@ -380,7 +383,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
-        if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
+        if ((m_orientation.forward - wallForward).magnitude > (m_orientation.forward - -wallForward).magnitude)
             wallForward = -wallForward;
 
         m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
