@@ -26,6 +26,7 @@ public class DeathScript : MonoBehaviour
     private CooldownScript cooldownScript;
 
     public GameObject pointCollector;
+    public PointCollectorScript pointCollectorScript;
 
     //Floats and Bools
     float currentTime;
@@ -150,14 +151,22 @@ public class DeathScript : MonoBehaviour
         for(int i = 0; i < playerManagerScript.pointCollectors.Count; i++)
         {
             playerManagerScript.pointCollectors[i].GetComponentInChildren<Renderer>().material.color = Color.grey;
+            playerManagerScript.pointCollectors[i].GetComponentInChildren<PointCollectorScript>().currentPlayer = null;
+            Debug.Log("Heep");
         }
 
         playerManagerScript.pointCollectors.Clear();
 
-        if (playerManagerScript.team == "A")
+        /*if (playerManagerScript.team == "A")
            {
             playerManagerScript.currentPointCollectorsA = 0;
            }
+        else if(playerManagerScript.team == "B")
+        {
+            playerManagerScript.currentPointCollectorsB = 0;
+        }*/
+
+        playerManagerScript.buttonsPressed = 0;
     }
 
     //Resets Health After Respawn

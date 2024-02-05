@@ -164,7 +164,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         if(collision.gameObject.tag == "PointCollector")
         {
-          if (buttonsPressed > 0) { 
+          if (buttonsPressed >= 0) { 
               pointCollectors.Add(collision.gameObject as GameObject);
               Debug.Log("Yeah" + pointCollectors[0]);
           }
