@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5405883773069835301}
   - component: {fileID: 2136828476531580617}
   - component: {fileID: 8542557609069857026}
-  - component: {fileID: 3400778056388720313}
   - component: {fileID: 3475740908745778152}
   m_Layer: 0
   m_Name: PlayerGENERIC
@@ -148,26 +147,6 @@ MonoBehaviour:
     m_Bits: 64
   m_wallCheckDistance: 2
   m_wallRunForce: 15
---- !u!114 &3400778056388720313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576989017386804971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3520393457
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &3475740908745778152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +326,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0

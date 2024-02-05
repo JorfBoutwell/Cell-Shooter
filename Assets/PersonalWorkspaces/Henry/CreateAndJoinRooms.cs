@@ -15,7 +15,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public string createInput;
     public InputField joinInput;
     public InputField Nickname;
-
+    
     //runs when you create a room, makes a room in server
     public void CreateRoom()
     {
@@ -40,6 +40,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.NickName = "IM a Loser LOL";
         }
-        PhotonNetwork.LoadLevel("Multiplayer World");
+        PhotonNetwork.LoadLevel("Queue");
     }
 }

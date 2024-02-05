@@ -28,17 +28,11 @@ public class HealthUI : MonoBehaviour
     void Update()
     {
         //Health UI Damage
-        /*if (Input.GetKeyDown(KeyCode.L)) //For Testing
-        {
-            
-            playerManagerScript.health -= damageTaken;
-            Debug.Log("L");
-
-            if(playerManagerScript.health <= 0)
-            {
+        if (Input.GetKeyDown(KeyCode.L)) //For Testing
+        { 
                 playerManagerScript.isDead = true;
-            }
-        }*/
+            
+        }
 
         if(lastHealth != playerManagerScript.health)
         {
