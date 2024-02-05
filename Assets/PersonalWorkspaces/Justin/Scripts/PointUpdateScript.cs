@@ -7,6 +7,7 @@ public class PointUpdateScript : MonoBehaviour
 {
     public float time;
     public PlayerManager playerManagerScript;
+    public PointCollectorScript pointCollectorScript;
 
     public float pointsA;
     public float pointsB;
@@ -32,7 +33,7 @@ public class PointUpdateScript : MonoBehaviour
         {
             if(playerManagerScript.buttonsPressed > 0)
             {
-                if (playerManagerScript.team == "A")
+                if (playerManagerScript.team == "A") //use currentteam to prevent both teams getting points from the same buttons?
                 {
                     pointsA += pointIncrement * playerManagerScript.buttonsPressed;
                     pointsTextA.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsA).ToString("0");

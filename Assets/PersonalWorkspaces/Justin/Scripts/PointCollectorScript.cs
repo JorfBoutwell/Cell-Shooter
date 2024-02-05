@@ -62,23 +62,24 @@ public class PointCollectorScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag == "Player" && !alreadyPressedA)
+        if (collision.gameObject.tag == "Player" && !currentPlayer)
         {
             Debug.Log("Hellooo");
 
             currentPlayer = collision.gameObject;
 
-            alreadyPressedA = true;
+            //alreadyPressedA = true;
 
             playerManagerScript.buttonsPressed += 1;
 
             if (playerManagerScript.team == "A")
             {
-                
+                currentTeam = "A";
                 gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
             }
             else
             {
+                currentTeam = "B";
                 gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
             }
 
