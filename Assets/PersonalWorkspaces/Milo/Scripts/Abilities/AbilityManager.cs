@@ -8,14 +8,12 @@ public class AbilityManager : MonoBehaviour
 {
     public Ability[] abilityList;
     public Ability currentAbility;
-    float cooldownTime;
-    float activeTime;
 
     enum AbilityState
     {
         ready,
         active,
-        cooldown
+        inactive
     }
     AbilityState state = AbilityState.ready;
 
@@ -31,37 +29,37 @@ public class AbilityManager : MonoBehaviour
             case AbilityState.ready:
                 if (currentAbility != null)
                 {
-                    currentAbility.StartAbility(gameObject);
                     state = AbilityState.active;
-                    activeTime = currentAbility.activeTime;
                 }
             break;
             case AbilityState.active:
-                if (activeTime > 0)
+                if(currentAbility.isUsable)
                 {
-                    activeTime -= Time.deltaTime;
+                    currentAbility.StartAbility(gameObject);
+                    state = AbilityState.inactive;
                 }
                 else
                 {
-                    currentAbility.BeginCooldown(gameObject);
-                    state = AbilityState.cooldown;
-                    cooldownTime = currentAbility.cooldownTime;
+                    Debug.Log(currentAbility.abilityName + " still on Cooldown!");
                     currentAbility = null;
-                }
-            break;
-            case AbilityState.cooldown:
-                if (cooldownTime > 0)
-                {
-                    cooldownTime -= Time.deltaTime;
-                }
-                else
-                {
                     state = AbilityState.ready;
                 }
-                break;
+            break;
+            case AbilityState.inactive:
+                StartCoroutine(HandleCooldown(currentAbility));
+                currentAbility = null;
+                state = AbilityState.ready;
+            break;
             default:
                 break;
         }
         
+    }
+
+    IEnumerator HandleCooldown(Ability currentAbility)
+    {
+        currentAbility.isUsable = false;
+        yield return new WaitForSeconds(currentAbility.cooldownTime);
+        currentAbility.isUsable = true;
     }
 }

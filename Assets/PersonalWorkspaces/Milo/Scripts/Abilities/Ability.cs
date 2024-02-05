@@ -10,8 +10,10 @@ public class Ability : ScriptableObject
     public string abilityName;
     public Image iconImage;
     public float cooldownTime;
-    public float activeTime;
-    
+    public bool isUsable;
+    private void Awake()
+    {
+        isUsable = true;
+    }
     public virtual void StartAbility(GameObject parent) {}
-    public virtual void BeginCooldown(GameObject parent) {}
 }

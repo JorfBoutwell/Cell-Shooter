@@ -42,6 +42,8 @@ public class WeaponManager : MonoBehaviour
     [Header("Particle System")]
     [SerializeField] ParticleSystem m_shootingSystem;
 
+    public Transform destination;
+
     public enum WeaponState
     {
         idle,
@@ -76,6 +78,8 @@ public class WeaponManager : MonoBehaviour
         }
 
         StateMachine();
+
+        destination = Camera.main.transform;
     }
 
     public void SwitchWeapon()

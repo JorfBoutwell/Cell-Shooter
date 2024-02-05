@@ -321,7 +321,7 @@ MonoBehaviour:
   m_FPSCam: {fileID: 0}
   state: 0
   animController: {fileID: 0}
-  m_movementSpeed: 0
+  movementSpeed: 0
   m_walkSpeed: 7
   m_sprintSpeed: 14
   m_crouchSpeed: 4
@@ -418,6 +418,7 @@ MonoBehaviour:
   currentAmmo: 0
   m_projectile: {fileID: 0}
   m_shootingSystem: {fileID: 0}
+  destination: {fileID: 0}
   state: 0
 --- !u!114 &3715125640333123823
 MonoBehaviour:

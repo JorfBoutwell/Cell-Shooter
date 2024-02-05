@@ -11,8 +11,4 @@ public class Melee : Ability
     {
         Debug.Log("Melee Start");
     }
-    public override void BeginCooldown(GameObject parent)
-    {
-        Debug.Log("Melee on Cooldown");
-    }
 }
