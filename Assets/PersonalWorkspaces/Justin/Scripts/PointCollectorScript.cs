@@ -15,9 +15,6 @@ public class PointCollectorScript : MonoBehaviour
     public float pointsA;
     public float pointsB;
 
-    private bool alreadyPressedA = false;
-    private bool alreadyPressedB = false;
-
     private string currentTeam;
     public GameObject currentPlayer;
 
@@ -32,31 +29,7 @@ public class PointCollectorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UpdatePoints(playerManagerScript.updatePoints);
 
-        
-    }
-
-    void UpdatePoints(string updatePoints)
-    {
-        if (updatePoints == "A") {
-            pointsA += 1 * Time.deltaTime;
-            pointsTextA.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsA).ToString("0");
-
-            Debug.Log("Why" + playerManagerScript.currentPointCollectorsA); //updates by 2?
-
-            playerManagerScript.pointCollectors[playerManagerScript.currentPointCollectorsA].GetComponentInChildren<Renderer>().material.color = Color.red;
-            playerManagerScript.currentPointCollectorsA += 1; //causes error?
-        }
-        else if(updatePoints == "B")
-        {
-            pointsB += 1 * Time.deltaTime;
-            pointsTextB.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsB).ToString("0");
-            gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
-        }
-        //use array in player manager to prevent the one script affecting both of the point collectors
-
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,6 +40,10 @@ public class PointCollectorScript : MonoBehaviour
             Debug.Log("Hellooo");
 
             currentPlayer = collision.gameObject;
+
+            playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
+
+            Debug.Log("p1" + currentPlayer);
 
             //alreadyPressedA = true;
 

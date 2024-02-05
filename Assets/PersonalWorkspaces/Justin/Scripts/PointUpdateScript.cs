@@ -7,7 +7,7 @@ public class PointUpdateScript : MonoBehaviour
 {
     public float time;
     public PlayerManager playerManagerScript;
-    public PointCollectorScript pointCollectorScript;
+    //public PointCollectorScript pointCollectorScript;
 
     public float pointsA;
     public float pointsB;
@@ -18,10 +18,13 @@ public class PointUpdateScript : MonoBehaviour
     public GameObject pointsTextB;
     //public PointCollectorScript pointCollectorScript;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        pointsTextA = GameObject.Find("PointsA");
+        pointsTextB = GameObject.Find("PointsB");
     }
 
     // Update is called once per frame
