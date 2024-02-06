@@ -182,6 +182,7 @@ MonoBehaviour:
   playerManagerScript: {fileID: 3475740908745778152}
   pointsA: 0
   pointsB: 0
+  change: 0
   pointIncrement: 1
   pointsTextA: {fileID: 0}
   pointsTextB: {fileID: 0}
@@ -205,6 +206,7 @@ GameObject:
   - component: {fileID: 7894135386633626600}
   - component: {fileID: 7904016881856551529}
   - component: {fileID: 9182972780782173685}
+  - component: {fileID: 4720769871553000752}
   m_Layer: 0
   m_Name: PlayerGENERIC NEW
   m_TagString: Player
@@ -456,7 +458,7 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
   - {fileID: 7894135386633626600}
   sceneViewId: 0
@@ -543,6 +545,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &4720769871553000752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576989017386804971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &2194352682058484933
 GameObject:
   m_ObjectHideFlags: 0
