@@ -33,6 +33,11 @@ public class PointUpdateScript : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+        if (PhotonNetwork.LocalPlayer.NickName == "henry")
+        {
+            change = 5;
+        }
+        
 
         if(time > 1f)
         {
@@ -66,6 +71,7 @@ public class PointUpdateScript : MonoBehaviour
         }
         else if (stream.IsReading)
         {
+            SetChange((int)stream.ReceiveNext());
             //variableA = (type like bool)stream.ReceiveNext();
             //SetVarB((type)stream.ReceiveNext());
             //would recommend B version where you call a function like example below but A works too
