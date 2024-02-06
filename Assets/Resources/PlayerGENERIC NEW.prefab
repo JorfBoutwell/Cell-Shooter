@@ -305,6 +305,7 @@ MonoBehaviour:
   buttonsPressed: 0
   pointCollectors: []
   currentPointCollectorsA: 0
+  activeEffects: []
 --- !u!114 &-6192874562500077789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,9 +323,10 @@ MonoBehaviour:
   state: 0
   animController: {fileID: 0}
   movementSpeed: 0
-  m_walkSpeed: 7
-  m_sprintSpeed: 14
-  m_crouchSpeed: 4
+  walkSpeed: 0
+  sprintSpeed: 0
+  crouchSpeed: 0
+  airSpeed: 0
   canMove: 1
   isGrounded: 0
   isJumping: 0
@@ -337,7 +339,6 @@ MonoBehaviour:
   m_sensitivityX: 15
   m_sensitivityY: 15
   m_camHolder: {fileID: 9205376155456986774}
-  m_orientation: {fileID: 2027736122128532646}
   m_playerHeight: 2
   m_groundLayer:
     serializedVersion: 2
@@ -346,7 +347,6 @@ MonoBehaviour:
   m_slopeMoveDirection: {x: 0, y: 0, z: 0}
   m_slopeDownForce: 0
   m_jumpForce: 7
-  m_airMultiplier: 0.6
   startCamY: 0
   crouchCamY: 0
   m_slideForce: 150
