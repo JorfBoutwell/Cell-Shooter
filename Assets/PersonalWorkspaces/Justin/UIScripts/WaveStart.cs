@@ -23,12 +23,19 @@ public class WaveStart : MonoBehaviour
     public bool startCountdown = false;
     public bool gameTimerStart = false;
 
+    //Objective variables
+    public GameObject objectiveText;
+    public GameObject objectiveTextLine;
+
     void Start()
     {
         currentTime = countdownTime;
         StartCountdown();
         countdownTimer = countdownText.GetComponentInChildren<TextMeshProUGUI>();
         PlayerManager playerManagerScript = GetComponentInParent<PlayerManager>();
+
+        objectiveText.SetActive(false);
+        objectiveTextLine.SetActive(false);
     }
 
     void Update()
@@ -63,6 +70,8 @@ public class WaveStart : MonoBehaviour
                 //countdownText.enabled = false;
                 Reset();
             }
+
+            //StartCoroutine(ObjectiveEnter);
         }
     }
 
@@ -84,6 +93,11 @@ public class WaveStart : MonoBehaviour
         startCountdown = true;
 
     }
+
+    /*private IEnumerator ObjectiveEnter()
+    {
+
+    }*/
 
 }
 
