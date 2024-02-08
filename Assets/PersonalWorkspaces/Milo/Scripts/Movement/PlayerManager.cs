@@ -162,7 +162,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "PointCollector")
+        if(collision.gameObject.tag == "PointCollector" && photonView.IsMine)
         {
           view.RPC("RPC_ButoonPressed", RpcTarget.AllBuffered, collision.gameObject, GetComponent<PhotonView>().ViewID);
         }
