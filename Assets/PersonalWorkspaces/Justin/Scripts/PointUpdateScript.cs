@@ -54,29 +54,4 @@ public class PointUpdateScript : MonoBehaviour
         }
     }
 
-    //sends and recieves data to everyone elses versions of this script and will synch data
-    private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        //make sure oreder of send is same as recieve variable wise
-        if (stream.IsWriting)
-        {
-            //stream.SendNext(variableA);
-            //stream.SendNext(variableB);
-        }
-        else if (stream.IsReading)
-        {
-            //variableA = (type like bool)stream.ReceiveNext();
-            //SetVarB((type)stream.ReceiveNext());
-            //would recommend B version where you call a function like example below but A works too
-        }
-    }
-
-    /*private void SetVarB(type varB) 
-     * {
-     *      if (varB == variableB)
-     *          return;
-     *          
-     *      variableB = varB
-     * }*/
-
 }

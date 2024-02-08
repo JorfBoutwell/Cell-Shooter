@@ -164,10 +164,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         if(collision.gameObject.tag == "PointCollector")
         {
-          if (buttonsPressed >= 0) { 
-              pointCollectors.Add(collision.gameObject as GameObject);
-              Debug.Log("Yeah" + pointCollectors[0]);
-          }
+          view.RPC("RPC_ButoonPressed", RpcTarget.AllBuffered, collision.gameObject, GetComponent<PhotonView>().ViewID);
         }
     }
 
@@ -204,6 +201,22 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             health = health + 2;
             yield return new WaitForSeconds(1);
+        }
+    }
+
+    [PunRPC]
+    void RPC_ButtonPressed(GameObject collision, int targetPhotonViewID)
+    {
+        PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
+        PlayerManager manager = targetPhotonView.GetComponent<PlayerManager>();
+
+        if (targetPhotonView != null)
+        {
+            if (manager.buttonsPressed >= 0)
+            {
+                manager.pointCollectors.Add(collision as GameObject);
+                Debug.Log("Yeah" + pointCollectors[0]);
+            }
         }
     }
 }
