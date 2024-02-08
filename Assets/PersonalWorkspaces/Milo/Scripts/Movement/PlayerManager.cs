@@ -217,5 +217,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     void RPC_ButtonPressed(GameObject collision)
     {
         ButtonPressed(collision);
+        Debug.Log("pressed");
     }
 }
