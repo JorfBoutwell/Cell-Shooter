@@ -164,7 +164,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         if(collision.gameObject.tag == "PointCollector" && photonView.IsMine)
         {
-          view.RPC("RPC_ButoonPressed", RpcTarget.AllBuffered, collision.gameObject, GetComponent<PhotonView>().ViewID);
+          view.RPC("RPC_ButoonPressed", RpcTarget.AllBuffered, collision.gameObject, photonView.ViewID);
         }
     }
 
@@ -210,7 +210,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
         PlayerManager manager = targetPhotonView.GetComponent<PlayerManager>();
 
-        if (targetPhotonView != null)
+        if (targetPhotonView != null && photonView.ViewID == targetPhotonViewID)
         {
             if (manager.buttonsPressed >= 0)
             {
