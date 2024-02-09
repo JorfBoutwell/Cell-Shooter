@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class WaveStart : MonoBehaviour
 {
@@ -24,8 +25,10 @@ public class WaveStart : MonoBehaviour
     public bool gameTimerStart = false;
 
     //Objective variables
+    public List<string> objectiveTextPrompts = new List<string>();
     public GameObject objectiveText;
     public GameObject objectiveTextLine;
+    int objectiveTextValue;
 
     void Start()
     {
@@ -36,6 +39,16 @@ public class WaveStart : MonoBehaviour
 
         objectiveText.SetActive(false);
         objectiveTextLine.SetActive(false);
+
+        
+        //Objective Text Prompts
+        objectiveTextPrompts.Add("Your team needs to reach 1000 points to win!");
+        objectiveTextPrompts.Add("Earn points by claiming buttons around the map!");
+        objectiveTextPrompts.Add("Simply touch a button to claim it!");
+        objectiveTextPrompts.Add("Enemy players can claim your buttons instantly!");
+        objectiveTextPrompts.Add("If you die, all your buttons will be unclaimed!");
+        objectiveTextPrompts.Add("You can't wall jump forever!");
+
     }
 
     void Update()
@@ -71,7 +84,7 @@ public class WaveStart : MonoBehaviour
                 Reset();
             }
 
-            //StartCoroutine(ObjectiveEnter);
+            
         }
     }
 
@@ -92,12 +105,43 @@ public class WaveStart : MonoBehaviour
     {
         startCountdown = true;
 
+        StartCoroutine("ObjectiveEnter");
+
     }
 
-    /*private IEnumerator ObjectiveEnter()
+    //Displays Objective Text
+    IEnumerator ObjectiveEnter()
     {
+        objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
 
-    }*/
+        objectiveText.SetActive(true);
+        objectiveTextLine.SetActive(true);
+
+        for (int i = 0; i < objectiveTextPrompts.Count; i++)
+            {
+            //objectiveText.GetComponentInChildren<TextMeshProUGUI>().text = objectiveTextPrompts[Random.Range(0, objectiveTextPrompts.Count)];
+            objectiveText.GetComponentInChildren<TextMeshProUGUI>().text = objectiveTextPrompts[i];
+
+            objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(1, 1);
+            //objectiveTextLine.GetComponentInChildren<Material>().DOFade(1, 1);
+
+            yield return new WaitForSeconds(2.75f);
+
+            objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
+
+            if(i == objectiveTextPrompts.Count - 1)
+            {
+                yield return new WaitForSeconds(1f);
+                objectiveText.SetActive(false);
+                objectiveTextLine.SetActive(false);
+            }
+            //objectiveTextLine.GetComponentInChildren<Material>().DOFade(0, 1);
+
+            yield return new WaitForSeconds(2.75f);
+
+        }
+        
+    }
 
 }
 
