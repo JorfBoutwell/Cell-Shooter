@@ -10,10 +10,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
-    AbilityManager m_abilityManger;
     Neuron m_neuron;
 
-    
+
 
     [SerializeField] GameObject UI;
     [SerializeField] GameObject hitbox;
@@ -44,7 +43,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         inputActions = new InputActions();
         m_player = GetComponent<PlayerControllerNEW>();
         m_weapon = GetComponent<WeaponManager>();
-        m_abilityManger = GetComponent<AbilityManager>();
         m_neuron = GetComponent<Neuron>();
 
         ammo = m_weapon.currentWeapon.maxAmmo;
@@ -58,7 +56,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(m_player.m_rb);
             Canvas[] canvases = GetComponentsInChildren<Canvas>();
-            foreach(Canvas canvas in canvases)
+            foreach (Canvas canvas in canvases)
             {
                 Destroy(canvas);
             }
@@ -72,7 +70,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            if(photonView.Owner.ActorNumber == player.ActorNumber)
+            if (photonView.Owner.ActorNumber == player.ActorNumber)
             {
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
@@ -82,13 +80,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                     team = "A";
                     transform.GetChild(0).gameObject.layer = 11;
                     gameObject.layer = 11;
-                } else
+                }
+                else
                 {
                     team = "B";
                     transform.GetChild(0).gameObject.layer = 13;
                     gameObject.layer = 13;
                 }
-                
+
             }
         }
     }
@@ -122,7 +121,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public void ApplyDamage(float damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
             isDead = true;
         }
@@ -144,11 +143,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         inputActions.Weapon.Reload.performed += ctx => m_weapon.StartCoroutine(m_weapon.Reload());
 
-        inputActions.Ability.Ability1.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[0];
-        inputActions.Ability.Ability2.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[1];
-        inputActions.Ability.Ability3.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[2];
-        inputActions.Ability.Ability3.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[3];
-        inputActions.Weapon.Melee.performed += ctx => m_abilityManger.currentAbility = m_abilityManger.abilityList[4];
+        inputActions.Ability.Ability1.performed += ctx => m_weapon.UseAbility(0);
+        inputActions.Ability.Ability2.performed += ctx => m_weapon.UseAbility(1);
+        inputActions.Ability.Ability3.performed += ctx => m_weapon.UseAbility(2);
+        inputActions.Weapon.Melee.performed += ctx => m_weapon.UseAbility(3);
     }
     private void OnEnable()
     {
@@ -162,20 +160,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "PointCollector" && photonView.IsMine)
+        if (collision.gameObject.tag == "PointCollector")
         {
-            
-            view.RPC("RPC_ButoonPressed", RpcTarget.OthersBuffered, collision.gameObject, photonView.ViewID);
+            if (buttonsPressed >= 0)
+            {
+                pointCollectors.Add(collision.gameObject as GameObject);
+                Debug.Log("Yeah" + pointCollectors[0]);
+            }
         }
     }
 
     public void HandleEffects()
     {
-        if(activeEffects.Contains("adrenaline"))
+        if (activeEffects.Contains("adrenaline"))
         {
             StartCoroutine(AdrenalineEffect());
         }
-        else if(activeEffects.Contains("dopamine"))
+        else if (activeEffects.Contains("dopamine"))
         {
             StartCoroutine(DopamineEffect());
         }
@@ -198,26 +199,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     IEnumerator DopamineEffect()
     {
-        while(health < 120)
+        while (health < 120)
         {
             health = health + 2;
             yield return new WaitForSeconds(1);
-        }
-    }
-
-    [PunRPC]
-    void RPC_ButtonPressed(GameObject collision, int targetPhotonViewID)
-    {
-        PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
-        PlayerManager manager = targetPhotonView.GetComponent<PlayerManager>();
-
-        if (targetPhotonView != null && photonView.ViewID == targetPhotonViewID)
-        {
-            if (manager.buttonsPressed >= 0)
-            {
-                manager.pointCollectors.Add(collision as GameObject);
-                Debug.Log("Yeah" + pointCollectors[0]);
-            }
         }
     }
 }

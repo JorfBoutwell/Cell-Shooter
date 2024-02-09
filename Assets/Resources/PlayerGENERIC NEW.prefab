@@ -493,6 +493,10 @@ MonoBehaviour:
   bulletUI: {fileID: 6550541714398719811}
   currentAmmo: 0
   m_projectile: {fileID: 0}
+  abilityList:
+  - {fileID: 11400000, guid: 4dea3adee2b25e54db2dc08d4c530830, type: 2}
+  currentAbility: {fileID: 0}
+  abilityState: 0
   m_shootingSystem: {fileID: 0}
   destination: {fileID: 0}
   state: 0

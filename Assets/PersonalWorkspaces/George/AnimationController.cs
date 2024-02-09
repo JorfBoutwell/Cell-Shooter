@@ -15,6 +15,7 @@ public class AnimationController : MonoBehaviour
         switch (state)
         {
             case WeaponManager.WeaponState.idle:
+                Debug.Log("animating idle");
                 displayAnimator.Play("NeuronIdle");
                 break;
             case WeaponManager.WeaponState.shooting:
@@ -22,6 +23,10 @@ public class AnimationController : MonoBehaviour
                 break;
             case WeaponManager.WeaponState.reloading:
                 displayAnimator.Play("NeuronReload_Temp");
+                break;
+            case WeaponManager.WeaponState.ability1:
+                Debug.Log("playing ability");
+                displayAnimator.Play("Neuron_Ability1");
                 break;
             default: return;
         }
