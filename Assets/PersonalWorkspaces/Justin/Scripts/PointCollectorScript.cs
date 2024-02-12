@@ -72,6 +72,8 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
         {
             Debug.Log("Hellooo");
 
+            currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
+
             currentPlayer = collision.gameObject;
 
             playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
