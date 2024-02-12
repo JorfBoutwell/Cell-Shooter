@@ -68,7 +68,7 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag == "Player" && !currentPlayer && collision.gameObject.GetComponent<PhotonView>().IsMine)
+        if (collision.gameObject.tag == "Player" && !currentPlayer)
         {
             Debug.Log("Hellooo");
 
@@ -80,7 +80,8 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
 
             //alreadyPressedA = true;
 
-            GetComponent<PhotonView>().RPC("RPC_UpdateButtonsPressed", RpcTarget.AllBuffered, collision);
+
+            collision.gameObject.GetComponent<PlayerManager>().buttonsPressed += 1;
 
 
             if (playerManagerScript.team == "A")
@@ -96,11 +97,5 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
 
 
         }
-    }
-
-    [PunRPC]
-    void RPC_UpdateButtonsPressed(GameObject collision)
-    {
-        collision.GetComponentInChildren<PlayerManager>().buttonsPressed += 1;
     }
 }
