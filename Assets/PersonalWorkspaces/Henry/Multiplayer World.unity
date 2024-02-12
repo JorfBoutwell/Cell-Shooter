@@ -1287,7 +1287,6 @@ GameObject:
   - component: {fileID: 732431767}
   - component: {fileID: 732431766}
   - component: {fileID: 732431765}
-  - component: {fileID: 732431770}
   m_Layer: 0
   m_Name: PointCollectorButton
   m_TagString: PointCollector
@@ -1424,29 +1423,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732431763}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &732431770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732431763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 732431765}
-  sceneViewId: 276
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &784085579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,7 +1571,6 @@ GameObject:
   - component: {fileID: 786453128}
   - component: {fileID: 786453127}
   - component: {fileID: 786453126}
-  - component: {fileID: 786453131}
   m_Layer: 0
   m_Name: PointCollectorButton
   m_TagString: PointCollector
@@ -1732,29 +1707,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 786453124}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &786453131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 786453124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 786453126}
-  sceneViewId: 275
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &832344658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2969,7 +2921,6 @@ GameObject:
   - component: {fileID: 1185259815}
   - component: {fileID: 1185259814}
   - component: {fileID: 1185259813}
-  - component: {fileID: 1185259818}
   m_Layer: 0
   m_Name: PointCollectorButton
   m_TagString: PointCollector
@@ -3106,29 +3057,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1185259811}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1185259818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1185259811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1185259813}
-  sceneViewId: 273
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &1194628361
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,7 +4189,6 @@ GameObject:
   - component: {fileID: 1728896165}
   - component: {fileID: 1728896164}
   - component: {fileID: 1728896163}
-  - component: {fileID: 1728896168}
   m_Layer: 0
   m_Name: PointCollectorButton
   m_TagString: PointCollector
@@ -4398,29 +4325,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728896161}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1728896168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1728896161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 1728896163}
-  sceneViewId: 274
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &1739723703
 GameObject:
   m_ObjectHideFlags: 0
@@ -4602,7 +4506,6 @@ GameObject:
   - component: {fileID: 1819412351}
   - component: {fileID: 1819412350}
   - component: {fileID: 1819412349}
-  - component: {fileID: 1819412354}
   m_Layer: 0
   m_Name: PointCollectorButton
   m_TagString: PointCollector
@@ -4739,29 +4642,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819412347}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1819412354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819412347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1819412349}
-  sceneViewId: 272
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &1921816535
 GameObject:
   m_ObjectHideFlags: 0
@@ -4943,7 +4823,6 @@ GameObject:
   - component: {fileID: 1996374565}
   - component: {fileID: 1996374564}
   - component: {fileID: 1996374563}
-  - component: {fileID: 1996374568}
   m_Layer: 0
   m_Name: PointCollectorButton
   m_TagString: PointCollector
@@ -5080,29 +4959,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996374561}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1996374568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996374561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1996374563}
-  sceneViewId: 271
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &2031257429
 GameObject:
   m_ObjectHideFlags: 0
