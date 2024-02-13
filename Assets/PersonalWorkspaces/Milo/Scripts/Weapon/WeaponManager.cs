@@ -134,13 +134,25 @@ public class WeaponManager : MonoBehaviour
 
         if (isShooting)
         {
+            Debug.Log("oh yeah");
             State = WeaponState.shooting;
         }
-        else if (isReloading)
+        else if((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
+        {
+            State = WeaponState.idle;
+        }
+
+        if (isReloading)
         {
             State = WeaponState.reloading;
         }
-        else if (abilityState == AbilityState.idle || abilityState == AbilityState.cooldown)
+        else if (isShooting == false && (abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
+        {
+            Debug.Log("AJHHH");
+            State = WeaponState.idle;
+        }
+
+        if ((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown) && isReloading == false && isShooting == false)
         {
             State = WeaponState.idle;
         }
@@ -150,6 +162,10 @@ public class WeaponManager : MonoBehaviour
     public void FireWeapon()
     {
         if (!view.IsMine)
+        {
+            return;
+        }
+        if(abilityState == AbilityState.active)
         {
             return;
         }
@@ -437,6 +453,10 @@ public class WeaponManager : MonoBehaviour
 
     public IEnumerator Reload()
     {
+        if (abilityState == AbilityState.active)
+        {
+            yield return null;
+        }
         if (currentAmmo != currentWeapon.maxAmmo)
         {
             isReloading = true;
