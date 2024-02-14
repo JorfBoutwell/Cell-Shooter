@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public List<string> activeEffects;
 
     PhotonView view;
+    
 
     private void Awake()
     {
@@ -74,18 +75,22 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
+                var outline = gameObject.GetComponent<Outline>();
 
                 if ((bool)teamA)
                 {
                     team = "A";
                     transform.GetChild(0).gameObject.layer = 11;
                     gameObject.layer = 11;
+                    outline.OutlineColor = Color.red;
+
                 }
                 else
                 {
                     team = "B";
                     transform.GetChild(0).gameObject.layer = 13;
                     gameObject.layer = 13;
+                    outline.OutlineColor = Color.blue;
                 }
 
             }
@@ -157,7 +162,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         inputActions.Disable();
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "PointCollector")
