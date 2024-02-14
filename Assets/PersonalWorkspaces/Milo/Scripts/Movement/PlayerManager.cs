@@ -71,10 +71,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         outline = gameObject.AddComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.enabled = true;
-    }
-
-    private void Start()
-    {
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
@@ -82,10 +78,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
-                
 
-                
-                
+
+
+
 
                 if ((bool)teamA)
                 {
@@ -104,8 +100,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                 }
 
             }
-            outline.enabled = true;
         }
+    }
+
+    private void Start()
+    {
+
+        
     }
 
     private void Update()
