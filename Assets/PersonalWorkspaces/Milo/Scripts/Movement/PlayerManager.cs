@@ -171,7 +171,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 pointCollectors.Add(collision.gameObject as GameObject);
                 Debug.Log("Yeah" + pointCollectors[0]);
-                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position, GetComponent<PhotonView>().ViewID);
+                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position, gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }
