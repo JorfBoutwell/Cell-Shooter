@@ -103,6 +103,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                 }
 
             }
+            outline.enabled = true;
         }
     }
 
