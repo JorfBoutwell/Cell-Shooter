@@ -219,7 +219,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         if (targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
         {
-            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
+            targetPhotonView.gameObject.transform.position = pos;
         }
     }
 }
