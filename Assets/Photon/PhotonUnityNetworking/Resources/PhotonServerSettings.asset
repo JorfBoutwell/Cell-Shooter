@@ -45,6 +45,7 @@ MonoBehaviour:
   - RPC_ChangeLayer
   - RPC_ButtonPressed
   - RPC_UpdateButtonsPressed
+  - RPC_UpdatePos
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
