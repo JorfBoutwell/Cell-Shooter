@@ -37,7 +37,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     PhotonView view;
 
-    Outline outline;
+    [SerializeField] Material materialA;
+    [SerializeField] Material materialB;
     
 
     private void Awake()
@@ -68,9 +69,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         }
 
-        outline = gameObject.AddComponent<Outline>();
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
-        outline.enabled = true;
     }
 
     private void Start()
@@ -92,7 +90,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                     team = "A";
                     transform.GetChild(0).gameObject.layer = 11;
                     gameObject.layer = 11;
-                    outline.OutlineColor = Color.red;
+                    gameObject.GetComponent<MeshRenderer>().material = materialA;
 
                 }
                 else
@@ -100,11 +98,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                     team = "B";
                     transform.GetChild(0).gameObject.layer = 13;
                     gameObject.layer = 13;
-                    outline.OutlineColor = Color.blue;
+                    gameObject.GetComponent<MeshRenderer>().material = materialB;
                 }
 
             }
-            outline.enabled = true;
         }
     }
 
