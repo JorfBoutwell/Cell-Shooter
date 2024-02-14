@@ -171,6 +171,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 pointCollectors.Add(collision.gameObject as GameObject);
                 Debug.Log("Yeah" + pointCollectors[0]);
+                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position, GetComponent<PhotonView>().ViewID);
             }
         }
     }
@@ -208,6 +209,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             health = health + 2;
             yield return new WaitForSeconds(1);
+        }
+    }
+
+    [PunRPC]
+    void RPC_UpdatePos(Vector3 pos, int targetPhotonViewID)
+    {
+        PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
+
+        if (targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
+        {
+            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
         }
     }
 }
