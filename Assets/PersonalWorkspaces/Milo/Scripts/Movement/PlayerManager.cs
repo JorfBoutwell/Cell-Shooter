@@ -75,7 +75,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
-                var outline = gameObject.GetComponent<Outline>();
+                var outline = gameObject.AddComponent<Outline>();
+
+                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                
 
                 if ((bool)teamA)
                 {
