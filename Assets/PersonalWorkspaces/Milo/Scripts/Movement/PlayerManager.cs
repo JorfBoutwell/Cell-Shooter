@@ -33,8 +33,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public List<GameObject> pointCollectors = new List<GameObject>();
     public int currentPointCollectorsA = 0;
     public List<string> activeEffects;
+    
 
     PhotonView view;
+
+    Outline outline;
     
 
     private void Awake()
@@ -64,6 +67,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
 
         }
+
+        outline = gameObject.AddComponent<Outline>();
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
     }
 
     private void Start()
@@ -75,9 +81,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
-                var outline = gameObject.AddComponent<Outline>();
+                
 
-                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                
                 
 
                 if ((bool)teamA)
