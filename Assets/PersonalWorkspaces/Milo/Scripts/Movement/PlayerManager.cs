@@ -70,6 +70,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         outline = gameObject.AddComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.enabled = true;
     }
 
     private void Start()
