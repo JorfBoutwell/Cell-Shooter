@@ -545,7 +545,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79e4b74c39e9c4c3d93929d7d8b55e69, type: 2}
+  - {fileID: 2100000, guid: 69a2eff729fde4168a5b725355a515df, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -593,6 +593,8 @@ MonoBehaviour:
   pointCollectors: []
   currentPointCollectorsA: 0
   activeEffects: []
+  materialA: {fileID: 2100000, guid: d84fdac30cb524e1ca8fc82476fb1cf8, type: 2}
+  materialB: {fileID: 2100000, guid: 69a2eff729fde4168a5b725355a515df, type: 2}
 --- !u!114 &-6192874562500077789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,7 +771,7 @@ MonoBehaviour:
   m_PositionModel:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 0.3
+    TeleportIfDistanceGreaterThan: 1
     InterpolateOption: 3
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 1
@@ -1830,6 +1832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6518575550588854266}
   - component: {fileID: 322680308720756344}
+  - component: {fileID: 4994012744738016546}
   m_Layer: 0
   m_Name: FPS Camera
   m_TagString: MainCamera
@@ -1904,6 +1907,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!124 &4994012744738016546
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8100386882358799797}
+  m_Enabled: 1
 --- !u!1 &8478667435113405511
 GameObject:
   m_ObjectHideFlags: 0

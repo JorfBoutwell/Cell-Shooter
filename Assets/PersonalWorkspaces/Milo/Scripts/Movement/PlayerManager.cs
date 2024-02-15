@@ -33,8 +33,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public List<GameObject> pointCollectors = new List<GameObject>();
     public int currentPointCollectorsA = 0;
     public List<string> activeEffects;
+    
 
     PhotonView view;
+
+    [SerializeField] Material materialA;
+    [SerializeField] Material materialB;
+    
 
     private void Awake()
     {
@@ -63,6 +68,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
 
         }
+
     }
 
     private void Start()
@@ -74,18 +80,25 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
+                
+
+                
+                
 
                 if ((bool)teamA)
                 {
                     team = "A";
                     transform.GetChild(0).gameObject.layer = 11;
                     gameObject.layer = 11;
+                    gameObject.GetComponent<MeshRenderer>().material = materialA;
+
                 }
                 else
                 {
                     team = "B";
                     transform.GetChild(0).gameObject.layer = 13;
                     gameObject.layer = 13;
+                    gameObject.GetComponent<MeshRenderer>().material = materialB;
                 }
 
             }
@@ -157,7 +170,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         inputActions.Disable();
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "PointCollector")
@@ -166,6 +179,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             {
                 pointCollectors.Add(collision.gameObject as GameObject);
                 Debug.Log("Yeah" + pointCollectors[0]);
+                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
             }
         }
     }
@@ -203,6 +217,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             health = health + 2;
             yield return new WaitForSeconds(1);
+        }
+    }
+
+    [PunRPC]
+    void RPC_UpdatePos(Vector3 pos)
+    {
+        if(!photonView.IsMine)
+        {
+            transform.position = pos;
         }
     }
 }
