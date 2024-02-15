@@ -42,7 +42,7 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                         teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(false);
                     }
                     blueCounter++;
-                } else
+                } else if(!(bool)aTeam)
                 {
                     teamB.transform.GetChild(redCounter).gameObject.SetActive(true);
                     teamB.transform.GetChild(redCounter).GetComponent<TMP_Text>().SetText(player.NickName);
