@@ -16,7 +16,7 @@ MonoBehaviour:
   fireRate: 0.66
   fireFrame: 9
   damage: 10
-  reloadTime: 1.5
+  reloadTime: 1.166667
   weaponRange: 100000
   fireMode: hitscan
   modelPrefab: {fileID: 6397069616505952210, guid: f05ddbee0e15f1140983e409b6cfd9c7, type: 3}
