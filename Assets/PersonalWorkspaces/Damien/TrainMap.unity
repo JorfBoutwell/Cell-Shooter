@@ -1100,6 +1100,63 @@ PrefabInstance:
       addedObject: {fileID: 1528368120}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e83766712d642ad95a951192cb7770, type: 3}
+--- !u!1001 &414010905
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -268.05307
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -70.973206
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 334da574486db41bab9cede70b1625f2, type: 3}
+      propertyPath: m_Name
+      value: TrainFloorDamien
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 334da574486db41bab9cede70b1625f2, type: 3}
 --- !u!1 &429386326
 GameObject:
   m_ObjectHideFlags: 0
@@ -4695,3 +4752,4 @@ SceneRoots:
   - {fileID: 121501256}
   - {fileID: 429386331}
   - {fileID: 1001737045}
+  - {fileID: 414010905}
