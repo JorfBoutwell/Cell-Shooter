@@ -134,7 +134,7 @@ public class WeaponManager : MonoBehaviour
 
         if (isShooting)
         {
-            Debug.Log("oh yeah");
+            
             State = WeaponState.shooting;
         }
         else if((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
@@ -148,7 +148,7 @@ public class WeaponManager : MonoBehaviour
         }
         else if (isShooting == false && (abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
         {
-            Debug.Log("AJHHH");
+            
             State = WeaponState.idle;
         }
 
