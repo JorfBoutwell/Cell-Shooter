@@ -59,6 +59,12 @@ public class WaveStart : MonoBehaviour
         objectiveTextPrompts.Add("If you die, all your buttons will be unclaimed!");
         objectiveTextPrompts.Add("You can't wall jump forever!");
 
+        //Finding WinCondition Objects
+        winOverlay = GameObject.Find("WinOverlay");
+        winText = GameObject.Find("WinText").GetComponentInChildren<TextMeshProUGUI>();
+        returnTimer = GameObject.Find("ReturnTimer").GetComponentInChildren<TextMeshProUGUI>();
+        winOverlay.SetActive(false);
+
     }
 
     void Update()
@@ -148,9 +154,9 @@ public class WaveStart : MonoBehaviour
         
 
         winOverlay.SetActive(true);
-        winText.GetComponentInChildren<TextMeshProUGUI>().transform.DOScale(1.75f, 3);
-        winText.GetComponentInChildren<TextMeshProUGUI>().DOColor(Color.yellow, 3);
-        returnTimer.GetComponentInChildren<TextMeshProUGUI>().text = returnTime.ToString("0");
+        winText.transform.DOScale(1.75f, 3);
+        winText.DOColor(Color.yellow, 3);
+        returnTimer.text = returnTime.ToString("0");
         returnTime -= 1 * Time.deltaTime;
         StartCoroutine("EnterQueueScene");
         
@@ -196,7 +202,7 @@ public class WaveStart : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         dictionary = GameObject.Find("CustomVariableStorage");
-        dictionary.GetComponent<CustomVariableDictionary>().team.Clear();
+        Destroy(dictionary);
 
     }
 
