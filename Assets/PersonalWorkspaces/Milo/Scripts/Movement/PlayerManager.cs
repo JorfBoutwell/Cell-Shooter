@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public List<GameObject> pointCollectors = new List<GameObject>();
     public int currentPointCollectorsA = 0;
     public List<string> activeEffects;
+    public GameObject[] pointCollection;
     
 
     PhotonView view;
@@ -68,6 +69,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
         }
+        pointCollection = GameObject.FindGameObjectsWithTag("PointCollector");
 
     }
 
@@ -180,9 +182,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (buttonsPressed >= 0)
             {
+                GameObject button;
+                for (int i = 0; i < pointCollection.Length; i++)
+                {
+                    if(collision.gameObject == pointCollection[i])
+                    {
+                        button = collision.gameObject;
+                    }
+                }
                 pointCollectors.Add(collision.gameObject as GameObject);
                 Debug.Log("Yeah" + pointCollectors[0]);
-                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
+                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position, gameObject);
             }
         }
     }
@@ -224,11 +234,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    void RPC_UpdatePos(Vector3 pos)
+    public void RPC_UpdatePos(Vector3 pos, GameObject button)
     {
         if(!photonView.IsMine)
         {
             transform.position = pos;
+            button.GetComponent<PointCollectorScript>().collision(gameObject);
         }
     }
 
