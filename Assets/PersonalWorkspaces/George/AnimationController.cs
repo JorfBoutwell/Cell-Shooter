@@ -22,7 +22,10 @@ public class AnimationController : MonoBehaviour
                 displayAnimator.Play("NeuronPrimaryFire");
                 break;
             case WeaponManager.WeaponState.reloading:
-                displayAnimator.Play("NeuronReload_Temp");
+                if (!displayAnimator.GetCurrentAnimatorStateInfo(0).IsName("NeuronReload_Temp"))
+                {
+                    displayAnimator.Play("NeuronReload_Temp");
+                }
                 break;
             case WeaponManager.WeaponState.ability1:
                 Debug.Log("playing ability");
