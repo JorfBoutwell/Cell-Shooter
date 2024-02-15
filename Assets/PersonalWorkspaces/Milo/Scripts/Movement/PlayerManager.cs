@@ -130,17 +130,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         team = teamName;
     }
 
-    [PunRPC]
-    public void ApplyDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            isDead = true;
-        }
-
-        return;
-    }
+    
 
     //send and recieve variables
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -240,5 +230,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             transform.position = pos;
         }
+    }
+
+    [PunRPC]
+    public void ApplyDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+
+        return;
     }
 }
