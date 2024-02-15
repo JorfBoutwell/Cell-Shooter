@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class WaveStart : MonoBehaviour
 {
@@ -28,7 +29,12 @@ public class WaveStart : MonoBehaviour
     public List<string> objectiveTextPrompts = new List<string>();
     public GameObject objectiveText;
     public GameObject objectiveTextLine;
-    int objectiveTextValue;
+
+    //End Variables
+    public PointUpdateScript pointUpdateScript;
+    public GameObject winOverlay;
+    public TextMeshProUGUI winText;
+    public TextMeshProUGUI returnTimer;
 
     void Start()
     {
@@ -76,12 +82,19 @@ public class WaveStart : MonoBehaviour
             //Deactivates Final Countdown Overlay and Countdown
             if (currentTime <= 0)
             {
+                if (gameTimerStart == false) { 
                 currentTime = 0;
                 //startCountdown = false;
                 countdownOverlay.SetActive(false);
                 //countdownUnderline.SetActive(false);
                 //countdownText.enabled = false;
                 Reset();
+                }
+                else
+                {
+                    
+                    WinCondition();
+                }
             }
 
             
@@ -109,6 +122,36 @@ public class WaveStart : MonoBehaviour
 
     }
 
+    void WinCondition()
+    {
+        if(pointUpdateScript.pointsA >= 1000) //Either team reaches 1000 points
+        {
+            winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
+            Debug.Log("Team A Wins!");
+        }
+        else if (pointUpdateScript.pointsB >= 1000)
+        {
+            winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
+            Debug.Log("Team B Wins!");
+        }
+        else //Timer runs out
+        {
+            if(pointUpdateScript.pointsA > pointUpdateScript.pointsB)
+            {
+                winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
+                Debug.Log("Team A Wins!");
+            }
+            else
+            {
+                winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
+                Debug.Log("Team B Wins!");
+            }
+        }
+
+        winOverlay.SetActive(true);
+        //SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
+    }
+
     //Displays Objective Text
     IEnumerator ObjectiveEnter()
     {
@@ -119,11 +162,8 @@ public class WaveStart : MonoBehaviour
 
         for (int i = 0; i < objectiveTextPrompts.Count; i++)
             {
-            //objectiveText.GetComponentInChildren<TextMeshProUGUI>().text = objectiveTextPrompts[Random.Range(0, objectiveTextPrompts.Count)];
             objectiveText.GetComponentInChildren<TextMeshProUGUI>().text = objectiveTextPrompts[i];
-
             objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(1, 1);
-            //objectiveTextLine.GetComponentInChildren<Material>().DOFade(1, 1);
 
             yield return new WaitForSeconds(2.75f);
 
@@ -135,7 +175,6 @@ public class WaveStart : MonoBehaviour
                 objectiveText.SetActive(false);
                 objectiveTextLine.SetActive(false);
             }
-            //objectiveTextLine.GetComponentInChildren<Material>().DOFade(0, 1);
 
             yield return new WaitForSeconds(2.75f);
 
