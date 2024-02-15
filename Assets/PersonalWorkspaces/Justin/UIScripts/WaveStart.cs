@@ -35,6 +35,9 @@ public class WaveStart : MonoBehaviour
     public GameObject winOverlay;
     public TextMeshProUGUI winText;
     public TextMeshProUGUI returnTimer;
+    string winTeam;
+
+    public GameObject dictionary;
 
     void Start()
     {
@@ -60,9 +63,11 @@ public class WaveStart : MonoBehaviour
     void Update()
     {
         //Game Countdown
-        if (startCountdown) {
+        if (startCountdown)
+        {
             currentTime -= 1 * Time.deltaTime;
             countdownTimer.text = currentTime.ToString("0");
+
             if(gameTimerStart)
             {
                 gameTimeMinutes = Mathf.FloorToInt(currentTime / 60);
@@ -82,22 +87,28 @@ public class WaveStart : MonoBehaviour
             //Deactivates Final Countdown Overlay and Countdown
             if (currentTime <= 0)
             {
-                if (gameTimerStart == false) { 
-                currentTime = 0;
-                //startCountdown = false;
-                countdownOverlay.SetActive(false);
-                //countdownUnderline.SetActive(false);
-                //countdownText.enabled = false;
-                Reset();
+                if (gameTimerStart == false)
+                { 
+                    currentTime = 0;
+                    countdownOverlay.SetActive(false);
+                    Reset();
                 }
                 else
                 {
-                    
-                    WinCondition();
+                    WinCondition(winTeam);
                 }
             }
 
-            
+            if(pointUpdateScript.pointsA >= 50)
+            {
+                winTeam = "A";
+                WinCondition(winTeam);
+            }
+            else if(pointUpdateScript.pointsB >= 50)
+            {
+                winTeam = "B";
+                WinCondition(winTeam);
+            }
         }
     }
 
@@ -117,39 +128,27 @@ public class WaveStart : MonoBehaviour
     public void StartCountdown()
     {
         startCountdown = true;
-
         StartCoroutine("ObjectiveEnter");
 
     }
 
-    void WinCondition()
+    void WinCondition(string winTeam)
     {
-        if(pointUpdateScript.pointsA >= 1000) //Either team reaches 1000 points
-        {
+        if(pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
+            {
             winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
             Debug.Log("Team A Wins!");
-        }
-        else if (pointUpdateScript.pointsB >= 1000)
-        {
+            }
+        else if(pointUpdateScript.pointsB > pointUpdateScript.pointsA || winTeam == "B")
+            {
             winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
             Debug.Log("Team B Wins!");
-        }
-        else //Timer runs out
-        {
-            if(pointUpdateScript.pointsA > pointUpdateScript.pointsB)
-            {
-                winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
-                Debug.Log("Team A Wins!");
             }
-            else
-            {
-                winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
-                Debug.Log("Team B Wins!");
-            }
-        }
+        
 
         winOverlay.SetActive(true);
-        //SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
+        StartCoroutine("EnterQueueScene");
+        
     }
 
     //Displays Objective Text
@@ -180,6 +179,20 @@ public class WaveStart : MonoBehaviour
 
         }
         
+    }
+
+    IEnumerator EnterQueueScene()
+    {
+        yield return new WaitForSeconds(5f);
+
+        SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        dictionary = GameObject.Find("CustomVariableStorage");
+        dictionary.GetComponent<CustomVariableDictionary>().team.Clear();
+
     }
 
 }
