@@ -6,7 +6,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerManager : MonoBehaviourPunCallbacks
+public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
@@ -130,17 +130,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         team = teamName;
     }
 
-    [PunRPC]
-    public void ApplyDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            isDead = true;
-        }
+    
 
-        return;
+    //send and recieve variables
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(gameObject.transform.position);
+        } else if (stream.IsReading)
+        {
+            gameObject.transform.position = (Vector3)stream.ReceiveNext();
+        }
     }
+
 
     private void AssignInputs()
     {
@@ -227,5 +230,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             transform.position = pos;
         }
+    }
+
+    [PunRPC]
+    public void ApplyDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+
+        return;
     }
 }
