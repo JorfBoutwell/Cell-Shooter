@@ -35,6 +35,7 @@ public class WaveStart : MonoBehaviour
     public GameObject winOverlay;
     public TextMeshProUGUI winText;
     public TextMeshProUGUI returnTimer;
+    public float returnTime = 5f;
     string winTeam;
 
     public GameObject dictionary;
@@ -147,6 +148,10 @@ public class WaveStart : MonoBehaviour
         
 
         winOverlay.SetActive(true);
+        winText.GetComponentInChildren<TextMeshProUGUI>().transform.DOScale(1.75f, 3);
+        winText.GetComponentInChildren<TextMeshProUGUI>().DOColor(Color.yellow, 3);
+        returnTimer.GetComponentInChildren<TextMeshProUGUI>().text = returnTime.ToString("0");
+        returnTime -= 1 * Time.deltaTime;
         StartCoroutine("EnterQueueScene");
         
     }
