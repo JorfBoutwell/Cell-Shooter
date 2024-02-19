@@ -33,16 +33,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public List<GameObject> pointCollectors = new List<GameObject>();
     public int currentPointCollectorsA = 0;
     public List<string> activeEffects;
+    public GameObject[] pointCollection;
     
 
     PhotonView view;
 
     [SerializeField] Material materialA;
     [SerializeField] Material materialB;
+
+    public string username;
     
 
     private void Awake()
     {
+        username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
+
         character = "Neuron";
 
         inputActions = new InputActions();
@@ -68,6 +73,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
 
         }
+        pointCollection = GameObject.FindGameObjectsWithTag("PointCollector");
 
     }
 
@@ -130,17 +136,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         team = teamName;
     }
 
-    [PunRPC]
-    public void ApplyDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            isDead = true;
-        }
-
-        return;
-    }
 
     private void AssignInputs()
     {
@@ -177,9 +172,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             if (buttonsPressed >= 0)
             {
+                GameObject button;
+                for (int i = 0; i < pointCollection.Length; i++)
+                {
+                    if(collision.gameObject == pointCollection[i])
+                    {
+                        button = collision.gameObject;
+                    }
+                }
                 pointCollectors.Add(collision.gameObject as GameObject);
                 Debug.Log("Yeah" + pointCollectors[0]);
-                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
+                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position, gameObject);
             }
         }
     }
@@ -221,11 +224,24 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void RPC_UpdatePos(Vector3 pos)
+    public void RPC_UpdatePos(Vector3 pos, GameObject button)
     {
         if(!photonView.IsMine)
         {
             transform.position = pos;
+            button.GetComponent<PointCollectorScript>().collision(gameObject);
         }
+    }
+
+    [PunRPC]
+    public void ApplyDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            isDead = true;
+        }
+
+        return;
     }
 }

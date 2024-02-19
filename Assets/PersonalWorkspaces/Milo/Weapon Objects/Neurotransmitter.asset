@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 32
   fireRate: 0.15
+  fireFrame: 0
   damage: 15
-  reloadTime: 1.5
+  reloadTime: 1.166667
   weaponRange: 100
   fireMode: burst
   modelPrefab: {fileID: 2472187522479640051, guid: 358029712d5e52d47851a9629824b90f, type: 3}

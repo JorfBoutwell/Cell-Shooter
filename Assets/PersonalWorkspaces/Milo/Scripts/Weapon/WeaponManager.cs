@@ -134,7 +134,7 @@ public class WeaponManager : MonoBehaviour
 
         if (isShooting)
         {
-            Debug.Log("oh yeah");
+            
             State = WeaponState.shooting;
         }
         else if((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
@@ -148,7 +148,7 @@ public class WeaponManager : MonoBehaviour
         }
         else if (isShooting == false && (abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
         {
-            Debug.Log("AJHHH");
+            
             State = WeaponState.idle;
         }
 
@@ -403,6 +403,12 @@ public class WeaponManager : MonoBehaviour
                     case 7: //"enemy"
                         Debug.Log("enemy");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
+                        if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
+                        {
+                            hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2;
+                            m_player.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player1;
+                            GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
+                        }
                         break;
                     case 10: //"enemyHead"
                         Debug.Log("enemyHead");
@@ -462,6 +468,7 @@ public class WeaponManager : MonoBehaviour
             isReloading = true;
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
+            Debug.Log("rdone");
             currentAmmo = currentWeapon.maxAmmo;
             bulletUI.text = currentAmmo.ToString("0");
             isReloading = false;

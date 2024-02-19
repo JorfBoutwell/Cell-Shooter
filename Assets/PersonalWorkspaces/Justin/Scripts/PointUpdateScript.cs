@@ -17,6 +17,10 @@ public class PointUpdateScript : MonoBehaviour
 
     public GameObject pointsTextA;
     public GameObject pointsTextB;
+
+    bool aHalfPoint;
+    bool bHalfPoint;
+
     //public PointCollectorScript pointCollectorScript;
 
     
@@ -52,6 +56,8 @@ public class PointUpdateScript : MonoBehaviour
 
             time = 0f;
         }
+
+        
     }
 
 }
