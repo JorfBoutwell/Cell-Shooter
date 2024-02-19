@@ -382,8 +382,10 @@ MonoBehaviour:
   pointCollectors: []
   currentPointCollectorsA: 0
   activeEffects: []
+  pointCollection: []
   materialA: {fileID: 2100000, guid: d84fdac30cb524e1ca8fc82476fb1cf8, type: 2}
   materialB: {fileID: 2100000, guid: 69a2eff729fde4168a5b725355a515df, type: 2}
+  username: 
 --- !u!114 &-6192874562500077789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,7 +544,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3475740908745778152}
   - {fileID: 4720769871553000752}
-  sceneViewId: 0
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &7894135386633626600
@@ -2001,6 +2003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoundStartObject
       objectReference: {fileID: 0}
+    - target: {fileID: 3920528137686076712, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: pointUpdateScript
+      value: 
+      objectReference: {fileID: 3380243030810198633}
     - target: {fileID: 3974164640146571638, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

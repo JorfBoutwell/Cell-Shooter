@@ -40,10 +40,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] Material materialA;
     [SerializeField] Material materialB;
+
+    public string username;
     
 
     private void Awake()
     {
+        username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
+
         character = "Neuron";
 
         inputActions = new InputActions();
