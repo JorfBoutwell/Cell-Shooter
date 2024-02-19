@@ -468,6 +468,7 @@ public class WeaponManager : MonoBehaviour
             isReloading = true;
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
+            Debug.Log("rdone");
             currentAmmo = currentWeapon.maxAmmo;
             bulletUI.text = currentAmmo.ToString("0");
             isReloading = false;

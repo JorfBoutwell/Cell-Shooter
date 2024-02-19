@@ -6,7 +6,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
@@ -134,20 +134,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public void SetTeam(string teamName)
     {
         team = teamName;
-    }
-
-    
-
-    //send and recieve variables
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(gameObject.transform.position);
-        } else if (stream.IsReading)
-        {
-            gameObject.transform.position = (Vector3)stream.ReceiveNext();
-        }
     }
 
 
