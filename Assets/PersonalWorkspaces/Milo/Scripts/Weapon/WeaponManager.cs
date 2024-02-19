@@ -403,12 +403,13 @@ public class WeaponManager : MonoBehaviour
                     case 7: //"enemy"
                         Debug.Log("enemy");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
-                        if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
+                        /*if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
                         {
                             hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2;
                             m_player.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player1;
+                            //Don't use m_player
                             GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
-                        }
+                        }*/
                         break;
                     case 10: //"enemyHead"
                         Debug.Log("enemyHead");

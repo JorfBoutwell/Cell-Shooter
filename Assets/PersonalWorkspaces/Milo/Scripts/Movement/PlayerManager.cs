@@ -6,7 +6,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerManager : MonoBehaviourPunCallbacks
+public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
@@ -46,7 +46,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
+        //username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
+        username = PhotonNetwork.LocalPlayer.NickName;
+        //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
 
         character = "Neuron";
 
@@ -108,6 +110,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks
                 }
 
             }
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+
+        }
+        else
+        {
+
         }
     }
 
