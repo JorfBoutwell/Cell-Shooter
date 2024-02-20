@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class WaveStart : MonoBehaviour
 {
@@ -120,8 +121,9 @@ public class WaveStart : MonoBehaviour
     }
 
     //Resets Countdown to Start Game Timer
-    private void Reset()
+    public void Reset()
     {
+
         currentTime = 180f;
         gameTimerStart = true;
 

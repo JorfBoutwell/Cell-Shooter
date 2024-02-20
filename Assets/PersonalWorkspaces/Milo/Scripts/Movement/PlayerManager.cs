@@ -203,6 +203,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     //}
 
+    //ran when a point collecter hits this gameobject
     public void recievePoint(GameObject pointCollecter)
     {
         
@@ -220,6 +221,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             
         }
     }
+
+    
 
     public void HandleEffects()
     {
@@ -283,5 +286,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public void startPointer(int i)
     {
         pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
+    }
+
+    //ran when host clients timer hits 0, synchs all clocks
+    [PunRPC]
+    public void startTimer()
+    {
+        WaveStart timerScript = gameObject.GetComponentInChildren<WaveStart>();
+    }
+
+        //ran when host clients timer hits 0, synchs all clocks
+    [PunRPC]
+    public void startClock()
+    {
+        WaveStart timerScript = gameObject.GetComponentInChildren<WaveStart>();
+        timerScript.currentTime = 0;
+        timerScript.countdownOverlay.SetActive(false);
+        timerScript.Reset();
+
     }
 }
