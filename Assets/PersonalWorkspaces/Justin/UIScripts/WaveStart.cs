@@ -95,11 +95,9 @@ public class WaveStart : MonoBehaviour
             //Deactivates Final Countdown Overlay and Countdown
             if (currentTime <= 0)
             {
-                if (gameTimerStart == false)
-                { 
-                    currentTime = 0;
-                    countdownOverlay.SetActive(false);
-                    Reset();
+                if (gameTimerStart == false && PhotonNetwork.IsMasterClient)
+                {
+                    transform.root.gameObject.GetComponent<PhotonView>().RPC("startClock", RpcTarget.All);
                 }
                 else
                 {
