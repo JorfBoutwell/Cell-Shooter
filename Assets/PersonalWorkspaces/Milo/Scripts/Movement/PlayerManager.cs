@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public int currentPointCollectorsA = 0;
     public List<string> activeEffects;
     public GameObject[] pointCollection;
+
     
 
     PhotonView view;
@@ -115,13 +116,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
         if (stream.IsWriting)
         {
-
+            stream.SendNext(rigidbody.position);
+            stream.SendNext(rigidbody.rotation);
+            stream.SendNext(rigidbody.velocity);
         }
         else
         {
+            rigidbody.position = (Vector3)stream.ReceiveNext();
+            rigidbody.rotation = (Quaternion)stream.ReceiveNext();
+            rigidbody.velocity = (Vector3)stream.ReceiveNext();
 
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+            rigidbody.position += rigidbody.velocity * lag;
         }
     }
 
