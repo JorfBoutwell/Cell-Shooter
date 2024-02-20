@@ -251,6 +251,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(!photonView.IsMine)
         {
+            Debug.Log("hit button");
             transform.position = pos;
             button.GetComponent<PointCollectorScript>().collision(gameObject);
         }
