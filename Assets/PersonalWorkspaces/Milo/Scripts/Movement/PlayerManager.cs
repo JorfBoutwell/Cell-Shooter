@@ -188,19 +188,27 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         inputActions.Disable();
     }
-    
-    private void OnCollisionEnter(Collision collision)
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "PointCollector")
+    //    {
+    //        if (buttonsPressed >= 0)
+    //        {
+    //            pointCollectors.Add(collision.gameObject as GameObject);
+    //            Debug.Log("Yeah" + pointCollectors[0]);
+    //            view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
+    //        }
+    //    }
+
+    //}
+
+    public void recievePoint(GameObject pointCollecter)
     {
-        if (collision.gameObject.tag == "PointCollector")
+        if (photonView.IsMine)
         {
-            if (buttonsPressed >= 0)
-            {
-                pointCollectors.Add(collision.gameObject as GameObject);
-                Debug.Log("Yeah" + pointCollectors[0]);
-                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
-            }
+            photonView.RPC("startPointer", RpcTarget.AllBuffered, pointCollecter);
         }
-        
     }
 
     public void HandleEffects()
@@ -259,5 +267,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         return;
+    }
+
+    [PunRPC]
+    public void startPointer(GameObject pointCollecter)
+    {
+        pointCollecter.GetComponent<PointCollectorScript>().runPointCollision(gameObject);
     }
 }

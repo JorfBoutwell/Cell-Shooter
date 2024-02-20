@@ -70,38 +70,41 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
 
         if (collision.gameObject.tag == "Player" && collision.gameObject != currentPlayer)
         {
-            Debug.Log("Hellooo");
+            gameObject.GetComponent<PlayerManager>().recievePoint(gameObject);
+        }
+    }
 
-            if(currentPlayer != null)
-            {
-                currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
-            }
-            
+    public void runPointCollision(GameObject player)
+    {
+        Debug.Log("Hellooo");
 
-            currentPlayer = collision.gameObject;
-
-            playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
-
-            Debug.Log("p1" + currentPlayer);
-
-            //alreadyPressedA = true;
+        if (currentPlayer != null)
+        {
+            currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
+        }
 
 
-            collision.gameObject.GetComponent<PlayerManager>().buttonsPressed += 1;
+        currentPlayer = player;
+
+        playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
+
+        Debug.Log("p1" + currentPlayer);
+
+        //alreadyPressedA = true;
 
 
-            if (playerManagerScript.team == "A")
-            {
-                currentTeam = "A";
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
-            }
-            else
-            {
-                currentTeam = "B";
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
-            }
+        player.GetComponent<PlayerManager>().buttonsPressed += 1;
 
 
+        if (playerManagerScript.team == "A")
+        {
+            currentTeam = "A";
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            currentTeam = "B";
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
         }
     }
 }
