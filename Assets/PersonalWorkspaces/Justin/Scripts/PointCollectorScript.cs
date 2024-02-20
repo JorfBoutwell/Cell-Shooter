@@ -70,7 +70,7 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
 
         if (collision.gameObject.tag == "Player" && collision.gameObject != currentPlayer)
         {
-            gameObject.GetComponent<PlayerManager>().recievePoint(gameObject);
+            collision.gameObject.GetComponent<PlayerManager>().recievePoint(gameObject);
         }
     }
 
