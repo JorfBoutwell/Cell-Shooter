@@ -205,9 +205,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void recievePoint(GameObject pointCollecter)
     {
+        
         if (photonView.IsMine)
         {
-            photonView.RPC("startPointer", RpcTarget.All, pointCollecter);
+            for(int i = 0; i < pointCollection.Length; i++)
+            {
+                if (pointCollection[i] == pointCollecter)
+                photonView.RPC("startPointer", RpcTarget.All, i);
+                return;
+            }
+            
         }
     }
 
@@ -270,8 +277,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void startPointer(GameObject pointCollecter)
+    public void startPointer(int i)
     {
-        pointCollecter.GetComponent<PointCollectorScript>().runPointCollision(gameObject);
+        pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
     }
 }
