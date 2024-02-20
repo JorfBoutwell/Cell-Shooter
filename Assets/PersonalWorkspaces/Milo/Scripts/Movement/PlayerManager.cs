@@ -195,19 +195,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (buttonsPressed >= 0)
             {
-                GameObject button;
-                for (int i = 0; i < pointCollection.Length; i++)
-                {
-                    if(collision.gameObject == pointCollection[i])
-                    {
-                        button = collision.gameObject;
-                    }
-                }
                 pointCollectors.Add(collision.gameObject as GameObject);
                 Debug.Log("Yeah" + pointCollectors[0]);
-                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position, gameObject);
+                view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
             }
         }
+        
     }
 
     public void HandleEffects()
@@ -247,13 +240,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void RPC_UpdatePos(Vector3 pos, GameObject button)
+    public void RPC_UpdatePos(Vector3 pos)
     {
         if(!photonView.IsMine)
         {
             Debug.Log("hit button");
             transform.position = pos;
-            button.GetComponent<PointCollectorScript>().collision(gameObject);
         }
     }
 

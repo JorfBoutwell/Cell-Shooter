@@ -65,7 +65,7 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
         
     }
 
-    public void collision(GameObject collision)
+    private void OnCollisionEnter(Collision collision)
     {
 
         if (collision.gameObject.tag == "Player" && collision.gameObject != currentPlayer)
