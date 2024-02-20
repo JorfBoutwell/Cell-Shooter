@@ -207,7 +207,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
-            photonView.RPC("startPointer", RpcTarget.AllBuffered, pointCollecter);
+            photonView.RPC("startPointer", RpcTarget.All, pointCollecter);
         }
     }
 
