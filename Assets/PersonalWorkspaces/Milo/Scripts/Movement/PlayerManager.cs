@@ -210,9 +210,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             for(int i = 0; i < pointCollection.Length; i++)
             {
+                Debug.Log(pointCollection.Length);
                 if (pointCollection[i] == pointCollecter)
-                photonView.RPC("startPointer", RpcTarget.All, i);
-                return;
+                {
+                    photonView.RPC("startPointer", RpcTarget.All, i);
+                    return;
+                }
             }
             
         }
