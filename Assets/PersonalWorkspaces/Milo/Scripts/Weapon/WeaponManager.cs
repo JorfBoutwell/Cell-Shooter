@@ -114,7 +114,6 @@ public class WeaponManager : MonoBehaviour
         if (stateChange) //If state has changed this frame, play new anim
         {
             Debug.Log("switch");
-            Debug.Log(State);
             animController.WeaponAnimationController(State);
             stateChange = false;
         }
@@ -137,19 +136,10 @@ public class WeaponManager : MonoBehaviour
             
             State = WeaponState.shooting;
         }
-        else if((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
-        {
-            State = WeaponState.idle;
-        }
 
         if (isReloading)
         {
             State = WeaponState.reloading;
-        }
-        else if (isShooting == false && (abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
-        {
-            
-            State = WeaponState.idle;
         }
 
         if ((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown) && isReloading == false && isShooting == false)
@@ -461,6 +451,7 @@ public class WeaponManager : MonoBehaviour
 
     public IEnumerator Reload()
     {
+        Debug.Log("rstart");
         if (abilityState == AbilityState.active || state != WeaponState.idle)
         {
             yield return null;
@@ -470,6 +461,7 @@ public class WeaponManager : MonoBehaviour
             isReloading = true;
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
+            Debug.Log(currentWeapon.reloadTime);
             Debug.Log("rdone");
             currentAmmo = currentWeapon.maxAmmo;
             bulletUI.text = currentAmmo.ToString("0");
