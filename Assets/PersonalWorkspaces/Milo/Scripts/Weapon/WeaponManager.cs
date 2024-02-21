@@ -388,6 +388,7 @@ public class WeaponManager : MonoBehaviour
 
     private IEnumerator Shoot()
     {
+        if (state != WeaponState.idle) yield return null;
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireFrame / 24);
@@ -460,7 +461,7 @@ public class WeaponManager : MonoBehaviour
 
     public IEnumerator Reload()
     {
-        if (abilityState == AbilityState.active)
+        if (abilityState == AbilityState.active || state != WeaponState.idle)
         {
             yield return null;
         }
