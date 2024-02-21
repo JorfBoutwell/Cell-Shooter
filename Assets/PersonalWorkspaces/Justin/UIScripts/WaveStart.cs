@@ -99,7 +99,7 @@ public class WaveStart : MonoBehaviour
                 {
                     transform.root.gameObject.GetComponent<PhotonView>().RPC("startClock", RpcTarget.All);
                 }
-                else
+                else if(gameTimerStart)
                 {
                     WinCondition(winTeam);
                 }
