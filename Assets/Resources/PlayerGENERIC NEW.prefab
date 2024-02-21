@@ -2015,6 +2015,10 @@ PrefabInstance:
       propertyPath: objectiveTextLine
       value: 
       objectReference: {fileID: 2777745022426598567}
+    - target: {fileID: 4902178381130067210, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: pointUpdateScript
+      value: 
+      objectReference: {fileID: 3380243030810198633}
     - target: {fileID: 5024962285015121209, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_text
       value: 

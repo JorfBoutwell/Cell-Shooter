@@ -46,6 +46,9 @@ MonoBehaviour:
   - RPC_ButtonPressed
   - RPC_UpdateButtonsPressed
   - RPC_UpdatePos
+  - startClock
+  - startPointer
+  - startTimer
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
