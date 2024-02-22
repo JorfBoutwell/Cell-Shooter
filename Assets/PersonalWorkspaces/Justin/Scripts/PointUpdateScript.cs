@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 
 public class PointUpdateScript : MonoBehaviour
 {
     public float time;
-    public bool timer;
     public PlayerManager playerManagerScript;
     //public PointCollectorScript pointCollectorScript;
 
@@ -37,8 +37,8 @@ public class PointUpdateScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timer)
-            time += Time.deltaTime;
+        
+        time += Time.deltaTime;
         
 
         if(time > 1f)
@@ -62,5 +62,4 @@ public class PointUpdateScript : MonoBehaviour
 
         
     }
-
 }
