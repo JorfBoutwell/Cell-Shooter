@@ -35,7 +35,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public List<string> activeEffects;
     public GameObject[] pointCollection;
 
-    
+    public GameObject queDictionary;
+    //key and local players ready status
+    private static readonly string ReadyPropKey = "ReadyUp";
+    private bool ready = false;
 
     PhotonView view;
 
@@ -47,6 +50,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        queDictionary = GameObject.Find("CustomVariableStorage");
+        StartCoroutine(SynchScenes());
         //username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
         username = PhotonNetwork.LocalPlayer.NickName;
         //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
@@ -258,6 +263,41 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             health = health + 2;
             yield return new WaitForSeconds(1);
         }
+    }
+
+    IEnumerator SynchScenes()
+    {
+        Time.timeScale = 0;
+
+        bool pass = false;
+        while(!pass)
+        {
+            
+            int count = 0;
+            Debug.Log(PhotonNetwork.PlayerList.Length);
+            if (PhotonNetwork.PlayerList.Length == queDictionary.GetComponent<CustomVariableDictionary>().team.Count)
+            {
+                
+                foreach (Player player in PhotonNetwork.PlayerList)
+                {
+                    object readyUp;
+                    if (player.CustomProperties.TryGetValue(ReadyPropKey, out readyUp))
+                    {
+                        if ((bool)readyUp)
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            if(count == PhotonNetwork.PlayerList.Length)
+            {
+                pass = true;
+            }
+            Debug.Log(count);
+        }
+        Time.timeScale = 1;
+        yield return null;
     }
 
     [PunRPC]
