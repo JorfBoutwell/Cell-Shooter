@@ -106,7 +106,5 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
             currentTeam = "B";
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
         }
-
-        pointUpdateScript.timer = true;
     }
 }
