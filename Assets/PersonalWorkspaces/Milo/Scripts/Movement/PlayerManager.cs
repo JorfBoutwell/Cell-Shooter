@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
         queDictionary = GameObject.Find("CustomVariableStorage");
-        StartCoroutine(SynchScenes());
+        //StartCoroutine(SynchScenes());
         //username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
         username = PhotonNetwork.LocalPlayer.NickName;
         //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
