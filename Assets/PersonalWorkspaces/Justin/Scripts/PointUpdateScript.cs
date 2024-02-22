@@ -7,6 +7,7 @@ using TMPro;
 public class PointUpdateScript : MonoBehaviour
 {
     public float time;
+    public bool timer;
     public PlayerManager playerManagerScript;
     //public PointCollectorScript pointCollectorScript;
 
@@ -30,12 +31,14 @@ public class PointUpdateScript : MonoBehaviour
     {
         pointsTextA = GameObject.Find("PointsA");
         pointsTextB = GameObject.Find("PointsB");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        if(timer)
+            time += Time.deltaTime;
         
 
         if(time > 1f)
