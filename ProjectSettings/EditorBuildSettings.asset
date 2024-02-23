@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/PersonalWorkspaces/Tisya/Scenes/Character Select.unity
     guid: b11507c3346c342a5ba931e181aad1f9
   - enabled: 1
@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PersonalWorkspaces/Henry/Queue.unity
     guid: 641dd262ce81d4d0c81c53733c952956
+  - enabled: 1
+    path: Assets/InGame/Scenes/MainMenu.unity
+    guid: 014e777f2d35e462ea30f01e850dc91b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e34803199b2727d4c822992c87d0366d, type: 2}

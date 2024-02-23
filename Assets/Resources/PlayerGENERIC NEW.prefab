@@ -280,6 +280,7 @@ GameObject:
   - component: {fileID: 7894135386633626600}
   - component: {fileID: 7904016881856551529}
   - component: {fileID: 9182972780782173685}
+  - component: {fileID: 1185342511653904613}
   m_Layer: 0
   m_Name: PlayerGENERIC NEW
   m_TagString: Player
@@ -444,7 +445,7 @@ MonoBehaviour:
   m_gravityCounterForce: 2
   m_wallRunTimer: 1.5
   m_exitingWall: 0
-  m_exitWallTimer: 0
+  m_exitWallTimer: 1.5
 --- !u!136 &7364476668653571236
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -483,7 +484,7 @@ MonoBehaviour:
   animController: {fileID: 0}
   isShooting: 0
   isAutoFiring: 0
-  isReloading: 0
+  isReloading: 1
   currentWeapon: {fileID: 11400000, guid: 1c3b201c85810cb40b513067f0e3d9f3, type: 2}
   m_armTransform: {fileID: 1579537894278776632}
   bulletTransform: {fileID: 1886300677312939649}
@@ -497,7 +498,7 @@ MonoBehaviour:
   currentAmmo: 0
   m_projectile: {fileID: 0}
   abilityList:
-  - {fileID: 11400000, guid: 4dea3adee2b25e54db2dc08d4c530830, type: 2}
+  - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
   currentAbility: {fileID: 0}
   abilityUI: {fileID: 0}
   abilityState: 0
@@ -517,11 +518,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityList:
-  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
-  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
-  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
-  - {fileID: 11400000, guid: 53d006ef43523a64793e6fc9e6ee0b19, type: 2}
-  - {fileID: 11400000, guid: 10ffcaa069c281244af57e8680c5d8df, type: 2}
+  - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
+  - {fileID: 11400000, guid: dcd08c0303bd9cd43be4267157c2ca9d, type: 2}
   currentAbility: {fileID: 0}
 --- !u!114 &-655466026383108972
 MonoBehaviour:
@@ -628,6 +626,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1185342511653904613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576989017386804971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39596a584beb1c14ca29ceba3b5edf5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentNeurotransmitter: 
 --- !u!1 &2194352682058484933
 GameObject:
   m_ObjectHideFlags: 0

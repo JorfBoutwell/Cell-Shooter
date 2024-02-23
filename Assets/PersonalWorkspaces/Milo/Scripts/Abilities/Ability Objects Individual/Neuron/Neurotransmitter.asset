@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Neurotransmitter
   iconImage: {fileID: 0}
+  abilityTime: 1.5
+  animationFlag: 0
   cooldownTime: 2
   isUsable: 1
   adrenalineObject: {fileID: 4628629900433343193, guid: 3bdcc7e27ec76ae428d71674fb11aa26, type: 3}
