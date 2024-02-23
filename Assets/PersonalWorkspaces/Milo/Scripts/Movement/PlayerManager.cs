@@ -42,7 +42,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Material materialB;
 
     public string username;
-    
+
+
 
     private void Awake()
     {
@@ -305,5 +306,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         timerScript.countdownOverlay.SetActive(false);
         timerScript.Reset();
 
+    }
+
+    [PunRPC]
+    public void endGame()
+    {
+        WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
+        waveStartScript.winOverlay.SetActive(true);
     }
 }

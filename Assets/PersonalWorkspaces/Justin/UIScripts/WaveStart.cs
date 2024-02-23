@@ -151,7 +151,8 @@ public class WaveStart : MonoBehaviour
             Debug.Log("Team B Wins!");
             }
         
-        winOverlay.SetActive(true);
+        //winOverlay.SetActive(true);
+        transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.All);
         winText.transform.DOScale(1.75f, 3);
         winText.DOColor(Color.yellow, 3);
 
