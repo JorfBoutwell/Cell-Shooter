@@ -311,7 +311,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void endGame()
     {
+
         WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
-        waveStartScript.WinCondition(waveStartScript.winTeam);
+        waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
     }
 }
