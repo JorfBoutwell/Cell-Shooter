@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 
-public class WinOverlay : MonoBehaviour, IPunObservable
+public class WinOverlay : MonoBehaviour//, IPunObservable
 {
     PointUpdateScript pointUpdateScript;
     public GameObject winOverlay;
@@ -20,7 +20,7 @@ public class WinOverlay : MonoBehaviour, IPunObservable
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         Debug.Log("HELO");
         if (pointUpdateScript.pointsA >= 10)
@@ -45,5 +45,5 @@ public class WinOverlay : MonoBehaviour, IPunObservable
         {
             winOverlay = (GameObject)stream.ReceiveNext();
         }
-    }
+    }*/
 }

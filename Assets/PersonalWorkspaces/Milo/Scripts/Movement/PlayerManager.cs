@@ -312,6 +312,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public void endGame()
     {
         WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
-        waveStartScript.winOverlay.SetActive(true);
+        waveStartScript.WinCondition(waveStartScript.winTeam);
     }
 }

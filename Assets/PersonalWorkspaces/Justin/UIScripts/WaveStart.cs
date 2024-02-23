@@ -37,7 +37,7 @@ public class WaveStart : MonoBehaviour
     public TextMeshProUGUI winText;
     public TextMeshProUGUI returnTimer;
     public float returnTime = 5f;
-    string winTeam;
+    public string winTeam;
 
     public GameObject dictionary;
 
@@ -70,6 +70,8 @@ public class WaveStart : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("RPC" + RpcTarget.AllViaServer);
+
         //Game Countdown
         if (startCountdown)
         {
@@ -101,19 +103,19 @@ public class WaveStart : MonoBehaviour
                 }
                 else if(gameTimerStart)
                 {
-                    WinCondition(winTeam);
+                    transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
                 }
             }
 
             if(pointUpdateScript.pointsA >= 50)
             {
                 winTeam = "A";
-                WinCondition(winTeam);
+                transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
             else if(pointUpdateScript.pointsB >= 50)
             {
                 winTeam = "B";
-                WinCondition(winTeam);
+                transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
         }
     }
@@ -138,7 +140,7 @@ public class WaveStart : MonoBehaviour
 
     }
 
-    void WinCondition(string winTeam)
+    public void WinCondition(string winTeam)
     {
         if(pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
             {
@@ -151,8 +153,7 @@ public class WaveStart : MonoBehaviour
             Debug.Log("Team B Wins!");
             }
         
-        //winOverlay.SetActive(true);
-        transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.All);
+        winOverlay.SetActive(true);
         winText.transform.DOScale(1.75f, 3);
         winText.DOColor(Color.yellow, 3);
 
