@@ -31,8 +31,6 @@ public class DeathScript : MonoBehaviour
     //Floats and Bools
     float currentTime;
     bool onoff;
-    bool abilityActivationState;
-    bool cooldownActivationState;
     float originalAnimationScale;
 
     //Color color = Color.red;
@@ -187,32 +185,4 @@ public class DeathScript : MonoBehaviour
     }
 
     //Resets Ability Cooldowns After Respawn
-    private void AbilityActivation(bool abilityActivationState, bool cooldownActivationState)
-    {
-        //Resets Ability Active
-        cooldownScript.cooldownActiveC = abilityActivationState;
-        cooldownScript.cooldownActiveX = abilityActivationState;
-        cooldownScript.cooldownActiveQ = abilityActivationState;
-        cooldownScript.cooldownActiveE = abilityActivationState;
-
-        //Resets UI Cooldown Bar
-        cooldownScript.heightC = 100f;
-        cooldownScript.heightX = 100f;
-        cooldownScript.heightQ = 100f;
-        cooldownScript.heightE = 100f;
-
-        //Resets UI Active
-        cooldownScript.cooldownOverlayC.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarC.SetActive(cooldownActivationState);
-
-        cooldownScript.cooldownOverlayX.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarX.SetActive(cooldownActivationState);
-
-        cooldownScript.cooldownOverlayQ.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarQ.SetActive(cooldownActivationState);
-
-        cooldownScript.cooldownOverlayE.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarE.SetActive(cooldownActivationState);
-
-    }
 }

@@ -41,6 +41,7 @@ public class WeaponManager : MonoBehaviour
 
     public Ability[] abilityList;
     public Ability currentAbility;
+    public AbilityUI abilityUI;
     int ability = -1;
 
     public enum AbilityState
@@ -86,6 +87,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Awake()
     {
+        abilityUI = GetComponentInChildren<AbilityUI>();
         m_player = GetComponent<PlayerController>();
         animController = GetComponentInChildren<AnimationController>();
         currentAbility = null;
@@ -102,10 +104,6 @@ public class WeaponManager : MonoBehaviour
     {
         if (!isShooting)
             m_fireLimit = 3;
-        if (currentAmmo == 0)
-        {
-            StartCoroutine(Reload());
-        }
 
         AbilityStateMachine();
         StateMachine();
@@ -268,18 +266,20 @@ public class WeaponManager : MonoBehaviour
                     ability = 0;
                     abilityState = AbilityState.ready;
                     currentAbility = abilityList[0];
-
+                    StartCoroutine(abilityUI.abilityObjects[0].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
                     break;
                 case 1:
                     ability = 1;
                     abilityState = AbilityState.ready;
                     currentAbility = abilityList[1];
+                    StartCoroutine(abilityUI.abilityObjects[1].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
 
                     break;
                 case 2:
                     ability = 2;
                     abilityState = AbilityState.ready;
                     currentAbility = abilityList[2];
+                    StartCoroutine(abilityUI.abilityObjects[2].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
 
                     break;
                 case 3:
