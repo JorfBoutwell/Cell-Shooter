@@ -65,6 +65,7 @@ public class DeathScript : MonoBehaviour
 
     void Update()
     {
+
         //Activates When The Player is Dead
         if (playerManagerScript.isDead) {
 
@@ -79,15 +80,15 @@ public class DeathScript : MonoBehaviour
             //Activates Death Overlay UI
             deathTimer.text = currentTime.ToString("0");
             deathText.transform.DOScale(animationScale, animationDuration);
-
+        /* GEORGE NEEDS TO FINISH REFACTORING
             //Deactiviating ability cooldowns
             abilityActivationState = true;
             cooldownActivationState = false;
             AbilityActivation(abilityActivationState, cooldownActivationState);
-
+            
             //Deactivates point collector
             PointCollecterReset();
-
+        */
         }
          
         if(currentTime <= 0)
@@ -99,11 +100,11 @@ public class DeathScript : MonoBehaviour
             deathText.transform.DOScale(originalAnimationScale, animationDuration);
             deathText.DOColor(Color.white, animationDuration);
 
-
+        /* GEORGE NEEDS TO FINISH REFACTORING
             //Deactiviating ability cooldowns
             abilityActivationState = false;
             AbilityActivation(abilityActivationState, cooldownActivationState);
-
+        */
             //Deactivate Death Overlay
             onoff = false;
             DeathScreen(onoff);
@@ -173,7 +174,7 @@ public class DeathScript : MonoBehaviour
     private void HealthReset()
     {
         playerManagerScript.isDead = false;
-        Debug.Log("y" + playerManagerScript.isDead);
+        Debug.Log("yo" + playerManagerScript.isDead);
         playerManagerScript.health = 100; //Subject to change
         Debug.Log("c" + playerManagerScript.health);
         healthUIScript.healthBarUI = playerManagerScript.health * 6.8f;

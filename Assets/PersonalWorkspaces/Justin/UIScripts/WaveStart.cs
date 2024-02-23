@@ -121,7 +121,6 @@ public class WaveStart : MonoBehaviour
     //Resets Countdown to Start Game Timer
     public void Reset()
     {
-
         currentTime = 180f;
         gameTimerStart = true;
 
@@ -152,12 +151,13 @@ public class WaveStart : MonoBehaviour
             Debug.Log("Team B Wins!");
             }
         
-
         winOverlay.SetActive(true);
         winText.transform.DOScale(1.75f, 3);
         winText.DOColor(Color.yellow, 3);
+
         returnTimer.text = returnTime.ToString("0");
         returnTime -= 1 * Time.deltaTime;
+
         StartCoroutine("EnterQueueScene");
         
     }

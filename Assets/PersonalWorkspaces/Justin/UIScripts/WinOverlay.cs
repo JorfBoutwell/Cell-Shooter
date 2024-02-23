@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class WinOverlay : MonoBehaviour
+public class WinOverlay : MonoBehaviour, IPunObservable
 {
     PointUpdateScript pointUpdateScript;
     public GameObject winOverlay;
@@ -15,7 +16,6 @@ public class WinOverlay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //winOverlay.SetActive(false);
         pointUpdateScript = GameObject.Find("PointObject").GetComponentInChildren<PointUpdateScript>();
     }
 
@@ -33,7 +33,17 @@ public class WinOverlay : MonoBehaviour
 
             winOverlay.SetActive(true);
         }
+    }
 
-        Debug.Log("bruh" + pointUpdateScript.pointsB);
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(winOverlay);
+        }
+        else
+        {
+            winOverlay = (GameObject)stream.ReceiveNext();
+        }
     }
 }
