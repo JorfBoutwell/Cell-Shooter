@@ -119,7 +119,7 @@ public class DeathScript : MonoBehaviour
     //Activates Death Overlay
     private void DeathScreen(bool onoff)
     {
-        PointCollecterReset();
+        
         if (onoff) { 
         deathOverlay.SetActive(true);
         }
@@ -145,7 +145,7 @@ public class DeathScript : MonoBehaviour
         }
     }
 
-    private void PointCollecterReset()
+    public void PointCollecterReset()
     {
 
         for(int i = 0; i < playerManagerScript.pointCollectors.Count; i++)
