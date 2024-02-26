@@ -82,9 +82,8 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
         if (currentPlayer != null)
         {
             Debug.Log("not null");
-            currentPlayer.GetComponent<DeathScript>().PointCollecterReset();
-            //currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
-            //currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
+            currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
+            currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
         }
 
 
