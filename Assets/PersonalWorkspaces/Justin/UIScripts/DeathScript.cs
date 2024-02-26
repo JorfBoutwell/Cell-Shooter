@@ -119,6 +119,7 @@ public class DeathScript : MonoBehaviour
     //Activates Death Overlay
     private void DeathScreen(bool onoff)
     {
+        PointCollecterReset();
         if (onoff) { 
         deathOverlay.SetActive(true);
         }

@@ -78,9 +78,12 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
     {
         Debug.Log("Hellooo");
 
+        //this will run when a new player hits a button after it has been pressed more than once
         if (currentPlayer != null)
         {
+            Debug.Log("not null");
             currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
+            currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
         }
 
 
@@ -99,12 +102,12 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
         if (playerManagerScript.team == "A")
         {
             currentTeam = "A";
-            gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
         }
         else
         {
             currentTeam = "B";
-            gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
         }
     }
 }
