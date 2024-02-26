@@ -146,8 +146,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     public void WinCondition(string winTeam)
     {
-        if (transform.root.GetComponent<PhotonView>().IsMine)
-        {
+        
             if (pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
@@ -167,7 +166,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
             returnTime -= 1 * Time.deltaTime;
 
             StartCoroutine("EnterQueueScene");
-        }
+        
         
     }
 
