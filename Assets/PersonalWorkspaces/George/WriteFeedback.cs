@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleSheetsToUnity;
+//using GoogleSheetsToUnity;
 
 public class WriteFeedback : MonoBehaviour
 {
@@ -12,6 +12,6 @@ public class WriteFeedback : MonoBehaviour
     private void Start()
     {
         Debug.Log("shart");
-        SpreadsheetManager.Append(new GSTU_Search(sheetID, associatedWorksheet, "A2"), new ValueRange("5"), null);
+        //SpreadsheetManager.Append(new GSTU_Search(sheetID, associatedWorksheet, "A2"), new ValueRange("5"), null);
     }
 }
