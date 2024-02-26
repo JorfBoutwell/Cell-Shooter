@@ -66,54 +66,43 @@ public class DeathScript : MonoBehaviour
 
         //Activates When The Player is Dead
         if (playerManagerScript.isDead) {
-
-            //Activates Death Overlay
-            onoff = true;
-            DeathScreen(onoff);
-            deathText.DOColor(Color.red, animationDuration);
-
-            //Stars Death Timer
-            currentTime -= 1 * Time.deltaTime;
-
-            //Activates Death Overlay UI
-            deathTimer.text = currentTime.ToString("0");
-            deathText.transform.DOScale(animationScale, animationDuration);
-        /* GEORGE NEEDS TO FINISH REFACTORING
-            //Deactiviating ability cooldowns
-            abilityActivationState = true;
-            cooldownActivationState = false;
-            AbilityActivation(abilityActivationState, cooldownActivationState);
-            
-            //Deactivates point collector
-            PointCollecterReset();
-        */
+            StartCoroutine(Death());
         }
          
-        if(currentTime <= 0)
-        {
-            //Reset Health
-            HealthReset();
+    }
 
-            //Reset Death Text and Color to Default Size and Color
-            deathText.transform.DOScale(originalAnimationScale, animationDuration);
-            deathText.DOColor(Color.white, animationDuration);
+    public IEnumerator Death()
+    {
+        //Unclaims Points
+        PointCollecterReset();
 
-        /* GEORGE NEEDS TO FINISH REFACTORING
-            //Deactiviating ability cooldowns
-            abilityActivationState = false;
-            AbilityActivation(abilityActivationState, cooldownActivationState);
-        */
-            //Deactivate Death Overlay
-            onoff = false;
-            DeathScreen(onoff);
+        //Activates Death Overlay
+        onoff = true;
+        DeathScreen(onoff);
+        deathText.DOColor(Color.red, animationDuration);
 
-            //Respawns Player
-            SpawnPlayer();
+        //Activates Death Overlay UI
+        deathTimer.text = currentTime.ToString("0");
+        deathText.transform.DOScale(animationScale, animationDuration);
 
-            //Resets Death Timer to Default Count
-            currentTime = 5f;
-        }
+        yield return new WaitForSeconds(currentTime);
 
+        //Reset Health
+        HealthReset();
+
+        //Reset Death Text and Color to Default Size and Color
+        deathText.transform.DOScale(originalAnimationScale, animationDuration);
+        deathText.DOColor(Color.white, animationDuration);
+
+        //Deactivate Death Overlay
+        onoff = false;
+        DeathScreen(onoff);
+
+        //Respawns Player
+        SpawnPlayer();
+
+        //Resets Death Timer to Default Count
+        currentTime = 5f;
     }
 
     //Activates Death Overlay
