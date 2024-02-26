@@ -224,6 +224,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     
 
+    
+
     public void HandleEffects()
     {
         if (activeEffects.Contains("adrenaline"))
