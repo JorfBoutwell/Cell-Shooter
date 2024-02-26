@@ -146,30 +146,34 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     public void WinCondition(string winTeam)
     {
-        if(pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
+        if (transform.root.GetComponent<PhotonView>().IsMine)
+        {
+            if (pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
             {
-            winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
-            Debug.Log("Team A Wins!");
+                winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
+                Debug.Log("Team A Wins!");
             }
-        else if(pointUpdateScript.pointsB > pointUpdateScript.pointsA || winTeam == "B")
+            else if (pointUpdateScript.pointsB > pointUpdateScript.pointsA || winTeam == "B")
             {
-            winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
-            Debug.Log("Team B Wins!");
+                winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
+                Debug.Log("Team B Wins!");
             }
-        
-        winOverlay.SetActive(true);
-        winText.transform.DOScale(1.75f, 3);
-        winText.DOColor(Color.yellow, 3);
 
-        returnTimer.text = returnTime.ToString("0");
-        returnTime -= 1 * Time.deltaTime;
+            winOverlay.SetActive(true);
+            winText.transform.DOScale(1.75f, 3);
+            winText.DOColor(Color.yellow, 3);
 
-        StartCoroutine("EnterQueueScene");
+            returnTimer.text = returnTime.ToString("0");
+            returnTime -= 1 * Time.deltaTime;
+
+            StartCoroutine("EnterQueueScene");
+        }
         
     }
 
     public void startClock()
     {
+        gameObject.transform.parent.GetComponentInChildren<PointUpdateScript>().time = 0;
         currentTime = 0;
         countdownOverlay.SetActive(false);
         Reset();
@@ -220,14 +224,15 @@ public class WaveStart : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(5f);
 
-        SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
+        
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         dictionary = GameObject.Find("CustomVariableStorage");
         Destroy(dictionary);
-
+        
+        SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
     }
 
 }
