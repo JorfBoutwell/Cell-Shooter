@@ -42,12 +42,15 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     public GameObject dictionary;
 
+    public bool win = false;
+
     //custom variable for master client ready setup
     private static readonly string TeamPropKey = "startGame";
     private bool start = false;
 
     void Start()
     {
+        pointUpdateScript = gameObject.transform.parent.GetComponentInChildren<PointUpdateScript>();
         currentTime = countdownTime;
         StartCountdown();
         countdownTimer = countdownText.GetComponentInChildren<TextMeshProUGUI>();
@@ -111,12 +114,12 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 }
             }
 
-            if(pointUpdateScript.pointsA >= 50)
+            if(pointUpdateScript.pointsA >= 50 && !win)
             {
                 winTeam = "A";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
-            else if(pointUpdateScript.pointsB >= 50)
+            else if(pointUpdateScript.pointsB >= 50 && !win)
             {
                 winTeam = "B";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
