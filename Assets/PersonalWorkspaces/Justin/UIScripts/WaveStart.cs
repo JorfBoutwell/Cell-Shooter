@@ -5,8 +5,9 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class WaveStart : MonoBehaviour
+public class WaveStart : MonoBehaviourPunCallbacks
 {
     //Start variables
     static public bool playersReady;
@@ -41,6 +42,10 @@ public class WaveStart : MonoBehaviour
 
     public GameObject dictionary;
 
+    //custom variable for master client ready setup
+    private static readonly string TeamPropKey = "startGame";
+    private bool start = false;
+
     void Start()
     {
         currentTime = countdownTime;
@@ -70,7 +75,6 @@ public class WaveStart : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("RPC" + RpcTarget.AllViaServer);
 
         //Game Countdown
         if (startCountdown)
@@ -99,7 +103,7 @@ public class WaveStart : MonoBehaviour
             {
                 if (gameTimerStart == false && PhotonNetwork.IsMasterClient)
                 {
-                    transform.root.gameObject.GetComponent<PhotonView>().RPC("startClock", RpcTarget.All);
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamPropKey, true } });
                 }
                 else if(gameTimerStart)
                 {
@@ -162,6 +166,24 @@ public class WaveStart : MonoBehaviour
 
         StartCoroutine("EnterQueueScene");
         
+    }
+
+    public void startClock()
+    {
+        currentTime = 0;
+        countdownOverlay.SetActive(false);
+        Reset();
+
+    }
+
+    //runs every time a property is updated
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        //if the change being made is for the local user
+        if (targetPlayer != null && targetPlayer.IsMasterClient)
+        {
+            startClock();
+        }
     }
 
     //Displays Objective Text
