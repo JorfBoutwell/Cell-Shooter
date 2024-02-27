@@ -309,8 +309,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         if (pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer != null)
         {
             pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer.GetComponent<PlayerManager>().buttonsPressed -= 1;
-            pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
         }
+            pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
+        
         
         
     }
