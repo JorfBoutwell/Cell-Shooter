@@ -131,7 +131,6 @@ public class WeaponManager : MonoBehaviour
 
         if (isShooting)
         {
-            
             State = WeaponState.shooting;
         }
 
@@ -443,6 +442,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("empty");
             isShooting = false;
             StartCoroutine(Reload());
             yield return null;
@@ -454,6 +454,7 @@ public class WeaponManager : MonoBehaviour
         Debug.Log("rstart");
         if (abilityState == AbilityState.active || state != WeaponState.idle)
         {
+            isReloading = false;
             yield return null;
         }
         if (currentAmmo != currentWeapon.maxAmmo)
@@ -469,6 +470,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            isReloading = false;
             Debug.Log("Already at max ammo");
             yield return null;
         }

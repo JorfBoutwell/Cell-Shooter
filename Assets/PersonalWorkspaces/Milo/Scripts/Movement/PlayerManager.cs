@@ -17,6 +17,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject UI;
     [SerializeField] GameObject hitbox;
 
+    [Header("UI References")]
+    [SerializeField] GameObject damInd;
+
     public InputActions inputActions;
 
     public float health = 100;
