@@ -52,36 +52,14 @@ public class PointUpdateScript : MonoBehaviour
                 if (playerManagerScript.team == "A") //use currentteam to prevent both teams getting points from the same buttons?
                 {
                     pointsA += pointIncrement * playerManagerScript.buttonsPressed;
-                    foreach(Player player in PhotonNetwork.PlayerList)
-                    {
-                        if(player.IsMasterClient)
-                        {
-                            object teamA;
-                            if (player.CustomProperties.TryGetValue(pointsTextA, out teamA))
-                            {
-                                pointsA += (int)teamA;
-                                PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, pointsA } });
-                            }
-                        }
-                    }
-                    pointsTextA.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsA).ToString("0");
+
+                    pointsTextA.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsA;
                 }
                 else
                 {
                     pointsB += pointIncrement * playerManagerScript.buttonsPressed;
-                    foreach (Player player in PhotonNetwork.PlayerList)
-                    {
-                        if (player.IsMasterClient)
-                        {
-                            object teamB;
-                            if (player.CustomProperties.TryGetValue(pointsTextB, out teamB))
-                            {
-                                pointsA += (int)teamB;
-                                PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, pointsB } });
-                            }
-                        }
-                    }
-                    pointsTextB.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsB).ToString("0");
+                   
+                    pointsTextB.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsB;
                 }
             }
 

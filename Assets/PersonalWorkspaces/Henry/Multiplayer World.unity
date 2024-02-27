@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 63747284}
   - component: {fileID: 63747286}
   - component: {fileID: 63747285}
+  - component: {fileID: 63747287}
   m_Layer: 5
   m_Name: PointsA
   m_TagString: Untagged
@@ -379,6 +380,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63747283}
   m_CullTransparentMesh: 1
+--- !u!114 &63747287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63747283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b635e0138714a42b393dd8a378a469fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 0
+  pointObject: {fileID: 63747283}
 --- !u!1 &129310575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,6 +1627,7 @@ GameObject:
   - component: {fileID: 784085580}
   - component: {fileID: 784085582}
   - component: {fileID: 784085581}
+  - component: {fileID: 784085583}
   m_Layer: 5
   m_Name: PointsB
   m_TagString: Untagged
@@ -1735,6 +1751,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784085579}
   m_CullTransparentMesh: 1
+--- !u!114 &784085583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784085579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b635e0138714a42b393dd8a378a469fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 0
+  pointObject: {fileID: 784085579}
 --- !u!1 &786453124
 GameObject:
   m_ObjectHideFlags: 0
