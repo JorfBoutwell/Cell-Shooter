@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        //playerManagerScript = gameObject.GetComponent<PlayerManager>();
+        playerManagerScript = gameObject.GetComponent<PlayerManager>();
         
     }
 
