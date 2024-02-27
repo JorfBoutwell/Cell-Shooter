@@ -278,15 +278,29 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void ApplyDamage(float damage)
+    public void ApplyDamage(float damage, GameObject source)
     {
         health -= damage;
         if (health <= 0)
         {
             isDead = true;
         }
+        else
+        {
+            StartCoroutine(ShowDamageIndicator(1f, source));
+        }
 
         return;
+    }
+
+    public IEnumerator ShowDamageIndicator(float time, GameObject source)
+    {
+        damInd.SetActive(true);
+        Vector3 dirToSource = source.transform.position - transform.position;
+        dirToSource.y = 0;
+        damInd.transform.rotation = Quaternion.LookRotation(dirToSource);
+        yield return new WaitForSeconds(time);
+        damInd.SetActive(false);
     }
 
     [PunRPC]

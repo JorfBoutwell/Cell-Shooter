@@ -40,7 +40,7 @@ public class JumpAbility : MonoBehaviour
             v += speed / 10;
             velocity += speed - v;      
 
-            if (speed - v === 0)
+            if (speed - v == 0)
                 direction = Direction.DESCENDING;
         }
         if (direction == Direction.DESCENDING) velocity -= speed*2;
