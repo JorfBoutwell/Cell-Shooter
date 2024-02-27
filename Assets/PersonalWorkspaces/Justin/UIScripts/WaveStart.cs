@@ -150,7 +150,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public void WinCondition(string winTeam)
     {
 
-        GetComponent<PlayerManager>().inputActions.Disable();
+        //GetComponent<PlayerManager>().inputActions.Disable();
 
             if (pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
             {
