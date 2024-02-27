@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Debug 1
   iconImage: {fileID: 0}
+  abilityTime: 1.5
+  animationFlag: 0
   cooldownTime: 2
-  activeTime: 0.5
+  isUsable: 1

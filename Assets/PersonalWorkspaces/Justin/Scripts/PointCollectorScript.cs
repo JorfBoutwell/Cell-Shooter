@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class PointCollectorScript : MonoBehaviour
+public class PointCollectorScript : MonoBehaviour, IPunObservable
 {
     public GameObject pointsTextA;
     public GameObject pointsTextB;
@@ -14,9 +15,6 @@ public class PointCollectorScript : MonoBehaviour
     public float time;
     public float pointsA;
     public float pointsB;
-
-    private bool alreadyPressedA = false;
-    private bool alreadyPressedB = false;
 
     private string currentTeam;
     public GameObject currentPlayer;
@@ -32,57 +30,84 @@ public class PointCollectorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UpdatePoints(playerManagerScript.updatePoints);
-
         
     }
 
-    void UpdatePoints(string updatePoints)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (updatePoints == "A") {
-            pointsA += 1 * Time.deltaTime;
-            pointsTextA.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsA).ToString("0");
-
-            Debug.Log("Why" + playerManagerScript.currentPointCollectorsA); //updates by 2?
-
-            playerManagerScript.pointCollectors[playerManagerScript.currentPointCollectorsA].GetComponentInChildren<Renderer>().material.color = Color.red;
-            playerManagerScript.currentPointCollectorsA += 1; //causes error?
-        }
-        else if(updatePoints == "B")
+        if(stream.IsWriting)
         {
-            pointsB += 1 * Time.deltaTime;
-            pointsTextB.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsB).ToString("0");
+            stream.SendNext(time);
+            stream.SendNext(pointsA);
+            stream.SendNext(pointsB);
+            stream.SendNext(currentPlayer);
+        }
+        else
+        {
+            time = (float)stream.ReceiveNext();
+            pointsA = (float)stream.ReceiveNext();
+            pointsB = (float)stream.ReceiveNext();
+            ColorChange((string)stream.ReceiveNext());
+        }
+    }
+
+    private void ColorChange(string team)
+    {
+        if (team == "A")
+        {
+            currentTeam = "A";
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+        } else
+        {
+            currentTeam = "B";
             gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
         }
-        //use array in player manager to prevent the one script affecting both of the point collectors
-
         
     }
 
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.tag == "Player" && !alreadyPressedA)
+        if (collision.gameObject.tag == "Player" && collision.gameObject != currentPlayer)
         {
-            Debug.Log("Hellooo");
+            collision.gameObject.GetComponent<PlayerManager>().recievePoint(gameObject);
+        }
+    }
 
-            currentPlayer = collision.gameObject;
+    public void runPointCollision(GameObject player)
+    {
+        Debug.Log("Hellooo");
 
-            alreadyPressedA = true;
-
-            playerManagerScript.buttonsPressed += 1;
-
-            if (playerManagerScript.team == "A")
-            {
-                
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
-            }
-            else
-            {
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
-            }
+        //this will run when a new player hits a button after it has been pressed more than once
+        if (currentPlayer != null)
+        {
+            Debug.Log("not null");
+            currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
+            currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
+        }
 
 
+        currentPlayer = player;
+
+        playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
+
+        Debug.Log("p1" + currentPlayer);
+
+        //alreadyPressedA = true;
+
+
+        player.GetComponent<PlayerManager>().buttonsPressed += 1;
+
+
+        if (playerManagerScript.team == "A")
+        {
+            currentTeam = "A";
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
+        }
+        else
+        {
+            currentTeam = "B";
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
         }
     }
 }

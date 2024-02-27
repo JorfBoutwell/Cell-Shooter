@@ -6,18 +6,14 @@ using UnityEngine;
 
 public class NeuronAOE : MonoBehaviour
 {
+    PlayerManager playerManager;
+
     private float m_timer = 5;
     public int type;
+
     private void Awake()
     {
-        if (gameObject.tag == "adrenaline")
-            type = 1;
-        else if (gameObject.tag == "gaba")
-            type = 2;
-        else if (gameObject.tag == "dopamine")
-            type = 3;
-        else if (gameObject.tag == "glutamate")
-            type = 4;
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void Update()
@@ -30,16 +26,19 @@ public class NeuronAOE : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "player" || col.gameObject.tag == "enemy")
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "enemy")
         {
-            if (type == 1)
-                col.gameObject.GetComponent<PlayerController>().speed = 16;
-            if (type == 2)
-                col.gameObject.GetComponent<PlayerController>().speed = 4;
-            if (type == 3)
-                Debug.Log("you are being healed over time!");
-            if (type == 4)
-                Debug.Log("you are being damaged over time!");
+            if(gameObject.activeSelf == true)
+            {
+                if (type == 1)
+                    if(!playerManager.activeEffects.Contains("adrenaline"))
+                        playerManager.activeEffects.Add("adrenaline");
+                if (type == 2)
+                    if(!playerManager.activeEffects.Contains("dopamine"))
+                        playerManager.activeEffects.Add("dopamine");
+
+                playerManager.HandleEffects();
+            }
         }
     }
 }

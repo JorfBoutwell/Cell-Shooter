@@ -251,7 +251,7 @@
                 {
                     "name": "Melee",
                     "type": "Button",
-                    "id": "84236038-9a78-453e-b441-43db3680b78f",
+                    "id": "cdee95a7-514b-4792-b986-eb995e881fff",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -349,7 +349,7 @@
                 },
                 {
                     "name": "",
-                    "id": "90e2d5f3-e4f2-485d-bf14-1e2efc2d9bf5",
+                    "id": "2f922a09-17a4-46e8-be5d-8cd5ecc88ef0",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
@@ -360,7 +360,7 @@
                 },
                 {
                     "name": "",
-                    "id": "b19e77a9-4caf-4729-9645-6a7c67983bf6",
+                    "id": "a0b9ad65-83b4-4c3c-b71a-0cf2edbebed4",
                     "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",

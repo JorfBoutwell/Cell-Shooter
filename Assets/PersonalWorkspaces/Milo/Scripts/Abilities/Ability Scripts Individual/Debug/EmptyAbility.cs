@@ -9,9 +9,4 @@ public class EmptyAbility : Ability
     {
         return;
     }
-
-    public override void BeginCooldown(GameObject parent)
-    {
-        return;
-    }
 }

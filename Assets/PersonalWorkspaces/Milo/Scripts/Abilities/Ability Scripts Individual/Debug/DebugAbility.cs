@@ -9,9 +9,4 @@ public class DebugAbility : Ability
     {
         Debug.Log("Ability 1 Started!");
     }
-
-    public override void BeginCooldown(GameObject parent)
-    {
-        Debug.Log("Ability 1 On Cooldown!");
-    }
 }

@@ -1,3 +1,4 @@
+
 //Milo Reynolds
 
 using System.Collections;
@@ -9,9 +10,13 @@ public class Ability : ScriptableObject
 {
     public string abilityName;
     public Image iconImage;
+    public float abilityTime;
+    public float animationFlag;
     public float cooldownTime;
-    public float activeTime;
-    
-    public virtual void StartAbility(GameObject parent) {}
-    public virtual void BeginCooldown(GameObject parent) {}
+    public bool isUsable;
+    private void Awake()
+    {
+        isUsable = true;
+    }
+    public virtual void StartAbility(GameObject parent) { }
 }

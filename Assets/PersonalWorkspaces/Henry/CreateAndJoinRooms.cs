@@ -15,7 +15,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public string createInput;
     public InputField joinInput;
     public InputField Nickname;
-
+    
     //runs when you create a room, makes a room in server
     public void CreateRoom()
     {

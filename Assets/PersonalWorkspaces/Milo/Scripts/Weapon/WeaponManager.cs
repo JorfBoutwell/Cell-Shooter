@@ -9,7 +9,7 @@ using TMPro;
 public class WeaponManager : MonoBehaviour
 {
     PlayerController m_player;
-    
+
     public AnimationController animController;
 
     public bool isShooting = false;
@@ -39,24 +39,58 @@ public class WeaponManager : MonoBehaviour
 
     [SerializeField] GameObject m_projectile;
 
+    public Ability[] abilityList;
+    public Ability currentAbility;
+    public AbilityUI abilityUI;
+    int ability = -1;
+
+    public enum AbilityState
+    {
+        idle,
+        ready,
+        active,
+        cooldown
+    }
+
+    public AbilityState abilityState = AbilityState.idle;
+
     [Header("Particle System")]
     [SerializeField] ParticleSystem m_shootingSystem;
+
+    public Transform destination;
 
     public enum WeaponState
     {
         idle,
         shooting,
         reloading,
-        melee, 
-        abilty1,
+        melee,
+        ability1,
+        ability2,
+        ability3
     }
 
+    bool stateChange = true;
     public WeaponState state = WeaponState.idle;
+    public WeaponState State
+    {
+        get { return state; }
+        set
+        {
+            if (value != state)
+            {
+                stateChange = true;
+            }
+            state = value;
+        }
+    }
 
     private void Awake()
     {
+        abilityUI = GetComponentInChildren<AbilityUI>();
         m_player = GetComponent<PlayerController>();
         animController = GetComponentInChildren<AnimationController>();
+        currentAbility = null;
         m_autoTimer = currentWeapon.fireRate;
         currentAmmo = currentWeapon.maxAmmo;
         bulletUI.text = currentWeapon.maxAmmo.ToString("0");
@@ -70,12 +104,17 @@ public class WeaponManager : MonoBehaviour
     {
         if (!isShooting)
             m_fireLimit = 3;
-        if (currentAmmo == 0)
-        {
-            StartCoroutine(Reload());
-        }
 
+        AbilityStateMachine();
         StateMachine();
+
+        destination = Camera.main.transform;
+        if (stateChange) //If state has changed this frame, play new anim
+        {
+            Debug.Log("switch");
+            animController.WeaponAnimationController(State);
+            stateChange = false;
+        }
     }
 
     public void SwitchWeapon()
@@ -89,30 +128,36 @@ public class WeaponManager : MonoBehaviour
 
     private void StateMachine()
     {
-        WeaponState tempState = state;
 
-        if(isShooting)
+        if (isShooting)
         {
-            state = WeaponState.shooting;
-        }else if (isReloading){
-            state = WeaponState.reloading;
-        }else{
-            state = WeaponState.idle;
+            
+            State = WeaponState.shooting;
         }
 
-        if(tempState != state) //If state has changed this frame, play new anim
+        if (isReloading)
         {
-            animController.WeaponAnimationController(state);
+            State = WeaponState.reloading;
         }
+
+        if ((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown) && isReloading == false && isShooting == false)
+        {
+            State = WeaponState.idle;
+        }
+
     }
 
     public void FireWeapon()
     {
-        if(!view.IsMine)
+        if (!view.IsMine)
         {
             return;
         }
-        if(isShooting == false && isReloading == false)
+        if(abilityState == AbilityState.active)
+        {
+            return;
+        }
+        if (isShooting == false && isReloading == false)
         {
             isShooting = true;
             if (currentWeapon.fireMode == "hitscan")
@@ -137,6 +182,113 @@ public class WeaponManager : MonoBehaviour
             else if (currentWeapon.fireMode == "shotgun")
             {
                 Shotgun();
+            }
+        }
+    }
+
+    private void AbilityStateMachine()
+    {
+        switch (abilityState)
+        {
+            case AbilityState.ready:
+                if (currentAbility != null)
+                {
+                    abilityState = AbilityState.active;
+                }
+                break;
+            case AbilityState.active:
+                if (currentAbility.isUsable)
+                {
+                    if (State == WeaponState.idle) StartCoroutine(HandleAbility(currentAbility));
+                }
+                else
+                {
+                    currentAbility = null;
+                    abilityState = AbilityState.idle;
+                }
+                break;
+            case AbilityState.cooldown:
+                StartCoroutine(HandleCooldown(currentAbility));
+                currentAbility = null;
+                abilityState = AbilityState.idle;
+                break;
+            default:
+                break;
+        }
+    }
+
+    IEnumerator HandleAbility(Ability currentAbility)
+    {
+        Debug.Log("handle ability");
+        switch (ability)
+        {
+            case 0:
+                State = WeaponState.ability1;
+                currentAbility = abilityList[0];
+                break;
+            case 1:
+                State = WeaponState.ability2;
+                currentAbility = abilityList[1];
+                break;
+            case 2:
+                State = WeaponState.ability3;
+                currentAbility = abilityList[2];
+                break;
+            case 3:
+                State = WeaponState.melee;
+                currentAbility = abilityList[3];
+                break;
+        }
+
+        yield return new WaitForSeconds(currentAbility.abilityTime);
+
+        currentAbility.StartAbility(gameObject);
+
+        Debug.Log("done");
+        abilityState = AbilityState.cooldown;
+        State = WeaponState.idle;
+    }
+
+    IEnumerator HandleCooldown(Ability currentAbility)
+    {
+        currentAbility.isUsable = false;
+        yield return new WaitForSeconds(currentAbility.cooldownTime);
+        currentAbility.isUsable = true;
+    }
+
+    public void UseAbility(int index)
+    {
+        if (State == WeaponState.idle)
+        {
+            switch (index)
+            {
+                case 0:
+                    ability = 0;
+                    abilityState = AbilityState.ready;
+                    currentAbility = abilityList[0];
+                    StartCoroutine(abilityUI.abilityObjects[0].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
+                    break;
+                case 1:
+                    ability = 1;
+                    abilityState = AbilityState.ready;
+                    currentAbility = abilityList[1];
+                    StartCoroutine(abilityUI.abilityObjects[1].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
+
+                    break;
+                case 2:
+                    ability = 2;
+                    abilityState = AbilityState.ready;
+                    currentAbility = abilityList[2];
+                    StartCoroutine(abilityUI.abilityObjects[2].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
+
+                    break;
+                case 3:
+                    ability = 3;
+                    abilityState = AbilityState.ready;
+                    currentAbility = abilityList[3];
+
+                    break;
+                default: ability = -1; break;
             }
         }
     }
@@ -171,7 +323,7 @@ public class WeaponManager : MonoBehaviour
                 if (m_fireLimit != 0)
                 {
                     StartCoroutine(Shoot());
-                    m_autoTimer =currentWeapon.fireRate;
+                    m_autoTimer = currentWeapon.fireRate;
                     m_fireLimit--;
                 }
                 else
@@ -209,11 +361,11 @@ public class WeaponManager : MonoBehaviour
 
     private void Shotgun()
     {
-        if(isShooting)
+        if (isShooting)
         {
             StartCoroutine(Shoot());
             isShooting = false;
-        
+
             m_autoTimer -= Time.deltaTime;
 
             if (m_autoTimer <= 0)
@@ -221,11 +373,12 @@ public class WeaponManager : MonoBehaviour
                 isShooting = true;
                 m_autoTimer = currentWeapon.fireRate;
             }
-        }   
+        }
     }
 
     private IEnumerator Shoot()
     {
+        if (state != WeaponState.idle) yield return null;
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireFrame / 24);
@@ -241,13 +394,20 @@ public class WeaponManager : MonoBehaviour
                     case 7: //"enemy"
                         Debug.Log("enemy");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
+                        /*if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
+                        {
+                            hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2;
+                            m_player.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player1;
+                            //Don't use m_player
+                            GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
+                        }*/
                         break;
                     case 10: //"enemyHead"
                         Debug.Log("enemyHead");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= (currentWeapon.damage * 2);
                         break;
                     case 11: //teamA
-                        if(team != "A")
+                        if (team != "A")
                         {
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
@@ -262,9 +422,9 @@ public class WeaponManager : MonoBehaviour
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
                         }
                         break;
-                    default: Debug.Log("nothing");  break;
+                    default: Debug.Log("nothing          " + hit.transform.gameObject.layer); break;
                 }
-    
+
                 GameObject trail = PhotonNetwork.Instantiate(bulletTrail.name, trailTransform.position, Quaternion.identity);
                 StartCoroutine(SpawnTrail(trail, hit));
             }
@@ -274,11 +434,15 @@ public class WeaponManager : MonoBehaviour
             if (currentWeapon.fireMode == "hitscan" && isAutoFiring)
             {
                 StartCoroutine(Shoot());
-            }else{
+            }
+            else
+            {
                 isShooting = false;
             }
             yield return null;
-        }else{
+        }
+        else
+        {
             isShooting = false;
             StartCoroutine(Reload());
             yield return null;
@@ -287,11 +451,18 @@ public class WeaponManager : MonoBehaviour
 
     public IEnumerator Reload()
     {
+        Debug.Log("rstart");
+        if (abilityState == AbilityState.active || state != WeaponState.idle)
+        {
+            yield return null;
+        }
         if (currentAmmo != currentWeapon.maxAmmo)
         {
             isReloading = true;
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
+            Debug.Log(currentWeapon.reloadTime);
+            Debug.Log("rdone");
             currentAmmo = currentWeapon.maxAmmo;
             bulletUI.text = currentAmmo.ToString("0");
             isReloading = false;
@@ -305,16 +476,14 @@ public class WeaponManager : MonoBehaviour
 
     public IEnumerator SpawnTrail(GameObject trail, RaycastHit hit)
     {
-        Debug.Log("spawn trail");
         Vector3 startPos = trail.transform.position;
 
         float distance = Vector3.Distance(startPos, hit.transform.position);
         float startDistance = distance;
         Debug.Log(distance);
 
-        while(distance > 0)
+        while (distance > 0)
         {
-            Debug.Log("move");
             trail.transform.position = Vector3.Lerp(startPos, hit.point, 1 - (distance / startDistance));
             distance -= Time.deltaTime * bulletSpeed;
             yield return null;
@@ -330,7 +499,7 @@ public class WeaponManager : MonoBehaviour
     {
         PhotonView targetPhotonView = PhotonView.Find(targetPhotonViewID);
 
-        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
+        if (targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
         {
             targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
         }

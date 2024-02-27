@@ -43,6 +43,13 @@ MonoBehaviour:
   - ApplyDamage
   - RPC_NewScene
   - RPC_ChangeLayer
+  - RPC_ButtonPressed
+  - RPC_UpdateButtonsPressed
+  - RPC_UpdatePos
+  - startClock
+  - startPointer
+  - startTimer
+  - endGame
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

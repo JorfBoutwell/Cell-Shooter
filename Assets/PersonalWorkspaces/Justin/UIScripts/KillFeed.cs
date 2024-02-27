@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Photon.Pun;
 
 public class KillFeed : MonoBehaviour
 {
@@ -29,6 +30,15 @@ public class KillFeed : MonoBehaviour
     [SerializeField]
     //private Ease animationType = Ease.Linear;
 
+    public PointUpdateScript pointUpdateScript;
+    bool aHalfPoint = false;
+    bool bHalfPoint = false;
+
+    public int boxesCount;
+
+    public string player1;
+    public string player2;
+
 
     void Start()
     {
@@ -37,12 +47,15 @@ public class KillFeed : MonoBehaviour
         {
             usernames.Add("killers" + i); //8 Character Limit and no CAPS based on UI Size
             Debug.Log(usernames[i]);
+            
         }
     }
 
     void Update()
     {
-        int boxesCount = boxes.Count;
+        //Debug.Log("sad" + PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1]);
+
+        boxesCount = boxes.Count;
 
         //Calls KillFeedInstantiate
         if (Input.GetKeyDown(KeyCode.K))
@@ -52,6 +65,11 @@ public class KillFeed : MonoBehaviour
 
         //Calls AlertFeedInstantiate
         if(Input.GetKeyDown(KeyCode.J))
+        {
+            AlertFeedInstantiate(boxesCount);
+        }
+
+        if((pointUpdateScript.pointsA >= 25 && !aHalfPoint) || (pointUpdateScript.pointsB >= 25 && !bHalfPoint)) //change to 500 later
         {
             AlertFeedInstantiate(boxesCount);
         }
@@ -90,7 +108,7 @@ public class KillFeed : MonoBehaviour
     //Sets Usernames in Kill Feed
     public void KillFeedText(int boxesCounts)
     {
-        boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = usernames[0] + " -> " + usernames[1];
+        boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = player1 + " -> " + player2;
     }
 
     //Instantiates Alert Feeds
@@ -125,7 +143,19 @@ public class KillFeed : MonoBehaviour
     //Sets Text in Alert Feed
     public void AlertText(int boxesCounts)
     {
-        boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "INCOMING BOSS";
+        if (pointUpdateScript.pointsA >= 25 && !aHalfPoint) //change to 500 later
+        {
+            boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team A is halfway there!";
+            aHalfPoint = true;
+        }
+        else if(pointUpdateScript.pointsB >= 25 && !bHalfPoint) //change to 500 later
+        {
+            boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team B is halfway there!";
+            bHalfPoint = true;
+        }
+        else { 
+            boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "INCOMING BOSS";
+        }
     }
 
 }

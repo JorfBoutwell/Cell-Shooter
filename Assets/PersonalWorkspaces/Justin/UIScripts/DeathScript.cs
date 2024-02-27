@@ -26,12 +26,11 @@ public class DeathScript : MonoBehaviour
     private CooldownScript cooldownScript;
 
     public GameObject pointCollector;
+    public PointCollectorScript pointCollectorScript;
 
     //Floats and Bools
     float currentTime;
     bool onoff;
-    bool abilityActivationState;
-    bool cooldownActivationState;
     float originalAnimationScale;
 
     //Color color = Color.red;
@@ -64,61 +63,52 @@ public class DeathScript : MonoBehaviour
 
     void Update()
     {
+
         //Activates When The Player is Dead
         if (playerManagerScript.isDead) {
-
-            //Activates Death Overlay
-            onoff = true;
-            DeathScreen(onoff);
-            deathText.DOColor(Color.red, animationDuration);
-
-            //Stars Death Timer
-            currentTime -= 1 * Time.deltaTime;
-
-            //Activates Death Overlay UI
-            deathTimer.text = currentTime.ToString("0");
-            deathText.transform.DOScale(animationScale, animationDuration);
-
-            //Deactiviating ability cooldowns
-            abilityActivationState = true;
-            cooldownActivationState = false;
-            AbilityActivation(abilityActivationState, cooldownActivationState);
-
-            //Deactivates point collector
-            PointCollecterReset();
-
+            StartCoroutine(Death());
         }
          
-        if(currentTime <= 0)
-        {
-            //Reset Health
-            HealthReset();
+    }
 
-            //Reset Death Text and Color to Default Size and Color
-            deathText.transform.DOScale(originalAnimationScale, animationDuration);
-            deathText.DOColor(Color.white, animationDuration);
+    public IEnumerator Death()
+    {
+        //Unclaims Points
+        PointCollecterReset();
 
+        //Activates Death Overlay
+        onoff = true;
+        DeathScreen(onoff);
+        deathText.DOColor(Color.red, animationDuration);
 
-            //Deactiviating ability cooldowns
-            abilityActivationState = false;
-            AbilityActivation(abilityActivationState, cooldownActivationState);
+        //Activates Death Overlay UI
+        deathTimer.text = currentTime.ToString("0");
+        deathText.transform.DOScale(animationScale, animationDuration);
 
-            //Deactivate Death Overlay
-            onoff = false;
-            DeathScreen(onoff);
+        yield return new WaitForSeconds(currentTime);
 
-            //Respawns Player
-            SpawnPlayer();
+        //Reset Health
+        HealthReset();
 
-            //Resets Death Timer to Default Count
-            currentTime = 5f;
-        }
+        //Reset Death Text and Color to Default Size and Color
+        deathText.transform.DOScale(originalAnimationScale, animationDuration);
+        deathText.DOColor(Color.white, animationDuration);
 
+        //Deactivate Death Overlay
+        onoff = false;
+        DeathScreen(onoff);
+
+        //Respawns Player
+        SpawnPlayer();
+
+        //Resets Death Timer to Default Count
+        currentTime = 5f;
     }
 
     //Activates Death Overlay
     private void DeathScreen(bool onoff)
     {
+        
         if (onoff) { 
         deathOverlay.SetActive(true);
         }
@@ -144,27 +134,35 @@ public class DeathScript : MonoBehaviour
         }
     }
 
-    private void PointCollecterReset()
+    public void PointCollecterReset()
     {
 
         for(int i = 0; i < playerManagerScript.pointCollectors.Count; i++)
         {
             playerManagerScript.pointCollectors[i].GetComponentInChildren<Renderer>().material.color = Color.grey;
+            playerManagerScript.pointCollectors[i].GetComponentInChildren<PointCollectorScript>().currentPlayer = null;
+            Debug.Log("Heep");
         }
 
         playerManagerScript.pointCollectors.Clear();
 
-        if (playerManagerScript.team == "A")
+        /*if (playerManagerScript.team == "A")
            {
             playerManagerScript.currentPointCollectorsA = 0;
            }
+        else if(playerManagerScript.team == "B")
+        {
+            playerManagerScript.currentPointCollectorsB = 0;
+        }*/
+
+        playerManagerScript.buttonsPressed = 0;
     }
 
     //Resets Health After Respawn
     private void HealthReset()
     {
         playerManagerScript.isDead = false;
-        Debug.Log("y" + playerManagerScript.isDead);
+        Debug.Log("yo" + playerManagerScript.isDead);
         playerManagerScript.health = 100; //Subject to change
         Debug.Log("c" + playerManagerScript.health);
         healthUIScript.healthBarUI = playerManagerScript.health * 6.8f;
@@ -177,32 +175,4 @@ public class DeathScript : MonoBehaviour
     }
 
     //Resets Ability Cooldowns After Respawn
-    private void AbilityActivation(bool abilityActivationState, bool cooldownActivationState)
-    {
-        //Resets Ability Active
-        cooldownScript.cooldownActiveC = abilityActivationState;
-        cooldownScript.cooldownActiveX = abilityActivationState;
-        cooldownScript.cooldownActiveQ = abilityActivationState;
-        cooldownScript.cooldownActiveE = abilityActivationState;
-
-        //Resets UI Cooldown Bar
-        cooldownScript.heightC = 100f;
-        cooldownScript.heightX = 100f;
-        cooldownScript.heightQ = 100f;
-        cooldownScript.heightE = 100f;
-
-        //Resets UI Active
-        cooldownScript.cooldownOverlayC.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarC.SetActive(cooldownActivationState);
-
-        cooldownScript.cooldownOverlayX.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarX.SetActive(cooldownActivationState);
-
-        cooldownScript.cooldownOverlayQ.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarQ.SetActive(cooldownActivationState);
-
-        cooldownScript.cooldownOverlayE.SetActive(cooldownActivationState);
-        cooldownScript.cooldownOverlayBarE.SetActive(cooldownActivationState);
-
-    }
 }
