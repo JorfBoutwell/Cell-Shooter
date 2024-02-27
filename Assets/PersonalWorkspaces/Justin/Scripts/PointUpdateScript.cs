@@ -41,7 +41,8 @@ public class PointUpdateScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        pointsA = 0;
+        pointsB = 0;
         time += Time.deltaTime;
         
 
