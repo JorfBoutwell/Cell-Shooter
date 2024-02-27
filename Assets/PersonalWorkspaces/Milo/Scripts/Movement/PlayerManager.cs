@@ -41,6 +41,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     PhotonView view;
 
+    //keys for teamA and teamB scores
+    private static readonly string TeamAScore = "TeamAScore";
+    private static readonly string TeamBScore = "TeamBScore";
+
+
     [SerializeField] Material materialA;
     [SerializeField] Material materialB;
 
@@ -50,6 +55,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, 0 } });
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBScore, 0 } });
+        }
         //username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
         username = PhotonNetwork.LocalPlayer.NickName;
         //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
@@ -341,5 +351,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
         waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
         waveStartScript.win = true;
+    }
+
+    [PunRPC]
+    public void loadLevel()
+    {
+        PhotonNetwork.LoadLevel("Multiplayer World");
     }
 }
