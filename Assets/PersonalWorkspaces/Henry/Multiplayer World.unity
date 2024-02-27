@@ -5430,8 +5430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3f6c4638fd24ec2b5940658c953a4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsTextA: {fileID: 0}
-  pointsTextB: {fileID: 0}
+  pointsTextA: {fileID: 63747283}
+  pointsTextB: {fileID: 784085579}
   playerManagerScript: {fileID: 0}
   pointUpdateScript: {fileID: 0}
   time: 0

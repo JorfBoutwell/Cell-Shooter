@@ -81,9 +81,13 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
         //this will run when a new player hits a button after it has been pressed more than once
         if (currentPlayer != null)
         {
+            //ansell added these two lines for Henry to look at.
+            GetComponentInChildren<Renderer>().material.color = Color.grey;
+            GetComponentInChildren<PointCollectorScript>().currentPlayer = null;
             Debug.Log("not null");
             currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
             currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
+            
         }
 
 
