@@ -170,6 +170,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
             returnTimer.text = returnTime.ToString("0");
             returnTime -= 1 * Time.deltaTime;
 
+            
             StartCoroutine("EnterQueueScene");
         
         
@@ -227,16 +228,19 @@ public class WaveStart : MonoBehaviourPunCallbacks
     IEnumerator EnterQueueScene()
     {
         yield return new WaitForSeconds(5f);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
 
+            dictionary = GameObject.Find("CustomVariableStorage");
+            Destroy(dictionary);
+
+            SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
+        }
         
 
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        dictionary = GameObject.Find("CustomVariableStorage");
-        Destroy(dictionary);
         
-        SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
     }
 
 }
