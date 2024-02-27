@@ -50,7 +50,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        pointUpdateScript = gameObject.transform.parent.GetComponentInChildren<PointUpdateScript>();
+        pointUpdateScript = gameObject.transform.root.GetComponentInChildren<PointUpdateScript>();
         currentTime = countdownTime;
         StartCountdown();
         countdownTimer = countdownText.GetComponentInChildren<TextMeshProUGUI>();
@@ -236,7 +236,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
             dictionary = GameObject.Find("CustomVariableStorage");
             Destroy(dictionary);
 
-            SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
+            transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllViaServer);
         }
         
 
