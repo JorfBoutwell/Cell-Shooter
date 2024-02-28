@@ -245,7 +245,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
         if(PhotonNetwork.IsMasterClient)
         {
-            transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllViaServer);
+            transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllBuffered);
         }
         
         
