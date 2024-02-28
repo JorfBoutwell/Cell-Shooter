@@ -357,7 +357,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void loadLevel()
     {
-        if(photonView)
+        if(photonView.IsMine)
         {
             PhotonNetwork.LoadLevel("Queue");
         }
