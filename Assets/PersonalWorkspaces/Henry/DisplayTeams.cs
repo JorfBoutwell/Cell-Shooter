@@ -19,6 +19,7 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        Debug.Log(PhotonNetwork.PlayerList.Length);
         int blueCounter = 0;
         int redCounter = 0;
         foreach (Player player in PhotonNetwork.PlayerList)
