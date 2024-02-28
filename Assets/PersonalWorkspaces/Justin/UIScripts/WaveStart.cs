@@ -40,6 +40,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public float returnTime = 5f;
     public string winTeam;
 
+    //PointUIGameObject
+    public GameObject pointsA;
+    public GameObject pointsB;
+
     public GameObject dictionary;
 
     public bool win = false;
@@ -59,7 +63,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
         objectiveText.SetActive(false);
         objectiveTextLine.SetActive(false);
 
-        
+        //assign Points A and B
+        pointsA = GameObject.Find("PointsA");
+        pointsB = GameObject.Find("PointsB");
+
         //Objective Text Prompts
         objectiveTextPrompts.Add("Your team needs to reach 1000 points to win!");
         objectiveTextPrompts.Add("Earn points by claiming buttons around the map!");
@@ -114,12 +121,12 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 }
             }
 
-            if(pointUpdateScript.pointsA >= 50 && !win)
+            if(pointsA.GetComponent<PointsADisplayScript>().points >= 50 && !win)
             {
                 winTeam = "A";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
-            else if(pointUpdateScript.pointsB >= 50 && !win)
+            else if(pointsB.GetComponent<PointsADisplayScript>().points >= 50 && !win)
             {
                 winTeam = "B";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
@@ -227,17 +234,21 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     IEnumerator EnterQueueScene()
     {
+        Debug.Log("made it here");
+        PhotonNetwork.AutomaticallySyncScene = true;
         yield return new WaitForSeconds(5f);
-        if (PhotonNetwork.IsMasterClient)
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        dictionary = GameObject.Find("CustomVariableStorage");
+        Destroy(dictionary);
+
+        if(PhotonNetwork.IsMasterClient)
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-
-            dictionary = GameObject.Find("CustomVariableStorage");
-            Destroy(dictionary);
-
             transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllViaServer);
         }
+        
+        
         
 
         

@@ -347,15 +347,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void endGame()
     {
-
+        Debug.Log("game over");
         WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
-        waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
         waveStartScript.win = true;
+        waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
+        
     }
 
     [PunRPC]
     public void loadLevel()
     {
-        PhotonNetwork.LoadLevel("Multiplayer World");
+        if(photonView)
+        {
+            PhotonNetwork.LoadLevel("Queue");
+        }
+        
     }
 }
