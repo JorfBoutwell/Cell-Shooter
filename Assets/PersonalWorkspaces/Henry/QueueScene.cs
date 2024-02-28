@@ -172,6 +172,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
+            PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }
 
@@ -179,7 +180,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     void RPC_NewScene()
     {
         PlayerManager.DontDestroyOnLoad(dictionary);
-        PhotonNetwork.LoadLevel("Multiplayer World");
+        
         
     }
 }
