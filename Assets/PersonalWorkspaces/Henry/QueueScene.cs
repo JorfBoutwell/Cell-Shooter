@@ -155,7 +155,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
+            
             foreach (Player player in PhotonNetwork.PlayerList)
             {
                 string teamInput;
@@ -180,7 +180,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     void RPC_NewScene()
     {
         PlayerManager.DontDestroyOnLoad(dictionary);
-        
-        
+        PhotonNetwork.AutomaticallySyncScene = true;
+
     }
 }
