@@ -27,6 +27,9 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public bool startCountdown = false;
     public bool gameTimerStart = false;
 
+    //bool to determine if que has been loaded
+    public bool queLoad = false;
+
     //Objective variables
     public List<string> objectiveTextPrompts = new List<string>();
     public GameObject objectiveText;
@@ -245,13 +248,18 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
         if(PhotonNetwork.IsMasterClient)
         {
-            transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllBufferedViaServer);
+            LoadQueue();
+            //transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllBufferedViaServer);
         }
-        
-        
-        
+    }
 
-        
+    public void LoadQueue()
+    {
+        if (!queLoad)
+        {
+            PhotonNetwork.LoadLevel("Queue");
+            queLoad = true;
+        }
     }
 
 }
