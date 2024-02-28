@@ -22,7 +22,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        PhotonNetwork.LocalPlayer.CustomProperties.Clear();
         dictionary = GameObject.Find("CustomVariableStorage");
         if (photonView.IsMine && recentJoin > 0)
         {
