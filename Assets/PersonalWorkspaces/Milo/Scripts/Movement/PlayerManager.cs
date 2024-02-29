@@ -320,7 +320,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         damInd.SetActive(true);
         Vector3 dirToSource = source.transform.position - transform.position;
         dirToSource.y = 0;
-        damInd.transform.rotation = Quaternion.LookRotation(dirToSource);
+        damInd.transform.rotation = new Quaternion(0,0,Quaternion.LookRotation(dirToSource).z,0);
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
     }

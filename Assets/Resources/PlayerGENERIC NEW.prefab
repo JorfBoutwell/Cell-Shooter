@@ -370,7 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI: {fileID: 0}
   hitbox: {fileID: 0}
-  damInd: {fileID: 0}
+  damInd: {fileID: 7805470933254684853}
   pauseMenuScript: {fileID: 4870922641209532153}
   health: 100
   ammo: 0
