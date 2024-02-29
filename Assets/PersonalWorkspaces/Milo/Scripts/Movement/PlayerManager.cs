@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public string team;
     public string character;
     public bool isDead = false;
+    public bool deathTimerOn = false;
 
     private static readonly string TeamPropKey = "TeamA?";
     public string updatePoints;
@@ -159,8 +160,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             ammo = m_weapon.currentAmmo;
         }
 
-        if (isDead)
+        if (isDead && !deathTimerOn)
         {
+            deathTimerOn = true;
             StartCoroutine("DeathTimer");
         }
 
@@ -281,6 +283,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         inputActions.Disable();
         yield return new WaitForSeconds(5f);
+        deathTimerOn = false;
         inputActions.Enable();
     }
 
