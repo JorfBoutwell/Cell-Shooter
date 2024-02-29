@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject damInd;
 
     public InputActions inputActions;
+    public PauseMenu pauseMenuScript;
 
     public float health = 100;
     public int ammo;
@@ -160,12 +161,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if (isDead)
         {
-            inputActions.Disable();
+            StartCoroutine("DeathTimer");
         }
-        else
-        {
-            inputActions.Enable(); //this seems slow. better way?
-        }
+
     }
     public void SetTeam(string teamName)
     {
@@ -191,6 +189,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         inputActions.Ability.Ability2.performed += ctx => m_weapon.UseAbility(1);
         inputActions.Ability.Ability3.performed += ctx => m_weapon.UseAbility(2);
         inputActions.Weapon.Melee.performed += ctx => m_weapon.UseAbility(3);
+
+        
+        inputActions.Menu.PauseMenu.performed += ctx => pauseMenuScript.menuOnOff();
+        
     }
     private void OnEnable()
     {
@@ -275,7 +277,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    
+    IEnumerator DeathTimer()
+    {
+        inputActions.Disable();
+        yield return new WaitForSeconds(5f);
+        inputActions.Enable();
+    }
+
+
 
     [PunRPC]
     public void RPC_UpdatePos(Vector3 pos)

@@ -371,6 +371,7 @@ MonoBehaviour:
   UI: {fileID: 0}
   hitbox: {fileID: 0}
   damInd: {fileID: 0}
+  pauseMenuScript: {fileID: 4870922641209532153}
   health: 100
   ammo: 0
   stamina: 0
@@ -2259,6 +2260,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2688751713276931398, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: playerManagerScript
+      value: 
+      objectReference: {fileID: 3475740908745778152}
     - target: {fileID: 2695607266222837361, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -2639,6 +2644,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4870922641209532153 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2688751713276931398, guid: f61710afb9da0472d969323947e82c78, type: 3}
+  m_PrefabInstance: {fileID: 7406348969651712959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc4ef8687a0e41f390d2e51da40f07b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6294878393757489803 stripped

@@ -20,10 +20,10 @@ public class Survey : MonoBehaviour
 
     public void Send()
     {
-        StartCoroutine(Post(feedback1.text));
+        //StartCoroutine(Post(feedback1.text));
     }
 
-    IEnumerator Post(string s1)
+    /*IEnumerator Post(string s1)
     {
         WWWForm form = new WWWForm();
         form.AddField("358566118", s1);
@@ -32,7 +32,7 @@ public class Survey : MonoBehaviour
 
         yield return www.SendWebRequest();
 
-    }
+    }*/
 
 
 }
