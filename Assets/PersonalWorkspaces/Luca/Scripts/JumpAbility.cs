@@ -16,34 +16,46 @@ public class JumpAbility : MonoBehaviour
     Rigidbody rb;
     Vector3 startPos;
     float v;
+    bool moving;
 
     void Start()
     {
         velocity = 0;
         direction = Direction.STATIC;
         rb = GetComponent<Rigidbody>();
-        
-        speed = 0.7f;
-        v = speed / 10;
+        moving = false;
+
+        speed = 1f;
+        v = speed / 50;
     }
 
     void Update()
     {
+        //transform.Translate(new Vector3(0, 1, 0) * velocity);
         rb.AddForce(new Vector3(0,2,0) * velocity, ForceMode.Impulse);
-        Debug.Log(direction + " " + transform.position.y);    
+        Debug.Log(direction + " " + transform.position.y + " " + velocity + " " + moving);    
 
         if (Input.GetMouseButtonDown(0) && velocity == 0) {
             direction = Direction.ASCENDING;
-            startPos = transform.position;    
+            startPos = transform.position;
         }
-        if (direction == Direction.ASCENDING) { 
-            v += speed / 10;
-            velocity += speed - v;      
+        if (direction == Direction.ASCENDING) {
+            v += speed / 100;
+            velocity += speed - v;
 
-            if (speed - v === 0)
+            if (speed - v <= 0 && transform.position.y != startPos.y)
                 direction = Direction.DESCENDING;
         }
         if (direction == Direction.DESCENDING) velocity -= speed*2;
+        if (transform.position.y < startPos.y)
+        {
+            print("stopped");
+            direction = Direction.STATIC;
+            speed = 1f;
+            v = speed / 50;
+            transform.position = new Vector3(transform.position.x, startPos.y, transform.position.z);
+            velocity = 0;
+        }
     }
 
     void OnCollisionEnter(Collision other)
