@@ -28,7 +28,7 @@ public class Survey : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("358566118", s1);
 
-        UnityWebRequest www = UnityWebRequest.Post(URL, form);
+//        UnityWebRequest www = UnityWebRequest.Post(URL, form);
 
         yield return www.SendWebRequest();
 
