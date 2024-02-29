@@ -282,7 +282,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     IEnumerator DeathTimer()
     {
         inputActions.Disable();
+        Debug.Log("WE");
         yield return new WaitForSeconds(5f);
+
         deathTimerOn = false;
         inputActions.Enable();
     }
