@@ -50,6 +50,7 @@ MonoBehaviour:
   - startPointer
   - startTimer
   - endGame
+  - loadLevel
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

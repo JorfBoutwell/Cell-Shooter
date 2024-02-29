@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject damInd;
 
     public InputActions inputActions;
+    public PauseMenu pauseMenuScript;
 
     public float health = 100;
     public int ammo;
@@ -29,6 +30,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public string team;
     public string character;
     public bool isDead = false;
+    public bool deathTimerOn = false;
 
     private static readonly string TeamPropKey = "TeamA?";
     public string updatePoints;
@@ -41,6 +43,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     PhotonView view;
 
+    //keys for teamA and teamB scores
+    private static readonly string TeamAScore = "TeamAScore";
+    private static readonly string TeamBScore = "TeamBScore";
+
+
     [SerializeField] Material materialA;
     [SerializeField] Material materialB;
 
@@ -50,6 +57,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, 0 } });
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBScore, 0 } });
+        }
         //username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
         username = PhotonNetwork.LocalPlayer.NickName;
         //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
@@ -148,14 +160,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             ammo = m_weapon.currentAmmo;
         }
 
-        if (isDead)
+        if (isDead && !deathTimerOn)
         {
-            inputActions.Disable();
+            deathTimerOn = true;
+            StartCoroutine("DeathTimer");
         }
-        else
-        {
-            inputActions.Enable(); //this seems slow. better way?
-        }
+
     }
     public void SetTeam(string teamName)
     {
@@ -181,6 +191,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         inputActions.Ability.Ability2.performed += ctx => m_weapon.UseAbility(1);
         inputActions.Ability.Ability3.performed += ctx => m_weapon.UseAbility(2);
         inputActions.Weapon.Melee.performed += ctx => m_weapon.UseAbility(3);
+
+        
+        inputActions.Menu.PauseMenu.performed += ctx => pauseMenuScript.menuOnOff();
+        
     }
     private void OnEnable()
     {
@@ -265,7 +279,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    
+    IEnumerator DeathTimer()
+    {
+        inputActions.Disable();
+        yield return new WaitForSeconds(5f);
+        deathTimerOn = false;
+        inputActions.Enable();
+    }
+
+
 
     [PunRPC]
     public void RPC_UpdatePos(Vector3 pos)
@@ -278,22 +300,41 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void ApplyDamage(float damage)
+    public void ApplyDamage(float damage, GameObject source)
     {
         health -= damage;
         if (health <= 0)
         {
             isDead = true;
         }
+        else
+        {
+            StartCoroutine(ShowDamageIndicator(1f, source));
+        }
 
         return;
+    }
+
+    public IEnumerator ShowDamageIndicator(float time, GameObject source)
+    {
+        damInd.SetActive(true);
+        Vector3 dirToSource = source.transform.position - transform.position;
+        dirToSource.y = 0;
+        damInd.transform.rotation = new Quaternion(0,0,Quaternion.LookRotation(dirToSource).z,0);
+        yield return new WaitForSeconds(time);
+        damInd.SetActive(false);
     }
 
     [PunRPC]
     public void startPointer(int i)
     {
-        pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer.GetComponent<PlayerManager>().buttonsPressed -= 1;
-        pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
+        if (pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer != null)
+        {
+            pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer.GetComponent<PlayerManager>().buttonsPressed -= 1;
+        }
+            pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
+        
+        
         
     }
 
@@ -318,9 +359,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void endGame()
     {
-
+        Debug.Log("game over");
         WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
-        waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
         waveStartScript.win = true;
+        waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
+        
+    }
+
+    [PunRPC]
+    public void loadLevel()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Queue");
+        }
+        
     }
 }

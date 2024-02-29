@@ -22,9 +22,13 @@ public class PointUpdateScript : MonoBehaviour
     bool aHalfPoint;
     bool bHalfPoint;
 
+    //keys for teamA and teamB scores
+    private static readonly string TeamAScore = "TeamAScore";
+    private static readonly string TeamBScore = "TeamBScore";
+
     //public PointCollectorScript pointCollectorScript;
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +41,8 @@ public class PointUpdateScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        pointsA = 0;
+        pointsB = 0;
         time += Time.deltaTime;
         
 
@@ -48,12 +53,14 @@ public class PointUpdateScript : MonoBehaviour
                 if (playerManagerScript.team == "A") //use currentteam to prevent both teams getting points from the same buttons?
                 {
                     pointsA += pointIncrement * playerManagerScript.buttonsPressed;
-                    pointsTextA.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsA).ToString("0");
+
+                    pointsTextA.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsA;
                 }
                 else
                 {
                     pointsB += pointIncrement * playerManagerScript.buttonsPressed;
-                    pointsTextB.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(pointsB).ToString("0");
+                   
+                    pointsTextB.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsB;
                 }
             }
 

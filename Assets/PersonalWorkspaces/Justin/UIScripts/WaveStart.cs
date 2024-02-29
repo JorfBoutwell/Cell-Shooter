@@ -27,6 +27,9 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public bool startCountdown = false;
     public bool gameTimerStart = false;
 
+    //bool to determine if que has been loaded
+    public bool queLoad = false;
+
     //Objective variables
     public List<string> objectiveTextPrompts = new List<string>();
     public GameObject objectiveText;
@@ -40,6 +43,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public float returnTime = 5f;
     public string winTeam;
 
+    //PointUIGameObject
+    public GameObject pointsA;
+    public GameObject pointsB;
+
     public GameObject dictionary;
 
     public bool win = false;
@@ -50,7 +57,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        pointUpdateScript = gameObject.transform.parent.GetComponentInChildren<PointUpdateScript>();
+        pointUpdateScript = gameObject.transform.root.GetComponentInChildren<PointUpdateScript>();
         currentTime = countdownTime;
         StartCountdown();
         countdownTimer = countdownText.GetComponentInChildren<TextMeshProUGUI>();
@@ -59,7 +66,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
         objectiveText.SetActive(false);
         objectiveTextLine.SetActive(false);
 
-        
+        //assign Points A and B
+        pointsA = GameObject.Find("PointsA");
+        pointsB = GameObject.Find("PointsB");
+
         //Objective Text Prompts
         objectiveTextPrompts.Add("Your team needs to reach 1000 points to win!");
         objectiveTextPrompts.Add("Earn points by claiming buttons around the map!");
@@ -114,12 +124,12 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 }
             }
 
-            if(pointUpdateScript.pointsA >= 50 && !win)
+            if(pointsA.GetComponent<PointsADisplayScript>().points >= 50 && !win)
             {
                 winTeam = "A";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
-            else if(pointUpdateScript.pointsB >= 50 && !win)
+            else if(pointsB.GetComponent<PointsADisplayScript>().points >= 50 && !win)
             {
                 winTeam = "B";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
@@ -150,7 +160,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public void WinCondition(string winTeam)
     {
 
-        GetComponent<PlayerManager>().inputActions.Disable();
+        //GetComponent<PlayerManager>().inputActions.Disable();
 
             if (pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
             {
@@ -170,6 +180,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
             returnTimer.text = returnTime.ToString("0");
             returnTime -= 1 * Time.deltaTime;
 
+            
             StartCoroutine("EnterQueueScene");
         
         
@@ -226,17 +237,29 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     IEnumerator EnterQueueScene()
     {
+        Debug.Log("made it here");
+        PhotonNetwork.AutomaticallySyncScene = true;
         yield return new WaitForSeconds(5f);
-
-        
-
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         dictionary = GameObject.Find("CustomVariableStorage");
         Destroy(dictionary);
-        
-        SceneManager.LoadSceneAsync("PersonalWorkspaces/Henry/Queue");
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            LoadQueue();
+            //transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllBufferedViaServer);
+        }
+    }
+
+    public void LoadQueue()
+    {
+        if (!queLoad)
+        {
+            PhotonNetwork.LoadLevel("Queue");
+            queLoad = true;
+        }
     }
 
 }

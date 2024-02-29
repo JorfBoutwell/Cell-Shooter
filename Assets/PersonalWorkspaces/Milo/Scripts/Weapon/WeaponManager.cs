@@ -19,6 +19,7 @@ public class WeaponManager : MonoBehaviour
     public Transform m_armTransform;
     public Transform bulletTransform;
     public Transform trailTransform;
+    public GameObject hitInd;
     [SerializeField] LayerMask m_enemyMask;
     public TrailRenderer bulletTrail;
     [SerializeField]
@@ -411,6 +412,7 @@ public class WeaponManager : MonoBehaviour
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
+                            StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
                     case 13: //teamB
@@ -419,6 +421,7 @@ public class WeaponManager : MonoBehaviour
                             Debug.Log("Team B");
                             PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
+                            StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
                     default: Debug.Log("nothing          " + hit.transform.gameObject.layer); break;
@@ -496,6 +499,13 @@ public class WeaponManager : MonoBehaviour
         Destroy(trail, trail.GetComponent<TrailRenderer>().time);
     }
 
+    public IEnumerator ShowHitIndicator(float time)
+    {
+        hitInd.SetActive(true);
+        yield return new WaitForSeconds(time);
+        hitInd.SetActive(false);
+    }
+
     [PunRPC]
     void RPC_TakeDamage(float damage, int targetPhotonViewID)
     {
@@ -503,7 +513,7 @@ public class WeaponManager : MonoBehaviour
 
         if (targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
         {
-            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
+            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage, transform.gameObject);
         }
     }
 }
