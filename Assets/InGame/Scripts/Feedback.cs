@@ -67,6 +67,7 @@ public class Feedback : MonoBehaviour
             {
                 Debug.Log("Sent!");
             }
+            www.Dispose();
         }
         else
         {
@@ -95,6 +96,8 @@ public class Feedback : MonoBehaviour
             {
                 Debug.Log("Sent!");
             }
+
+            www.Dispose();
         }
         else
         {
