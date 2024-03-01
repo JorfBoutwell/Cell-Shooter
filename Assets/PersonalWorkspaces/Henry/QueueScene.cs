@@ -172,7 +172,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
-            PhotonNetwork.LoadLevel("Multiplayer World");
+            PhotonNetwork.LoadLevel("TrainMap");
         }
     }
 
