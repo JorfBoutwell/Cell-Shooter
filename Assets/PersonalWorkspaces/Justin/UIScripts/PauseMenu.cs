@@ -22,8 +22,6 @@ public class PauseMenu : MonoBehaviour
             Debug.Log("Mind");
             playerManagerScript.inputActions.Disable();
             playerManagerScript.inputActions.Menu.Enable();
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
             pauseCanvas.SetActive(true);
             pauseActive = true;
         }
@@ -32,6 +30,8 @@ public class PauseMenu : MonoBehaviour
             pauseCanvas.SetActive(false);
             pauseActive = false;
             playerManagerScript.inputActions.Enable();
+            
+            
         }
 
     }
