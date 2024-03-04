@@ -15,4 +15,14 @@ public class MainMenu : MonoBehaviour
     {
         UnityEditor.EditorApplication.isPlaying = false;
     }
+
+    public void Feedback()
+    {
+        SceneManager.LoadSceneAsync("InGame/Scenes/Feedback");
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadSceneAsync("InGame/Scenes/MainMenu");
+    }
 }

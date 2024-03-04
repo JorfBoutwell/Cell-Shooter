@@ -2,37 +2,108 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using TMPro;
 
 
-public class Survey : MonoBehaviour
+public class Feedback : MonoBehaviour
 {
 
-    [SerializeField] InputField feedback1;
+    [Header("FeedbackRefs")]
+    public TMP_InputField feedbackInput;
+    public Toggle[] feedbackToggles;
 
-    string feedbackURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfITna2grW1kpGDhcn7TqB6Bm5HEua40P9gJ5eQxrz4pxYOuA/formResponse";
-    string bugURL = "";
+    [Header("BugRefs")]
+    public TMP_InputField bugInput;
+    public TMP_Dropdown bugDropdown;
 
-    string ratingForm = "1400390553";
-    string feedbackForm = "757176778";
+    string feedbackURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdF-lKLG9cMD5or-BSZqNLr_6Pm81Vknhz-FCE8l3-v961Qxg/formResponse";
+    string bugURL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfITna2grW1kpGDhcn7TqB6Bm5HEua40P9gJ5eQxrz4pxYOuA/formResponse";
 
-    string bugTypeForm = "358566118";
-    string bugSummaryForm = "1345663906";
+    string feedbackForm = "entry.1400390553";
+    string ratingForm = "entry.757176778";
 
-    public void Send()
+    string bugTypeForm = "entry.358566118";
+    string bugSummaryForm = "entry.1345663906";
+
+    public void SendFeedback()
     {
-        //StartCoroutine(Post(feedback1.text));
+        StartCoroutine(FeedbackPost());
     }
 
-    /*IEnumerator Post(string s1)
+    public void SendBugReport()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("358566118", s1);
+        StartCoroutine(BugReportPost());
+    }
 
-//        UnityWebRequest www = UnityWebRequest.Post(URL, form);
+    IEnumerator FeedbackPost()
+    {
+       if (feedbackInput.text != "")
+        {
+            Debug.Log("running");
+            WWWForm form = new WWWForm();
 
-        yield return www.SendWebRequest();
+            string rating = "0";
 
-    }*/
+            for(int i = 1; i <= feedbackToggles.GetLength(0); i++)
+            {
+                if(feedbackToggles[i-1].isOn)
+                {
+                    rating = i.ToString();
+                }
+            }
+
+            form.AddField(ratingForm, rating);
+            form.AddField(feedbackForm, feedbackInput.text);
+
+            UnityWebRequest www = UnityWebRequest.Post(feedbackURL, form);
+
+            yield return www.SendWebRequest();
+
+            if(www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log("failed");
+            }
+            else
+            {
+                Debug.Log("Sent!");
+            }
+            www.Dispose();
+        }
+        else
+        {
+            yield return null;
+        }
+
+    }
+
+    IEnumerator BugReportPost()
+    {
+        if(bugInput.text != "")
+        {
+            WWWForm form = new WWWForm();
+            form.AddField(bugTypeForm, bugDropdown.captionText.text);
+            form.AddField(bugSummaryForm, bugInput.text);
+
+            UnityWebRequest www = UnityWebRequest.Post(bugURL, form);
+
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log("failed");
+            }
+            else
+            {
+                Debug.Log("Sent!");
+            }
+
+            www.Dispose();
+        }
+        else
+        {
+            yield return null;
+        }
+    }
 
 
 }

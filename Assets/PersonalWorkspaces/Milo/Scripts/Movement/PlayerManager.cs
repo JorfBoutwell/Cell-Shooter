@@ -282,7 +282,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     IEnumerator DeathTimer()
     {
         inputActions.Disable();
+        Debug.Log("WE");
         yield return new WaitForSeconds(5f);
+
         deathTimerOn = false;
         inputActions.Enable();
     }
@@ -320,7 +322,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         damInd.SetActive(true);
         Vector3 dirToSource = source.transform.position - transform.position;
         dirToSource.y = 0;
-        damInd.transform.rotation = new Quaternion(0,0,Quaternion.LookRotation(dirToSource).z,0);
+        float magnitude = Mathf.Sqrt(dirToSource.x * dirToSource.x + dirToSource.y * dirToSource.y);
+        float dotProduct = dirToSource.x * 1 + dirToSource.y * 0;
+        float angleRadians = Mathf.Acos(dotProduct / magnitude);
+        float angleDegrees = angleRadians * (180 / Mathf.PI);
+        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
     }

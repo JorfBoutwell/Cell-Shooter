@@ -162,9 +162,9 @@ public class DeathScript : MonoBehaviour
     private void HealthReset()
     {
         playerManagerScript.isDead = false;
-        Debug.Log("yo" + playerManagerScript.isDead);
+
         playerManagerScript.health = 100; //Subject to change
-        Debug.Log("c" + playerManagerScript.health);
+
         healthUIScript.healthBarUI = playerManagerScript.health * 6.8f;
         Debug.Log("e" + healthUIScript.healthBarUI);
         healthUIScript.healthShadow = healthUIScript.healthBarUI;
