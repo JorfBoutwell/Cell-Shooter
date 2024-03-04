@@ -19,6 +19,7 @@ public class WeaponManager : MonoBehaviour
     public Transform m_armTransform;
     public Transform bulletTransform;
     public Transform trailTransform;
+    public GameObject hitInd;
     [SerializeField] LayerMask m_enemyMask;
     public TrailRenderer bulletTrail;
     [SerializeField]
@@ -41,6 +42,7 @@ public class WeaponManager : MonoBehaviour
 
     public Ability[] abilityList;
     public Ability currentAbility;
+    public AbilityUI abilityUI;
     int ability = -1;
 
     public enum AbilityState
@@ -86,6 +88,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Awake()
     {
+        abilityUI = GetComponentInChildren<AbilityUI>();
         m_player = GetComponent<PlayerController>();
         animController = GetComponentInChildren<AnimationController>();
         currentAbility = null;
@@ -102,10 +105,6 @@ public class WeaponManager : MonoBehaviour
     {
         if (!isShooting)
             m_fireLimit = 3;
-        if (currentAmmo == 0)
-        {
-            StartCoroutine(Reload());
-        }
 
         AbilityStateMachine();
         StateMachine();
@@ -114,7 +113,6 @@ public class WeaponManager : MonoBehaviour
         if (stateChange) //If state has changed this frame, play new anim
         {
             Debug.Log("switch");
-            Debug.Log(State);
             animController.WeaponAnimationController(State);
             stateChange = false;
         }
@@ -134,22 +132,12 @@ public class WeaponManager : MonoBehaviour
 
         if (isShooting)
         {
-            Debug.Log("oh yeah");
             State = WeaponState.shooting;
-        }
-        else if((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
-        {
-            State = WeaponState.idle;
         }
 
         if (isReloading)
         {
             State = WeaponState.reloading;
-        }
-        else if (isShooting == false && (abilityState == AbilityState.idle || abilityState == AbilityState.cooldown))
-        {
-            Debug.Log("AJHHH");
-            State = WeaponState.idle;
         }
 
         if ((abilityState == AbilityState.idle || abilityState == AbilityState.cooldown) && isReloading == false && isShooting == false)
@@ -278,18 +266,20 @@ public class WeaponManager : MonoBehaviour
                     ability = 0;
                     abilityState = AbilityState.ready;
                     currentAbility = abilityList[0];
-
+                    StartCoroutine(abilityUI.abilityObjects[0].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
                     break;
                 case 1:
                     ability = 1;
                     abilityState = AbilityState.ready;
                     currentAbility = abilityList[1];
+                    StartCoroutine(abilityUI.abilityObjects[1].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
 
                     break;
                 case 2:
                     ability = 2;
                     abilityState = AbilityState.ready;
                     currentAbility = abilityList[2];
+                    StartCoroutine(abilityUI.abilityObjects[2].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
 
                     break;
                 case 3:
@@ -388,6 +378,7 @@ public class WeaponManager : MonoBehaviour
 
     private IEnumerator Shoot()
     {
+        if (state != WeaponState.idle) yield return null;
         if (currentAmmo > 0)
         {
             yield return new WaitForSeconds(currentWeapon.fireFrame / 24);
@@ -403,6 +394,13 @@ public class WeaponManager : MonoBehaviour
                     case 7: //"enemy"
                         Debug.Log("enemy");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
+                        /*if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
+                        {
+                            hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2;
+                            m_player.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player1;
+                            //Don't use m_player
+                            GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
+                        }*/
                         break;
                     case 10: //"enemyHead"
                         Debug.Log("enemyHead");
@@ -414,6 +412,7 @@ public class WeaponManager : MonoBehaviour
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
+                            StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
                     case 13: //teamB
@@ -422,6 +421,7 @@ public class WeaponManager : MonoBehaviour
                             Debug.Log("Team B");
                             PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
+                            StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
                     default: Debug.Log("nothing          " + hit.transform.gameObject.layer); break;
@@ -445,6 +445,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("empty");
             isShooting = false;
             StartCoroutine(Reload());
             yield return null;
@@ -453,8 +454,10 @@ public class WeaponManager : MonoBehaviour
 
     public IEnumerator Reload()
     {
-        if (abilityState == AbilityState.active)
+        Debug.Log("rstart");
+        if (abilityState == AbilityState.active || state != WeaponState.idle)
         {
+            isReloading = false;
             yield return null;
         }
         if (currentAmmo != currentWeapon.maxAmmo)
@@ -462,12 +465,15 @@ public class WeaponManager : MonoBehaviour
             isReloading = true;
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
+            Debug.Log(currentWeapon.reloadTime);
+            Debug.Log("rdone");
             currentAmmo = currentWeapon.maxAmmo;
             bulletUI.text = currentAmmo.ToString("0");
             isReloading = false;
         }
         else
         {
+            isReloading = false;
             Debug.Log("Already at max ammo");
             yield return null;
         }
@@ -493,6 +499,13 @@ public class WeaponManager : MonoBehaviour
         Destroy(trail, trail.GetComponent<TrailRenderer>().time);
     }
 
+    public IEnumerator ShowHitIndicator(float time)
+    {
+        hitInd.SetActive(true);
+        yield return new WaitForSeconds(time);
+        hitInd.SetActive(false);
+    }
+
     [PunRPC]
     void RPC_TakeDamage(float damage, int targetPhotonViewID)
     {
@@ -500,7 +513,7 @@ public class WeaponManager : MonoBehaviour
 
         if (targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
         {
-            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage);
+            targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage, transform.gameObject);
         }
     }
 }

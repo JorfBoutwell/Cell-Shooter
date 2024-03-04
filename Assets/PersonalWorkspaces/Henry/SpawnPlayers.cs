@@ -21,7 +21,7 @@ public class SpawnPlayers : MonoBehaviour
     private void Start()
     {
         //spawns in player at -15, 2, -20 (this can be changed to a spawn point by changing the vector 3 to something else
-        player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-15, 2, -20), Quaternion.identity);
+        player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-240, 15, -370), Quaternion.identity);
 
 
 

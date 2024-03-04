@@ -7,28 +7,37 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseCanvas;
     public bool pauseActive = false;
+    public PlayerManager playerManagerScript;
 
     void Start()
     {
         
     }
 
-    //Activates Pause Menu
-    void Update()
+    public void menuOnOff()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+
+        if (!pauseActive)
         {
-            if (!pauseActive) { 
-                pauseCanvas.SetActive(true);
-                pauseActive = true;
-            }
-            else
-            {
-                pauseCanvas.SetActive(false);
-                pauseActive = false;
-            }
+            Debug.Log("Mind");
+            playerManagerScript.inputActions.Disable();
+            playerManagerScript.inputActions.Menu.Enable();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            pauseCanvas.SetActive(true);
+            pauseActive = true;
+        }
+        else
+        {
+            pauseCanvas.SetActive(false);
+            pauseActive = false;
+            playerManagerScript.inputActions.Enable();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
-        
     }
+
+   
+
 }

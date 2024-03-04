@@ -19,10 +19,13 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        Debug.Log(PhotonNetwork.PlayerList.Length);
         int blueCounter = 0;
         int redCounter = 0;
+        int counter = 0;
         foreach (Player player in PhotonNetwork.PlayerList)
         {
+            counter++;
             object aTeam;
             object ready;
             if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam) && player.CustomProperties.TryGetValue(ReadyPropKey, out ready))
@@ -42,7 +45,7 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                         teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(false);
                     }
                     blueCounter++;
-                } else
+                } else if(!(bool)aTeam)
                 {
                     teamB.transform.GetChild(redCounter).gameObject.SetActive(true);
                     teamB.transform.GetChild(redCounter).GetComponent<TMP_Text>().SetText(player.NickName);
@@ -61,5 +64,6 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                 }
             }
         }
+        Debug.Log(counter + "yo whats good");
     }
 }

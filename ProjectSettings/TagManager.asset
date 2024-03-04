@@ -13,12 +13,13 @@ TagManager:
   - player
   - SpawnA
   - SpawnB
+  - BoneWall
   - PointCollector
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Decoration
   - Water
   - UI
   - Wall

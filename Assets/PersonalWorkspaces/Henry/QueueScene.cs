@@ -155,7 +155,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
+            
             foreach (Player player in PhotonNetwork.PlayerList)
             {
                 string teamInput;
@@ -172,6 +172,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
+            PhotonNetwork.LoadLevel("TrainMap");
         }
     }
 
@@ -179,7 +180,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     void RPC_NewScene()
     {
         PlayerManager.DontDestroyOnLoad(dictionary);
-        PhotonNetwork.LoadLevel("Multiplayer World");
-        
+        PhotonNetwork.AutomaticallySyncScene = true;
+
     }
 }
