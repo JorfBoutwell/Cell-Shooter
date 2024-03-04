@@ -322,11 +322,32 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         damInd.SetActive(true);
         Vector3 dirToSource = source.transform.position - transform.position;
         dirToSource.y = 0;
-        float magnitude = Mathf.Sqrt(dirToSource.x * dirToSource.x + dirToSource.y * dirToSource.y);
-        float dotProduct = dirToSource.x * 1 + dirToSource.y * 0;
-        float angleRadians = Mathf.Acos(dotProduct / magnitude);
-        float angleDegrees = angleRadians * (180 / Mathf.PI);
-        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
+        float offset = 0;
+
+        if(dirToSource.x < 0)
+        {
+            if(dirToSource.z > 0)
+            {
+                offset = 270;
+            }
+            else {
+                offset = 180;
+            }
+        }
+        else
+        {
+            if(dirToSource.z < 0)
+            {
+                offset = 90;
+            }
+            else
+            {
+                offset = 0;
+            }
+        }
+
+        float angle = Mathf.Asin(dirToSource.z / dirToSource.x) * (180/Mathf.PI) + offset;
+        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
     }
