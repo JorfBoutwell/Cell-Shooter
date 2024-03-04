@@ -346,7 +346,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             }
         }
 
-        float angle = Mathf.Asin(dirToSource.z / dirToSource.x) * (180/Mathf.PI) + offset;
+        float angle = Mathf.Atan(Mathf.Abs(dirToSource.z) / Mathf.Abs(dirToSource.x)) * (180/Mathf.PI) + offset;
         damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
