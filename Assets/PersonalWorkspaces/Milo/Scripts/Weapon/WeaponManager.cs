@@ -258,37 +258,40 @@ public class WeaponManager : MonoBehaviour
 
     public void UseAbility(int index)
     {
-        if (State == WeaponState.idle)
+        if (view.IsMine)
         {
-            switch (index)
+            if (State == WeaponState.idle)
             {
-                case 0:
-                    ability = 0;
-                    abilityState = AbilityState.ready;
-                    currentAbility = abilityList[0];
-                    StartCoroutine(abilityUI.abilityObjects[0].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
-                    break;
-                case 1:
-                    ability = 1;
-                    abilityState = AbilityState.ready;
-                    currentAbility = abilityList[1];
-                    StartCoroutine(abilityUI.abilityObjects[1].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
+                switch (index)
+                {
+                    case 0:
+                        ability = 0;
+                        abilityState = AbilityState.ready;
+                        currentAbility = abilityList[0];
+                        StartCoroutine(abilityUI.abilityObjects[0].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
+                        break;
+                    case 1:
+                        ability = 1;
+                        abilityState = AbilityState.ready;
+                        currentAbility = abilityList[1];
+                        StartCoroutine(abilityUI.abilityObjects[1].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
 
-                    break;
-                case 2:
-                    ability = 2;
-                    abilityState = AbilityState.ready;
-                    currentAbility = abilityList[2];
-                    StartCoroutine(abilityUI.abilityObjects[2].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
+                        break;
+                    case 2:
+                        ability = 2;
+                        abilityState = AbilityState.ready;
+                        currentAbility = abilityList[2];
+                        StartCoroutine(abilityUI.abilityObjects[2].GetComponentInChildren<CooldownScript>(true).CooldownOverlay(currentAbility.cooldownTime));
 
-                    break;
-                case 3:
-                    ability = 3;
-                    abilityState = AbilityState.ready;
-                    currentAbility = abilityList[3];
+                        break;
+                    case 3:
+                        ability = 3;
+                        abilityState = AbilityState.ready;
+                        currentAbility = abilityList[3];
 
-                    break;
-                default: ability = -1; break;
+                        break;
+                    default: ability = -1; break;
+                }
             }
         }
     }
