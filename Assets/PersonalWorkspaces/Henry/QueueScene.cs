@@ -20,6 +20,8 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     public GameObject dictionary;
 
+    public bool team;
+
     private void Start()
     {
         if (photonView.IsMine) PhotonNetwork.LocalPlayer.CustomProperties.Clear();
@@ -38,6 +40,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             {
                 //otherwise set this player on red team
                 SetTeam(false);
+               
             }
         }
         updateReadyState(false);
@@ -71,6 +74,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     //sets team based on what is passeds
     public void SetTeam(bool value)
     {
+        team = value;
         if (photonView.IsMine)
         {
             //stores passed variable
@@ -131,6 +135,17 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
                 
             }
+        }
+    }
+
+    public void SwitchTeam()
+    {
+        if(team && PhotonNetwork.PlayerList.Length - GetTeamA().Count < 4)
+        {
+            SetTeam(false);
+        } else if (!team && GetTeamA().Count - PhotonNetwork.PlayerList.Length < 4)
+        {
+            SetTeam(true);
         }
     }
 
