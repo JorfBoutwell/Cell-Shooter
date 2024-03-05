@@ -162,12 +162,12 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
         //GetComponent<PlayerManager>().inputActions.Disable();
 
-            if (pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
+            if (pointsA.GetComponent<PointsADisplayScript>().points > pointsB.GetComponent<PointsADisplayScript>().points || winTeam == "A")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
                 Debug.Log("Team A Wins!");
             }
-            else if (pointUpdateScript.pointsB > pointUpdateScript.pointsA || winTeam == "B")
+            else if (pointsB.GetComponent<PointsADisplayScript>().points > pointsA.GetComponent<PointsADisplayScript>().points || winTeam == "B")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
                 Debug.Log("Team B Wins!");

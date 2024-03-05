@@ -22,6 +22,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        if (photonView.IsMine) PhotonNetwork.LocalPlayer.CustomProperties.Clear();
         dictionary = GameObject.Find("CustomVariableStorage");
         if (photonView.IsMine && recentJoin > 0)
         {
@@ -172,7 +173,8 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
-            PhotonNetwork.LoadLevel("TrainMap");
+            //PhotonNetwork.LoadLevel("TrainMap");
+            PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }
 

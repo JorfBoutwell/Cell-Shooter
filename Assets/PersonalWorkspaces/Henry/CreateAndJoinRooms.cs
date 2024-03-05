@@ -38,7 +38,7 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
         }
         else
         {
-            PhotonNetwork.NickName = "IM a Loser LOL";
+            PhotonNetwork.NickName = "Unknown" + Random.Range(100,999);
         }
         PhotonNetwork.LoadLevel("Queue");
     }
