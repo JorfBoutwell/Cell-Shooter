@@ -239,14 +239,15 @@ public class WaveStart : MonoBehaviourPunCallbacks
     {
         Debug.Log("made it here");
         PhotonNetwork.AutomaticallySyncScene = true;
-        yield return new WaitForSeconds(5f);
+        
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         dictionary = GameObject.Find("CustomVariableStorage");
         Destroy(dictionary);
 
-        if(PhotonNetwork.IsMasterClient)
+        yield return new WaitForSeconds(5f);
+        if (PhotonNetwork.IsMasterClient)
         {
             LoadQueue();
             //transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllBufferedViaServer);
