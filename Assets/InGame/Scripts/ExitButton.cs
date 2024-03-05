@@ -9,7 +9,7 @@ public class ExitButton : MonoBehaviour
     public void ExitQueue()
     {
         PhotonNetwork.LocalPlayer.CustomProperties.Clear();
-        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LeaveRoom(false);
         PhotonNetwork.LoadLevel(3);
     }
 }

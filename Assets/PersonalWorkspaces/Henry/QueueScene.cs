@@ -137,9 +137,8 @@ public class QueueScene : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         if (photonView.IsMine) PhotonNetwork.LocalPlayer.CustomProperties.Clear();
-        PhotonNetwork.LoadLevel(3);
         //base.OnLeftRoom();
-
+        
     }
     //gets list of all players on the blue team
     public List<Player> GetTeamA()
