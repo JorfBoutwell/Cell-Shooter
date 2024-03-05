@@ -136,7 +136,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     //ran when leaving the room
     public override void OnLeftRoom()
     {
-        PhotonNetwork.LocalPlayer.CustomProperties.Clear();
+        if (photonView.IsMine) PhotonNetwork.LocalPlayer.CustomProperties.Clear();
         //base.OnLeftRoom();
         
     }
