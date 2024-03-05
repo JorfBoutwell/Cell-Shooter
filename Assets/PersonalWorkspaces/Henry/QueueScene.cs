@@ -133,11 +133,12 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
         }
     }
-
+    //ran when leaving the room
     public override void OnLeftRoom()
     {
-        base.OnLeftRoom();
         PhotonNetwork.LocalPlayer.CustomProperties.Clear();
+        base.OnLeftRoom();
+        
     }
     //gets list of all players on the blue team
     public List<Player> GetTeamA()
