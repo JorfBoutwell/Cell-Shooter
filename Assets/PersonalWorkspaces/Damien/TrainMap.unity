@@ -4242,7 +4242,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220160494}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cf08659fb3694025926c46a643d94a1, type: 3}
   m_Name: 
@@ -4250,6 +4250,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 1576989017386804971, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
   player: {fileID: 0}
   code: {fileID: 0}
+  spawnScript: {fileID: 1220160497}
 --- !u!4 &1220160496
 Transform:
   m_ObjectHideFlags: 0
