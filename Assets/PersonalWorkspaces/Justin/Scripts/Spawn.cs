@@ -9,6 +9,9 @@ public class Spawn : MonoBehaviour
     public List<GameObject> spawnPointsA;
     public List<GameObject> spawnPointsB;
 
+    public int spawnIncrementA = 0;
+    public int spawnIncrementB = 0;
+
     public float xIncrement = 0;
 
     // Start is called before the first frame update
