@@ -20,8 +20,11 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     public GameObject dictionary;
 
+    public bool team;
+
     private void Start()
     {
+        if (photonView.IsMine) PhotonNetwork.LocalPlayer.CustomProperties.Clear();
         dictionary = GameObject.Find("CustomVariableStorage");
         if (photonView.IsMine && recentJoin > 0)
         {
@@ -37,6 +40,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             {
                 //otherwise set this player on red team
                 SetTeam(false);
+               
             }
         }
         updateReadyState(false);
@@ -70,6 +74,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     //sets team based on what is passeds
     public void SetTeam(bool value)
     {
+        team = value;
         if (photonView.IsMine)
         {
             //stores passed variable
@@ -132,6 +137,27 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    public void SwitchTeam()
+    {
+        if(team && PhotonNetwork.PlayerList.Length - GetTeamA().Count < 4)
+        {
+            SetTeam(false);
+        } else if (!team && GetTeamA().Count - PhotonNetwork.PlayerList.Length < 4)
+        {
+            SetTeam(true);
+        }
+    }
+
+    public void ExitQueue()
+    {
+        ExitGames.Client.Photon.Hashtable customProperties = photonView.Owner.CustomProperties;
+        customProperties.Clear();
+        photonView.Owner.SetCustomProperties(customProperties);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(3);
+    }
+
     //gets list of all players on the blue team
     public List<Player> GetTeamA()
     {
@@ -173,6 +199,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
             PhotonNetwork.LoadLevel("TrainMap");
+            //PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }
 

@@ -320,34 +320,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public IEnumerator ShowDamageIndicator(float time, GameObject source)
     {
         damInd.SetActive(true);
-        Vector3 dirToSource = source.transform.position - transform.position;
-        dirToSource.y = 0;
-        float offset = 0;
+        Vector2 dirToSource = new Vector2(source.transform.position.x - transform.position.x, source.transform.position.z - transform.position.z);
+        float hyp = Mathf.Sqrt(Mathf.Pow(dirToSource.x, 2) + Mathf.Pow(dirToSource.y, 2));
+        Vector2 point = new Vector2(0, hyp);
+        float dotProduct = Vector2.Dot(dirToSource, point);
+        float angleRadians = Mathf.Acos(dotProduct / (hyp * hyp));
+        float angleDegrees = angleRadians * Mathf.Rad2Deg;
+        if (dirToSource.x > point.x) angleDegrees = 360 - angleDegrees;
 
-        if(dirToSource.x < 0)
-        {
-            if(dirToSource.z > 0)
-            {
-                offset = 270;
-            }
-            else {
-                offset = 180;
-            }
-        }
-        else
-        {
-            if(dirToSource.z < 0)
-            {
-                offset = 90;
-            }
-            else
-            {
-                offset = 0;
-            }
-        }
-
-        float angle = Mathf.Atan(Mathf.Abs(dirToSource.z) / Mathf.Abs(dirToSource.x)) * (180/Mathf.PI) + offset;
-        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        Debug.Log("angle is: " + angleDegrees);
+        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
     }

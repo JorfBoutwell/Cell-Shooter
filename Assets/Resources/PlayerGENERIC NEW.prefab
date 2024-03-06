@@ -2996,6 +2996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamA: {fileID: 3927227472887796925}
   teamB: {fileID: 8938644524552751890}
+  prevCount: 0
   game: 1
 --- !u!114 &6550541714398719811 stripped
 MonoBehaviour:

@@ -162,12 +162,12 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
         //GetComponent<PlayerManager>().inputActions.Disable();
 
-            if (pointUpdateScript.pointsA > pointUpdateScript.pointsB || winTeam == "A")
+            if (pointsA.GetComponent<PointsADisplayScript>().points > pointsB.GetComponent<PointsADisplayScript>().points || winTeam == "A")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
                 Debug.Log("Team A Wins!");
             }
-            else if (pointUpdateScript.pointsB > pointUpdateScript.pointsA || winTeam == "B")
+            else if (pointsB.GetComponent<PointsADisplayScript>().points > pointsA.GetComponent<PointsADisplayScript>().points || winTeam == "B")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
                 Debug.Log("Team B Wins!");
@@ -239,14 +239,15 @@ public class WaveStart : MonoBehaviourPunCallbacks
     {
         Debug.Log("made it here");
         PhotonNetwork.AutomaticallySyncScene = true;
-        yield return new WaitForSeconds(5f);
+        
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         dictionary = GameObject.Find("CustomVariableStorage");
         Destroy(dictionary);
 
-        if(PhotonNetwork.IsMasterClient)
+        yield return new WaitForSeconds(5f);
+        if (PhotonNetwork.IsMasterClient)
         {
             LoadQueue();
             //transform.root.gameObject.GetComponent<PhotonView>().RPC("loadLevel", RpcTarget.AllBufferedViaServer);

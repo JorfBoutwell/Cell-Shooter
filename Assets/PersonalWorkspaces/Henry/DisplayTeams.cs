@@ -14,18 +14,29 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
 
     public VerticalLayoutGroup teamA;
     public VerticalLayoutGroup teamB;
+    public int prevCount = 0;
 
     public bool game;
 
     private void Update()
     {
+        if(PhotonNetwork.PlayerList.Length != prevCount)
+        {
+            foreach(Transform child in teamA.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+            foreach(Transform child in teamB.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
         Debug.Log(PhotonNetwork.PlayerList.Length);
         int blueCounter = 0;
         int redCounter = 0;
         int counter = 0;
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            counter++;
             object aTeam;
             object ready;
             if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam) && player.CustomProperties.TryGetValue(ReadyPropKey, out ready))
