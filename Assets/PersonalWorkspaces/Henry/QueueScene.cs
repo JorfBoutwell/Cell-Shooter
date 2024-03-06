@@ -8,7 +8,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
 {
     //key and local players team variable
     private static readonly string TeamPropKey = "TeamA?";
-    private bool teamA = false;
+    public bool teamA = false;
 
     //key and local players ready status
     private static readonly string ReadyPropKey = "ReadyUp";
