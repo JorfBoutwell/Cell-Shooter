@@ -61,6 +61,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
+
         if(PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, 0 } });
@@ -122,7 +124,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
                     Debug.Log("spawnteama");
-                    this.gameObject.transform.position = spawnScript.spawnPointsA[spawnScript.spawnIncrementA].GetComponent<Vector3>();
+                    this.gameObject.transform.position = spawnScript.spawnPointsA[spawnScript.spawnIncrementA].transform.position;
                     spawnScript.spawnIncrementA++;
                 }
                 else
@@ -133,7 +135,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     gameObject.GetComponent<MeshRenderer>().material = materialB;
 
                     Debug.Log("spawnteamb");
-                    this.gameObject.transform.position = spawnScript.spawnPointsB[spawnScript.spawnIncrementB].GetComponent<Vector3>();
+                    this.gameObject.transform.position = spawnScript.spawnPointsB[spawnScript.spawnIncrementB].transform.position;
                     spawnScript.spawnIncrementB++;
                 }
 

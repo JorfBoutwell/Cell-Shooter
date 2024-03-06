@@ -1154,6 +1154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb49ac1ac57641f8aa9e8263f82b415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamA: 0
   start: {fileID: 4733625694582083721}
   dictionary: {fileID: 0}
   team: 0
