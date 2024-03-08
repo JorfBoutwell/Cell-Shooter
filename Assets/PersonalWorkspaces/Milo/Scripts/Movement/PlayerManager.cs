@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     static int spawnIncrementA = 0;
     static int spawnIncrementB = 0;
+    public Vector3 spawn;
 
     public float health = 100;
     public int ammo;
@@ -124,7 +125,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
                     Debug.Log("spawnteama");
-                    this.gameObject.transform.position = spawnScript.spawnPointsA[spawnScript.spawnIncrementA].transform.position;
+                    spawn = spawnScript.spawnPointsA[spawnScript.spawnIncrementA].transform.position;
+                    this.gameObject.transform.position = spawn;
                     spawnScript.spawnIncrementA++;
                 }
                 else
@@ -135,7 +137,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     gameObject.GetComponent<MeshRenderer>().material = materialB;
 
                     Debug.Log("spawnteamb");
-                    this.gameObject.transform.position = spawnScript.spawnPointsB[spawnScript.spawnIncrementB].transform.position;
+                    spawn = spawnScript.spawnPointsB[spawnScript.spawnIncrementB].transform.position;
+                    this.gameObject.transform.position = spawn;
                     spawnScript.spawnIncrementB++;
                 }
 

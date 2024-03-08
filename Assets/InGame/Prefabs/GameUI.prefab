@@ -447,6 +447,10 @@ MonoBehaviour:
   usernames: []
   transformPosition: {x: 0, y: 0}
   animationDuration: 1
+  pointUpdateScript: {fileID: 0}
+  boxesCount: 0
+  player1: 
+  player2: 
 --- !u!1 &584295055173621493
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: feefb46dd88944278aded9f6ccbe19d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1029,7 +1033,7 @@ MonoBehaviour:
   abilityImageE: {fileID: 584295055173621493}
   abilityImageX: {fileID: 7381929080083346939}
   abilityImageQ: {fileID: 3776976181747680331}
-  NeuronC: {fileID: 2800000, guid: cc02cbc1c7a6b4a69854b1404f8b3ab3, type: 3}
+  NeuronC: {fileID: 2800000, guid: feefb46dd88944278aded9f6ccbe19d5, type: 3}
   NeuronE: {fileID: 2800000, guid: 48a20e03d10084c219053d299d89afd3, type: 3}
   NeuronX: {fileID: 2800000, guid: 48a20e03d10084c219053d299d89afd3, type: 3}
   NeuronQ: {fileID: 2800000, guid: cc02cbc1c7a6b4a69854b1404f8b3ab3, type: 3}
@@ -3578,9 +3582,20 @@ MonoBehaviour:
   gameTimeMinutes: 0
   startCountdown: 0
   gameTimerStart: 0
+  queLoad: 0
   objectiveTextPrompts: []
   objectiveText: {fileID: 0}
   objectiveTextLine: {fileID: 0}
+  pointUpdateScript: {fileID: 0}
+  winOverlay: {fileID: 0}
+  winText: {fileID: 0}
+  returnTimer: {fileID: 0}
+  returnTime: 5
+  winTeam: 
+  pointsA: {fileID: 0}
+  pointsB: {fileID: 0}
+  dictionary: {fileID: 0}
+  win: 0
 --- !u!1 &3669368836117577771
 GameObject:
   m_ObjectHideFlags: 0
@@ -7130,7 +7145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: feefb46dd88944278aded9f6ccbe19d5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -7304,6 +7319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseCanvas: {fileID: 7305695207143113276}
   pauseActive: 0
+  playerManagerScript: {fileID: 0}
 --- !u!1 &7791226474398415176
 GameObject:
   m_ObjectHideFlags: 0
@@ -7811,26 +7827,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5198327abe2fa4ca8b31f936fee05922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownOverlayC: {fileID: 294479202917722385}
-  cooldownOverlayBarC: {fileID: 6602796636973240952}
-  cooldownOverlayE: {fileID: 6805818787886543509}
-  cooldownOverlayBarE: {fileID: 3669368836117577771}
-  cooldownOverlayX: {fileID: 6390405551897706809}
-  cooldownOverlayBarX: {fileID: 5480289083136925369}
-  cooldownOverlayQ: {fileID: 5584456441604465219}
-  cooldownOverlayBarQ: {fileID: 6075055988066382408}
-  cooldownActiveC: 0
-  cooldownActiveE: 0
-  cooldownActiveX: 0
-  cooldownActiveQ: 0
-  heightC: 100
-  heightE: 100
-  heightX: 100
-  heightQ: 100
   cooldownOverlay: {fileID: 0}
   cooldownOverlayBar: {fileID: 0}
-  cooldownActive: 0
-  cooldownTime: 0
 --- !u!1 &8295044620268501850
 GameObject:
   m_ObjectHideFlags: 0
