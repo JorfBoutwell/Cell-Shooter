@@ -412,6 +412,7 @@ MonoBehaviour:
   sprintSpeed: 20
   crouchSpeed: 0
   airSpeed: 10
+  dashSpeed: 0
   speedDampDuration: 0
   canMove: 1
   isGrounded: 0
@@ -422,7 +423,7 @@ MonoBehaviour:
   isDashing: 0
   isWallRunning: 0
   moveInput: {x: 0, y: 0, z: 0}
-  m_groundDrag: 0
+  m_groundDrag: 5
   m_sensitivityX: 15
   m_sensitivityY: 15
   m_camHolder: {fileID: 9205376155456986774}
@@ -509,7 +510,7 @@ MonoBehaviour:
   abilityList:
   - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
   - {fileID: 11400000, guid: dcd08c0303bd9cd43be4267157c2ca9d, type: 2}
-  - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
+  - {fileID: 11400000, guid: 4e519afeeeea1e64798015a24375c068, type: 2}
   currentAbility: {fileID: 0}
   abilityUI: {fileID: 0}
   abilityState: 0
