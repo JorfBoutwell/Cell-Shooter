@@ -488,7 +488,7 @@ public class WeaponManager : MonoBehaviour
 
         float distance = Vector3.Distance(startPos, hit.transform.position);
         float startDistance = distance;
-        Debug.Log(distance);
+
 
         while (distance > 0)
         {
