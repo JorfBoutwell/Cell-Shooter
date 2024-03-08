@@ -15,6 +15,7 @@ public class Neurostep : Ability
         Vector3 forceToApply;
 
         player.isDashing = true;
+        rb.useGravity = false;
 
         if (player.state == PlayerControllerNEW.MovementState.air)
         {
@@ -36,6 +37,7 @@ public class Neurostep : Ability
         Rigidbody rb = parent.GetComponent<Rigidbody>();
 
         player.isDashing = false;
+        rb.useGravity = false;
         
         if (isAirDash)
         {
