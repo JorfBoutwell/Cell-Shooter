@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Neurotransmitter
   m_EditorClassIdentifier: 
   abilityName: Neurotransmitter
-  iconImage: {fileID: 0}
+  iconImage: {fileID: 6119680722351537414, guid: fae866ab94e2f4d0dba472730e28748b, type: 3}
   abilityTime: 1.5
   animationFlag: 0
   cooldownTime: 2
