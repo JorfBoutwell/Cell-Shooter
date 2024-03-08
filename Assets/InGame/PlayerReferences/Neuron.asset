@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c0ca52b3dad46a3a5abe13ba7b9b69, type: 3}
+  m_Name: Neuron
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9100000, guid: 46edeba57ad65420fb31e5938f5fcd4f, type: 2}
+  abilities:
+  - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
+  - {fileID: 11400000, guid: dcd08c0303bd9cd43be4267157c2ca9d, type: 2}
+  weapon: {fileID: 11400000, guid: 1c3b201c85810cb40b513067f0e3d9f3, type: 2}
+  bulletTrail: {fileID: 1558605981893590399, guid: 0ff4fdde8dfe84cad8901a68f2d98b75, type: 3}
