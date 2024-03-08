@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8ad1c5a774d1249a83d890d0b8f52a, type: 3}
   m_Name: Neurostep
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: Neurostep
   iconImage: {fileID: 0}
-  abilityTime: 0
+  abilityTime: 0.25
   animationFlag: 0
-  cooldownTime: 0
-  isUsable: 0
-  dashPower: 0
+  cooldownTime: 1
+  isUsable: 1
+  dashPower: 20
