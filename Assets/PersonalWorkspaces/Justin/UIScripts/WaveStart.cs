@@ -92,6 +92,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
         //Game Countdown
         if (startCountdown)
         {
+            Debug.Log("HEP");
             currentTime -= 1 * Time.deltaTime;
             countdownTimer.text = currentTime.ToString("0");
 
@@ -122,6 +123,8 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 {
                     transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
                 }
+
+                startClock(); //J JERE
             }
 
             if(pointsA.GetComponent<PointsADisplayScript>().points >= 50 && !win)
@@ -140,6 +143,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     //Resets Countdown to Start Game Timer
     public void Reset()
     {
+        Debug.Log("hope");
         currentTime = 180f;
         gameTimerStart = true;
 
@@ -188,10 +192,12 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     public void startClock()
     {
+        Debug.Log("yeep");
         gameObject.transform.parent.GetComponentInChildren<PointUpdateScript>().time = 0;
-        currentTime = 0;
+        currentTime = 0f;
         countdownOverlay.SetActive(false);
         Reset();
+        
 
     }
 
@@ -199,7 +205,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         //if the change being made is for the local user
-        if (targetPlayer != null && targetPlayer.IsMasterClient)
+        if (targetPlayer != null && targetPlayer.IsMasterClient && gameTimerStart)
         {
             startClock();
         }

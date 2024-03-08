@@ -368,15 +368,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         WaveStart timerScript = gameObject.GetComponentInChildren<WaveStart>();
     }
 
-        //ran when host clients timer hits 0, synchs all clocks
+    //ran when host clients timer hits 0, synchs all clocks
     [PunRPC]
     public void startClock()
     {
         WaveStart timerScript = gameObject.GetComponentInChildren<WaveStart>();
-        timerScript.currentTime = 0;
+        timerScript.currentTime = 0f;
         timerScript.countdownOverlay.SetActive(false);
         timerScript.Reset();
-
+        
     }
 
     [PunRPC]
@@ -386,7 +386,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
         waveStartScript.win = true;
         waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
-        
+        inputActions.Disable();
+        inputActions.Menu.Enable();
     }
 
     [PunRPC]
