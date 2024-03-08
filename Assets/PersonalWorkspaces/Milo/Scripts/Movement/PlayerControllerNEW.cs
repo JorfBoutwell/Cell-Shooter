@@ -3,7 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using DG.Tweening;
+using DG.Tweening;
 using Photon.Pun;
 
 public class PlayerControllerNEW : MonoBehaviourPun
@@ -22,6 +22,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
     public float sprintSpeed;
     public float crouchSpeed;
     public float airSpeed;
+    public float speedDampDuration;
 
     [Header("Movement Flags")]
     public bool canMove = true;
@@ -272,7 +273,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
         else if (isGrounded && isSprinting && m_moveDirection != Vector3.zero)
         {
             state = MovementState.sprinting;
-            movementSpeed = sprintSpeed;
+            airSpeed = sprintSpeed - 2;
+            DOTween.To(() => movementSpeed, x => movementSpeed = x, sprintSpeed, speedDampDuration);
            // DoFOV(90f);
         }
         else if (isGrounded && isCrouching)
@@ -287,8 +289,11 @@ public class PlayerControllerNEW : MonoBehaviourPun
             if(m_rb.velocity != Vector3.zero)
             {
                 state = MovementState.walking;
-                movementSpeed = walkSpeed;
-            }else{
+                airSpeed = walkSpeed - 2;
+                DOTween.To(() => movementSpeed, x => movementSpeed = x, walkSpeed, speedDampDuration);
+            }
+            else
+            {
                 state = MovementState.idle;
             }
 
