@@ -24,14 +24,20 @@ public class PauseMenu : MonoBehaviour
             playerManagerScript.inputActions.Menu.Enable();
             pauseCanvas.SetActive(true);
             pauseActive = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
         else
         {
             pauseCanvas.SetActive(false);
             pauseActive = false;
             playerManagerScript.inputActions.Enable();
-            
-            
+        }
+
+        if (!pauseActive && Cursor.visible == true)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
     }
