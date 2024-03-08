@@ -240,9 +240,11 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
 
+        currentAbility.StartAbility(gameObject);
+
         yield return new WaitForSeconds(currentAbility.abilityTime);
 
-        currentAbility.StartAbility(gameObject);
+        currentAbility.StartCooldown(gameObject);
 
         Debug.Log("done");
         abilityState = AbilityState.cooldown;

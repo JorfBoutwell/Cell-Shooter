@@ -19,4 +19,6 @@ public class Ability : ScriptableObject
         isUsable = true;
     }
     public virtual void StartAbility(GameObject parent) { }
+
+    public virtual void StartCooldown(GameObject parent) { }
 }

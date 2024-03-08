@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_rb: {fileID: 0}
-  m_FPSCam: {fileID: 0}
+  FPSCam: {fileID: 0}
   state: 0
   animController: {fileID: 0}
   movementSpeed: 10
@@ -419,12 +419,14 @@ MonoBehaviour:
   isSprinting: 0
   isCrouching: 0
   isSliding: 0
+  isDashing: 0
   isWallRunning: 0
   moveInput: {x: 0, y: 0, z: 0}
   m_groundDrag: 0
   m_sensitivityX: 15
   m_sensitivityY: 15
   m_camHolder: {fileID: 9205376155456986774}
+  orientation: {fileID: 0}
   m_playerHeight: 2
   m_groundLayer:
     serializedVersion: 2
@@ -506,6 +508,8 @@ MonoBehaviour:
   m_projectile: {fileID: 0}
   abilityList:
   - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
+  - {fileID: 11400000, guid: dcd08c0303bd9cd43be4267157c2ca9d, type: 2}
+  - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
   currentAbility: {fileID: 0}
   abilityUI: {fileID: 0}
   abilityState: 0
@@ -527,6 +531,7 @@ MonoBehaviour:
   abilityList:
   - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
   - {fileID: 11400000, guid: dcd08c0303bd9cd43be4267157c2ca9d, type: 2}
+  - {fileID: 11400000, guid: 4e519afeeeea1e64798015a24375c068, type: 2}
   currentAbility: {fileID: 0}
 --- !u!114 &-655466026383108972
 MonoBehaviour:
