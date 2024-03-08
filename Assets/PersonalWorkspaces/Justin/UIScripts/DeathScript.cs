@@ -134,7 +134,7 @@ public class DeathScript : MonoBehaviour
 
     public void PointCollecterReset()
     {
-
+        Debug.Log("hee");
         for(int i = 0; i < playerManagerScript.pointCollectors.Count; i++)
         {
             playerManagerScript.pointCollectors[i].GetComponentInChildren<Renderer>().material.color = Color.grey;
