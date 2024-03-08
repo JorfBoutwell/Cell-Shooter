@@ -119,12 +119,14 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 {
                     PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamPropKey, true } });
                 }
-                else if(gameTimerStart)
+                else if (gameTimerStart)
                 {
                     transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
                 }
 
+                if (!gameTimerStart) { 
                 startClock(); //J JERE
+                }
             }
 
             if(pointsA.GetComponent<PointsADisplayScript>().points >= 50 && !win)
