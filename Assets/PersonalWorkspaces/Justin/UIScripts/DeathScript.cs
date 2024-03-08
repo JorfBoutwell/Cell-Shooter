@@ -124,13 +124,11 @@ public class DeathScript : MonoBehaviour
     {
         if (playerManagerScript.team == "A") {
             
-            spawnLocation = GameObject.FindGameObjectWithTag("SpawnA").transform.position;
-            player.transform.position = spawnLocation;
+            player.transform.position = playerManagerScript.spawn;
         }
         else if (playerManagerScript.team == "B")
         {
-            spawnLocation = GameObject.FindGameObjectWithTag("SpawnB").transform.position;
-            player.transform.position = spawnLocation;
+            player.transform.position = playerManagerScript.spawn;
         }
     }
 

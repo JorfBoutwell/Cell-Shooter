@@ -19,8 +19,7 @@ public class SpawnPlayers : MonoBehaviour
 
     public Spawn spawnScript;
 
-    static int spawnIncrementA = 0;
-    static int spawnIncrementB = 0;
+    
 
 
     private void Start()
@@ -29,15 +28,22 @@ public class SpawnPlayers : MonoBehaviour
         //player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-240, 15, -370), Quaternion.identity);
         player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
 
-        if (player.GetComponentInChildren<PlayerManager>().team == "A")
-        { 
-            player.transform.position = spawnScript.spawnPointsA[spawnIncrementA].GetComponent<Vector3>();
-            spawnIncrementA++;
-        } else if(player.GetComponentInChildren<PlayerManager>().team == "B")
+        /*if (player.GetComponent<PlayerManager>())
         {
-            player.transform.position = spawnScript.spawnPointsB[spawnIncrementB].GetComponent<Vector3>();
-            spawnIncrementB++;
-        }
+            Debug.Log("found");
+            if (player.GetComponent<PlayerManager>().team == "A")
+            {
+                Debug.Log("spawnteama");
+                player.transform.position = spawnScript.spawnPointsA[spawnIncrementA].GetComponent<Vector3>();
+                spawnIncrementA++;
+            }
+            else if (player.GetComponent<PlayerManager>().team == "B")
+            {
+                Debug.Log("SPAWNTEAMB");
+                player.transform.position = spawnScript.spawnPointsB[spawnIncrementB].GetComponent<Vector3>();
+                spawnIncrementB++;
+            }
+        }*/
         //player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-15, 2, -20), Quaternion.identity);
 
 
@@ -48,6 +54,5 @@ public class SpawnPlayers : MonoBehaviour
         //changes the UI element to the rooms code
         code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
     }
-
 
 }

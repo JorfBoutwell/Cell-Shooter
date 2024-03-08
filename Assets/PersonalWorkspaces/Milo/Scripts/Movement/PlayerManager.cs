@@ -22,6 +22,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
+    public Spawn spawnScript;
+
+    static int spawnIncrementA = 0;
+    static int spawnIncrementB = 0;
+    public Vector3 spawn;
 
     public float health = 100;
     public int ammo;
@@ -57,6 +62,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
+
         if(PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, 0 } });
@@ -116,6 +123,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     gameObject.layer = 11;
                     gameObject.GetComponent<MeshRenderer>().material = materialA;
 
+
+                    Debug.Log("spawnteama");
+                    spawn = spawnScript.spawnPointsA[spawnScript.spawnIncrementA].transform.position;
+                    this.gameObject.transform.position = spawn;
+                    spawnScript.spawnIncrementA++;
                 }
                 else
                 {
@@ -123,6 +135,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     transform.GetChild(0).gameObject.layer = 13;
                     gameObject.layer = 13;
                     gameObject.GetComponent<MeshRenderer>().material = materialB;
+
+                    Debug.Log("spawnteamb");
+                    spawn = spawnScript.spawnPointsB[spawnScript.spawnIncrementB].transform.position;
+                    this.gameObject.transform.position = spawn;
+                    spawnScript.spawnIncrementB++;
                 }
 
             }
