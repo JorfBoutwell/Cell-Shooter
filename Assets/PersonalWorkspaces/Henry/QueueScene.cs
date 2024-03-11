@@ -64,7 +64,17 @@ public class QueueScene : MonoBehaviourPunCallbacks
         if (photonView.IsMine && PhotonNetwork.IsMasterClient)
         {
             CreateCharacterArays();
+        } else
+        {
+            //read their variable
+            object array;
+            PhotonNetwork.MasterClient.CustomProperties.TryGetValue(TeamATeam, out array);
+            TeamAArray = (string[])array;
+            PhotonNetwork.MasterClient.CustomProperties.TryGetValue(TeamBTeam, out array);
+            TeamBArray = (string[])array;
         }
+
+        
         //function to set characters that only lets you get an avialable character
         setCharacter();
 
