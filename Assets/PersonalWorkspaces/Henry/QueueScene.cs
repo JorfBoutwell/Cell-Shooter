@@ -211,6 +211,31 @@ public class QueueScene : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { IndividualCharacter, character } });
     }
 
+    public bool OpUsed(string character, bool team)
+    {
+        List<string> teamAOps = new List<string>();
+        List<string> teamBOps = new List<string>();
+
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            object teamP;
+            object op;
+            if (player.CustomProperties.TryGetValue(TeamPropKey, out teamP) && player.CustomProperties.TryGetValue(IndividualCharacter, out op))
+            {
+                if((bool)teamP)
+                {
+                    teamAOps.Add((string)op);
+                } else
+                {
+                    teamBOps.Add((string)op);
+                }
+            }
+        }
+        return false;
+    }
+
+
+
     //sets team based on what is passeds
     public void SetTeam(bool value)
     {
