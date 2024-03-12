@@ -93,10 +93,13 @@ public class WaveStart : MonoBehaviourPunCallbacks
         if (startCountdown)
         {
             Debug.Log("HEP");
-            currentTime -= 1 * Time.deltaTime;
-            countdownTimer.text = currentTime.ToString("0");
+            if (!win)
+            {
+                currentTime -= 1 * Time.deltaTime;
+                countdownTimer.text = currentTime.ToString("0");
+            } 
 
-            if(gameTimerStart)
+            if(gameTimerStart && !win)
             {
                 gameTimeMinutes = Mathf.FloorToInt(currentTime / 60);
                 gameTimeSeconds = Mathf.FloorToInt(currentTime % 60);
@@ -104,7 +107,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
             }
 
             //Activates Final Countdown Overlay and Changes
-            if (currentTime <= 3)
+            if (currentTime <= 3 && !gameTimerStart)
             {
                 countdownOverlay.SetActive(true);
                 countdownTimer.color = Color.red;
@@ -121,6 +124,8 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 }
                 else if (gameTimerStart)
                 {
+                    countdownTimer.text = "GAME OVER";
+                    countdownTimer.fontSize = 50;
                     transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
                 }
 
@@ -133,12 +138,16 @@ public class WaveStart : MonoBehaviourPunCallbacks
             {
                 win = true;
                 winTeam = "A";
+                countdownTimer.text = "GAME OVER";
+                countdownTimer.fontSize = 50;
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
             else if(pointsB.GetComponent<PointsADisplayScript>().points >= 1000 && !win)
             {
                 win = true;
                 winTeam = "B";
+                countdownTimer.text = "GAME OVER";
+                countdownTimer.fontSize = 50;
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
 
