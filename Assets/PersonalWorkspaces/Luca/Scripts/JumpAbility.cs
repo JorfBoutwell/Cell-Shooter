@@ -25,8 +25,8 @@ public class JumpAbility : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         moving = false;
 
-        speed = 1f;
-        v = speed / 50;
+        speed = 0.01f;
+        v = speed / 100;
     }
 
     void Update()
@@ -51,8 +51,8 @@ public class JumpAbility : MonoBehaviour
         {
             print("stopped");
             direction = Direction.STATIC;
-            speed = 1f;
-            v = speed / 50;
+            speed = .01f;
+            v = speed / 100;
             transform.position = new Vector3(transform.position.x, startPos.y, transform.position.z);
             velocity = 0;
         }

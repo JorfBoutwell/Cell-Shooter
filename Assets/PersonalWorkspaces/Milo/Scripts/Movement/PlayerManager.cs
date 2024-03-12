@@ -10,7 +10,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
-    Neuron m_neuron;
 
 
 
@@ -78,7 +77,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         inputActions = new InputActions();
         m_player = GetComponent<PlayerControllerNEW>();
         m_weapon = GetComponent<WeaponManager>();
-        m_neuron = GetComponent<Neuron>();
 
         ammo = m_weapon.currentWeapon.maxAmmo;
 
@@ -167,7 +165,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     private void Update()
-    {
+    { 
         if (!view.IsMine)
         {
             return;
@@ -289,11 +287,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator DopamineEffect()
     {
-        while (health < 120)
+        for (int i = 0; i < 10; i++)
         {
-            health = health + 2;
+            health += 2;
             yield return new WaitForSeconds(1);
         }
+        activeEffects.Remove("dopamine");
+        yield return null;
     }
 
     IEnumerator DeathTimer()
