@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Ability : ScriptableObject
 {
     public string abilityName;
-    public Image iconImage;
+    public Sprite iconImage;
     public float abilityTime;
     public float animationFlag;
     public float cooldownTime;
