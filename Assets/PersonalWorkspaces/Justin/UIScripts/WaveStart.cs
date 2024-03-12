@@ -131,13 +131,21 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
             if(pointsA.GetComponent<PointsADisplayScript>().points >= 50 && !win)
             {
+                win = true;
                 winTeam = "A";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
             else if(pointsB.GetComponent<PointsADisplayScript>().points >= 50 && !win)
             {
+                win = true;
                 winTeam = "B";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
+            }
+
+            if(win)
+            {
+                returnTimer.text = returnTime.ToString("0");
+                returnTime -= 1 * Time.deltaTime;
             }
         }
     }
@@ -165,7 +173,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     public void WinCondition(string winTeam)
     {
-
+        
         //GetComponent<PlayerManager>().inputActions.Disable();
 
             if (pointsA.GetComponent<PointsADisplayScript>().points > pointsB.GetComponent<PointsADisplayScript>().points || winTeam == "A")
@@ -183,8 +191,8 @@ public class WaveStart : MonoBehaviourPunCallbacks
             winText.transform.DOScale(1.75f, 3);
             winText.DOColor(Color.yellow, 3);
 
-            returnTimer.text = returnTime.ToString("0");
-            returnTime -= 1 * Time.deltaTime;
+            //returnTimer.text = returnTime.ToString("0");
+            //returnTime -= 1 * Time.deltaTime;
 
             
             StartCoroutine("EnterQueueScene");
