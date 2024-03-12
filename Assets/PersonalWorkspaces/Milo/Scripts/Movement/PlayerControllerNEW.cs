@@ -60,6 +60,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     [Header("Jump Variables")]
     [SerializeField] float m_jumpForce;
+    public int jumpAmount;
+    public int maxJumpAmount;
     
     [Header("Sprint/Crouch Variables")]
     [SerializeField] float startCamY;
@@ -157,6 +159,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         else
             m_rb.drag = 0;
 
+
         //tie FOV to movement speed
         //        if (m_FPSCam.fieldOfView != (m_movementSpeed * (10 / 7) + 70))
         //     m_FPSCam.DOFieldOfView(m_movementSpeed * (10 / 7) + 70, 0.2f);
@@ -243,7 +246,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
             if (m_wallRunTimer > 0)
                 m_wallRunTimer -= Time.deltaTime;
-                
+
 
             if (m_wallRunTimer <= 0 && isWallRunning)
             {
@@ -251,7 +254,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
                 m_exitWallTimer = m_exitWallTime;
             }
         }
-        else if(m_exitingWall)
+        else if (m_exitingWall)
         {
             state = MovementState.exitingwall;
             if (isWallRunning)
@@ -269,7 +272,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
             }
 
         }
-        else if(isDashing)
+        else if (isDashing)
         {
             state = MovementState.dashing;
             movementSpeed = dashSpeed;
@@ -279,7 +282,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
             state = MovementState.sliding;
             isSliding = true;
         }
-        else if (isGrounded && isSprinting && m_moveDirection != Vector3.zero)
+        else if (isGrounded && isSprinting && m_moveDirection != Vector3.zero && !isDashing)
         {
             state = MovementState.sprinting;
             airSpeed = sprintSpeed - 2;
@@ -307,7 +310,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
             }
 
             isJumping = false;
-           // DoFOV(80f);
+            // DoFOV(80f);
         }
         else
         {
@@ -341,13 +344,13 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     public void Jump()
     {
-        if(isGrounded)
+        if (isGrounded)
         {
             m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
 
             m_rb.AddForce(transform.up * m_jumpForce, ForceMode.Impulse);
         }
-        if(isWallRunning)
+        if (isWallRunning)
         {
             WallJump();
         }
