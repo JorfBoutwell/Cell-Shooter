@@ -7,6 +7,7 @@ public class Neurostep : Ability
 {
     public float dashPower;
     bool isAirDash;
+
     public override void StartAbility(GameObject parent)
     {
         Debug.Log("Use Dash");
@@ -14,8 +15,8 @@ public class Neurostep : Ability
         Rigidbody rb = parent.GetComponent<Rigidbody>();
         Vector3 forceToApply;
 
-        player.isDashing = true;
         rb.useGravity = false;
+        player.isDashing = true;
 
         if (player.state == PlayerControllerNEW.MovementState.air)
         {
@@ -37,7 +38,7 @@ public class Neurostep : Ability
         Rigidbody rb = parent.GetComponent<Rigidbody>();
 
         player.isDashing = false;
-        rb.useGravity = false;
+        rb.useGravity = true;
         
         if (isAirDash)
         {
