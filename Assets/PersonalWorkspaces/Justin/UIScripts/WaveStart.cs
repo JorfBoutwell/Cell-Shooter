@@ -129,13 +129,13 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 }
             }
 
-            if(pointsA.GetComponent<PointsADisplayScript>().points >= 50 && !win)
+            if(pointsA.GetComponent<PointsADisplayScript>().points >= 1000 && !win)
             {
                 win = true;
                 winTeam = "A";
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
-            else if(pointsB.GetComponent<PointsADisplayScript>().points >= 50 && !win)
+            else if(pointsB.GetComponent<PointsADisplayScript>().points >= 1000 && !win)
             {
                 win = true;
                 winTeam = "B";
