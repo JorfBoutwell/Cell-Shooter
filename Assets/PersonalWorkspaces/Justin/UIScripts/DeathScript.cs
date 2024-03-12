@@ -66,6 +66,7 @@ public class DeathScript : MonoBehaviour
 
         //Activates When The Player is Dead
         if (playerManagerScript.isDead) {
+            currentTime -= Time.deltaTime;
             StartCoroutine(Death());
         }
          

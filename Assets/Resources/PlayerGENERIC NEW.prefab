@@ -412,9 +412,9 @@ MonoBehaviour:
   sprintSpeed: 20
   crouchSpeed: 0
   airSpeed: 10
-  dashSpeed: 0
-  speedDampDuration: 0
-  canMove: 1
+  dashSpeed: 50
+  speedDampDuration: 1
+  canMove: 0
   isGrounded: 0
   isJumping: 0
   isSprinting: 0
@@ -436,6 +436,8 @@ MonoBehaviour:
   m_slopeMoveDirection: {x: 0, y: 0, z: 0}
   m_slopeDownForce: 0
   m_jumpForce: 7
+  jumpAmount: 0
+  maxJumpAmount: 0
   startCamY: 0
   crouchCamY: 0
   m_slideForce: 150
