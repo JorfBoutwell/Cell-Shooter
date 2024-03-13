@@ -12,11 +12,29 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
 
     private static readonly string ReadyPropKey = "ReadyUp";
 
+    private static readonly string IndividualCharacter = "individualCharacter";
+
     public VerticalLayoutGroup teamA;
     public VerticalLayoutGroup teamB;
     public int prevCount = 0;
 
     public bool game;
+
+    public Color[] colors;
+    public string[] characters = new string[] { "Player1", "Player2", "Player3", "PLayer4" };
+
+    public Dictionary<string, Color> color = new Dictionary<string, Color>();
+
+    private void Start()
+    {
+        if (!game)
+        {
+            for (int i = 0; i < characters.Length; i++)
+            {
+                color.Add(characters[i], colors[i]);
+            }
+        }
+    }
 
     private void Update()
     {
@@ -39,7 +57,8 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
         {
             object aTeam;
             object ready;
-            if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam) && player.CustomProperties.TryGetValue(ReadyPropKey, out ready))
+            object character;
+            if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam) && player.CustomProperties.TryGetValue(ReadyPropKey, out ready) && player.CustomProperties.TryGetValue(IndividualCharacter, out character))
             {
                 if ((bool)aTeam)
                 {
@@ -54,6 +73,11 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     {
                         teamA.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(true);
                         teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(false);
+                    }
+
+                    if(!game)
+                    {
+                        teamA.transform.GetChild(blueCounter).GetChild(2).GetComponent<Image>().color = color[(string)character];
                     }
                     blueCounter++;
                 } else if(!(bool)aTeam)
@@ -70,6 +94,11 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     {
                         teamB.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(true);
                         teamB.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(false);
+                    }
+
+                    if (!game)
+                    {
+                        teamB.transform.GetChild(redCounter).GetChild(2).GetComponent<Image>().color = color[(string)character];
                     }
                     redCounter++;
                 }

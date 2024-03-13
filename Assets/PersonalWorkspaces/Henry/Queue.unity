@@ -2073,6 +2073,16 @@ MonoBehaviour:
   teamB: {fileID: 1271339438}
   prevCount: 0
   game: 0
+  colors:
+  - {r: 0.106829524, g: 0.5943396, b: 0.036445368, a: 1}
+  - {r: 1, g: 0.3443396, b: 0.9718715, a: 1}
+  - {r: 0.9056604, g: 0.53292876, b: 0.20932718, a: 1}
+  - {r: 0.20784314, g: 0.7921806, b: 0.90588236, a: 1}
+  characters:
+  - Player1
+  - Player2
+  - Player3
+  - PLayer4
 --- !u!1 &1080663446
 GameObject:
   m_ObjectHideFlags: 0

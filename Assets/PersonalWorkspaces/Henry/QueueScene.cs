@@ -194,7 +194,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
         {
             object teamP;
             object op;
-            if (player.CustomProperties.TryGetValue(TeamPropKey, out teamP) && player.CustomProperties.TryGetValue(IndividualCharacter, out op))
+            if (player.CustomProperties.TryGetValue(TeamPropKey, out teamP) && player.CustomProperties.TryGetValue(IndividualCharacter, out op) && !player.IsLocal)
             {
                 if((bool)teamP)
                 {
