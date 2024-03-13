@@ -61,9 +61,12 @@ public class QueueScene : MonoBehaviourPunCallbacks
         }
 
 
+        if (photonView.IsMine)
+        {
+            //function to set characters that only lets you get an avialable character
+            setCharacter();
+        }
         
-        //function to set characters that only lets you get an avialable character
-        setCharacter();
 
         updateReadyState(false);
     }
@@ -119,13 +122,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
     public void setCharacter(int choice = -1)
     {
 
-        if (choice != -1)
-        {
-            if (characters[choice] == character)
-            {
-                return;
-            }
-        }
 
         //default choice
         if(choice == -1)
@@ -145,6 +141,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                     }
                 } else
                 {
+                    Debug.Log("I ended up on team B");
                     //same as above but if you are on team b
                     if (!OpUsed(characters[i], team))
                     {
