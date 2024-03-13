@@ -45,11 +45,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject[] pointCollection;
 
 
+
     PhotonView view;
 
     //keys for teamA and teamB scores
     private static readonly string TeamAScore = "TeamAScore";
     private static readonly string TeamBScore = "TeamBScore";
+
+    private static readonly string IndividualCharacter = "individualCharacter";
 
 
     [SerializeField] Material materialA;
@@ -109,9 +112,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             {
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
-                
-
-                
+                object localCharacter;
+                player.CustomProperties.TryGetValue(IndividualCharacter, out localCharacter);
+                character = (string)localCharacter;
                 
 
                 if ((bool)teamA)

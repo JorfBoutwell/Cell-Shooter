@@ -7,6 +7,8 @@ public class CustomVariableDictionary : MonoBehaviourPunCallbacks
 {
     public Dictionary<int, string> team = new Dictionary<int, string>();
 
+    public Dictionary<int, string> character = new Dictionary<int, string>();
+
     //key and local players team variable
     private static readonly string TeamPropKey = "TeamA?";
     private bool teamA = false;
@@ -14,6 +16,9 @@ public class CustomVariableDictionary : MonoBehaviourPunCallbacks
     //key and local players ready variable
     private static readonly string ReadyPropKey = "ReadyUp";
     private bool loadedIn = false;
+
+    //character key
+    private static readonly string IndividualCharacter = "individualCharacter";
 
     private void Awake()
     {
@@ -41,6 +46,14 @@ public class CustomVariableDictionary : MonoBehaviourPunCallbacks
             teamA = value;
             //makes a custom variable in photon for team, will always be with player while in the game
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamPropKey, value } });
+        }
+    }
+
+    public void setCharacter(string value)
+    {
+        if (photonView.IsMine)
+        {
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { IndividualCharacter, character[PhotonNetwork.LocalPlayer.ActorNumber] } });
         }
     }
 

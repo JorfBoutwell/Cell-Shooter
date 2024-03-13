@@ -21,7 +21,7 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
     public bool game;
 
     public Color[] colors;
-    public string[] characters = new string[] { "Player1", "Player2", "Player3", "PLayer4" };
+    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4" };
 
     public Dictionary<string, Color> color = new Dictionary<string, Color>();
 

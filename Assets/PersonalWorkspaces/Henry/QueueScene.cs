@@ -26,7 +26,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     public string[] TeamAArray = new string[4] { "", "", "", "" };
     public string[] TeamBArray = new string[4] { "", "", "", "" };
 
-    public string[] characters = new string[] { "Player1", "Player2", "Player3", "PLayer4" };
+    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4" };
 
     public GameObject start;
 
@@ -119,7 +119,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
     }
 
     //functon to set character, default choice is to be given an available one
-    public void setCharacter(int choice = -1, bool teamSwitch = false)
+    public void setCharacter(int choice = -1)
     {
 
 
@@ -161,7 +161,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 if(OpUsed(characters[choice], team))
                 {
                     //option wasn't there so don't change character
-                    if (character != "" && teamSwitch)
+                    if (character != "")
                         return;
 
                     //recall this function but this time with default option (don't think this can happen but just in case)
@@ -176,7 +176,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 //same but team b
                 if (OpUsed(characters[choice], team))
                 {
-                    if (character != "" && teamSwitch)
+                    if (character != "")
                         return;
 
                     setCharacter();
@@ -305,12 +305,12 @@ public class QueueScene : MonoBehaviourPunCallbacks
         if(team && PhotonNetwork.PlayerList.Length - GetTeamA().Count < 4)
         {
             SetTeam(false);
-            setCharacter(IndexOfStringArray(characters, character), true);
+            setCharacter(IndexOfStringArray(characters, character));
 
         } else if (!team && GetTeamA().Count - PhotonNetwork.PlayerList.Length < 4)
         {
             SetTeam(true);
-            setCharacter(IndexOfStringArray(characters, character), true);
+            setCharacter(IndexOfStringArray(characters, character));
         }
 
     }
@@ -352,6 +352,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             {
                 string teamInput;
                 object aTeam;
+                object playerCharacter;
                 if (player.CustomProperties.TryGetValue(TeamPropKey, out aTeam) && (bool)aTeam)
                 {
                     teamInput = "aTeam";
@@ -360,7 +361,12 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 {
                     teamInput = "bTeam";
                 }
+                if (player.CustomProperties.TryGetValue(IndividualCharacter, out playerCharacter))
+                {
+                    dictionary.GetComponent<CustomVariableDictionary>().character.Add(player.ActorNumber, (string)playerCharacter);
+                }
                 dictionary.GetComponent<CustomVariableDictionary>().team.Add(player.ActorNumber, teamInput);
+                
             }
             
             photonView.RPC("RPC_NewScene", RpcTarget.AllBuffered);
