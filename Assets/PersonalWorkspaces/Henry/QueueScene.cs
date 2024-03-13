@@ -160,6 +160,10 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 //if your choice is taken
                 if(OpUsed(characters[choice], team))
                 {
+                    //option wasn't there so don't change character
+                    if (character != "")
+                        return;
+
                     //recall this function but this time with default option (don't think this can happen but just in case)
                     setCharacter();
                 } else
@@ -172,6 +176,9 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 //same but team b
                 if (OpUsed(characters[choice], team))
                 {
+                    if (character != "")
+                        return;
+
                     setCharacter();
                 }
                 else
