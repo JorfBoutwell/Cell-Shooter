@@ -60,19 +60,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
             }
         }
 
-        //creates a variable on the server for what characters each team contains
-        if (photonView.IsMine && PhotonNetwork.IsMasterClient)
-        {
-            CreateCharacterArays();
-        } else
-        {
-            //read their variable
-            object array;
-            PhotonNetwork.MasterClient.CustomProperties.TryGetValue(TeamATeam, out array);
-            TeamAArray = (string[])array;
-            PhotonNetwork.MasterClient.CustomProperties.TryGetValue(TeamBTeam, out array);
-            TeamBArray = (string[])array;
-        }
 
         
         //function to set characters that only lets you get an avialable character
@@ -115,6 +102,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
         PhotonNetwork.MasterClient.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBTeam, TeamBArray } });
     }
 
+    //finds element of an array made of strings
     public int IndexOfStringArray(string[] array, string element)
     {
         for(int i = 0; i < array.Length; i++)
@@ -130,17 +118,14 @@ public class QueueScene : MonoBehaviourPunCallbacks
     //functon to set character, default choice is to be given an available one
     public void setCharacter(int choice = -1)
     {
-        //remove current character from your team array
-        if(team && character != "")
-        {
-            TeamAArray[IndexOfStringArray(TeamAArray, character)] = "";
-        } else if(!team && character != "")
-        {
-            Debug.Log(IndexOfStringArray(TeamBArray, character));
-            Debug.Log(TeamBArray.Length);
-            TeamBArray[IndexOfStringArray(TeamBArray, character)] = "";
-        }
 
+        if (choice != -1)
+        {
+            if (characters[choice] == character)
+            {
+                return;
+            }
+        }
 
         //default choice
         if(choice == -1)
@@ -151,23 +136,19 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 //a team check
                 if(team)
                 {
-                    //if it doesn't contain this character
-                    if(!TeamAArray.Contains(characters[i]))
+                    //if no other player on your team has this operator
+                    if(!OpUsed(characters[i], team))
                     {
                         //gives you the character
                         character = characters[i];
-                        //updates array of avialable characters and breaks for loop
-                        TeamAArray[Array.IndexOf(TeamAArray, "")] = characters[i];
                         break;
                     }
                 } else
                 {
                     //same as above but if you are on team b
-                    if (!TeamBArray.Contains(characters[i]))
+                    if (!OpUsed(characters[i], team))
                     {
                         character = characters[i];
-                        Debug.Log(Array.IndexOf<string>(TeamBArray, ""));
-                        TeamBArray[Array.IndexOf<string>(TeamBArray, "")] = characters[i];
                         break;
                     }
                 }
@@ -180,33 +161,29 @@ public class QueueScene : MonoBehaviourPunCallbacks
             if(team)
             {
                 //if your choice is taken
-                if(TeamAArray.Contains(characters[choice]))
+                if(OpUsed(characters[choice], team))
                 {
                     //recall this function but this time with default option (don't think this can happen but just in case)
                     setCharacter();
                 } else
                 {
-                    //you choice works so sets character and updates array of choices
+                    //you choice works so sets character 
                     character = characters[choice];
-                    TeamAArray[Array.IndexOf(TeamAArray, "")] = characters[choice];
                 }
             } else
             {
                 //same but team b
-                if (TeamBArray.Contains(characters[choice]))
+                if (OpUsed(characters[choice], team))
                 {
                     setCharacter();
                 }
                 else
                 {
                     character = characters[choice];
-                    TeamBArray[Array.IndexOf(TeamBArray, "")] = characters[choice];
                 }
             }
         }
-        //update everyone else the new updated character lists
-        PhotonNetwork.MasterClient.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamATeam, TeamAArray } });
-        PhotonNetwork.MasterClient.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBTeam, TeamBArray } });
+        
         //set your custom variable to be the character you were assigned
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { IndividualCharacter, character } });
     }
@@ -231,7 +208,17 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 }
             }
         }
-        return false;
+        if (team && teamAOps.Contains(character))
+        {
+            return true;
+        } else if (!team && teamBOps.Contains(character))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+       
     }
 
 
@@ -300,15 +287,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
                 
             }
-            //check to see if any characters have been changed
-            if (changedProps.ContainsKey(TeamATeam))
-            {
-                TeamAArray = (string[])changedProps[TeamATeam];
-            }
-            if (changedProps.ContainsKey(TeamBTeam))
-            {
-                TeamBArray = (string[])changedProps[TeamBTeam];
-            }
 
             //recieve that persons character
             if (changedProps.ContainsKey(IndividualCharacter))
@@ -324,18 +302,13 @@ public class QueueScene : MonoBehaviourPunCallbacks
         {
             SetTeam(false);
             setCharacter(IndexOfStringArray(characters, character));
-            TeamAArray[IndexOfStringArray(TeamAArray, character)] = "";
 
         } else if (!team && GetTeamA().Count - PhotonNetwork.PlayerList.Length < 4)
         {
             SetTeam(true);
             setCharacter(IndexOfStringArray(characters, character));
-            TeamBArray[IndexOfStringArray(TeamBArray, character)] = "";
         }
 
-        //update everyone else the new updated character lists
-        PhotonNetwork.MasterClient.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamATeam, TeamAArray } });
-        PhotonNetwork.MasterClient.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBTeam, TeamBArray } });
     }
 
     public void ExitQueue()
