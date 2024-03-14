@@ -19,7 +19,6 @@ public class PauseMenu : MonoBehaviour
 
         if (!pauseActive)
         {
-            Debug.Log("Mind");
             playerManagerScript.inputActions.Disable();
             playerManagerScript.inputActions.Menu.Enable();
             pauseCanvas.SetActive(true);

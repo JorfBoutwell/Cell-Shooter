@@ -50,7 +50,7 @@ public class PointUpdateScript : MonoBehaviour
         {
             if(playerManagerScript.buttonsPressed > 0)
             {
-                if (playerManagerScript.team == "A") //use currentteam to prevent both teams getting points from the same buttons?
+                if (playerManagerScript.team == "A") 
                 {
                     pointsA += pointIncrement * playerManagerScript.buttonsPressed;
 

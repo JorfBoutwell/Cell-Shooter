@@ -9,6 +9,7 @@ using TMPro;
 public class WeaponManager : MonoBehaviour
 {
     PlayerController m_player;
+    PlayerManager playerManagerScript;
 
     public AnimationController animController;
 
@@ -88,6 +89,8 @@ public class WeaponManager : MonoBehaviour
 
     private void Awake()
     {
+        playerManagerScript = GetComponent<PlayerManager>();
+
         abilityUI = GetComponentInChildren<AbilityUI>();
         m_player = GetComponent<PlayerController>();
         animController = GetComponentInChildren<AnimationController>();
@@ -399,13 +402,14 @@ public class WeaponManager : MonoBehaviour
                     case 7: //"enemy"
                         Debug.Log("enemy");
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
-                        /*if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
+                        if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
                         {
-                            hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2;
-                            m_player.GetComponentInChildren<PlayerManager>().username = GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player1;
-                            //Don't use m_player
+                            this.gameObject.GetComponentInChildren<KillFeed>().player2 = hit.transform.gameObject.GetComponent<PlayerManager>().username; //Not sure if this will work, try w/o transform?
+                            //Later we have to use ... to sync to server: GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2 = hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username;
+
+                            this.gameObject.GetComponentInChildren<KillFeed>().player1 = playerManagerScript.username;
                             GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
-                        }*/
+                        }
                         break;
                     case 10: //"enemyHead"
                         Debug.Log("enemyHead");

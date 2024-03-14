@@ -92,7 +92,6 @@ public class WaveStart : MonoBehaviourPunCallbacks
         //Game Countdown
         if (startCountdown)
         {
-            Debug.Log("HEP");
             if (!win)
             {
                 currentTime -= 1 * Time.deltaTime;
@@ -162,7 +161,6 @@ public class WaveStart : MonoBehaviourPunCallbacks
     //Resets Countdown to Start Game Timer
     public void Reset()
     {
-        Debug.Log("hope");
         currentTime = 180f;
         gameTimerStart = true;
 

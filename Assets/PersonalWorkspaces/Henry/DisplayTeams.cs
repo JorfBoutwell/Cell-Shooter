@@ -104,6 +104,5 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                 }
             }
         }
-        Debug.Log(counter + "yo whats good");
     }
 }

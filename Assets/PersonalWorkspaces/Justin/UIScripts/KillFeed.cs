@@ -53,8 +53,6 @@ public class KillFeed : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("sad" + PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1]);
-
         boxesCount = boxes.Count;
 
         //Calls KillFeedInstantiate
@@ -69,7 +67,7 @@ public class KillFeed : MonoBehaviour
             AlertFeedInstantiate(boxesCount);
         }
 
-        if((pointUpdateScript.pointsA >= 25 && !aHalfPoint) || (pointUpdateScript.pointsB >= 25 && !bHalfPoint)) //change to 500 later
+        if((pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !aHalfPoint) || (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !bHalfPoint)) //change to 500 later
         {
             AlertFeedInstantiate(boxesCount);
         }
@@ -143,12 +141,12 @@ public class KillFeed : MonoBehaviour
     //Sets Text in Alert Feed
     public void AlertText(int boxesCounts)
     {
-        if (pointUpdateScript.pointsA >= 25 && !aHalfPoint) //change to 500 later
+        if (pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !aHalfPoint) //change to 500 later
         {
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team A is halfway there!";
             aHalfPoint = true;
         }
-        else if(pointUpdateScript.pointsB >= 25 && !bHalfPoint) //change to 500 later
+        else if(pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !bHalfPoint) //change to 500 later
         {
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team B is halfway there!";
             bHalfPoint = true;
