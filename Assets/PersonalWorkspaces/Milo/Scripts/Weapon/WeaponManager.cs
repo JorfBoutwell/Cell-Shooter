@@ -404,6 +404,7 @@ public class WeaponManager : MonoBehaviour
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
                         if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
                         {
+                            Debug.Log("Killed enemy");
                             this.gameObject.GetComponentInChildren<KillFeed>().player2 = hit.transform.gameObject.GetComponent<PlayerManager>().username; //Not sure if this will work, try w/o transform?
                             //Later we have to use ... to sync to server: GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2 = hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username;
 

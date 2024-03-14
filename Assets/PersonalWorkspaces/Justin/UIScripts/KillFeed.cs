@@ -53,6 +53,8 @@ public class KillFeed : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Killed" + player2);
+
         boxesCount = boxes.Count;
 
         //Calls KillFeedInstantiate
