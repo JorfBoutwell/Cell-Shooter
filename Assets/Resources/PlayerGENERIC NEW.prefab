@@ -3013,6 +3013,12 @@ MonoBehaviour:
   teamB: {fileID: 8938644524552751890}
   prevCount: 0
   game: 1
+  colors: []
+  characters:
+  - Neuron
+  - Player2
+  - Player3
+  - PLayer4
 --- !u!114 &6550541714398719811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
