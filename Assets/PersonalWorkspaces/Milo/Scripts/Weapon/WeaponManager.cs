@@ -106,6 +106,7 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
+
         if (!isShooting)
             m_fireLimit = 3;
 
@@ -400,7 +401,7 @@ public class WeaponManager : MonoBehaviour
                 switch (hit.transform.gameObject.layer)
                 {
                     case 7: //"enemy"
-                        Debug.Log("enemy");
+                        Debug.Log("Milo" + hit.transform.gameObject.GetComponent<PlayerManager>().username);
                         hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
                         if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
                         {
