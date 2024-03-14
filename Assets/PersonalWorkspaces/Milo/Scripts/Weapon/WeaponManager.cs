@@ -420,6 +420,8 @@ public class WeaponManager : MonoBehaviour
                     case 11: //teamA
                         if (team != "A")
                         {
+                            Debug.Log("Milo" + hit.transform.gameObject.GetComponent<PlayerManager>().username);
+
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
