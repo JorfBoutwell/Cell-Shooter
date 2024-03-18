@@ -3,8 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using DG.Tweening;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -18,6 +20,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("UI References")]
     [SerializeField] GameObject damInd;
+    [SerializeField] Image vignette;
 
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
@@ -339,6 +342,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             StartCoroutine(ShowDamageIndicator(1f, source));
+            vignette.DOColor(Color.red, 0.75f);
+            vignette.DOColor(Color.black, 0.25f);
+
         }
 
         if(isDead)
@@ -359,9 +365,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         float angleRadians = Mathf.Acos(dotProduct / (hyp * hyp));
         float angleDegrees = angleRadians * Mathf.Rad2Deg;
         if (dirToSource.x > point.x) angleDegrees = 360 - angleDegrees;
-
         Debug.Log("angle is: " + angleDegrees);
         damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
+
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
     }
