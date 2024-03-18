@@ -521,11 +521,12 @@ public class WeaponManager : MonoBehaviour
             Debug.Log(this.gameObject.GetComponentInChildren<KillFeed>().player1 + " killed " + player2);
             GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
             */
+
             killFeedScript.player2 = targetPhotonView.GetComponent<PlayerManager>().username;
             //killFeedScript.player2 = player2;
             killFeedScript.player1 = playerManagerScript.username;
-            Debug.Log(killFeedScript.player1 + " killed " + player2);
-            killFeedScript.KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
+            Debug.Log(killFeedScript.player1 + " killed " + killFeedScript.player2);
+            killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
 
         }
     }
