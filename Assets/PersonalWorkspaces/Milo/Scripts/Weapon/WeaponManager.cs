@@ -11,6 +11,8 @@ public class WeaponManager : MonoBehaviour
     PlayerController m_player;
     PlayerManager playerManagerScript;
 
+    string player2;
+
     public AnimationController animController;
 
     public bool isShooting = false;
@@ -400,23 +402,6 @@ public class WeaponManager : MonoBehaviour
             {
                 switch (hit.transform.gameObject.layer)
                 {
-                    case 7: //"enemy"
-                        Debug.Log("Milo" + hit.transform.gameObject.GetComponent<PlayerManager>().username);
-                        hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= currentWeapon.damage;
-                        if (hit.transform.gameObject.GetComponentInParent<EnemyManager>().health <= 0)
-                        {
-                            Debug.Log("Killed enemy");
-                            this.gameObject.GetComponentInChildren<KillFeed>().player2 = hit.transform.gameObject.GetComponent<PlayerManager>().username; //Not sure if this will work, try w/o transform?
-                            //Later we have to use ... to sync to server: GameObject.Find("KillFeedObject").GetComponentInChildren<KillFeed>().player2 = hit.transform.gameObject.GetComponentInChildren<PlayerManager>().username;
-
-                            this.gameObject.GetComponentInChildren<KillFeed>().player1 = playerManagerScript.username;
-                            GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
-                        }
-                        break;
-                    case 10: //"enemyHead"
-                        Debug.Log("enemyHead");
-                        hit.transform.gameObject.GetComponentInParent<EnemyManager>().health -= (currentWeapon.damage * 2);
-                        break;
                     case 11: //teamA
                         if (team != "A")
                         {
@@ -525,6 +510,16 @@ public class WeaponManager : MonoBehaviour
         if (targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
         {
             targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage, transform.gameObject);
+        }
+
+        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead)
+        {
+            player2 = targetPhotonView.GetComponent<PlayerManager>().username;
+            
+            this.gameObject.GetComponentInChildren<KillFeed>().player2 = player2;
+            this.gameObject.GetComponentInChildren<KillFeed>().player1 = playerManagerScript.username;
+            Debug.Log(this.gameObject.GetComponentInChildren<KillFeed>().player1 + " killed " + player2);
+            GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
         }
     }
 }

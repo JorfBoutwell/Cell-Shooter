@@ -183,7 +183,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             deathTimerOn = true;
             StartCoroutine("DeathTimer");
         }
-
+        Debug.Log(PhotonNetwork.LocalPlayer.NickName);
     }
     public void SetTeam(string teamName)
     {
@@ -290,13 +290,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator DopamineEffect()
     {
-        for (int i = 0; i < 10; i++)
+        if (health < 100)
         {
-            health += 2;
-            yield return new WaitForSeconds(1);
+            for (int i = 0; i < 10; i++)
+            {
+                health += 2;
+                yield return new WaitForSeconds(1);
+            }
+            activeEffects.Remove("dopamine");
+            yield return null;
         }
-        activeEffects.Remove("dopamine");
-        yield return null;
+        else
+        {
+            yield return null;
+        }
     }
 
     IEnumerator DeathTimer()
