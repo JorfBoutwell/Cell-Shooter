@@ -342,8 +342,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             StartCoroutine(ShowDamageIndicator(1f, source));
-            vignette.DOColor(Color.red, 0.75f);
-            vignette.DOColor(Color.black, 0.25f);
+            Sequence tweenSequence = DOTween.Sequence();
+            tweenSequence.Append(vignette.DOColor(Color.red, 0.75f));
+            tweenSequence.Append(vignette.DOColor(Color.black, 0.25f));
 
         }
 
