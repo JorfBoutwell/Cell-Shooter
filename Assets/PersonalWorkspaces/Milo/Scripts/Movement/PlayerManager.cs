@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     static int spawnIncrementB = 0;
     public Vector3 spawn;
 
+    public float maxHealth = 100;
     public float health = 100;
     public int ammo;
     public int stamina; // not implemented yet
@@ -300,6 +301,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                 health += 2;
                 yield return new WaitForSeconds(1);
             }
+            if(health > maxHealth / 10)
+            {
+                vignette.DOColor(new Color32(0, 0, 0, 70), 0.75f);
+            }
             activeEffects.Remove("dopamine");
             yield return null;
         }
@@ -343,8 +348,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             StartCoroutine(ShowDamageIndicator(1f, source));
             Sequence tweenSequence = DOTween.Sequence();
-            tweenSequence.Append(vignette.DOColor(Color.red, 0.75f));
-            tweenSequence.Append(vignette.DOColor(Color.black, 0.25f));
+            tweenSequence.Append(vignette.DOColor(new Color32(255,0,0,70), 0.75f));
+            if(health <= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,70), 0.25f));
 
         }
 
