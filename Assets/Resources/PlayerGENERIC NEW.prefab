@@ -492,6 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816954ac130494648916a67bf77be0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player2: 
   animController: {fileID: 0}
   isShooting: 0
   isAutoFiring: 0
@@ -2407,6 +2408,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1860313228594099498}
     m_Modifications:
+    - target: {fileID: 547036755653816195, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 663871204814702325, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_text
       value: 
@@ -2456,6 +2461,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1124550969231049033, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225024157218406013, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -2894,6 +2903,10 @@ PrefabInstance:
     - target: {fileID: 8142516748190181573, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8190345895560977897, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8360577289666522444, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_AnchorMax.y
