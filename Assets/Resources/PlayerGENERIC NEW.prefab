@@ -371,7 +371,7 @@ MonoBehaviour:
   UI: {fileID: 0}
   hitbox: {fileID: 0}
   damInd: {fileID: 7805470933254684853}
-  vignette: {fileID: 0}
+  vignette: {fileID: 392041615187883215}
   pauseMenuScript: {fileID: 4870922641209532153}
   spawnScript: {fileID: 0}
   spawn: {x: 0, y: 0, z: 0}
