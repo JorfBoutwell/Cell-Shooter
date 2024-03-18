@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
     PlayerController m_player;
     PlayerManager playerManagerScript;
 
-    string player2;
+    public string player2;
 
     public AnimationController animController;
 
@@ -514,7 +514,7 @@ public class WeaponManager : MonoBehaviour
 
         if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead)
         {
-            player2 = targetPhotonView.GetComponent<PlayerManager>().username;
+            //player2 = targetPhotonView.GetComponent<PlayerManager>().username;
             
             this.gameObject.GetComponentInChildren<KillFeed>().player2 = player2;
             this.gameObject.GetComponentInChildren<KillFeed>().player1 = playerManagerScript.username;

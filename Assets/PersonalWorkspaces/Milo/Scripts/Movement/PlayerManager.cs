@@ -341,6 +341,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             StartCoroutine(ShowDamageIndicator(1f, source));
         }
 
+        if(isDead)
+        {
+            m_weapon.player2 = username;
+        }
+
         return;
     }
 
