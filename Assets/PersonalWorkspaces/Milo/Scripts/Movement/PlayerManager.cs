@@ -1,6 +1,7 @@
 //Milo Reynolds
 
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -104,6 +105,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         }
         pointCollection = GameObject.FindGameObjectsWithTag("PointCollector");
+        pointCollection = orderGoobers(pointCollection);
 
     }
 
@@ -189,6 +191,33 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         Debug.Log(PhotonNetwork.LocalPlayer.NickName);
     }
+
+    private GameObject[] orderGoobers(GameObject[] goobers)
+    {
+        string[] names = new string[goobers.Length];
+        GameObject[] newGoober = new GameObject[goobers.Length];
+        int i = 0;
+        foreach (GameObject goober in goobers)
+        {
+            names[i] = goober.transform.parent.name;
+            i++;
+        }
+        Array.Sort(names);
+        for (int j = 0; j < names.Length; j++)
+        {
+            foreach (GameObject goober in goobers)
+            {
+                if (names[j] == goober.transform.parent.name)
+                {
+                    newGoober[j] = goober;
+                    break;
+                }
+            }
+        }
+        return newGoober;
+    }
+
+
     public void SetTeam(string teamName)
     {
         team = teamName;
