@@ -375,6 +375,7 @@ MonoBehaviour:
   pauseMenuScript: {fileID: 4870922641209532153}
   spawnScript: {fileID: 0}
   spawn: {x: 0, y: 0, z: 0}
+  maxHealth: 100
   health: 100
   ammo: 0
   stamina: 0

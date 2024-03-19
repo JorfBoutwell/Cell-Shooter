@@ -409,7 +409,7 @@ public class WeaponManager : MonoBehaviour
                         {
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
-                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
+                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, targetPhotonViewA.ViewID);
                             StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
@@ -418,7 +418,7 @@ public class WeaponManager : MonoBehaviour
                         {
                             Debug.Log("Team B");
                             PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
-                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
+                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, targetPhotonViewB.ViewID);
                             StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
