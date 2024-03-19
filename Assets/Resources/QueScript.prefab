@@ -2093,16 +2093,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamA: 0
-  TeamAArray:
-  - 
-  - 
-  - 
-  - 
-  TeamBArray:
-  - 
-  - 
-  - 
-  - 
   characters:
   - Player1
   - Player2
