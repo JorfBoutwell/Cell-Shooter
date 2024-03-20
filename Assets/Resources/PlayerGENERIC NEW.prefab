@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 0
   playerManagerScript: {fileID: 3475740908745778152}
+  waveStartScript: {fileID: 2504188749801381557}
   pointsA: 0
   pointsB: 0
   pointIncrement: 1
@@ -3058,6 +3059,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4950212907171558251}
   m_SourcePrefab: {fileID: 100100000, guid: f61710afb9da0472d969323947e82c78, type: 3}
+--- !u!114 &2504188749801381557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4902178381130067210, guid: f61710afb9da0472d969323947e82c78, type: 3}
+  m_PrefabInstance: {fileID: 7406348969651712959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde24b48c41604f948e1b0fcb7100a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3927227472887796925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5785141666969708290, guid: f61710afb9da0472d969323947e82c78, type: 3}
