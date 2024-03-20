@@ -10,6 +10,7 @@ public class PointUpdateScript : MonoBehaviour
     public float time;
     public PlayerManager playerManagerScript;
     //public PointCollectorScript pointCollectorScript;
+    public WaveStart waveStartScript;
 
     public float pointsA;
     public float pointsB;
@@ -48,7 +49,7 @@ public class PointUpdateScript : MonoBehaviour
 
         if(time > 1f)
         {
-            if(playerManagerScript.buttonsPressed > 0)
+            if(playerManagerScript.buttonsPressed > 0 && waveStartScript.gameTimerStart)
             {
                 if (playerManagerScript.team == "A") 
                 {
