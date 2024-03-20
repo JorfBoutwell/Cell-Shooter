@@ -716,7 +716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.33333334}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.15686275}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2721,6 +2721,38 @@ PrefabInstance:
     - target: {fileID: 3974164640146571638, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_colorMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5c32d2e423dfb40af811f275d9d2ea4e, type: 2}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7017597233177478875, guid: 5c32d2e423dfb40af811f275d9d2ea4e, type: 2}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332623224731245820, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_fontColorGradient.bottomLeft.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4902178381130067210, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: objectiveText

@@ -332,7 +332,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             }
             if(health > maxHealth / 10)
             {
-                vignette.DOColor(new Color32(0, 0, 0, 70), 0.75f);
+                vignette.DOColor(new Color32(0, 0, 0, 40), 0.75f);
             }
             activeEffects.Remove("dopamine");
             yield return null;
@@ -377,8 +377,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             StartCoroutine(ShowDamageIndicator(1f, source));
             Sequence tweenSequence = DOTween.Sequence();
-            tweenSequence.Append(vignette.DOColor(new Color32(255,0,0,70), 0.75f));
-            if(health <= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,70), 0.25f));
+            tweenSequence.Append(vignette.DOColor(new Color32(255,0,0,40), 0.75f));
+            if(health <= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,40), 0.25f));
 
         }
 
