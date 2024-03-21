@@ -28,31 +28,26 @@ public class SpawnPlayers : MonoBehaviour
         //player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-240, 15, -370), Quaternion.identity);
         player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
 
-        /*if (player.GetComponent<PlayerManager>())
-        {
-            Debug.Log("found");
-            if (player.GetComponent<PlayerManager>().team == "A")
-            {
-                Debug.Log("spawnteama");
-                player.transform.position = spawnScript.spawnPointsA[spawnIncrementA].GetComponent<Vector3>();
-                spawnIncrementA++;
-            }
-            else if (player.GetComponent<PlayerManager>().team == "B")
-            {
-                Debug.Log("SPAWNTEAMB");
-                player.transform.position = spawnScript.spawnPointsB[spawnIncrementB].GetComponent<Vector3>();
-                spawnIncrementB++;
-            }
-        }*/
-        //player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-15, 2, -20), Quaternion.identity);
-
-
 
         //gets the UI element
         code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
-        //code = PhotonNetwork.CurrentRoom.Name;
-        //changes the UI element to the rooms code
         code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
+
+        //set character specific variables
+        if(player.GetComponent<PlayerManager>() != null)
+        {
+            //character = PASS PLAYERS CHOSEN CHARACTER
+            PlayerRef playerRef = null; //set playerRefs based on character
+
+            /* I'll add the logic to set everything
+             * 
+             * player.animator = playerRef.animator
+             * player.abilities = playerRef.abilities
+             * etc.
+             * 
+             */
+        }
+
     }
 
 }
