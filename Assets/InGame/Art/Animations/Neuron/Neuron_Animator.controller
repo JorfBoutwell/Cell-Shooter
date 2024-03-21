@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NeuronPrimaryFire
+  m_Name: PrimaryFire
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -47,7 +47,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NeuronIdle
+  m_Name: Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -95,7 +95,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NeuronReload_Temp
+  m_Name: Reload
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -144,7 +144,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Neuron_Ability1
+  m_Name: Ability1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
