@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Melee
   m_EditorClassIdentifier: 
   abilityName: Melee
-  iconImage: {fileID: 0}
+  iconImage: {fileID: 21300000, guid: feefb46dd88944278aded9f6ccbe19d5, type: 3}
+  abilityTime: 0
+  animationFlag: 0
   cooldownTime: 0.1
-  activeTime: 0.5
+  isUsable: 1

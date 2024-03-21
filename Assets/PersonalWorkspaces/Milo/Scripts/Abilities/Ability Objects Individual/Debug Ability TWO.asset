@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Debug Ability TWO
   m_EditorClassIdentifier: 
   abilityName: Debug 2
-  iconImage: {fileID: 0}
+  iconImage: {fileID: 21300000, guid: feefb46dd88944278aded9f6ccbe19d5, type: 3}
+  abilityTime: 0
+  animationFlag: 0
   cooldownTime: 3
-  activeTime: 1
+  isUsable: 1
