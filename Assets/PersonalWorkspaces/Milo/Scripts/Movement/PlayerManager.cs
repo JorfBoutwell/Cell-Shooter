@@ -1,10 +1,13 @@
 //Milo Reynolds
 
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using DG.Tweening;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -18,6 +21,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("UI References")]
     [SerializeField] GameObject damInd;
+    [SerializeField] Image vignette;
 
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
@@ -27,6 +31,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     static int spawnIncrementB = 0;
     public Vector3 spawn;
 
+    public float maxHealth = 100;
     public float health = 100;
     public int ammo;
     public int stamina; // not implemented yet
@@ -100,6 +105,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         }
         pointCollection = GameObject.FindGameObjectsWithTag("PointCollector");
+        pointCollection = orderGoobers(pointCollection);
 
     }
 
@@ -185,6 +191,33 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         Debug.Log(PhotonNetwork.LocalPlayer.NickName);
     }
+
+    private GameObject[] orderGoobers(GameObject[] goobers)
+    {
+        string[] names = new string[goobers.Length];
+        GameObject[] newGoober = new GameObject[goobers.Length];
+        int i = 0;
+        foreach (GameObject goober in goobers)
+        {
+            names[i] = goober.transform.parent.name;
+            i++;
+        }
+        Array.Sort(names);
+        for (int j = 0; j < names.Length; j++)
+        {
+            foreach (GameObject goober in goobers)
+            {
+                if (names[j] == goober.transform.parent.name)
+                {
+                    newGoober[j] = goober;
+                    break;
+                }
+            }
+        }
+        return newGoober;
+    }
+
+
     public void SetTeam(string teamName)
     {
         team = teamName;
@@ -297,6 +330,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                 health += 2;
                 yield return new WaitForSeconds(1);
             }
+            if(health > maxHealth / 10)
+            {
+                vignette.DOColor(new Color32(0, 0, 0, 40), 0.75f);
+            }
             activeEffects.Remove("dopamine");
             yield return null;
         }
@@ -339,6 +376,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             StartCoroutine(ShowDamageIndicator(1f, source));
+            Sequence tweenSequence = DOTween.Sequence();
+            tweenSequence.Append(vignette.DOColor(new Color32(255,0,0,40), 0.75f));
+            if(health <= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,40), 0.25f));
+
+        }
+
+        if(isDead)
+        {
+            m_weapon.player2 = username;
         }
 
         return;
@@ -354,9 +400,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         float angleRadians = Mathf.Acos(dotProduct / (hyp * hyp));
         float angleDegrees = angleRadians * Mathf.Rad2Deg;
         if (dirToSource.x > point.x) angleDegrees = 360 - angleDegrees;
-
         Debug.Log("angle is: " + angleDegrees);
         damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
+
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
     }

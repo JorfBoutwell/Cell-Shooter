@@ -11,7 +11,8 @@ public class WeaponManager : MonoBehaviour
     PlayerController m_player;
     PlayerManager playerManagerScript;
 
-    string player2;
+    KillFeed killFeedScript;
+    public string player2;
 
     public AnimationController animController;
 
@@ -92,6 +93,7 @@ public class WeaponManager : MonoBehaviour
     private void Awake()
     {
         playerManagerScript = GetComponent<PlayerManager>();
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
 
         abilityUI = GetComponentInChildren<AbilityUI>();
         m_player = GetComponent<PlayerController>();
@@ -407,7 +409,7 @@ public class WeaponManager : MonoBehaviour
                         {
                             Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
-                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewA.ViewID);
+                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, targetPhotonViewA.ViewID);
                             StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
@@ -416,7 +418,7 @@ public class WeaponManager : MonoBehaviour
                         {
                             Debug.Log("Team B");
                             PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
-                            view.RPC("RPC_TakeDamage", RpcTarget.AllBuffered, currentWeapon.damage, targetPhotonViewB.ViewID);
+                            view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, targetPhotonViewB.ViewID);
                             StartCoroutine(ShowHitIndicator(0.4f));
                         }
                         break;
@@ -514,12 +516,18 @@ public class WeaponManager : MonoBehaviour
 
         if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead)
         {
-            player2 = targetPhotonView.GetComponent<PlayerManager>().username;
-            
-            this.gameObject.GetComponentInChildren<KillFeed>().player2 = player2;
+            /*this.gameObject.GetComponentInChildren<KillFeed>().player2 = player2;
             this.gameObject.GetComponentInChildren<KillFeed>().player1 = playerManagerScript.username;
             Debug.Log(this.gameObject.GetComponentInChildren<KillFeed>().player1 + " killed " + player2);
             GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
+            */
+
+            killFeedScript.player2 = targetPhotonView.GetComponent<PlayerManager>().username;
+            //killFeedScript.player2 = player2;
+            killFeedScript.player1 = playerManagerScript.username;
+            Debug.Log(killFeedScript.player1 + " killed " + killFeedScript.player2);
+            killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
+
         }
     }
 }

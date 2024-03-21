@@ -42,6 +42,8 @@ public class KillFeed : MonoBehaviour
 
     void Start()
     {
+        pointUpdateScript = GameObject.Find("PointObject").GetComponent<PointUpdateScript>();
+        canvas1 = GameObject.Find("PlayerDataCanvas");
         //Sets Player Usernames
         for(int i = 0; i < 4; i++)
         {

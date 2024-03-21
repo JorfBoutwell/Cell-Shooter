@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/PersonalWorkspaces/Henry/Multiplayer World.unity
     guid: 695156139defe4e2993d9a846a4484da
   - enabled: 1
-    path: Assets/PersonalWorkspaces/Henry/Queue.unity
+    path: Assets/InGame/Scenes/Queue.unity
     guid: 641dd262ce81d4d0c81c53733c952956
   - enabled: 1
     path: Assets/InGame/Scenes/MainMenu.unity

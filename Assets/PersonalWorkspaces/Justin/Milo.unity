@@ -1139,6 +1139,7 @@ MonoBehaviour:
   pointsTextB: {fileID: 1910559257}
   playerManagerScript: {fileID: 576615864}
   pointUpdateScript: {fileID: 1099239763}
+  waveStartScript: {fileID: 0}
   time: 0
   pointsA: 0
   pointsB: 0
@@ -1834,6 +1835,7 @@ MonoBehaviour:
   pointsTextB: {fileID: 1910559257}
   playerManagerScript: {fileID: 576615864}
   pointUpdateScript: {fileID: 1099239763}
+  waveStartScript: {fileID: 0}
   time: 0
   pointsA: 0
   pointsB: 0
