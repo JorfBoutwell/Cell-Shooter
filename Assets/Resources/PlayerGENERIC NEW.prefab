@@ -411,11 +411,11 @@ MonoBehaviour:
   state: 0
   animController: {fileID: 0}
   movementSpeed: 10
-  walkSpeed: 10
-  sprintSpeed: 20
-  crouchSpeed: 0
-  airSpeed: 10
-  dashSpeed: 50
+  walkSpeed: 7
+  sprintSpeed: 14
+  crouchSpeed: 2
+  airSpeed: 5
+  dashSpeed: 25
   speedDampDuration: 1
   canMove: 0
   isGrounded: 0
@@ -425,6 +425,7 @@ MonoBehaviour:
   isSliding: 0
   isDashing: 0
   isWallRunning: 0
+  moveDirection: {x: 0, y: 0, z: 0}
   moveInput: {x: 0, y: 0, z: 0}
   m_groundDrag: 5
   m_sensitivityX: 15
