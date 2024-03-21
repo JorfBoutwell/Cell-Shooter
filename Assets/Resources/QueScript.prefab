@@ -2093,15 +2093,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamA: 0
+<<<<<<< Updated upstream
   characters:
   - Player1
   - Player2
   - Player3
   - PLayer4
+=======
+>>>>>>> Stashed changes
   start: {fileID: 4733625694582083721}
   dictionary: {fileID: 0}
   team: 0
-  character: 
 --- !u!114 &1221160399368844919
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Neurostep
   m_EditorClassIdentifier: 
   abilityName: Neurostep
-  iconImage: {fileID: 0}
+  iconImage: {fileID: 21300000, guid: feefb46dd88944278aded9f6ccbe19d5, type: 3}
   abilityTime: 0.25
   animationFlag: 0
   cooldownTime: 1
