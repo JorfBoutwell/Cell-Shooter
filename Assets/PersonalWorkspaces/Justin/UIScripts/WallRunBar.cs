@@ -20,7 +20,7 @@ public class WallRunBar : MonoBehaviour
             wallRunLength = playerControllerNEW.m_wallRunTimer * 65;
             wallRunBar.GetComponent<RectTransform>().sizeDelta = new Vector2(wallRunLength, 100);
         }
-        else if (playerControllerNEW.isGrounded)
+        else
         {
             if (wallRunLength < 100) { 
             wallRunLength += 1;
