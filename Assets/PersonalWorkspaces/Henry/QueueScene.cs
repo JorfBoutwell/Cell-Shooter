@@ -393,7 +393,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             //locks room to others
             PhotonNetwork.CurrentRoom.IsOpen = false;
             //loads nex level
-            PhotonNetwork.LoadLevel("TrainMap");
+            PhotonNetwork.LoadLevel("CaptureTheFlagTrainMap");
             //PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }

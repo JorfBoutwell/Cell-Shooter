@@ -49,6 +49,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public List<string> activeEffects;
     public GameObject[] pointCollection;
 
+    public GameObject goober;
+
 
 
     PhotonView view;
@@ -106,6 +108,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         pointCollection = GameObject.FindGameObjectsWithTag("PointCollector");
         pointCollection = orderGoobers(pointCollection);
+
+        goober = GameObject.FindGameObjectWithTag("Goober");
 
     }
 
@@ -290,6 +294,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    //ran when you hit the goober
+    public void CapturingTheFlag()
+    {
+        if(photonView.IsMine)
+        {
+            photonView.RPC("UpdateFlag", RpcTarget.All);
+        }
+    }
+
     
 
     
@@ -414,11 +427,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer.GetComponent<PlayerManager>().buttonsPressed -= 1;
         }
-            pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
-        
-        
-        
+        pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
     }
+
+    [PunRPC]
+    public void UpdateFlag()
+    {
+        goober.GetComponent<GooberFunctionality>().RunCollision(gameObject);
+    }
+
+
 
     //ran when host clients timer hits 0, synchs all clocks
     [PunRPC]
