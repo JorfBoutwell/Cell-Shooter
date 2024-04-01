@@ -14,18 +14,19 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
 
-
-
     [SerializeField] GameObject UI;
     [SerializeField] GameObject hitbox;
 
     [Header("UI References")]
     [SerializeField] GameObject damInd;
     [SerializeField] Image vignette;
+    [SerializeField] GameObject FPDisplay;
 
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
     public Spawn spawnScript;
+
+    public PlayerRef[] playerRefs;
 
     static int spawnIncrementA = 0;
     static int spawnIncrementB = 0;
@@ -151,6 +152,35 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
             }
         }
+
+        SetCharacter();
+    }
+
+    public void SetCharacter()
+    {
+        PlayerRef refs = playerRefs[0];
+        switch(character)
+        {
+            case "Player1":
+                Debug.Log("Neuron");
+                refs = playerRefs[0];
+                break;
+            case "Player2":
+                Debug.Log("RBC");
+                refs = playerRefs[1];
+                break;
+            case "Player3":
+                Debug.Log("Osteoclast");
+                refs = playerRefs[2];
+                break;
+            case "PLayer4":
+                Debug.Log("TCell");
+                refs = playerRefs[3];
+                break;
+            default: Debug.Log("Not a character"); break;
+        }
+
+        FPDisplay.GetComponent<Animator>().runtimeAnimatorController = refs.animator;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -189,7 +219,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             deathTimerOn = true;
             StartCoroutine("DeathTimer");
         }
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName);
     }
 
     private GameObject[] orderGoobers(GameObject[] goobers)
