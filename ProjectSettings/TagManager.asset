@@ -15,6 +15,7 @@ TagManager:
   - SpawnB
   - BoneWall
   - PointCollector
+  - Goober
   layers:
   - Default
   - TransparentFX
