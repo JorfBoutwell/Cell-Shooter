@@ -28,6 +28,8 @@ public class DeathScript : MonoBehaviour
     public GameObject pointCollector;
     public PointCollectorScript pointCollectorScript;
 
+    public GameObject goober;
+
     //Floats and Bools
     float currentTime;
     bool onoff;
@@ -59,6 +61,8 @@ public class DeathScript : MonoBehaviour
         //Setting Default Spawn Location and Death Timer
         currentTime = 5f;
         spawnLocation = new Vector3(0, 0, 0);
+
+        goober = GameObject.FindGameObjectWithTag("Goober");
     }
 
     void Update()
@@ -76,6 +80,9 @@ public class DeathScript : MonoBehaviour
     {
         //Unclaims Points
         PointCollecterReset();
+
+        //drop goober
+        DropGoober();
 
         //Activates Death Overlay
         onoff = true;
@@ -155,6 +162,15 @@ public class DeathScript : MonoBehaviour
         }*/
 
         playerManagerScript.buttonsPressed = 0;
+    }
+
+    public void DropGoober()
+    {
+        goober.transform.SetParent(null);
+        goober.transform.position += new Vector3(0, -1.5f, 0);
+        goober.transform.SetParent(GameObject.Find("Goobers").transform);
+        goober.GetComponent<GooberFunctionality>().currentPlayer = null;
+        
     }
 
     //Resets Health After Respawn

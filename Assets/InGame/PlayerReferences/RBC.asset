@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c0ca52b3dad46a3a5abe13ba7b9b69, type: 3}
   m_Name: RBC
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 9100000, guid: 04862d751238c40c9a31c05508569fca, type: 2}
   abilities: []
   weapon: {fileID: 0}
   bulletTrail: {fileID: 0}

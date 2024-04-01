@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 731271096}
   - component: {fileID: 731271098}
   - component: {fileID: 731271097}
+  - component: {fileID: 731271099}
   m_Layer: 5
   m_Name: Tooltips
   m_TagString: Untagged
@@ -292,7 +293,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: If you unwove all the DNA in just one cell, it would be taller than you.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c32d2e423dfb40af811f275d9d2ea4e, type: 2}
   m_sharedMaterial: {fileID: 7017597233177478875, guid: 5c32d2e423dfb40af811f275d9d2ea4e, type: 2}
@@ -369,6 +370,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731271095}
   m_CullTransparentMesh: 1
+--- !u!114 &731271099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731271095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd38dc7d01944c59a1f5449169cc364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tips:
+  - If you unwove all the DNA in just one cell, it would be taller than you.
+  - Neurons generate electricity to communicate with each other.
+  - Run over points to collect them and get points for your team.
+  loading: {fileID: 0}
+  tip: {fileID: 731271097}
 --- !u!1 &816998406
 GameObject:
   m_ObjectHideFlags: 0
