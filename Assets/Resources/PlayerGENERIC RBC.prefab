@@ -281,9 +281,9 @@ GameObject:
   - component: {fileID: 7894135386633626600}
   - component: {fileID: 7904016881856551529}
   - component: {fileID: 9182972780782173685}
-  - component: {fileID: 1185342511653904613}
+  - component: {fileID: -3365265764480489353}
   m_Layer: 0
-  m_Name: PlayerGENERIC NEW
+  m_Name: PlayerGENERIC RBC
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -521,8 +521,7 @@ MonoBehaviour:
   currentAmmo: 0
   m_projectile: {fileID: 0}
   abilityList:
-  - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
-  - {fileID: 11400000, guid: dcd08c0303bd9cd43be4267157c2ca9d, type: 2}
+  - {fileID: 11400000, guid: d1089c38685ff73498bc783ad374116e, type: 2}
   - {fileID: 11400000, guid: 4e519afeeeea1e64798015a24375c068, type: 2}
   currentAbility: {fileID: 0}
   abilityUI: {fileID: 0}
@@ -543,8 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityList:
-  - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
-  - {fileID: 11400000, guid: dcd08c0303bd9cd43be4267157c2ca9d, type: 2}
+  - {fileID: 11400000, guid: d1089c38685ff73498bc783ad374116e, type: 2}
   - {fileID: 11400000, guid: 4e519afeeeea1e64798015a24375c068, type: 2}
   currentAbility: {fileID: 0}
 --- !u!114 &-655466026383108972
@@ -652,7 +650,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &1185342511653904613
+--- !u!114 &-3365265764480489353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -661,10 +659,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1576989017386804971}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39596a584beb1c14ca29ceba3b5edf5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 56f8452eead30c248b868ea9991719ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentNeurotransmitter: 
+  oxygen: 100
 --- !u!1 &1805873773983463728
 GameObject:
   m_ObjectHideFlags: 0
