@@ -298,6 +298,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         }
         else if(isGrounded)
         {
+            jumpAmount = maxJumpAmount;
             if(m_rb.velocity != Vector3.zero)
             {
                 state = MovementState.walking;
@@ -344,8 +345,9 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     public void Jump()
     {
-        if (isGrounded)
+        if (isGrounded || jumpAmount > 0)
         {
+            jumpAmount--;
             m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
 
             m_rb.AddForce(transform.up * m_jumpForce, ForceMode.Impulse);

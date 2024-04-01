@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "MiloRey/Ability Objects/Neuron/Neurostep")]
-public class Neurostep : Ability
+[CreateAssetMenu(menuName = "MiloRey/Ability Objects/RBC/Veindash")]
+public class Veindash : Ability
 {
     public float dashPower;
     bool isAirDash;
@@ -13,23 +13,28 @@ public class Neurostep : Ability
         Debug.Log("Use Dash");
         PlayerControllerNEW player = parent.GetComponent<PlayerControllerNEW>();
         Rigidbody rb = parent.GetComponent<Rigidbody>();
+        RBCStats rbcStats = parent.GetComponent<RBCStats>();
         Vector3 forceToApply;
 
-        rb.useGravity = false;
-        player.isDashing = true;
-
-        if (player.state == PlayerControllerNEW.MovementState.air)
+        if(rbcStats.oxygen > 0)
         {
-            isAirDash = true;
-            forceToApply = player.FPSCam.transform.forward * dashPower;
-        }
-        else
-        {
-            isAirDash = false;
-            forceToApply = player.orientation.forward * dashPower;
-        }
+            rb.useGravity = false;
+            player.isDashing = true;
 
-        rb.AddForce(forceToApply, ForceMode.Impulse);
+            if (player.state == PlayerControllerNEW.MovementState.air)
+            {
+                isAirDash = true;
+                forceToApply = player.FPSCam.transform.forward * dashPower;
+            }
+            else
+            {
+                isAirDash = false;
+                forceToApply = player.orientation.forward * dashPower;
+            }
+
+            rb.AddForce(forceToApply, ForceMode.Impulse);
+            rbcStats.oxygen -= 20;
+        }
     }
 
     public override void StartCooldown(GameObject parent)
