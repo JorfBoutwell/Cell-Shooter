@@ -21,7 +21,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     //string of names read from to assign player character.
     //This and display team are their locations that both need to be changed if a change is made here
-    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4" };
+    public string[] characters = new string[] { "Neuron", "RBC", "Osteoclast", "TCell" };
 
     //gameobject for start button needed to make it visible or not
     public GameObject start;
@@ -393,7 +393,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             //locks room to others
             PhotonNetwork.CurrentRoom.IsOpen = false;
             //loads nex level
-            PhotonNetwork.LoadLevel("TrainMap");
+            PhotonNetwork.LoadLevel("CaptureTheFlagTrainMap");
             //PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }
