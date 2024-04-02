@@ -193,6 +193,7 @@ public class DeathScript : MonoBehaviour
 
     public void DropGoober()
     {
+        goober.GetComponent<GooberFunctionality>().dropped = 5.01f;
         goober.transform.SetParent(null);
         goober.transform.position += new Vector3(0, -1.5f, 0);
         goober.transform.SetParent(GameObject.Find("Goobers").transform);
