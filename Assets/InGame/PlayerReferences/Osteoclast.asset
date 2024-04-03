@@ -15,4 +15,4 @@ MonoBehaviour:
   animator: {fileID: 9100000, guid: b89e35545effe44959b1ea377f0f0416, type: 2}
   abilities: []
   weapon: {fileID: 0}
-  bulletTrail: {fileID: 1558605981893590399, guid: 4971198d1491142c2b34c94110c9cdfe, type: 3}
+  bulletTrail: {fileID: 0}

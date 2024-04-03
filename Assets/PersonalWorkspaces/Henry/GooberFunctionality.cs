@@ -6,7 +6,6 @@ public class GooberFunctionality : MonoBehaviour
 {
     public WaveStart waveStartScript;
     public GameObject currentPlayer;
-    public float dropped = 0;
 
     private void Update()
     {
@@ -14,17 +13,13 @@ public class GooberFunctionality : MonoBehaviour
         {
             transform.position = currentPlayer.transform.position + new Vector3(0, 1.5f, 0);
         }
-        if (dropped > 0)
-        {
-            dropped -= Time.deltaTime;
-        }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         Debug.Log("collided");
         waveStartScript = GameObject.Find("RoundStartObject").GetComponent<WaveStart>();
-        if (collision.gameObject.tag == "Player" && currentPlayer == null && waveStartScript.gameTimerStart && dropped <= 0)
+        if (collision.gameObject.tag == "Player" && currentPlayer == null && waveStartScript.gameTimerStart)
         {
             collision.gameObject.GetComponent<PlayerManager>().CapturingTheFlag();
         }

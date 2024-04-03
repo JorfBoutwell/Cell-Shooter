@@ -181,15 +181,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                 Debug.Log("TCell");
                 refs = playerRefs[3];
                 break;
-            default: Debug.Log("Not a character " + character); break;
+            default: Debug.Log("Not a character"); break;
         }
 
         FPDisplay.GetComponent<Animator>().runtimeAnimatorController = refs.animator;
-        m_weapon.abilityList = refs.abilities.ToArray();
-        m_weapon.bulletTrail = refs.bulletTrail;
-        //m_weapon.weapon = refs.weapon;
-
-        m_weapon.abilityUI.GenerateAbilityUI();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
