@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: RBC
   m_EditorClassIdentifier: 
   animator: {fileID: 9100000, guid: 04862d751238c40c9a31c05508569fca, type: 2}
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: d1089c38685ff73498bc783ad374116e, type: 2}
+  - {fileID: 11400000, guid: 4e519afeeeea1e64798015a24375c068, type: 2}
   weapon: {fileID: 0}
-  bulletTrail: {fileID: 0}
+  bulletTrail: {fileID: 1558605981893590399, guid: 0fbafd663cc7c4ce3b569b6f23a3e073, type: 3}
