@@ -33,8 +33,14 @@ public class GooberFunctionality : MonoBehaviour
     public void RunCollision(GameObject player)
     {
         currentPlayer = player;
-        PlayerManager playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
-        player.GetComponent<PlayerManager>().buttonsPressed += 1;
+        PlayerManager playerManagerScript = currentPlayer.GetComponent<PlayerManager>();
+        playerManagerScript.buttonsPressed += 1;
+
+        //Turnoff goober guidance
+        GameObject gooberGuide = player.GetComponentInChildren<GooberGuidenceSystem>().transform.gameObject;
+        gooberGuide.SetActive(false);
+
+        //HENRY: SET EACH OTHER PLAYERS GOOBER GUIDE TO THE COLOR OF THE TEAM THAT PICKED IT UPs
 
         transform.position = currentPlayer.transform.position + new Vector3(0, 1.5f, 0);
         transform.SetParent(currentPlayer.transform);

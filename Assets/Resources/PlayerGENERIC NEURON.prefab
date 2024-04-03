@@ -444,6 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e25015d5954b9e4bb5c8e4dd32afca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCamera: {fileID: 6518575550588854266}
   UI: {fileID: 0}
   hitbox: {fileID: 0}
   damInd: {fileID: 7805470933254684853}
@@ -2038,8 +2039,8 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 48.6, y: 71.5}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: -0.5}
 --- !u!222 &2885414786123654526
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2068,7 +2069,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2091,6 +2092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goober: {fileID: 0}
+  playerCamera: {fileID: 6518575550588854266}
 --- !u!1 &7805470933254684853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3709,6 +3711,10 @@ PrefabInstance:
       propertyPath: deathText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6310595071548999918, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: gooberGuide
+      value: 
+      objectReference: {fileID: 7750707659750810903}
     - target: {fileID: 6310595071548999918, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: deathMessage
       value: 
