@@ -386,6 +386,12 @@ MonoBehaviour:
   - If you unwove all the DNA in just one cell, it would be taller than you.
   - Neurons generate electricity to communicate with each other.
   - Run over points to collect them and get points for your team.
+  - Red Blood Cell is quick and hard to catch. Perfecting for collecting points!
+  - To stop the other team from earning points, you can either run over their points
+    or kill them!
+  - Many of your new cells are born in the bone marrow!
+  - Red blood cells carry oxygen throughout the body, but they also take carbon dioxide
+    to the lungs to be exhaled!
   loading: {fileID: 0}
   tip: {fileID: 731271097}
 --- !u!1 &816998406
@@ -517,7 +523,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -468}
-  m_SizeDelta: {x: 1920, y: 142.5}
+  m_SizeDelta: {x: 1920, y: 162.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &856988191
 MonoBehaviour:
