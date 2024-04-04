@@ -15,6 +15,7 @@ public class DeathScript : MonoBehaviour
     public GameObject deathOverlay;
     public TextMeshProUGUI deathTimer;
     public TextMeshProUGUI deathMessage;
+    public GameObject gooberGuide;
     public List<string> messages;
     List<string> tempMessages;
     public float fadeInDuration;
@@ -117,6 +118,9 @@ public class DeathScript : MonoBehaviour
         //Respawns Player
         SpawnPlayer();
 
+        //REACTIVATE GOOBER GUIDANCE SYSTEM
+        gooberGuide.SetActive(true);
+
         //Resets Death Timer to Default Count
         currentTime = 5f;
 
@@ -197,6 +201,7 @@ public class DeathScript : MonoBehaviour
         goober.transform.SetParent(null);
         goober.transform.position += new Vector3(0, -1.5f, 0);
         goober.transform.SetParent(GameObject.Find("Goobers").transform);
+
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         
     }

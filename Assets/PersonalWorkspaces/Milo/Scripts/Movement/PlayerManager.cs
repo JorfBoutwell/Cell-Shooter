@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
 
+    [SerializeField] Transform playerCamera;
+
     [SerializeField] GameObject UI;
     [SerializeField] GameObject hitbox;
 
@@ -440,15 +442,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public IEnumerator ShowDamageIndicator(float time, GameObject source)
     {
         damInd.SetActive(true);
-        Vector2 dirToSource = new Vector2(source.transform.position.x - transform.position.x, source.transform.position.z - transform.position.z);
-        float hyp = Mathf.Sqrt(Mathf.Pow(dirToSource.x, 2) + Mathf.Pow(dirToSource.y, 2));
-        Vector2 point = new Vector2(0, hyp);
-        float dotProduct = Vector2.Dot(dirToSource, point);
-        float angleRadians = Mathf.Acos(dotProduct / (hyp * hyp));
-        float angleDegrees = angleRadians * Mathf.Rad2Deg;
-        if (dirToSource.x > point.x) angleDegrees = 360 - angleDegrees;
-        Debug.Log("angle is: " + angleDegrees);
-        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
+
+        // Calculate the direction from the player's camera to the objective
+        Vector3 directionToObjective = (source.transform.position - playerCamera.position).normalized;
+
+        // Project the direction onto the horizontal plane (ignoring vertical component)
+        Vector3 directionOnHorizontalPlane = Vector3.ProjectOnPlane(directionToObjective, Vector3.up).normalized;
+
+        // Calculate the angle between the forward direction of the player's view and the direction to the objective
+        float angleToObjective = Vector3.SignedAngle(playerCamera.forward, directionOnHorizontalPlane, Vector3.up);
+
+        // Rotate the arrow UI element to point towards the objective
+        damInd.transform.rotation = Quaternion.Euler(0f, 0f, -angleToObjective);
 
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
