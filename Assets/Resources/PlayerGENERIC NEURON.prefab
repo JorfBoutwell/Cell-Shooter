@@ -1074,6 +1074,7 @@ MonoBehaviour:
   bulletSpeed: 75
   bulletUI: {fileID: 6550541714398719811}
   currentAmmo: 0
+  goober: {fileID: 0}
   m_projectile: {fileID: 0}
   abilityList:
   - {fileID: 11400000, guid: 7605f226896ad0f4499c3c1b6ba7e1fe, type: 2}
