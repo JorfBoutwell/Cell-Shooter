@@ -41,8 +41,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
     [SerializeField] float m_groundDrag;
 
     [Header("Camera Variables")]
-    [SerializeField] float m_sensitivityX;
-    [SerializeField] float m_sensitivityY;
+    [SerializeField] public float m_sensitivityX;
+    [SerializeField] public float m_sensitivityY;
     [SerializeField] Transform m_camHolder;
     public Transform orientation;
     private float m_xRot;
