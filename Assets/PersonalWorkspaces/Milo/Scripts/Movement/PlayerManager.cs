@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -297,19 +298,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         inputActions.Disable();
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "PointCollector")
-    //    {
-    //        if (buttonsPressed >= 0)
-    //        {
-    //            pointCollectors.Add(collision.gameObject as GameObject);
-    //            Debug.Log("Yeah" + pointCollectors[0]);
-    //            view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
-    //        }
-    //    }
+    public void LeaveGame()
+    {
+        //clears your custom properties
+        //ExitGames.Client.Photon.Hashtable customProperties = photonView.Owner.CustomProperties;
+        //customProperties.Clear();
+        //synchs the clearing
+        //photonView.Owner.SetCustomProperties(customProperties);
+        //leaves the room and loads the lobby
+        GameObject dictionary = GameObject.Find("CustomVariableStorage");
+        Destroy(dictionary);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(3);
+    }
 
-    //}
+    
 
     //ran when a point collecter hits this gameobject
     public void recievePoint(GameObject pointCollecter)
