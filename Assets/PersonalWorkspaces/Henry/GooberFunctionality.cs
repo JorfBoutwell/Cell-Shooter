@@ -27,6 +27,7 @@ public class GooberFunctionality : MonoBehaviour
         if (collision.gameObject.tag == "Player" && currentPlayer == null && waveStartScript.gameTimerStart && dropped <= 0)
         {
             collision.gameObject.GetComponent<PlayerManager>().CapturingTheFlag();
+            GetComponent<SphereCollider>().enabled = false;
         }
     }
 

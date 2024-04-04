@@ -201,7 +201,7 @@ public class DeathScript : MonoBehaviour
         goober.transform.SetParent(null);
         goober.transform.position += new Vector3(0, -1.5f, 0);
         goober.transform.SetParent(GameObject.Find("Goobers").transform);
-
+        goober.GetComponent<SphereCollider>().enabled = true;
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         
     }
