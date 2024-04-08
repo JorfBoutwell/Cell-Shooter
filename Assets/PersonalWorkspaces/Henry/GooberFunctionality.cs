@@ -18,6 +18,7 @@ public class GooberFunctionality : MonoBehaviour
         {
             dropped -= Time.deltaTime;
         }
+        
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -34,6 +35,7 @@ public class GooberFunctionality : MonoBehaviour
     public void RunCollision(GameObject player)
     {
         currentPlayer = player;
+        
         PlayerManager playerManagerScript = currentPlayer.GetComponent<PlayerManager>();
         playerManagerScript.buttonsPressed += 1;
 

@@ -12,9 +12,10 @@ public class Train : MonoBehaviour
     private Vector3 StartPos;
     private BoxCollider Collider;
 
+
     PlayerManager playerManagerScript;
 
-    // Start is called before the first frame update
+  // Start is called before the first frame update
     void Start()
     {
         NewTrain = TimeUntilTrain;
@@ -52,9 +53,10 @@ public class Train : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         Debug.Log("TRAIN HIT PLAYER" + other);
         playerManagerScript = other.GetComponent<PlayerManager>();
         playerManagerScript.health -= 100;
         playerManagerScript.isDead = true;
-    }
+   }
 }
