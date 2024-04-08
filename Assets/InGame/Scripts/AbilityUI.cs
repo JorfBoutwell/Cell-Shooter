@@ -11,7 +11,7 @@ public class AbilityUI : MonoBehaviour
 
     public GameObject abilityImage;
 
-    void Start()
+    public void GenerateAbilityUI()
     {
         abilities = GetComponentInParent<WeaponManager>().abilityList;
         abilityObjects = new GameObject[abilities.GetLength(0)];

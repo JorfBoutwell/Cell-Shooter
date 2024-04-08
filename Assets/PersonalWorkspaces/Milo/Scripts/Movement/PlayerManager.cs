@@ -8,11 +8,14 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
+
+    [SerializeField] Transform playerCamera;
 
     [SerializeField] GameObject UI;
     [SerializeField] GameObject hitbox;
@@ -181,10 +184,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                 Debug.Log("TCell");
                 refs = playerRefs[3];
                 break;
-            default: Debug.Log("Not a character"); break;
+            default: Debug.Log("Not a character " + character); break;
         }
 
         FPDisplay.GetComponent<Animator>().runtimeAnimatorController = refs.animator;
+        m_weapon.abilityList = refs.abilities.ToArray();
+        m_weapon.bulletTrail = refs.bulletTrail;
+        //m_weapon.weapon = refs.weapon;
+
+        m_weapon.abilityUI.GenerateAbilityUI();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -290,19 +298,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         inputActions.Disable();
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "PointCollector")
-    //    {
-    //        if (buttonsPressed >= 0)
-    //        {
-    //            pointCollectors.Add(collision.gameObject as GameObject);
-    //            Debug.Log("Yeah" + pointCollectors[0]);
-    //            view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
-    //        }
-    //    }
+    public void LeaveGame()
+    {
+        //clears your custom properties
+        //ExitGames.Client.Photon.Hashtable customProperties = photonView.Owner.CustomProperties;
+        //customProperties.Clear();
+        //synchs the clearing
+        //photonView.Owner.SetCustomProperties(customProperties);
+        //leaves the room and loads the lobby
+        GameObject dictionary = GameObject.Find("CustomVariableStorage");
+        Destroy(dictionary);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel(3);
+    }
 
-    //}
+    
 
     //ran when a point collecter hits this gameobject
     public void recievePoint(GameObject pointCollecter)
@@ -435,15 +445,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public IEnumerator ShowDamageIndicator(float time, GameObject source)
     {
         damInd.SetActive(true);
-        Vector2 dirToSource = new Vector2(source.transform.position.x - transform.position.x, source.transform.position.z - transform.position.z);
-        float hyp = Mathf.Sqrt(Mathf.Pow(dirToSource.x, 2) + Mathf.Pow(dirToSource.y, 2));
-        Vector2 point = new Vector2(0, hyp);
-        float dotProduct = Vector2.Dot(dirToSource, point);
-        float angleRadians = Mathf.Acos(dotProduct / (hyp * hyp));
-        float angleDegrees = angleRadians * Mathf.Rad2Deg;
-        if (dirToSource.x > point.x) angleDegrees = 360 - angleDegrees;
-        Debug.Log("angle is: " + angleDegrees);
-        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
+
+        // Calculate the direction from the player's camera to the objective
+        Vector3 directionToObjective = (source.transform.position - playerCamera.position).normalized;
+
+        // Project the direction onto the horizontal plane (ignoring vertical component)
+        Vector3 directionOnHorizontalPlane = Vector3.ProjectOnPlane(directionToObjective, Vector3.up).normalized;
+
+        // Calculate the angle between the forward direction of the player's view and the direction to the objective
+        float angleToObjective = Vector3.SignedAngle(playerCamera.forward, directionOnHorizontalPlane, Vector3.up);
+
+        // Rotate the arrow UI element to point towards the objective
+        damInd.transform.rotation = Quaternion.Euler(0f, 0f, -angleToObjective);
 
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);

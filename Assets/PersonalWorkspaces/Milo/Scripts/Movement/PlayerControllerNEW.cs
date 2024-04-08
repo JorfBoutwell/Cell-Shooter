@@ -41,8 +41,8 @@ public class PlayerControllerNEW : MonoBehaviourPun
     [SerializeField] float m_groundDrag;
 
     [Header("Camera Variables")]
-    [SerializeField] float m_sensitivityX;
-    [SerializeField] float m_sensitivityY;
+    [SerializeField] public float m_sensitivityX;
+    [SerializeField] public float m_sensitivityY;
     [SerializeField] Transform m_camHolder;
     public Transform orientation;
     private float m_xRot;
@@ -298,6 +298,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         }
         else if(isGrounded)
         {
+            jumpAmount = maxJumpAmount;
             if(m_rb.velocity != Vector3.zero)
             {
                 state = MovementState.walking;
@@ -344,8 +345,9 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
     public void Jump()
     {
-        if (isGrounded)
+        if (isGrounded || jumpAmount > 0)
         {
+            jumpAmount--;
             m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
 
             m_rb.AddForce(transform.up * m_jumpForce, ForceMode.Impulse);
