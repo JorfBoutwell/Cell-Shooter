@@ -2,9 +2,13 @@ using System.Collections;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+
+
 
 public class QueueScene : MonoBehaviourPunCallbacks
 {
@@ -37,6 +41,14 @@ public class QueueScene : MonoBehaviourPunCallbacks
     //string that will be stored here and passed into the game as a custom variable
     //telling what character they are
     public string character = "";
+
+    [Header("CharacterSelectVariables")]
+    public Image charPortrait;
+    public Sprite[] portraits;
+    public TMP_Text charName;
+    public string[] names;
+    public bool selected = false;
+
 
 
     private void Start()
@@ -76,7 +88,9 @@ public class QueueScene : MonoBehaviourPunCallbacks
             //function to set characters that only lets you get an avialable character
             setCharacter();
         }
-        
+
+        charPortrait.transform.gameObject.SetActive(false);
+
         //says you are not ready
         updateReadyState(false);
     }
@@ -140,7 +154,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                     if(!OpUsed(characters[i], team))
                     {
                         //gives you the character
-                        character = characters[i];
+                        character = "";
                         break;
                     }
                 } else
@@ -149,7 +163,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                     //same as above but if you are on team b
                     if (!OpUsed(characters[i], team))
                     {
-                        character = characters[i];
+                        character = "";
                         break;
                     }
                 }
@@ -158,6 +172,13 @@ public class QueueScene : MonoBehaviourPunCallbacks
         //if you give a choice
         else
         {
+            if(character == characters[choice])
+            {
+                selected = false;
+                ready = false;
+                UpdateUI(-1);
+                return;
+            }
             //check if team a
             if(team)
             {
@@ -191,9 +212,28 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 }
             }
         }
-        
+
+        UpdateUI(choice);
+        if (selected == false) ready = false; else ready = true;
         //set your custom variable to be the character you were assigned
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { IndividualCharacter, character } });
+    }
+
+    public void UpdateUI(int index)
+    {
+        if (index == -1)
+        {
+            if (selected == true) return;
+            charPortrait.transform.gameObject.SetActive(false);
+            charName.text = "???";
+        }
+        else
+        {
+            if (selected == true) return;
+            charPortrait.transform.gameObject.SetActive(true);
+            charName.text = names[index];
+            charPortrait.sprite = portraits[index];
+        }
     }
     //checks if someone on your team already is using the character you want
     public bool OpUsed(string character, bool team)
@@ -257,6 +297,10 @@ public class QueueScene : MonoBehaviourPunCallbacks
             //makes custom variable in photon for ready status, will always be with player in the game
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { ReadyPropKey, value } });
         }
+    }
+    public void UpdateSelected(bool value)
+    {
+        selected = value;
     }
     private void OnPlayerConnected()
     {
