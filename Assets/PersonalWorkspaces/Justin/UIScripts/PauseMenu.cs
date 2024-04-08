@@ -8,10 +8,17 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseCanvas;
     public bool pauseActive = false;
     public PlayerManager playerManagerScript;
+    GameObject background;
+    GameObject settings;
+    GameObject buttons;
+    GameObject feedback;
 
     void Start()
     {
-        
+        background = pauseCanvas.transform.GetChild(0).gameObject;
+        settings = pauseCanvas.transform.GetChild(1).gameObject;
+        buttons = pauseCanvas.transform.GetChild(2).gameObject;
+        feedback = pauseCanvas.transform.GetChild(3).gameObject;
     }
 
     public void menuOnOff()
@@ -21,8 +28,15 @@ public class PauseMenu : MonoBehaviour
         {
             playerManagerScript.inputActions.Disable();
             playerManagerScript.inputActions.Menu.Enable();
+
             pauseCanvas.SetActive(true);
             pauseActive = true;
+
+            background.SetActive(true);
+            buttons.SetActive(true);
+            settings.SetActive(false);
+            feedback.SetActive(false);
+
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }

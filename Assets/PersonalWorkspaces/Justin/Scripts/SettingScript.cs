@@ -10,21 +10,22 @@ public class SettingScript : MonoBehaviour
     [SerializeField] private Slider sensitivitySlider;
     [SerializeField] private TextMeshProUGUI sensitivityText;
 
+    [SerializeField] private Slider soundSlider;
+    [SerializeField] private TextMeshProUGUI soundText;
+
     public GameObject player;
-    public float mouseSensitivityX;
-    public float mouseSensitivityY;
+
     // Start is called before the first frame update
     void Start()
     {
-        mouseSensitivityX = player.GetComponent<PlayerControllerNEW>().m_sensitivityX;
-        mouseSensitivityY = player.GetComponent<PlayerControllerNEW>().m_sensitivityY;
 
         sensitivitySlider.onValueChanged.AddListener((v) => {
             sensitivityText.text = v.ToString("0.0");
         });
 
-        //mouseSensitivity = PlayerPrefs.GetFloat("currentSensitivity", 100f);
-        //sensitivitySlider.value = mouseSensitivity / 10;
+        soundSlider.onValueChanged.AddListener((v) => {
+            soundText.text = v.ToString("0.0");
+        });
 
         sensitivitySlider.onValueChanged.AddListener((v) => {
             
@@ -36,13 +37,15 @@ public class SettingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("hm" + mouseSensitivity);
+        Debug.Log("hm" + player.GetComponent<PlayerControllerNEW>().m_sensitivityX);
+        //currentPlayer.transform.GetChild(2).GetChild(1).GetChild(8).GetChild(3).GetChild(0).gameObject.SetActive(false);
+        //currentPlayer.transform.GetChild(2).GetChild(1).GetChild(8).GetChild(3).GetChild(1).gameObject.SetActive(true);
     }
 
     public void adjustSensitivity(float sliderValue)
     {
         //mouseSensitivity = (mouseSensitivity * (sliderValue*1.25f));
-        mouseSensitivityX = sliderValue * 60f;
-        mouseSensitivityY = sliderValue * 60f;
+        player.GetComponent<PlayerControllerNEW>().m_sensitivityX = sliderValue * 60f;
+        player.GetComponent<PlayerControllerNEW>().m_sensitivityY = sliderValue * 60f;
     }
 }
