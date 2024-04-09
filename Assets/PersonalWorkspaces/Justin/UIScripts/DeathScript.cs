@@ -203,7 +203,8 @@ public class DeathScript : MonoBehaviour
         goober.transform.SetParent(GameObject.Find("Goobers").transform);
         goober.GetComponent<SphereCollider>().enabled = true;
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
-        
+        goober.GetComponent<GooberFunctionality>().team = null;
+
     }
 
     //Resets Health After Respawn

@@ -54,8 +54,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject[] pointCollection;
 
     public GameObject goober;
-
-
+    public GameObject gooberStatusOverlay;
+    public GameObject gooberTargeter;
 
     PhotonView view;
 
@@ -114,7 +114,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         pointCollection = orderGoobers(pointCollection);
 
         goober = GameObject.FindGameObjectWithTag("Goober");
-
+        gooberStatusOverlay = GameObject.Find("CaptureTheFlagOverlay");
+        gooberTargeter = GameObject.Find("GooberDirection");
     }
 
     private void Start()
@@ -231,6 +232,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             deathTimerOn = true;
             StartCoroutine("DeathTimer");
         }
+
+        ChangeGooberText();
     }
 
     private GameObject[] orderGoobers(GameObject[] goobers)
@@ -343,8 +346,48 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     
+    public void ChangeGooberText()
+    {
+        GooberFunctionality gooberScript = goober.GetComponent<GooberFunctionality>();
 
-    
+        int target;
+        if (gooberScript.currentPlayer == gameObject)
+        {
+            //turn on playerclaimed
+            target = 1;
+        } else if (gooberScript.team == "A")
+        {
+            //turn on either red
+            target = 2;
+
+            gooberTargeter.GetComponent<Image>().color = Color.red;
+        } else if (gooberScript.team == "B")
+        {
+            //turn on other
+            target = 3;
+
+            gooberTargeter.GetComponent<Image>().color = Color.blue;
+        } else
+        {
+            //turn on unclaimed
+            target = 0;
+
+            gooberTargeter.GetComponent<Image>().color = Color.white;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == target)
+            {
+                gooberStatusOverlay.transform.GetChild(i).gameObject.SetActive(true);
+            } else
+            {
+                gooberStatusOverlay.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+
+
 
     public void HandleEffects()
     {

@@ -42,6 +42,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public TextMeshProUGUI returnTimer;
     public float returnTime = 5f;
     public string winTeam;
+    public int pointsNeeded = 1000;
 
     //PointUIGameObject
     public GameObject pointsA;
@@ -57,6 +58,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        if (GameObject.Find("Goober"))
+        {
+            pointsNeeded = 100;
+        } 
         pointUpdateScript = gameObject.transform.root.GetComponentInChildren<PointUpdateScript>();
         currentTime = countdownTime;
         StartCountdown();
@@ -71,7 +76,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
         pointsB = GameObject.Find("PointsB");
 
         //Objective Text Prompts
-        objectiveTextPrompts.Add("Your team needs to reach 1000 points to win!");
+        objectiveTextPrompts.Add("Your team needs to reach " + pointsNeeded + " points to win!");
         objectiveTextPrompts.Add("Earn points by claiming buttons around the map!");
         objectiveTextPrompts.Add("Simply touch a button to claim it!");
         objectiveTextPrompts.Add("Enemy players can claim your buttons instantly!");
@@ -83,6 +88,8 @@ public class WaveStart : MonoBehaviourPunCallbacks
         winText = GameObject.Find("WinText").GetComponentInChildren<TextMeshProUGUI>();
         returnTimer = GameObject.Find("ReturnTimer").GetComponentInChildren<TextMeshProUGUI>();
         winOverlay.SetActive(false);
+
+        
 
     }
 
@@ -133,7 +140,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 }
             }
 
-            if(pointsA.GetComponent<PointsADisplayScript>().points >= 1000 && !win)
+            if(pointsA.GetComponent<PointsADisplayScript>().points >= pointsNeeded && !win)
             {
                 win = true;
                 winTeam = "A";
@@ -141,7 +148,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 countdownTimer.fontSize = 50;
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
-            else if(pointsB.GetComponent<PointsADisplayScript>().points >= 1000 && !win)
+            else if(pointsB.GetComponent<PointsADisplayScript>().points >= pointsNeeded && !win)
             {
                 win = true;
                 winTeam = "B";

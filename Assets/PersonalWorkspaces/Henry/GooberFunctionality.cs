@@ -7,6 +7,7 @@ public class GooberFunctionality : MonoBehaviour
     public WaveStart waveStartScript;
     public GameObject currentPlayer;
     public float dropped = 0;
+    public string team = null;
 
     private void Update()
     {
@@ -47,5 +48,7 @@ public class GooberFunctionality : MonoBehaviour
 
         transform.position = currentPlayer.transform.position + new Vector3(0, 1.5f, 0);
         transform.SetParent(currentPlayer.transform);
+
+        team = currentPlayer.GetComponent<PlayerManager>().team;
     }
 }
