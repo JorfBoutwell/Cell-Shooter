@@ -238,29 +238,32 @@ public class WaveStart : MonoBehaviourPunCallbacks
     //Displays Objective Text
     IEnumerator ObjectiveEnter()
     {
-        objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
-
-        objectiveText.SetActive(true);
-        objectiveTextLine.SetActive(true);
-
-        for (int i = 0; i < objectiveTextPrompts.Count; i++)
-            {
-            objectiveText.GetComponentInChildren<TextMeshProUGUI>().text = objectiveTextPrompts[i];
-            objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(1, 1);
-
-            yield return new WaitForSeconds(2.75f);
-
+        if (!GameObject.Find("Goober"))
+        {
             objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
 
-            if(i == objectiveTextPrompts.Count - 1)
+            objectiveText.SetActive(true);
+            objectiveTextLine.SetActive(true);
+
+            for (int i = 0; i < objectiveTextPrompts.Count; i++)
             {
-                yield return new WaitForSeconds(1f);
-                objectiveText.SetActive(false);
-                objectiveTextLine.SetActive(false);
+                objectiveText.GetComponentInChildren<TextMeshProUGUI>().text = objectiveTextPrompts[i];
+                objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(1, 1);
+
+                yield return new WaitForSeconds(2.75f);
+
+                objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
+
+                if (i == objectiveTextPrompts.Count - 1)
+                {
+                    yield return new WaitForSeconds(1f);
+                    objectiveText.SetActive(false);
+                    objectiveTextLine.SetActive(false);
+                }
+
+                yield return new WaitForSeconds(2.75f);
+
             }
-
-            yield return new WaitForSeconds(2.75f);
-
         }
         
     }

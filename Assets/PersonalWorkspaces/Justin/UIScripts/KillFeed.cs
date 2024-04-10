@@ -39,6 +39,8 @@ public class KillFeed : MonoBehaviour
     public string player1;
     public string player2;
 
+    public int pointsNeeded = 1000;
+
 
     void Start()
     {
@@ -50,6 +52,11 @@ public class KillFeed : MonoBehaviour
             usernames.Add("killers" + i); //8 Character Limit and no CAPS based on UI Size
             Debug.Log(usernames[i]);
             
+        }
+
+        if (GameObject.Find("Goober"))
+        {
+            pointsNeeded = 100;
         }
     }
 
@@ -71,7 +78,9 @@ public class KillFeed : MonoBehaviour
             AlertFeedInstantiate(boxesCount);
         }
 
-        if((pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !aHalfPoint) || (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !bHalfPoint)) //change to 500 later
+        Debug.Log(pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points + "bruh" + pointsNeeded / 2);
+
+        if((pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !aHalfPoint) || (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !bHalfPoint))
         {
             AlertFeedInstantiate(boxesCount);
         }
@@ -145,18 +154,18 @@ public class KillFeed : MonoBehaviour
     //Sets Text in Alert Feed
     public void AlertText(int boxesCounts)
     {
-        if (pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !aHalfPoint) //change to 500 later
+        if (pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded/2) && !aHalfPoint) 
         {
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team A is halfway there!";
             aHalfPoint = true;
         }
-        else if(pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= 500 && !bHalfPoint) //change to 500 later
+        else if(pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !bHalfPoint) 
         {
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team B is halfway there!";
             bHalfPoint = true;
         }
         else { 
-            boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "INCOMING BOSS";
+            boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Gather More Points!";
         }
     }
 
