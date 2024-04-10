@@ -910,7 +910,6 @@ GameObject:
   - component: {fileID: 7894135386633626600}
   - component: {fileID: 7904016881856551529}
   - component: {fileID: 9182972780782173685}
-  - component: {fileID: 1185342511653904613}
   m_Layer: 0
   m_Name: PlayerGENERIC NEURON
   m_TagString: Player
@@ -1134,7 +1133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816954ac130494648916a67bf77be0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player2: 
   animController: {fileID: 0}
   isShooting: 0
   isAutoFiring: 0
@@ -1285,19 +1283,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &1185342511653904613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576989017386804971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39596a584beb1c14ca29ceba3b5edf5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentNeurotransmitter: 
 --- !u!1 &1805873773983463728
 GameObject:
   m_ObjectHideFlags: 0
@@ -6925,11 +6910,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6692775218613881363}
     - targetCorrespondingSourceObject: {fileID: 41023335310393338, guid: f61710afb9da0472d969323947e82c78, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 5498969282474459375}
-    - targetCorrespondingSourceObject: {fileID: 41023335310393338, guid: f61710afb9da0472d969323947e82c78, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7771166770952727873}
+    - targetCorrespondingSourceObject: {fileID: 41023335310393338, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5498969282474459375}
     - targetCorrespondingSourceObject: {fileID: 6912657603991959001, guid: f61710afb9da0472d969323947e82c78, type: 3}
       insertIndex: 0
       addedObject: {fileID: 4516411465711285398}
@@ -7039,7 +7024,7 @@ MonoBehaviour:
   teamB: {fileID: 8938644524552751890}
   prevCount: 0
   game: 1
-  colors: []
+  sprites: []
   characters:
   - Neuron
   - Player2

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RBCStats : MonoBehaviour
+public class RBCStats : Stats
 {
     PlayerControllerNEW playerController;
     public float oxygen;

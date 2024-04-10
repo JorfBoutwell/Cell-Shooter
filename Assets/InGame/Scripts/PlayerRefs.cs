@@ -10,4 +10,5 @@ public class PlayerRef : ScriptableObject
     public List<Ability> abilities;
     public WeaponObject weapon;
     public TrailRenderer bulletTrail;
+    public Stats statScript;
 }

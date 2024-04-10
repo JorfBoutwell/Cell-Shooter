@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public Spawn spawnScript;
 
     public PlayerRef[] playerRefs;
+    public Stats[] stats;
 
     static int spawnIncrementA = 0;
     static int spawnIncrementB = 0;
@@ -167,24 +168,29 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void SetCharacter()
     {
+
         PlayerRef refs = playerRefs[0];
         switch(character)
         {
             case "Player1":
                 Debug.Log("Neuron");
                 refs = playerRefs[0];
+                gameObject.AddComponent<NeuronStats>();
                 break;
             case "Player2":
                 Debug.Log("RBC");
                 refs = playerRefs[1];
+                gameObject.AddComponent<RBCStats>();
                 break;
             case "Player3":
                 Debug.Log("Osteoclast");
                 refs = playerRefs[2];
+
                 break;
             case "PLayer4":
                 Debug.Log("TCell");
                 refs = playerRefs[3];
+
                 break;
             default: Debug.Log("Not a character " + character); break;
         }
