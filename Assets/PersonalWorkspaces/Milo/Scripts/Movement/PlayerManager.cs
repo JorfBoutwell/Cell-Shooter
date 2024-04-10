@@ -69,15 +69,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Material materialA;
     [SerializeField] Material materialB;
 
+    KillFeed killFeedScript;
     public string username;
-
 
 
     private void Awake()
     {
         spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
 
-        if(PhotonNetwork.IsMasterClient)
+
+        if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, 0 } });
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBScore, 0 } });
@@ -120,7 +122,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-
         foreach (Player player in PhotonNetwork.PlayerList)
         {
             if (photonView.Owner.ActorNumber == player.ActorNumber)
@@ -463,6 +464,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void ApplyDamage(float damage, GameObject source)
     {
+        
         health -= damage;
         if (health <= 0)
         {
@@ -479,7 +481,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if(isDead)
         {
-            m_weapon.player2 = username;
+            killFeedScript.player2 = username;
         }
 
         return;
