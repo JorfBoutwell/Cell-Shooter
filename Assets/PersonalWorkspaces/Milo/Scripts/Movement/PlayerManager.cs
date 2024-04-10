@@ -479,7 +479,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if(isDead)
         {
-            m_weapon.player2 = username;
+            //m_weapon.player2 = username;
         }
 
         return;
