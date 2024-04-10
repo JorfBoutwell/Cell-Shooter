@@ -115,11 +115,11 @@ public class QueueScene : MonoBehaviourPunCallbacks
         //on maser clients script, uses the count to turn on or off start button for master client
         if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.PlayerList.Length && start != null)
         {
-            start.SetActive(true);
+            start.GetComponent<Button>().interactable = true;
         }
         else if (start!= null)
         {
-            start.SetActive(false);
+            start.GetComponent<Button>().interactable = false;
         }
     }
 
@@ -175,8 +175,8 @@ public class QueueScene : MonoBehaviourPunCallbacks
             if(character == characters[choice])
             {
                 selected = false;
-                ready = false;
-                UpdateUI(-1);
+                updateReadyState(false);
+                character = "";
                 return;
             }
             //check if team a
@@ -214,7 +214,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
         }
 
         UpdateUI(choice);
-        if (selected == false) ready = false; else ready = true;
         //set your custom variable to be the character you were assigned
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { IndividualCharacter, character } });
     }
@@ -293,14 +292,15 @@ public class QueueScene : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             //stores passed value
-            ready = value;
+            if (ready != value) ready = value; else ready = !value;
+            Debug.Log(ready);
             //makes custom variable in photon for ready status, will always be with player in the game
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { ReadyPropKey, value } });
         }
     }
     public void UpdateSelected(bool value)
     {
-        selected = value;
+        if (selected != value) selected = value; else selected = !value;
     }
     private void OnPlayerConnected()
     {
