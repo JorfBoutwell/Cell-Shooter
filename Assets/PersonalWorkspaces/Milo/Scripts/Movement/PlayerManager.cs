@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Material materialB;
 
     public string username;
-
+    public string enemyusername;
 
 
     private void Awake()
@@ -120,7 +120,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-
+        //enemyusername = username;
         foreach (Player player in PhotonNetwork.PlayerList)
         {
             if (photonView.Owner.ActorNumber == player.ActorNumber)
@@ -463,7 +463,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void ApplyDamage(float damage, GameObject source)
     {
+        
         health -= damage;
+        enemyusername = username;
         if (health <= 0)
         {
             isDead = true;
