@@ -298,10 +298,12 @@ public class QueueScene : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { ReadyPropKey, value } });
         }
     }
+
     public void UpdateSelected(bool value)
     {
         if (selected != value) selected = value; else selected = !value;
     }
+
     private void OnPlayerConnected()
     {
         //resets recently joined counter

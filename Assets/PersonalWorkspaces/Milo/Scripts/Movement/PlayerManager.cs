@@ -86,7 +86,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBScore, 0 } });
         }
         //username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
-        username = PhotonNetwork.LocalPlayer.NickName;
+        //username = PhotonNetwork.LocalPlayer.NickName;
         //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
 
         character = "Neuron";
@@ -127,6 +127,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (photonView.Owner.ActorNumber == player.ActorNumber)
             {
+                username = player.NickName;
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
                 object localCharacter;

@@ -1010,6 +1010,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 44b9635d20f6c4448885e55a1ae30b14, type: 2}
   - {fileID: 11400000, guid: fe242d843c3884cddb87debf3d2bc6d1, type: 2}
   - {fileID: 11400000, guid: 5dd6564950b784188b2932bf86164f04, type: 2}
+  stats: []
   spawn: {x: 0, y: 0, z: 0}
   maxHealth: 100
   health: 100
