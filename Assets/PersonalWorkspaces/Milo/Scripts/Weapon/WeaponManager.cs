@@ -539,7 +539,7 @@ public class WeaponManager : MonoBehaviour
             GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
             */
 
-            //killFeedScript.player2 = targetPhotonView.GetComponent<PlayerManager>().username;
+            killFeedScript.player2 = targetPhotonView.GetComponent<PlayerManager>().username;
             //killFeedScript.player2 = player2;
             killFeedScript.player1 = playerManagerScript.username;
             Debug.Log(killFeedScript.player1 + " killed " + killFeedScript.player2);

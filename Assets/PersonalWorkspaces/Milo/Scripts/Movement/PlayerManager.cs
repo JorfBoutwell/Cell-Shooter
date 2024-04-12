@@ -127,7 +127,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (photonView.Owner.ActorNumber == player.ActorNumber)
             {
-                username = player.NickName;
+                username = player.NickName; //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
                 object localCharacter;
@@ -486,10 +486,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         }
 
-        if(isDead)
+        /*if(isDead)
         {
             killFeedScript.player2 = username;
-        }
+        }*/
 
         return;
     }
