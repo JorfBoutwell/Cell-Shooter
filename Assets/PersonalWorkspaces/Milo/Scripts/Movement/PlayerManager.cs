@@ -475,6 +475,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         health -= damage;
         if (health <= 0)
         {
+            vignette.DOColor(new Color32(0, 0, 0, 40), 0.25f)
             isDead = true;
         }
         else
@@ -482,7 +483,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             StartCoroutine(ShowDamageIndicator(1f, source));
             Sequence tweenSequence = DOTween.Sequence();
             tweenSequence.Append(vignette.DOColor(new Color32(255,0,0,40), 0.75f));
-            if(health <= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,40), 0.25f));
+            if(health >= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,40), 0.25f));
+            tweenSequence.Play();
 
         }
 
