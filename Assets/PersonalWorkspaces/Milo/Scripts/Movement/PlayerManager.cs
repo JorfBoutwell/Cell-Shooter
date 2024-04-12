@@ -475,7 +475,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         health -= damage;
         if (health <= 0)
         {
-            vignette.DOColor(new Color32(0, 0, 0, 40), 0.25f)
+            vignette.DOColor(new Color32(0, 0, 0, 40), 0.25f);
             isDead = true;
         }
         else
