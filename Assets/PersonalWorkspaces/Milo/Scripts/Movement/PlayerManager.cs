@@ -127,7 +127,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (photonView.Owner.ActorNumber == player.ActorNumber)
             {
-                username = player.NickName; //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
+                username = player.NickName;
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
                 object localCharacter;

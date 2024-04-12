@@ -6911,11 +6911,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6692775218613881363}
     - targetCorrespondingSourceObject: {fileID: 41023335310393338, guid: f61710afb9da0472d969323947e82c78, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7771166770952727873}
+      insertIndex: 1
+      addedObject: {fileID: 5498969282474459375}
     - targetCorrespondingSourceObject: {fileID: 41023335310393338, guid: f61710afb9da0472d969323947e82c78, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5498969282474459375}
+      addedObject: {fileID: 7771166770952727873}
     - targetCorrespondingSourceObject: {fileID: 6912657603991959001, guid: f61710afb9da0472d969323947e82c78, type: 3}
       insertIndex: 0
       addedObject: {fileID: 4516411465711285398}
