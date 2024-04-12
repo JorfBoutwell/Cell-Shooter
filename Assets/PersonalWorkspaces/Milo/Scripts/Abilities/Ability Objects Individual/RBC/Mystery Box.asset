@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cbff5b43e00b943a758b82f2a04d9b, type: 3}
   m_Name: Mystery Box
   m_EditorClassIdentifier: 
-  abilityName: 
+  abilityName: MysteryBox
   iconImage: {fileID: 0}
-  abilityTime: 0
+  abilityTime: 1
   animationFlag: 0
-  cooldownTime: 0
-  isUsable: 0
-  mysteryBoxPrefab: {fileID: 0}
-  throwForce: 0
+  cooldownTime: 1
+  isUsable: 1
+  mysteryBoxPrefab: {fileID: 8407610727525780960, guid: 3bea617a430aa8a4399f35ec69cea442, type: 3}
+  throwForce: 700
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0

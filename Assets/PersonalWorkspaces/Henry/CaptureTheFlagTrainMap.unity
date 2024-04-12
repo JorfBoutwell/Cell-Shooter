@@ -1462,13 +1462,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7722319500248149752, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4162194707927688736, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -3721955413197413031, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: -3601499328887293540, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
       propertyPath: m_CastShadows
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -2065725490789183623, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -782859835512179487, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
       propertyPath: m_Name
       value: TrainFloorDamien (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919204545922937906, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8011838921852471110, guid: 67c89ef98c8b94e1e806f7a762ac0490, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4441,6 +4465,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveStartScript: {fileID: 0}
   currentPlayer: {fileID: 0}
+  dropped: 0
+  team: 
 --- !u!1 &1220160494
 GameObject:
   m_ObjectHideFlags: 0
@@ -5807,6 +5833,7 @@ MonoBehaviour:
   boxesCount: 0
   player1: 
   player2: 
+  pointsNeeded: 1000
 --- !u!1 &1613097241
 GameObject:
   m_ObjectHideFlags: 0
