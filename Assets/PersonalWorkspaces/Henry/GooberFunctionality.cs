@@ -9,6 +9,7 @@ public class GooberFunctionality : MonoBehaviour
     public GameObject currentPlayer;
     public float dropped = 0;
     public string team = null;
+    public bool atpClaimed = false;
 
     private void Start()
     {
@@ -35,6 +36,8 @@ public class GooberFunctionality : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerManager>().CapturingTheFlag();
             GetComponent<SphereCollider>().enabled = false;
+
+            atpClaimed = true;
 
             killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (collision.gameObject.GetComponent<PlayerManager>().username + " claimed the ATP!"));
         }

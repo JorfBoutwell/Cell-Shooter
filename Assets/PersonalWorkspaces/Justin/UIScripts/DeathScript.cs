@@ -97,8 +97,12 @@ public class DeathScript : MonoBehaviour
             //Unclaims Points
             PointCollecterReset();
 
-            //drop goober
-            DropGoober();
+            if (goober.GetComponent<GooberFunctionality>().atpClaimed)
+            {
+                goober.GetComponent<GooberFunctionality>().atpClaimed = false;
+                //drop goober
+                DropGoober();
+            }
 
             //Activates Death Overlay
             onoff = true;
