@@ -14,7 +14,6 @@ public class Train : MonoBehaviour
 
     KillFeed killFeedScript;
 
-
     PlayerManager playerManagerScript;
 
   // Start is called before the first frame update
@@ -62,8 +61,11 @@ public class Train : MonoBehaviour
         playerManagerScript.health -= 100;
         playerManagerScript.isDead = true;
 
-        killFeedScript.player2 = "TRAIN";
-        killFeedScript.player1 = playerManagerScript.username;
-        killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
+        if (!killFeedScript.hitByTrain) {
+            killFeedScript.hitByTrain = true;
+            killFeedScript.player2 = playerManagerScript.username;
+            killFeedScript.player1 = "TRAIN";
+            killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
+        }
     }
 }

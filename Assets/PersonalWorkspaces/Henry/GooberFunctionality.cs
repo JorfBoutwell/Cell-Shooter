@@ -25,7 +25,6 @@ public class GooberFunctionality : MonoBehaviour
         {
             dropped -= Time.deltaTime;
         }
-        
     }
 
     private void OnTriggerEnter(Collider collision)

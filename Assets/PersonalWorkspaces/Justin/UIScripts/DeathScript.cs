@@ -33,6 +33,8 @@ public class DeathScript : MonoBehaviour
     public GameObject pointCollector;
     public PointCollectorScript pointCollectorScript;
 
+    public KillFeed killFeedScript;
+
     public GameObject goober;
 
     //Floats and Bools
@@ -61,6 +63,8 @@ public class DeathScript : MonoBehaviour
         //Setting References
         healthUIScript = healthUI.GetComponent<HealthUI>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
+
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
 
@@ -202,9 +206,9 @@ public class DeathScript : MonoBehaviour
         goober.transform.position += new Vector3(0, -1.5f, 0);
         goober.transform.SetParent(GameObject.Find("Goobers").transform);
         goober.GetComponent<SphereCollider>().enabled = true;
+        killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (goober.GetComponent<GooberFunctionality>().currentPlayer.gameObject.GetComponent<PlayerManager>().username + " dropped the ATP!"));
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         goober.GetComponent<GooberFunctionality>().team = null;
-
     }
 
     //Resets Health After Respawn

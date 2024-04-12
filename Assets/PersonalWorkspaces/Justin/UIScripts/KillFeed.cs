@@ -43,6 +43,8 @@ public class KillFeed : MonoBehaviour
 
     public int pointsNeeded = 1000;
 
+    public bool hitByTrain = false;
+
 
     void Start()
     {
@@ -117,6 +119,7 @@ public class KillFeed : MonoBehaviour
         count--;
         player1 = "";
         player2 = "";
+        hitByTrain = false;
 
     }
 
