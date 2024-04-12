@@ -5,9 +5,15 @@ using UnityEngine;
 public class GooberFunctionality : MonoBehaviour
 {
     public WaveStart waveStartScript;
+    public KillFeed killFeedScript;
     public GameObject currentPlayer;
     public float dropped = 0;
     public string team = null;
+
+    private void Start()
+    {
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
+    }
 
     private void Update()
     {
@@ -30,6 +36,8 @@ public class GooberFunctionality : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerManager>().CapturingTheFlag();
             GetComponent<SphereCollider>().enabled = false;
+
+            killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (collision.gameObject.GetComponent<PlayerManager>().username + " claimed the ATP!"));
         }
     }
 

@@ -531,7 +531,7 @@ public class WeaponManager : MonoBehaviour
             //Debug.Log("why" + player2);
         }
 
-        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead) //ADD && killFeedScript.player2 != targetPhotonView.GetComponent<PlayerManager>().username to prevent multiple kill feeds while hitting them after they died
+        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead && killFeedScript.player2 != targetPhotonView.GetComponent<PlayerManager>().username)
         {
             /*this.gameObject.GetComponentInChildren<KillFeed>().player2 = player2;
             this.gameObject.GetComponentInChildren<KillFeed>().player1 = playerManagerScript.username;

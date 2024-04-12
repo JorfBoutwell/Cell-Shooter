@@ -39,6 +39,8 @@ public class KillFeed : MonoBehaviour
     public string player1;
     public string player2;
 
+    public string alertText;
+
     public int pointsNeeded = 1000;
 
 
@@ -75,14 +77,14 @@ public class KillFeed : MonoBehaviour
         //Calls AlertFeedInstantiate
         if(Input.GetKeyDown(KeyCode.J))
         {
-            AlertFeedInstantiate(boxesCount);
+            AlertFeedInstantiate(boxesCount, alertText);
         }
 
         Debug.Log(pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points + "bruh" + pointsNeeded / 2);
 
         if((pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !aHalfPoint) || (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !bHalfPoint))
         {
-            AlertFeedInstantiate(boxesCount);
+            AlertFeedInstantiate(boxesCount,alertText);
         }
     }
 
@@ -113,6 +115,8 @@ public class KillFeed : MonoBehaviour
         }
 
         count--;
+        player1 = "";
+        player2 = "";
 
     }
 
@@ -123,7 +127,7 @@ public class KillFeed : MonoBehaviour
     }
 
     //Instantiates Alert Feeds
-    public void AlertFeedInstantiate(int boxesCounts)
+    public void AlertFeedInstantiate(int boxesCounts, string aText)
     {
         yPos = 125 * count;
         count++;
@@ -131,7 +135,7 @@ public class KillFeed : MonoBehaviour
         boxes[boxesCounts].transform.DOMoveX(1695f, 0.1f);
 
         boxes[boxesCounts].transform.SetParent(canvas1.transform);
-        AlertText(boxesCounts);
+        AlertText(boxesCounts, aText);
         StartCoroutine("AlertTimer");
     }
 
@@ -152,7 +156,7 @@ public class KillFeed : MonoBehaviour
     }
 
     //Sets Text in Alert Feed
-    public void AlertText(int boxesCounts)
+    public void AlertText(int boxesCounts, string aText)
     {
         if (pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded/2) && !aHalfPoint) 
         {
@@ -165,7 +169,7 @@ public class KillFeed : MonoBehaviour
             bHalfPoint = true;
         }
         else { 
-            boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Gather More Points!";
+            boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = aText;
         }
     }
 

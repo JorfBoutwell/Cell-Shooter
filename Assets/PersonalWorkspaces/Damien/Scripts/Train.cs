@@ -12,12 +12,15 @@ public class Train : MonoBehaviour
     private Vector3 StartPos;
     private BoxCollider Collider;
 
+    KillFeed killFeedScript;
+
 
     PlayerManager playerManagerScript;
 
   // Start is called before the first frame update
     void Start()
     {
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
         NewTrain = TimeUntilTrain;
         StartPos = transform.position;
         //Collider = transform.gameObject.GetComponent<BoxCollider>();
@@ -58,5 +61,9 @@ public class Train : MonoBehaviour
         playerManagerScript = other.GetComponent<PlayerManager>();
         playerManagerScript.health -= 100;
         playerManagerScript.isDead = true;
-   }
+
+        killFeedScript.player2 = "TRAIN";
+        killFeedScript.player1 = playerManagerScript.username;
+        killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
+    }
 }
