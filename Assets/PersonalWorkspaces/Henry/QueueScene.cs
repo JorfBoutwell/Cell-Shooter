@@ -47,6 +47,17 @@ public class QueueScene : MonoBehaviourPunCallbacks
     public Sprite[] portraits;
     public TMP_Text charName;
     public string[] names;
+
+    public TMP_Text[] captions;
+    public TMP_Text[] descriptions;
+
+    public string[] caption1;
+    public string[] desc1;
+    public string[] caption2;
+    public string[] desc2;
+    public string[] caption3;
+    public string[] desc3;
+    public float[] spacing;
     public bool selected = false;
 
 
@@ -233,6 +244,10 @@ public class QueueScene : MonoBehaviourPunCallbacks
             if (selected == true) return;
             charPortrait.transform.gameObject.SetActive(false);
             charName.text = "???";
+            foreach(TMP_Text text in captions)
+            {
+                text.text = "";
+            }
         }
         else
         {
@@ -240,6 +255,11 @@ public class QueueScene : MonoBehaviourPunCallbacks
             charPortrait.transform.gameObject.SetActive(true);
             charName.text = names[index];
             charPortrait.sprite = portraits[index];
+            captions[0].text = caption1[index];
+            captions[1].text = caption2[index];
+            captions[2].text = caption3[index];
+            captions[0].transform.parent.GetComponent<GridLayoutGroup>().spacing = new Vector2(spacing[index], 0);
+
         }
     }
     //checks if someone on your team already is using the character you want
