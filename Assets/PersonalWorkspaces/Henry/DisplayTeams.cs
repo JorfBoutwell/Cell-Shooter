@@ -21,7 +21,7 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
     public bool game;
 
     public Sprite[] sprites;
-    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4" };
+    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4", "" };
 
     public Dictionary<string, Sprite> sprite = new Dictionary<string, Sprite>();
 

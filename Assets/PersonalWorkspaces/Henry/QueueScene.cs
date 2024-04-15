@@ -25,7 +25,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     //string of names read from to assign player character.
     //This and display team are their locations that both need to be changed if a change is made here
-    public string[] characters = new string[] { "Neuron", "RBC", "Osteoclast", "TCell" };
+    public string[] characters = new string[] { "Neuron", "RBC", "Osteoclast", "TCell", "" };
 
     //gameobject for start button needed to make it visible or not
     public GameObject start;
@@ -86,7 +86,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             //function to set characters that only lets you get an avialable character
-            setCharacter();
+            setCharacter(4);
         }
 
         charPortrait.transform.gameObject.SetActive(false);
@@ -110,6 +110,14 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 }
             }
 
+        }
+
+        if (character != "")
+        {
+            updateReadyState(true);
+        } else
+        {
+            updateReadyState(false);
         }
 
         //on maser clients script, uses the count to turn on or off start button for master client
@@ -172,13 +180,13 @@ public class QueueScene : MonoBehaviourPunCallbacks
         //if you give a choice
         else
         {
-            if(character == characters[choice])
+            Debug.Log(choice + " choice");
+            if(character == characters[choice] && choice != 4)
             {
                 selected = false;
-                updateReadyState(false);
-                character = "";
+                setCharacter(4);
                 return;
-            }
+            } 
             //check if team a
             if(team)
             {
@@ -190,7 +198,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                         return;
 
                     //recall this function but this time with default option (don't think this can happen but just in case)
-                    setCharacter();
+                    setCharacter(4);
                 } else
                 {
                     //you choice works so sets character 
@@ -204,7 +212,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                     if (character != "")
                         return;
 
-                    setCharacter();
+                    setCharacter(4);
                 }
                 else
                 {
@@ -220,7 +228,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     public void UpdateUI(int index)
     {
-        if (index == -1)
+        if (index == -1 || index == 4)
         {
             if (selected == true) return;
             charPortrait.transform.gameObject.SetActive(false);
@@ -248,10 +256,10 @@ public class QueueScene : MonoBehaviourPunCallbacks
             object op;
             if (player.CustomProperties.TryGetValue(TeamPropKey, out teamP) && player.CustomProperties.TryGetValue(IndividualCharacter, out op) && !player.IsLocal)
             {
-                if((bool)teamP)
+                if((bool)teamP && (string)op != "")
                 {
                     teamAOps.Add((string)op);
-                } else
+                } else if ((string)op != "")
                 {
                     teamBOps.Add((string)op);
                 }
