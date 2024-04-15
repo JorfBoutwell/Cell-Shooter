@@ -383,7 +383,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
         photonView.Owner.SetCustomProperties(customProperties);
         //leaves the room and loads the lobby
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel(3);
+        PhotonNetwork.LoadLevel("Lobby");
     }
 
     //gets list of all players on the blue team
