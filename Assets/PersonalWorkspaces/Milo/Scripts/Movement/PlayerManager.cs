@@ -320,7 +320,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         GameObject dictionary = GameObject.Find("CustomVariableStorage");
         Destroy(dictionary);
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel(3);
+        PhotonNetwork.LoadLevel("Lobby");
     }
 
     
