@@ -6236,6 +6236,18 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3569553342749139397, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569553342749139397, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569553342749139397, guid: f61710afb9da0472d969323947e82c78, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 3580195446297262955, guid: f61710afb9da0472d969323947e82c78, type: 3}
       propertyPath: m_Name
       value: RoundStartObject
