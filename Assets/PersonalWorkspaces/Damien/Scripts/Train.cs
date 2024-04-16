@@ -12,6 +12,8 @@ public class Train : MonoBehaviour
     private Vector3 StartPos;
     private BoxCollider Collider;
 
+    public bool test;
+
     KillFeed killFeedScript;
 
     PlayerManager playerManagerScript;
