@@ -20,7 +20,7 @@ public class AbilityUI : MonoBehaviour
             if(abilities[i].name != "Melee")
             {
                 GameObject img = (GameObject)Instantiate(abilityImage);
-                img.transform.parent = transform;
+                img.transform.SetParent(transform, false);
                 img.GetComponentInChildren<TMP_Text>().text = keys[i].ToString();
                 abilityObjects[i] = img;
             }
