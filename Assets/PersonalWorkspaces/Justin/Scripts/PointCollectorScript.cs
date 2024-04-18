@@ -20,13 +20,13 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
     private string currentTeam;
     public GameObject currentPlayer;
 
-
+    public PointCollectorBar pointCollectorBarScript;
 
     // Start is called before the first frame update
     void Start()
     {
         gameObject.GetComponentInChildren<Renderer>().material.color = Color.grey;
-        
+        pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
     }
 
     // Update is called once per frame
@@ -106,8 +106,7 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
 
             player.GetComponent<PlayerManager>().buttonsPressed += 1;
 
-
-            if (playerManagerScript.team == "A")
+        if (playerManagerScript.team == "A")
             {
                 currentTeam = "A";
                 gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
@@ -117,7 +116,15 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
                 currentTeam = "B";
                 gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
             }
+        if (currentTeam == "A")
+        {
+            pointCollectorBarScript.aCollected += 1;
+        }
+        else
+        {
+            pointCollectorBarScript.bCollected += 1;
+        }
 
-        
+
     }
 }
