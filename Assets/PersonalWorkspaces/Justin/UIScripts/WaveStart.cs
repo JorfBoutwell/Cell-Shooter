@@ -118,7 +118,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 countdownOverlay.SetActive(true);
                 countdownTimer.color = Color.red;
                 countdownTimer.fontSize = 200;
-                countdownText.transform.position = new Vector3(1000f, 200f, 0f);
+                countdownText.transform.position = new Vector3(1000f, 300f, 0f);
             }
 
             //Deactivates Final Countdown Overlay and Countdown
@@ -240,6 +240,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     {
         if (!GameObject.Find("Goober"))
         {
+            GameObject.Find("CaptureTheFlagOverlay").SetActive(false);
             objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
 
             objectiveText.SetActive(true);

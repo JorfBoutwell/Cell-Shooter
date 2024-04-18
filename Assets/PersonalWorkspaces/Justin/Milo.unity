@@ -1144,6 +1144,7 @@ MonoBehaviour:
   pointsA: 0
   pointsB: 0
   currentPlayer: {fileID: 0}
+  pointCollectorBarScript: {fileID: 0}
 --- !u!1 &571627351 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7589574724976194294, guid: fbccd4fb22820834fa41a6f343996dd0, type: 3}
@@ -1840,6 +1841,7 @@ MonoBehaviour:
   pointsA: 0
   pointsB: 0
   currentPlayer: {fileID: 0}
+  pointCollectorBarScript: {fileID: 0}
 --- !u!65 &1471141449
 BoxCollider:
   m_ObjectHideFlags: 0
