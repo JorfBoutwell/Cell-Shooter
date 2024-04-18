@@ -20,21 +20,24 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
 
     public bool game;
 
-    public Color[] colors;
-    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4" };
+    public Sprite[] sprites;
+    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4", "" };
 
-    public Dictionary<string, Color> color = new Dictionary<string, Color>();
+    public Dictionary<string, Sprite> sprite = new Dictionary<string, Sprite>();
 
     private void Start()
     {
         if (!game)
         {
+            Debug.Log("character length is " + characters.Length);
             for (int i = 0; i < characters.Length; i++)
             {
-                color.Add(characters[i], colors[i]);
+                sprite.Add(characters[i], sprites[i]);
             }
         }
     }
+
+
 
     private void Update()
     {
@@ -65,7 +68,7 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     teamA.transform.GetChild(blueCounter).gameObject.SetActive(true);
                     teamA.transform.GetChild(blueCounter).GetComponent<TMP_Text>().SetText(player.NickName);
 
-                    if ((bool)ready && !game)
+                    /*if ((bool)ready && !game)
                     {
                         teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(true);
                         teamA.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(false);
@@ -73,11 +76,12 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     {
                         teamA.transform.GetChild(blueCounter).GetChild(0).gameObject.SetActive(true);
                         teamA.transform.GetChild(blueCounter).GetChild(1).gameObject.SetActive(false);
-                    }
+                    }*/
 
                     if(!game)
                     {
-                        teamA.transform.GetChild(blueCounter).GetChild(2).GetComponent<Image>().color = color[(string)character];
+                        teamA.transform.GetChild(blueCounter).GetChild(0).GetComponent<Image>().enabled = true;
+                        teamA.transform.GetChild(blueCounter).GetChild(0).GetComponent<Image>().sprite = sprite[(string)character];
                     }
                     blueCounter++;
                 } else if(!(bool)aTeam)
@@ -85,7 +89,7 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     teamB.transform.GetChild(redCounter).gameObject.SetActive(true);
                     teamB.transform.GetChild(redCounter).GetComponent<TMP_Text>().SetText(player.NickName);
 
-                    if ((bool)ready && !game)
+                    /*if ((bool)ready && !game)
                     {
                         teamB.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(true);
                         teamB.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(false);
@@ -94,11 +98,12 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                     {
                         teamB.transform.GetChild(redCounter).GetChild(0).gameObject.SetActive(true);
                         teamB.transform.GetChild(redCounter).GetChild(1).gameObject.SetActive(false);
-                    }
+                    }*/
 
                     if (!game)
                     {
-                        teamB.transform.GetChild(redCounter).GetChild(2).GetComponent<Image>().color = color[(string)character];
+                        teamB.transform.GetChild(redCounter).GetChild(0).GetComponent<Image>().enabled = true;
+                        teamB.transform.GetChild(redCounter).GetChild(0).GetComponent<Image>().sprite = sprite[(string)character];
                     }
                     redCounter++;
                 }

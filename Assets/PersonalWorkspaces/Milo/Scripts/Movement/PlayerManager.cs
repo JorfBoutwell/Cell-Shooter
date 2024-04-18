@@ -8,13 +8,14 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     PlayerControllerNEW m_player;
     WeaponManager m_weapon;
 
-
+    [SerializeField] Transform playerCamera;
 
     [SerializeField] GameObject UI;
     [SerializeField] GameObject hitbox;
@@ -22,10 +23,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [Header("UI References")]
     [SerializeField] GameObject damInd;
     [SerializeField] Image vignette;
+    [SerializeField] GameObject FPDisplay;
 
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
     public Spawn spawnScript;
+
+    public PlayerRef[] playerRefs;
+    public Stats[] stats;
 
     static int spawnIncrementA = 0;
     static int spawnIncrementB = 0;
@@ -49,7 +54,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public List<string> activeEffects;
     public GameObject[] pointCollection;
 
-
+    public GameObject goober;
+    public GameObject gooberStatusOverlay;
+    public GameObject gooberTargeter;
 
     PhotonView view;
 
@@ -63,21 +70,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Material materialA;
     [SerializeField] Material materialB;
 
+    KillFeed killFeedScript;
     public string username;
-
 
 
     private void Awake()
     {
         spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
 
-        if(PhotonNetwork.IsMasterClient)
+
+        if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamAScore, 0 } });
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { TeamBScore, 0 } });
         }
         //username = PhotonNetwork.PlayerList[PhotonNetwork.PlayerList.Length - 1].ToString();
-        username = PhotonNetwork.LocalPlayer.NickName;
+        //username = PhotonNetwork.LocalPlayer.NickName;
         //could try targetPlayer.NickName or PhotonNetwork.LocalPlayer instead
 
         character = "Neuron";
@@ -107,15 +116,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         pointCollection = GameObject.FindGameObjectsWithTag("PointCollector");
         pointCollection = orderGoobers(pointCollection);
 
+        goober = GameObject.FindGameObjectWithTag("Goober");
+        gooberStatusOverlay = GameObject.Find("CaptureTheFlagOverlay");
+        gooberTargeter = GameObject.Find("GooberDirection");
     }
 
     private void Start()
     {
-
         foreach (Player player in PhotonNetwork.PlayerList)
         {
             if (photonView.Owner.ActorNumber == player.ActorNumber)
             {
+                username = player.NickName;
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
                 object localCharacter;
@@ -151,6 +163,45 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
             }
         }
+
+        SetCharacter();
+    }
+
+    public void SetCharacter()
+    {
+
+        PlayerRef refs = playerRefs[0];
+        switch(character)
+        {
+            case "Player1":
+                Debug.Log("Neuron");
+                refs = playerRefs[0];
+                gameObject.AddComponent<NeuronStats>();
+                break;
+            case "Player2":
+                Debug.Log("RBC");
+                refs = playerRefs[1];
+                gameObject.AddComponent<RBCStats>();
+                break;
+            case "Player3":
+                Debug.Log("Osteoclast");
+                refs = playerRefs[2];
+
+                break;
+            case "PLayer4":
+                Debug.Log("TCell");
+                refs = playerRefs[3];
+
+                break;
+            default: Debug.Log("Not a character " + character); break;
+        }
+
+        FPDisplay.GetComponent<Animator>().runtimeAnimatorController = refs.animator;
+        m_weapon.abilityList = refs.abilities.ToArray();
+        m_weapon.bulletTrail = refs.bulletTrail;
+        //m_weapon.weapon = refs.weapon;
+
+        m_weapon.abilityUI.GenerateAbilityUI();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -189,7 +240,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             deathTimerOn = true;
             StartCoroutine("DeathTimer");
         }
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName);
+
+        ChangeGooberText();
     }
 
     private GameObject[] orderGoobers(GameObject[] goobers)
@@ -257,19 +309,21 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         inputActions.Disable();
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "PointCollector")
-    //    {
-    //        if (buttonsPressed >= 0)
-    //        {
-    //            pointCollectors.Add(collision.gameObject as GameObject);
-    //            Debug.Log("Yeah" + pointCollectors[0]);
-    //            view.RPC("RPC_UpdatePos", RpcTarget.AllBuffered, gameObject.transform.position);
-    //        }
-    //    }
+    public void LeaveGame()
+    {
+        //clears your custom properties
+        //ExitGames.Client.Photon.Hashtable customProperties = photonView.Owner.CustomProperties;
+        //customProperties.Clear();
+        //synchs the clearing
+        //photonView.Owner.SetCustomProperties(customProperties);
+        //leaves the room and loads the lobby
+        GameObject dictionary = GameObject.Find("CustomVariableStorage");
+        Destroy(dictionary);
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("Lobby");
+    }
 
-    //}
+    
 
     //ran when a point collecter hits this gameobject
     public void recievePoint(GameObject pointCollecter)
@@ -290,9 +344,58 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    
+    //ran when you hit the goober
+    public void CapturingTheFlag()
+    {
+        if(photonView.IsMine)
+        {
+            photonView.RPC("UpdateFlag", RpcTarget.All);
+        }
+    }
 
     
+    public void ChangeGooberText()
+    {
+        GooberFunctionality gooberScript = goober.GetComponent<GooberFunctionality>();
+
+        int target;
+        if (gooberScript.currentPlayer == gameObject)
+        {
+            //turn on playerclaimed
+            target = 1;
+        } else if (gooberScript.team == "A")
+        {
+            //turn on either red
+            target = 2;
+
+            gooberTargeter.GetComponent<Image>().color = Color.red;
+        } else if (gooberScript.team == "B")
+        {
+            //turn on other
+            target = 3;
+
+            gooberTargeter.GetComponent<Image>().color = Color.blue;
+        } else
+        {
+            //turn on unclaimed
+            target = 0;
+
+            gooberTargeter.GetComponent<Image>().color = Color.white;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == target)
+            {
+                gooberStatusOverlay.transform.GetChild(i).gameObject.SetActive(true);
+            } else
+            {
+                gooberStatusOverlay.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+
+
 
     public void HandleEffects()
     {
@@ -368,9 +471,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void ApplyDamage(float damage, GameObject source)
     {
+        
         health -= damage;
         if (health <= 0)
         {
+            vignette.DOColor(new Color32(0, 0, 0, 40), 0.25f);
             isDead = true;
         }
         else
@@ -378,14 +483,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             StartCoroutine(ShowDamageIndicator(1f, source));
             Sequence tweenSequence = DOTween.Sequence();
             tweenSequence.Append(vignette.DOColor(new Color32(255,0,0,40), 0.75f));
-            if(health <= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,40), 0.25f));
+            if(health >= maxHealth/10) tweenSequence.Append(vignette.DOColor(new Color32(0,0,0,40), 0.25f));
+            tweenSequence.Play();
 
         }
 
-        if(isDead)
+        /*if(isDead)
         {
-            m_weapon.player2 = username;
-        }
+            killFeedScript.player2 = username;
+        }*/
 
         return;
     }
@@ -393,15 +499,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public IEnumerator ShowDamageIndicator(float time, GameObject source)
     {
         damInd.SetActive(true);
-        Vector2 dirToSource = new Vector2(source.transform.position.x - transform.position.x, source.transform.position.z - transform.position.z);
-        float hyp = Mathf.Sqrt(Mathf.Pow(dirToSource.x, 2) + Mathf.Pow(dirToSource.y, 2));
-        Vector2 point = new Vector2(0, hyp);
-        float dotProduct = Vector2.Dot(dirToSource, point);
-        float angleRadians = Mathf.Acos(dotProduct / (hyp * hyp));
-        float angleDegrees = angleRadians * Mathf.Rad2Deg;
-        if (dirToSource.x > point.x) angleDegrees = 360 - angleDegrees;
-        Debug.Log("angle is: " + angleDegrees);
-        damInd.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angleDegrees));
+
+        // Calculate the direction from the player's camera to the objective
+        Vector3 directionToObjective = (source.transform.position - playerCamera.position).normalized;
+
+        // Project the direction onto the horizontal plane (ignoring vertical component)
+        Vector3 directionOnHorizontalPlane = Vector3.ProjectOnPlane(directionToObjective, Vector3.up).normalized;
+
+        // Calculate the angle between the forward direction of the player's view and the direction to the objective
+        float angleToObjective = Vector3.SignedAngle(playerCamera.forward, directionOnHorizontalPlane, Vector3.up);
+
+        // Rotate the arrow UI element to point towards the objective
+        damInd.transform.rotation = Quaternion.Euler(0f, 0f, -angleToObjective);
 
         yield return new WaitForSeconds(time);
         damInd.SetActive(false);
@@ -414,11 +523,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer.GetComponent<PlayerManager>().buttonsPressed -= 1;
         }
-            pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
-        
-        
-        
+        pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
     }
+
+    [PunRPC]
+    public void UpdateFlag()
+    {
+        goober.GetComponent<GooberFunctionality>().RunCollision(gameObject);
+    }
+
+
 
     //ran when host clients timer hits 0, synchs all clocks
     [PunRPC]

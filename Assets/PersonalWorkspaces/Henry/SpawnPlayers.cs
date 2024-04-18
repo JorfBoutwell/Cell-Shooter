@@ -33,21 +33,6 @@ public class SpawnPlayers : MonoBehaviour
         code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
         code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
 
-        //set character specific variables
-        if(player.GetComponent<PlayerManager>() != null)
-        {
-            //character = PASS PLAYERS CHOSEN CHARACTER
-            PlayerRef playerRef = null; //set playerRefs based on character
-
-            /* I'll add the logic to set everything
-             * 
-             * player.animator = playerRef.animator
-             * player.abilities = playerRef.abilities
-             * etc.
-             * 
-             */
-        }
-
     }
 
 }

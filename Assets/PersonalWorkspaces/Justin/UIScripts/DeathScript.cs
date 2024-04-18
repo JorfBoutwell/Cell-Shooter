@@ -13,8 +13,13 @@ public class DeathScript : MonoBehaviour
 
     [Header("Death UI")]
     public GameObject deathOverlay;
-    public TextMeshProUGUI deathText;
     public TextMeshProUGUI deathTimer;
+    public TextMeshProUGUI deathMessage;
+    public GameObject gooberGuide;
+    public List<string> messages;
+    List<string> tempMessages;
+    public float fadeInDuration;
+    public float fadeOutDuration;
 
     //References
     public GameObject healthUI;
@@ -28,7 +33,12 @@ public class DeathScript : MonoBehaviour
     public GameObject pointCollector;
     public PointCollectorScript pointCollectorScript;
 
+    public KillFeed killFeedScript;
+
+    public GameObject goober;
+
     //Floats and Bools
+    bool initialDeathCode = false;
     float currentTime;
     bool onoff;
     float originalAnimationScale;
@@ -53,12 +63,20 @@ public class DeathScript : MonoBehaviour
         //Setting References
         healthUIScript = healthUI.GetComponent<HealthUI>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
+
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
 
         //Setting Default Spawn Location and Death Timer
         currentTime = 5f;
         spawnLocation = new Vector3(0, 0, 0);
+
+        goober = GameObject.FindGameObjectWithTag("Goober");
+
+        Random.InitState(System.DateTime.Now.Millisecond);
+
+        tempMessages = new List<string>(messages);
     }
 
     void Update()
@@ -74,26 +92,32 @@ public class DeathScript : MonoBehaviour
 
     public IEnumerator Death()
     {
-        //Unclaims Points
-        PointCollecterReset();
+        if (initialDeathCode == false)
+        {
+            //Unclaims Points
+            PointCollecterReset();
 
-        //Activates Death Overlay
-        onoff = true;
-        DeathScreen(onoff);
-        deathText.DOColor(Color.red, animationDuration);
+            if (goober.GetComponent<GooberFunctionality>().atpClaimed)
+            {
+                goober.GetComponent<GooberFunctionality>().atpClaimed = false;
+                //drop goober
+                DropGoober();
+            }
+
+            //Activates Death Overlay
+            onoff = true;
+            DeathScreen(onoff);
+
+            initialDeathCode = true;
+        }
 
         //Activates Death Overlay UI
         deathTimer.text = currentTime.ToString("0");
-        deathText.transform.DOScale(animationScale, animationDuration);
 
         yield return new WaitForSeconds(currentTime);
 
         //Reset Health
         HealthReset();
-
-        //Reset Death Text and Color to Default Size and Color
-        deathText.transform.DOScale(originalAnimationScale, animationDuration);
-        deathText.DOColor(Color.white, animationDuration);
 
         //Deactivate Death Overlay
         onoff = false;
@@ -102,20 +126,42 @@ public class DeathScript : MonoBehaviour
         //Respawns Player
         SpawnPlayer();
 
+        //REACTIVATE GOOBER GUIDANCE SYSTEM
+        gooberGuide.SetActive(true);
+
         //Resets Death Timer to Default Count
         currentTime = 5f;
+
+        initialDeathCode = false;
     }
 
     //Activates Death Overlay
     private void DeathScreen(bool onoff)
     {
+        CanvasGroup deathGroup = deathOverlay.GetComponent<CanvasGroup>();
+        deathGroup.alpha = 0f;
         
-        if (onoff) { 
-        deathOverlay.SetActive(true);
+        if (onoff) {
+
+
+            if(tempMessages.Count <= 0)
+            {
+                tempMessages = new List<string>(messages);
+            }
+            else
+            {
+                int r = Random.Range(0, tempMessages.Count - 1);
+                deathMessage.text = tempMessages[r];
+                tempMessages.Remove(tempMessages[r]);
+            }
+
+            deathOverlay.SetActive(true);
+            deathGroup.DOFade(1f, fadeInDuration);
         }
         else
         {
-        deathOverlay.SetActive(false);
+            deathGroup.DOFade(0f, fadeOutDuration);
+        //deathOverlay.SetActive(false);
         }
         return;
     }
@@ -155,6 +201,18 @@ public class DeathScript : MonoBehaviour
         }*/
 
         playerManagerScript.buttonsPressed = 0;
+    }
+
+    public void DropGoober()
+    {
+        goober.GetComponent<GooberFunctionality>().dropped = 5.01f;
+        goober.transform.SetParent(null);
+        goober.transform.position += new Vector3(0, -1.5f, 0);
+        goober.transform.SetParent(GameObject.Find("Goobers").transform);
+        goober.GetComponent<SphereCollider>().enabled = true;
+        killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (goober.GetComponent<GooberFunctionality>().currentPlayer.gameObject.GetComponent<PlayerManager>().username + " dropped the ATP!"));
+        goober.GetComponent<GooberFunctionality>().currentPlayer = null;
+        goober.GetComponent<GooberFunctionality>().team = null;
     }
 
     //Resets Health After Respawn

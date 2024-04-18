@@ -2,9 +2,13 @@ using System.Collections;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+
+
 
 public class QueueScene : MonoBehaviourPunCallbacks
 {
@@ -21,7 +25,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
     //string of names read from to assign player character.
     //This and display team are their locations that both need to be changed if a change is made here
-    public string[] characters = new string[] { "Neuron", "Player2", "Player3", "PLayer4" };
+    public string[] characters = new string[] { "Neuron", "RBC", "Osteoclast", "TCell", "" };
 
     //gameobject for start button needed to make it visible or not
     public GameObject start;
@@ -37,6 +41,25 @@ public class QueueScene : MonoBehaviourPunCallbacks
     //string that will be stored here and passed into the game as a custom variable
     //telling what character they are
     public string character = "";
+
+    [Header("CharacterSelectVariables")]
+    public Image charPortrait;
+    public Sprite[] portraits;
+    public TMP_Text charName;
+    public string[] names;
+
+    public TMP_Text[] captions;
+    public TMP_Text[] descriptions;
+
+    public string[] caption1;
+    public string[] desc1;
+    public string[] caption2;
+    public string[] desc2;
+    public string[] caption3;
+    public string[] desc3;
+    public float[] spacing;
+    public bool selected = false;
+
 
 
     private void Start()
@@ -74,9 +97,11 @@ public class QueueScene : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             //function to set characters that only lets you get an avialable character
-            setCharacter();
+            setCharacter(4);
         }
-        
+
+        charPortrait.transform.gameObject.SetActive(false);
+
         //says you are not ready
         updateReadyState(false);
     }
@@ -98,14 +123,22 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
         }
 
+        if (character != "")
+        {
+            updateReadyState(true);
+        } else
+        {
+            updateReadyState(false);
+        }
+
         //on maser clients script, uses the count to turn on or off start button for master client
         if (PhotonNetwork.IsMasterClient && readyCount == PhotonNetwork.PlayerList.Length && start != null)
         {
-            start.SetActive(true);
+            start.GetComponent<Button>().interactable = true;
         }
         else if (start!= null)
         {
-            start.SetActive(false);
+            start.GetComponent<Button>().interactable = false;
         }
     }
 
@@ -140,7 +173,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                     if(!OpUsed(characters[i], team))
                     {
                         //gives you the character
-                        character = characters[i];
+                        character = "";
                         break;
                     }
                 } else
@@ -149,7 +182,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                     //same as above but if you are on team b
                     if (!OpUsed(characters[i], team))
                     {
-                        character = characters[i];
+                        character = "";
                         break;
                     }
                 }
@@ -158,6 +191,13 @@ public class QueueScene : MonoBehaviourPunCallbacks
         //if you give a choice
         else
         {
+            Debug.Log(choice + " choice");
+            if(character == characters[choice] && choice != 4)
+            {
+                selected = false;
+                setCharacter(4);
+                return;
+            } 
             //check if team a
             if(team)
             {
@@ -169,7 +209,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                         return;
 
                     //recall this function but this time with default option (don't think this can happen but just in case)
-                    setCharacter();
+                    setCharacter(4);
                 } else
                 {
                     //you choice works so sets character 
@@ -183,7 +223,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
                     if (character != "")
                         return;
 
-                    setCharacter();
+                    setCharacter(4);
                 }
                 else
                 {
@@ -191,9 +231,36 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 }
             }
         }
-        
+
+        UpdateUI(choice);
         //set your custom variable to be the character you were assigned
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { IndividualCharacter, character } });
+    }
+
+    public void UpdateUI(int index)
+    {
+        if (index == -1 || index == 4)
+        {
+            if (selected == true) return;
+            charPortrait.transform.gameObject.SetActive(false);
+            charName.text = "???";
+            foreach(TMP_Text text in captions)
+            {
+                text.text = "";
+            }
+        }
+        else
+        {
+            if (selected == true) return;
+            charPortrait.transform.gameObject.SetActive(true);
+            charName.text = names[index];
+            charPortrait.sprite = portraits[index];
+            captions[0].text = caption1[index];
+            captions[1].text = caption2[index];
+            captions[2].text = caption3[index];
+            captions[0].transform.parent.GetComponent<GridLayoutGroup>().spacing = new Vector2(spacing[index], 0);
+
+        }
     }
     //checks if someone on your team already is using the character you want
     public bool OpUsed(string character, bool team)
@@ -209,10 +276,10 @@ public class QueueScene : MonoBehaviourPunCallbacks
             object op;
             if (player.CustomProperties.TryGetValue(TeamPropKey, out teamP) && player.CustomProperties.TryGetValue(IndividualCharacter, out op) && !player.IsLocal)
             {
-                if((bool)teamP)
+                if((bool)teamP && (string)op != "")
                 {
                     teamAOps.Add((string)op);
-                } else
+                } else if ((string)op != "")
                 {
                     teamBOps.Add((string)op);
                 }
@@ -253,11 +320,18 @@ public class QueueScene : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             //stores passed value
-            ready = value;
+            if (ready != value) ready = value; else ready = !value;
+            Debug.Log(ready);
             //makes custom variable in photon for ready status, will always be with player in the game
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { ReadyPropKey, value } });
         }
     }
+
+    public void UpdateSelected(bool value)
+    {
+        if (selected != value) selected = value; else selected = !value;
+    }
+
     private void OnPlayerConnected()
     {
         //resets recently joined counter
@@ -337,7 +411,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
         photonView.Owner.SetCustomProperties(customProperties);
         //leaves the room and loads the lobby
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel(3);
+        PhotonNetwork.LoadLevel("Lobby");
     }
 
     //gets list of all players on the blue team
@@ -393,7 +467,8 @@ public class QueueScene : MonoBehaviourPunCallbacks
             //locks room to others
             PhotonNetwork.CurrentRoom.IsOpen = false;
             //loads nex level
-            PhotonNetwork.LoadLevel("TrainMap");
+            //PhotonNetwork.LoadLevel("TrainMap");
+            PhotonNetwork.LoadLevel("CaptureTheFlagTrainMap");
             //PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }

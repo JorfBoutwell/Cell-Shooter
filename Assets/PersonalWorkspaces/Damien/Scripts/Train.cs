@@ -12,14 +12,16 @@ public class Train : MonoBehaviour
     private Vector3 StartPos;
     private BoxCollider Collider;
 
-<<<<<<< HEAD
+    public bool test;
+
+    KillFeed killFeedScript;
+
     PlayerManager playerManagerScript;
 
-=======
->>>>>>> parent of 90ef0b0 (Revert "Merge branch 'main' of https://github.com/JorfBoutwell/Cell-Shooter")
-    // Start is called before the first frame update
+  // Start is called before the first frame update
     void Start()
     {
+        killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
         NewTrain = TimeUntilTrain;
         StartPos = transform.position;
         //Collider = transform.gameObject.GetComponent<BoxCollider>();
@@ -55,13 +57,17 @@ public class Train : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-<<<<<<< HEAD
+
         Debug.Log("TRAIN HIT PLAYER" + other);
         playerManagerScript = other.GetComponent<PlayerManager>();
         playerManagerScript.health -= 100;
         playerManagerScript.isDead = true;
-=======
-        //Debug.Log(other);
->>>>>>> parent of 90ef0b0 (Revert "Merge branch 'main' of https://github.com/JorfBoutwell/Cell-Shooter")
+
+        if (!killFeedScript.hitByTrain) {
+            killFeedScript.hitByTrain = true;
+            killFeedScript.player2 = playerManagerScript.username;
+            killFeedScript.player1 = "TRAIN";
+            killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
+        }
     }
 }

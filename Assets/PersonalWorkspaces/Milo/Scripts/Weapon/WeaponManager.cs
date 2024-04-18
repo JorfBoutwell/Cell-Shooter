@@ -12,7 +12,7 @@ public class WeaponManager : MonoBehaviour
     PlayerManager playerManagerScript;
 
     KillFeed killFeedScript;
-    public string player2;
+    //public string player2;
 
     public AnimationController animController;
 
@@ -39,6 +39,8 @@ public class WeaponManager : MonoBehaviour
     private int m_fireLimit = 3;
 
     private string team;
+
+    public GameObject goober;
 
     PhotonView view;
 
@@ -106,6 +108,8 @@ public class WeaponManager : MonoBehaviour
         team = GetComponent<PlayerManager>().team;
 
         view = GetComponent<PhotonView>();
+
+        goober = GameObject.Find("Goober");
     }
 
     private void Update()
@@ -116,6 +120,9 @@ public class WeaponManager : MonoBehaviour
 
         AbilityStateMachine();
         StateMachine();
+
+        
+        
 
         destination = Camera.main.transform;
         if (stateChange) //If state has changed this frame, play new anim
@@ -161,7 +168,11 @@ public class WeaponManager : MonoBehaviour
         {
             return;
         }
-        if(abilityState == AbilityState.active)
+        if (goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject)
+        {
+            return;
+        }
+        if (abilityState == AbilityState.active)
         {
             return;
         }
@@ -196,6 +207,7 @@ public class WeaponManager : MonoBehaviour
 
     private void AbilityStateMachine()
     {
+        
         switch (abilityState)
         {
             case AbilityState.ready:
@@ -268,6 +280,10 @@ public class WeaponManager : MonoBehaviour
 
     public void UseAbility(int index)
     {
+        if (goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject)
+        {
+            return;
+        }
         if (view.IsMine)
         {
             if (State == WeaponState.idle)
@@ -512,9 +528,10 @@ public class WeaponManager : MonoBehaviour
         if (targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead == false)
         {
             targetPhotonView.GetComponent<PlayerManager>().ApplyDamage(damage, transform.gameObject);
+            //Debug.Log("why" + player2);
         }
 
-        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead)
+        if(targetPhotonView != null && targetPhotonView.GetComponent<PlayerManager>().isDead && killFeedScript.player2 != targetPhotonView.GetComponent<PlayerManager>().username)
         {
             /*this.gameObject.GetComponentInChildren<KillFeed>().player2 = player2;
             this.gameObject.GetComponentInChildren<KillFeed>().player1 = playerManagerScript.username;
