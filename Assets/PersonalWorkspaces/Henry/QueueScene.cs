@@ -58,7 +58,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
     public string[] caption3;
     public string[] desc3;
     public float[] spacing;
-    public bool selected = false;
 
 
 
@@ -194,7 +193,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             Debug.Log(choice + " choice");
             if(character == characters[choice] && choice != 4)
             {
-                selected = false;
+                ready = false;
                 setCharacter(4);
                 return;
             } 
@@ -241,23 +240,28 @@ public class QueueScene : MonoBehaviourPunCallbacks
     {
         if (index == -1 || index == 4)
         {
-            if (selected == true) return;
+            if (ready == true) return;
             charPortrait.transform.gameObject.SetActive(false);
             charName.text = "???";
             foreach(TMP_Text text in captions)
             {
                 text.text = "";
             }
+            foreach(TMP_Text text in descriptions)
+            {
+                text.text = "";
+            }
         }
         else
         {
-            if (selected == true) return;
+            if (ready == true) return;
             charPortrait.transform.gameObject.SetActive(true);
             charName.text = names[index];
             charPortrait.sprite = portraits[index];
             captions[0].text = caption1[index];
             captions[1].text = caption2[index];
             captions[2].text = caption3[index];
+            descriptions[0].text = desc1[index];
             captions[0].transform.parent.GetComponent<GridLayoutGroup>().spacing = new Vector2(spacing[index], 0);
 
         }
@@ -320,16 +324,10 @@ public class QueueScene : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             //stores passed value
-            if (ready != value) ready = value; else ready = !value;
-            Debug.Log(ready);
+            ready = value;
             //makes custom variable in photon for ready status, will always be with player in the game
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { ReadyPropKey, value } });
         }
-    }
-
-    public void UpdateSelected(bool value)
-    {
-        if (selected != value) selected = value; else selected = !value;
     }
 
     private void OnPlayerConnected()
@@ -363,13 +361,6 @@ public class QueueScene : MonoBehaviourPunCallbacks
             {
                 //if ready or not will update others
                 ready = (bool)changedProps[ReadyPropKey];
-                if (ready)
-                {
-                    Debug.Log(targetPlayer.NickName + " is ready");
-                } else
-                {
-                    Debug.Log(targetPlayer.NickName + " is not ready");
-                }
 
                 
             }

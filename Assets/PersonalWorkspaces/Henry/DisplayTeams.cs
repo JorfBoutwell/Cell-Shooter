@@ -52,7 +52,6 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
                 child.gameObject.SetActive(false);
             }
         }
-        Debug.Log(PhotonNetwork.PlayerList.Length);
         int blueCounter = 0;
         int redCounter = 0;
         int counter = 0;
