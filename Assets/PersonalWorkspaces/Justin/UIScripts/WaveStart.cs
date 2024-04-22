@@ -240,6 +240,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     {
         if (!GameObject.Find("Goober"))
         {
+            GameObject.Find("PointCollectorBar").SetActive(true);
             GameObject.Find("CaptureTheFlagOverlay").SetActive(false);
             objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
 

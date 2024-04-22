@@ -11,6 +11,7 @@ public class PointUpdateScript : MonoBehaviour
     public PlayerManager playerManagerScript;
     //public PointCollectorScript pointCollectorScript;
     public WaveStart waveStartScript;
+    public PointCollectorBar pointCollectorBarScript;
 
     public float pointsA;
     public float pointsB;
@@ -34,6 +35,8 @@ public class PointUpdateScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
+
         pointsTextA = GameObject.Find("PointsA");
         pointsTextB = GameObject.Find("PointsB");
         
@@ -54,13 +57,14 @@ public class PointUpdateScript : MonoBehaviour
                 if (playerManagerScript.team == "A") 
                 {
                     pointsA += pointIncrement * playerManagerScript.buttonsPressed;
+                    pointCollectorBarScript.updateBar(playerManagerScript.team, (int) pointsA);
 
                     pointsTextA.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsA;
                 }
                 else
                 {
                     pointsB += pointIncrement * playerManagerScript.buttonsPressed;
-                   
+                    pointCollectorBarScript.updateBar(playerManagerScript.team, (int)pointsB);
                     pointsTextB.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsB;
                 }
             }
