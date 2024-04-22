@@ -34,6 +34,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   - {fileID: 11400000, guid: 5c32d2e423dfb40af811f275d9d2ea4e, type: 2}
   - {fileID: 11400000, guid: 8213537a4233b4010b4eb75266725941, type: 2}
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_matchMaterialPreset: 1
   m_defaultSpriteAsset: {fileID: 11400000, guid: c41005c129ba4d66911b75229fd70b45, type: 2}
   m_defaultSpriteAssetPath: Sprite Assets/
