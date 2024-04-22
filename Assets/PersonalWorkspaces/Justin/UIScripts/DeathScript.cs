@@ -34,7 +34,6 @@ public class DeathScript : MonoBehaviour
     public PointCollectorScript pointCollectorScript;
 
     public KillFeed killFeedScript;
-    public PointCollectorBar pointCollectorBarScript;
 
     public GameObject goober;
 
@@ -65,7 +64,6 @@ public class DeathScript : MonoBehaviour
         healthUIScript = healthUI.GetComponent<HealthUI>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
         killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
-        pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
 
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
@@ -201,7 +199,6 @@ public class DeathScript : MonoBehaviour
         {
             playerManagerScript.currentPointCollectorsB = 0;
         }*/
-        pointCollectorBarScript.updateBar(playerManagerScript.team, playerManagerScript.buttonsPressed);
 
         playerManagerScript.buttonsPressed = 0;
     }

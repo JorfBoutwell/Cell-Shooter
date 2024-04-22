@@ -71,7 +71,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Material materialB;
 
     KillFeed killFeedScript;
-    PointCollectorBar pointCollectorBarScript;
     public string username;
 
 
@@ -79,7 +78,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
         killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
-        pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
 
 
         if (PhotonNetwork.IsMasterClient)
@@ -524,7 +522,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         if (pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer != null)
         {
             pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer.GetComponent<PlayerManager>().buttonsPressed -= 1;
-            pointCollectorBarScript.updateBar(team, -1);
         }
         pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
     }
