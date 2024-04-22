@@ -25,15 +25,51 @@ public class PointCollectorBar : MonoBehaviour
         
     }
 
-    public void updateBar (string team)
+    public void updateBar (string team, int buttonsCount)
     {
-        if(team == "A")
+        if(buttonsCount > 0)
         {
-            aBar.GetComponent<RectTransform>().sizeDelta = new Vector2((aCollected * 100)/buttons.transform.childCount, 45);
+            if (team == "A")
+            {
+                aCollected += buttonsCount;
+            }
+            else
+            {
+                bCollected += buttonsCount;
+            }
+        } else if(buttonsCount < 0)
+        {
+            if (team == "A")
+            {
+                aCollected -= buttonsCount;
+            }
+            else
+            {
+                bCollected -= buttonsCount;
+            }
+        }
+        if(!GameObject.Find("Goober"))
+        {
+            if (team == "A")
+            {
+                aBar.GetComponent<RectTransform>().sizeDelta = new Vector2((aCollected / buttons.transform.childCount * 2731)/100, 45);
+            }
+            else
+            {
+                bBar.GetComponent<RectTransform>().sizeDelta = new Vector2((bCollected / buttons.transform.childCount * 2731)/100, 45);
+
+            }
         } else
         {
-            bBar.GetComponent<RectTransform>().sizeDelta = new Vector2((bCollected * 100) / buttons.transform.childCount, 45);
+            if (team == "A" && aCollected <= 100)
+            {
+                aBar.GetComponent<RectTransform>().sizeDelta = new Vector2((aCollected * 1365) / 100, 45);
+            }
+            else if (team == "B" && bCollected <= 100)
+            {
+                bBar.GetComponent<RectTransform>().sizeDelta = new Vector2((bCollected * 1365)/100, 45);
 
+            }
         }
     }
 }
