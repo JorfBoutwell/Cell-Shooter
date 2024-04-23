@@ -27,6 +27,20 @@ public class QueueScene : MonoBehaviourPunCallbacks
     //This and display team are their locations that both need to be changed if a change is made here
     public string[] characters = new string[] { "Neuron", "RBC", "Osteoclast", "TCell", "" };
 
+    //Array of modes Available
+    public string[] modes;
+    //Array of Displayes Corresponding to the mode
+    public Sprite[] ModeSprites;
+    //curentSelectedMode
+    public int mode = 0;
+    //map changing arrows
+    public GameObject ModeArrows;
+    //mode display
+    public GameObject ModeDisplay;
+
+    //key for hosts current mode selection
+    private static readonly string CurrentMode = "CurrentMode";
+
     //gameobject for start button needed to make it visible or not
     public GameObject start;
 
@@ -87,10 +101,16 @@ public class QueueScene : MonoBehaviourPunCallbacks
                
             }
         }
+        object modeOutput;
         //allow others to join the room, only runs on master clients script
         if(PhotonNetwork.IsMasterClient && photonView.IsMine)
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
+            SetMode(0);
+        } else if(photonView.IsMine && PhotonNetwork.MasterClient.CustomProperties.TryGetValue(CurrentMode, out modeOutput))
+        {
+            mode = (int)modeOutput;
+            ModeArrows.SetActive(false);
         }
 
         if (photonView.IsMine)
@@ -139,6 +159,9 @@ public class QueueScene : MonoBehaviourPunCallbacks
         {
             start.GetComponent<Button>().interactable = false;
         }
+
+        UpdateMode();
+
     }
 
     //finds element of an array made of strings
@@ -266,6 +289,13 @@ public class QueueScene : MonoBehaviourPunCallbacks
 
         }
     }
+
+    public void UpdateMode()
+    {
+        Debug.Log("the mode is" + mode);
+        ModeDisplay.GetComponent<Image>().sprite = ModeSprites[mode];
+    }
+
     //checks if someone on your team already is using the character you want
     public bool OpUsed(string character, bool team)
     {
@@ -303,7 +333,27 @@ public class QueueScene : MonoBehaviourPunCallbacks
        
     }
 
+    //sets Game Mode Current Selection
+    public void SetMode(int index)
+    {
+        if(photonView.IsMine)
+        {
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { CurrentMode, index } });
+        }
+    }
 
+    public void ChangeMode(int value)
+    {
+        int newMode = mode + value;
+        if (newMode >= modes.Length)
+        {
+            newMode = 0;
+        } else if (newMode < 0)
+        {
+            newMode = modes.Length - 1;
+        }
+        SetMode(newMode);
+    }
 
     //sets team based on what is passeds
     public void SetTeam(bool value)
@@ -361,8 +411,11 @@ public class QueueScene : MonoBehaviourPunCallbacks
             {
                 //if ready or not will update others
                 ready = (bool)changedProps[ReadyPropKey];
+            }
 
-                
+            if (changedProps.ContainsKey(CurrentMode))
+            {
+                mode = (int)changedProps[CurrentMode];
             }
 
             //recieve that persons character
@@ -459,7 +512,7 @@ public class QueueScene : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.IsOpen = false;
             //loads nex level
             //PhotonNetwork.LoadLevel("TrainMap");
-            PhotonNetwork.LoadLevel("CaptureTheFlagTrainMap");
+            PhotonNetwork.LoadLevel(modes[mode]);
             //PhotonNetwork.LoadLevel("Multiplayer World");
         }
     }
