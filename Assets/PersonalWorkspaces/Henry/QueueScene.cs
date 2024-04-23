@@ -418,7 +418,8 @@ public class QueueScene : MonoBehaviourPunCallbacks
             {
                 Debug.Log("Player: " + targetPlayer.NickName + " is now character: " + (string)changedProps[IndividualCharacter]);
             }
-        } else if (targetPlayer == PhotonNetwork.MasterClient)
+        }
+        if (targetPlayer == PhotonNetwork.MasterClient)
         {
             if (changedProps.ContainsKey(CurrentMode))
             {
