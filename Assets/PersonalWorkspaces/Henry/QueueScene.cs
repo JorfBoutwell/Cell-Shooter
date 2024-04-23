@@ -413,15 +413,16 @@ public class QueueScene : MonoBehaviourPunCallbacks
                 ready = (bool)changedProps[ReadyPropKey];
             }
 
-            if (changedProps.ContainsKey(CurrentMode))
-            {
-                mode = (int)changedProps[CurrentMode];
-            }
-
             //recieve that persons character
             if (changedProps.ContainsKey(IndividualCharacter))
             {
                 Debug.Log("Player: " + targetPlayer.NickName + " is now character: " + (string)changedProps[IndividualCharacter]);
+            }
+        } else if (targetPlayer == PhotonNetwork.MasterClient)
+        {
+            if (changedProps.ContainsKey(CurrentMode))
+            {
+                mode = (int)changedProps[CurrentMode];
             }
         }
     }
