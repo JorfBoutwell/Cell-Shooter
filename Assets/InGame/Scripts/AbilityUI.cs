@@ -21,7 +21,7 @@ public class AbilityUI : MonoBehaviour
             {
                 GameObject img = (GameObject)Instantiate(abilityImage);
                 img.transform.SetParent(transform, false);
-                img.GetComponentInChildren<TMP_Text>().text = keys[i].ToString();
+                img.GetComponentInChildren<TextMeshProUGUI>().text = keys[i].ToString();
                 abilityObjects[i] = img;
             }
         }

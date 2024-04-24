@@ -32,7 +32,7 @@ public class KillFeed : MonoBehaviour
 
     public PointUpdateScript pointUpdateScript;
     bool aHalfPoint = false;
-    bool bHalfPoint = false;
+    static bool bHalfPoint = false;
 
     bool test = false;
     public Train trainScript;
@@ -70,10 +70,6 @@ public class KillFeed : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Killed" + player2);
-        Debug.Log("unis" + bHalfPoint + " " + test);
-
-
         boxesCount = boxes.Count;
 
         //Calls KillFeedInstantiate
@@ -87,8 +83,6 @@ public class KillFeed : MonoBehaviour
         {
             AlertFeedInstantiate(boxesCount, alertText);
         }
-
-        Debug.Log(pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points + "bruh" + pointsNeeded / 2);
 
         if((pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !aHalfPoint) || (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !bHalfPoint))
         {
@@ -127,7 +121,6 @@ public class KillFeed : MonoBehaviour
         player1 = "";
         player2 = "";
         hitByTrain = false;
-
     }
 
     //Sets Usernames in Kill Feed
@@ -170,16 +163,13 @@ public class KillFeed : MonoBehaviour
     {
         if (pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded/2) && !aHalfPoint) 
         {
-            //trainScript.test = true; //I had !trainScript.test && in if statement above
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team A is halfway there!";
             aHalfPoint = true;
         }
         else if(!bHalfPoint && (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2))) 
         {
-            //trainScript.test = true; //have to make two different tests for both a and b team
             bHalfPoint = true;
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team B is halfway there!";
-            Debug.Log("unis" + bHalfPoint);
         }
         else { 
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = aText;
