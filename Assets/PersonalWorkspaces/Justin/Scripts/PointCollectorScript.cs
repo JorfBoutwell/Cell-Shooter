@@ -91,7 +91,7 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
                 Debug.Log("not null");
                 currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
                 currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
-                pointCollectorBarScript.updateBar(currentTeam, -1); //Check this
+                pointCollectorBarScript.updateBar(currentPlayer.gameObject.GetComponent<PlayerManager>().team, -1); //Check this
             }
 
 
@@ -109,12 +109,12 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
         if (playerManagerScript.team == "A")
             {
                 currentTeam = "A";
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
+                gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
             }
             else
             {
                 currentTeam = "B";
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+                gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
             }
         
             pointCollectorBarScript.updateBar(currentTeam, 1);
@@ -122,4 +122,6 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
 
 
     }
+
+    
 }
