@@ -22,18 +22,35 @@ public class PointCollectorBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("A pc: " + aCollected + " B pc: " + bCollected);
     }
 
-    public void updateBar (string team)
+    public void updateBar (string team, int b)
     {
+        Debug.Log("pcpc: " + b);
         if(team == "A")
         {
-            aBar.GetComponent<RectTransform>().sizeDelta = new Vector2((aCollected * 100)/buttons.transform.childCount, 45);
+            if(b > 0)
+            {
+                aCollected += b;
+            } else if (b < 0)
+            {
+                aCollected -= b;
+            }
+            aBar.GetComponent<RectTransform>().sizeDelta = new Vector2((aCollected * 2731)/buttons.transform.childCount, 45);
         } else
         {
-            bBar.GetComponent<RectTransform>().sizeDelta = new Vector2((bCollected * 100) / buttons.transform.childCount, 45);
-
+            if (b > 0)
+            {
+                bCollected += b;
+            }
+            else if (b < 0)
+            {
+                bCollected -= b;
+            }
+            bBar.GetComponent<RectTransform>().sizeDelta = new Vector2((bCollected * 2731) / buttons.transform.childCount, 45);
+            Debug.Log("B pc called");
+            
         }
     }
 }

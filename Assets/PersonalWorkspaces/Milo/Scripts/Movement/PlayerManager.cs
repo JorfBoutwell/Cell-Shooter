@@ -28,6 +28,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
     public Spawn spawnScript;
+    public PointCollectorBar pointCollectorBarScript;
 
     public PlayerRef[] playerRefs;
     public Stats[] stats;
@@ -78,7 +79,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
         killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
-
+        pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -522,6 +523,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         if (pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer != null)
         {
             pointCollection[i].GetComponent<PointCollectorScript>().currentPlayer.GetComponent<PlayerManager>().buttonsPressed -= 1;
+            pointCollectorBarScript.updateBar(team, -1);
         }
         pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
     }
