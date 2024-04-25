@@ -30,13 +30,15 @@ public class PointCollectorBar : MonoBehaviour
         Debug.Log("pcpc: " + b);
         if(team == "A")
         {
-                aCollected += b;
+            aCollected += b;
+            if (aCollected < 0) aCollected = 0;
 
             aBar.GetComponent<RectTransform>().sizeDelta = new Vector2((aCollected * 2731)/buttons.transform.childCount, 45);
         } else
         {
 
-                bCollected += b;
+            bCollected += b;
+            if (bCollected < 0) bCollected = 0;
 
             bBar.GetComponent<RectTransform>().sizeDelta = new Vector2((bCollected * 2731) / buttons.transform.childCount, 45);
             Debug.Log("B pc called");

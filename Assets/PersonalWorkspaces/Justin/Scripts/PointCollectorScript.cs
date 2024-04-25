@@ -80,43 +80,43 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
     public void runPointCollision(GameObject player)
     {
         
-            Debug.Log("Hellooo");
+        Debug.Log("Hellooo");
 
-            //this will run when a new player hits a button after it has been pressed more than once
-            if (currentPlayer != null)
-            {
-                //ansell added these two lines for Henry to look at.
-                GetComponentInChildren<Renderer>().material.color = Color.grey;
-                Debug.Log("not null");
-                currentPlayer.gameObject.GetComponent<PlayerManager>().LoseAPoint(gameObject);
-                currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
-                pointCollectorBarScript.updateBar(currentPlayer.gameObject.GetComponent<PlayerManager>().team, -1); //Check this
-            }
-
-
-            currentPlayer = player;
-
-            playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
-
-            Debug.Log("p1" + currentPlayer);
-
-            //alreadyPressedA = true;
+        //this will run when a new player hits a button after it has been pressed more than once
+        if (currentPlayer != null)
+        {
+            //ansell added these two lines for Henry to look at.
+            GetComponentInChildren<Renderer>().material.color = Color.grey;
+            Debug.Log("not null");
+            currentPlayer.gameObject.GetComponent<PlayerManager>().LoseAPoint(gameObject);
+            currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
+            pointCollectorBarScript.updateBar(currentPlayer.gameObject.GetComponent<PlayerManager>().team, -1); //Check this
+        }
 
 
-            player.GetComponent<PlayerManager>().buttonsPressed += 1;
+        currentPlayer = player;
+
+        playerManagerScript = currentPlayer.GetComponentInChildren<PlayerManager>();
+
+        Debug.Log("p1" + currentPlayer);
+
+        //alreadyPressedA = true;
+
+
+        player.GetComponent<PlayerManager>().buttonsPressed += 1;
 
         if (playerManagerScript.team == "A")
-            {
-                currentTeam = "A";
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
-            }
-            else
-            {
-                currentTeam = "B";
-                gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
-            }
+        {
+            currentTeam = "A";
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            currentTeam = "B";
+            gameObject.GetComponentInChildren<Renderer>().material.color = Color.blue;
+        }
         
-            pointCollectorBarScript.updateBar(currentTeam, 1);
+        pointCollectorBarScript.updateBar(currentTeam, 1);
         
 
 

@@ -107,7 +107,7 @@ public class DeathScript : MonoBehaviour
 
             //Activates Death Overlay
             onoff = true;
-            DeathScreen(onoff);
+            DeathScreen(onoff);`
 
             initialDeathCode = true;
         }

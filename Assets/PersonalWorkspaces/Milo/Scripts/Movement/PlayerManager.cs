@@ -325,6 +325,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LoadLevel("Lobby");
     }
 
+
     
 
     //ran when a point collecter hits this gameobject
