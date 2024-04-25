@@ -191,7 +191,7 @@ public class DeathScript : MonoBehaviour
             playerManagerScript.pointCollection[playerManagerScript.pointsCollectedIndexList[i]].GetComponentInChildren<PointCollectorScript>().currentPlayer = null;
             Debug.Log("Heep");
         }
-
+        playerManagerScript.pointsCollectedIndexList.Clear();
         playerManagerScript.pointCollectors.Clear();
 
         pointCollectorBarScript.updateBar(playerManagerScript.team, -1 * playerManagerScript.buttonsPressed);
