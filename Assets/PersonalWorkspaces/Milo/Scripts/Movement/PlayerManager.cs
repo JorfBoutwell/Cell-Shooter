@@ -346,6 +346,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public void LoseAPoint(GameObject pointCollecter)
+    {
+        for (int i = 0; i < pointCollection.Length; i++)
+        {
+            Debug.Log(pointCollection.Length);
+            if (pointCollection[i] == pointCollecter)
+            {
+                pointsCollectedIndexList.Remove(i);
+            }
+        }
+    }
+
     //ran when you hit the goober
     public void CapturingTheFlag()
     {

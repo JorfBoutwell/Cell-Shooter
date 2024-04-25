@@ -87,9 +87,8 @@ public class PointCollectorScript : MonoBehaviour, IPunObservable
             {
                 //ansell added these two lines for Henry to look at.
                 GetComponentInChildren<Renderer>().material.color = Color.grey;
-                GetComponentInChildren<PointCollectorScript>().currentPlayer = null;
                 Debug.Log("not null");
-                currentPlayer.gameObject.GetComponent<PlayerManager>().pointCollectors.Remove(gameObject);
+                currentPlayer.gameObject.GetComponent<PlayerManager>().LoseAPoint(gameObject);
                 currentPlayer.gameObject.GetComponent<PlayerManager>().buttonsPressed -= 1;
                 pointCollectorBarScript.updateBar(currentPlayer.gameObject.GetComponent<PlayerManager>().team, -1); //Check this
             }
