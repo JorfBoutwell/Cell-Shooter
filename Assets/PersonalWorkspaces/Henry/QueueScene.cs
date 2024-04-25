@@ -10,7 +10,7 @@ using Photon.Realtime;
 
 
 
-public class QueueScene : MonoBehaviourPunCallbacks
+public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
 {
     //key and local players team variable
     private static readonly string TeamPropKey = "TeamA?";
@@ -458,6 +458,15 @@ public class QueueScene : MonoBehaviourPunCallbacks
         //leaves the room and loads the lobby
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel("Lobby");
+    }
+
+    void IInRoomCallbacks.OnMasterClientSwitched(Player newMasterClient)
+    {
+        if (PhotonNetwork.LocalPlayer == newMasterClient)
+        {
+            ModeArrows.SetActive(true);
+            SetMode(mode);
+        }
     }
 
     //gets list of all players on the blue team

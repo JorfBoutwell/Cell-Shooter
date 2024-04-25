@@ -182,13 +182,13 @@ public class DeathScript : MonoBehaviour
 
     public void PointCollecterReset()
     {
-        Debug.Log("hee" + playerManagerScript.pointCollectors.Count);
+        Debug.Log("hee" + playerManagerScript.pointCollection.Length);
         //Does playerManagerScript.pointCollectors.Count get reset to 0 somewehre before this for loop
         //Okay, talk to Henry about storing pointcollectors when collided and reseting the ones from the player that died
-        for (int i = 0; i < playerManagerScript.pointCollectors.Count; i++)
+        for (int i = 0; i < playerManagerScript.pointsCollectedIndexList.Count; i++)
         {
-            playerManagerScript.pointCollectors[i].GetComponentInChildren<Renderer>().material.color = Color.grey;
-            playerManagerScript.pointCollectors[i].GetComponentInChildren<PointCollectorScript>().currentPlayer = null;
+            playerManagerScript.pointCollection[playerManagerScript.pointsCollectedIndexList[i]].GetComponentInChildren<Renderer>().material.color = Color.grey;
+            playerManagerScript.pointCollection[playerManagerScript.pointsCollectedIndexList[i]].GetComponentInChildren<PointCollectorScript>().currentPlayer = null;
             Debug.Log("Heep");
         }
 

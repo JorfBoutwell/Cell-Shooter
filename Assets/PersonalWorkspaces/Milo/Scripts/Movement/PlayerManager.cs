@@ -29,6 +29,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public PauseMenu pauseMenuScript;
     public Spawn spawnScript;
     public PointCollectorBar pointCollectorBarScript;
+    public List<int> pointsCollectedIndexList = new List<int>();
 
     public PlayerRef[] playerRefs;
     public Stats[] stats;
@@ -526,6 +527,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             pointCollectorBarScript.updateBar(team, -1);
         }
         pointCollection[i].GetComponent<PointCollectorScript>().runPointCollision(gameObject);
+        pointsCollectedIndexList.Add(i);
     }
 
     [PunRPC]
