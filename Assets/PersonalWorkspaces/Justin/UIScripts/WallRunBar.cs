@@ -11,11 +11,17 @@ public class WallRunBar : MonoBehaviour
     public GameObject wallRunBarBackground;
 
     float wallRunLength;
+    float lastWallRunTime;
+
+    private void Start()
+    {
+        lastWallRunTime = playerControllerNEW.m_wallRunTimer;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerControllerNEW.isWallRunning)
+        if (lastWallRunTime != playerControllerNEW.m_wallRunTimer)
         {
             wallRunLength = playerControllerNEW.m_wallRunTimer * 65;
             wallRunBar.GetComponent<RectTransform>().sizeDelta = new Vector2(wallRunLength, 100);
@@ -27,5 +33,7 @@ public class WallRunBar : MonoBehaviour
             }
             wallRunBar.GetComponent<RectTransform>().sizeDelta = new Vector2(wallRunLength, 100);
         }
+
+        lastWallRunTime = playerControllerNEW.m_wallRunTimer;
     }
 }

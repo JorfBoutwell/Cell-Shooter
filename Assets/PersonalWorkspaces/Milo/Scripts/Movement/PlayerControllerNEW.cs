@@ -238,21 +238,26 @@ public class PlayerControllerNEW : MonoBehaviourPun
     {
         MovementState tempState = state;
 
-        if ((m_wallLeft || m_wallRight) && moveInput.y > 0 && !isGrounded && !m_exitingWall)
+        if ((m_wallLeft || m_wallRight) && !isGrounded && !m_exitingWall)
         {
-            state = MovementState.wallrunning;
-            if (!isWallRunning)
-                StartWallRun();
-
             if (m_wallRunTimer > 0)
+            {
+                if (moveInput.y > 0)
+                {
+                    state = MovementState.wallrunning;
+                    if (!isWallRunning)
+                        StartWallRun();
+
+                }
+
                 m_wallRunTimer -= Time.deltaTime;
-
-
-            if (m_wallRunTimer <= 0 && isWallRunning)
+            }
+            else
             {
                 m_exitingWall = true;
                 m_exitWallTimer = m_exitWallTime;
             }
+
         }
         else if (m_exitingWall)
         {
@@ -267,7 +272,6 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
             if (m_exitWallTimer <= 0)
             {
-                m_wallRunTimer = m_maxWallRunTime;
                 m_exitingWall = false;
             }
 
@@ -309,7 +313,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
             {
                 state = MovementState.idle;
             }
-
+            m_wallRunTimer = m_maxWallRunTime;
             isJumping = false;
             // DoFOV(80f);
         }

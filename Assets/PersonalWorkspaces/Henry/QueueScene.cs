@@ -285,6 +285,8 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
             captions[1].text = caption2[index];
             captions[2].text = caption3[index];
             descriptions[0].text = desc1[index];
+            descriptions[1].text = desc2[index];
+            descriptions[2].text = desc3[index];
             captions[0].transform.parent.GetComponent<GridLayoutGroup>().spacing = new Vector2(spacing[index], 0);
 
         }
@@ -292,7 +294,6 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
 
     public void UpdateMode()
     {
-        Debug.Log("the mode is" + mode);
         ModeDisplay.GetComponent<Image>().sprite = ModeSprites[mode];
     }
 

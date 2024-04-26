@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject damInd;
     [SerializeField] Image vignette;
     [SerializeField] GameObject FPDisplay;
+    [SerializeField] Image charIcon;
 
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
@@ -201,6 +202,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         FPDisplay.GetComponent<Animator>().runtimeAnimatorController = refs.animator;
         m_weapon.abilityList = refs.abilities.ToArray();
         m_weapon.bulletTrail = refs.bulletTrail;
+        charIcon.sprite = refs.icon;
         //m_weapon.weapon = refs.weapon;
 
         m_weapon.abilityUI.GenerateAbilityUI();

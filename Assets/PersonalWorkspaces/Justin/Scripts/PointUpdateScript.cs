@@ -32,12 +32,6 @@ public class PointUpdateScript : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        pointsTextA = GameObject.Find("PointsA");
-        pointsTextB = GameObject.Find("PointsB");
-        
-    }
 
     // Update is called once per frame
     void Update()

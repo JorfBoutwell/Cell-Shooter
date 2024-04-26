@@ -18,3 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e519afeeeea1e64798015a24375c068, type: 2}
   weapon: {fileID: 0}
   bulletTrail: {fileID: 1558605981893590399, guid: 0fbafd663cc7c4ce3b569b6f23a3e073, type: 3}
+  statScript: {fileID: 0}
+  icon: {fileID: 21300000, guid: d241b9b12b3a14aa8a4ae0d6c59117ca, type: 3}

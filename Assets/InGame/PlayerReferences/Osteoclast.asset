@@ -16,3 +16,5 @@ MonoBehaviour:
   abilities: []
   weapon: {fileID: 0}
   bulletTrail: {fileID: 1558605981893590399, guid: 4971198d1491142c2b34c94110c9cdfe, type: 3}
+  statScript: {fileID: 0}
+  icon: {fileID: 21300000, guid: e39f08b1d39a34cdb8099828e44840b7, type: 3}

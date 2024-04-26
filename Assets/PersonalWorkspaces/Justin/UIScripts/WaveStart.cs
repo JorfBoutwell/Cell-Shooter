@@ -26,6 +26,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
     public float gameTimeMinutes;
     public bool startCountdown = false;
     public bool gameTimerStart = false;
+    public Vector3 timerPosition;
 
     //bool to determine if que has been loaded
     public bool queLoad = false;
@@ -58,9 +59,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     void Start()
     {
+
         if (GameObject.Find("Goober"))
         {
-            pointsNeeded = 100;
+            pointsNeeded = 10;
         } 
         pointUpdateScript = gameObject.transform.root.GetComponentInChildren<PointUpdateScript>();
         currentTime = countdownTime;
@@ -70,10 +72,6 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
         objectiveText.SetActive(false);
         objectiveTextLine.SetActive(false);
-
-        //assign Points A and B
-        pointsA = GameObject.Find("PointsA");
-        pointsB = GameObject.Find("PointsB");
 
         //Objective Text Prompts
         objectiveTextPrompts.Add("Your team needs to reach " + pointsNeeded + " points to win!");
@@ -117,8 +115,6 @@ public class WaveStart : MonoBehaviourPunCallbacks
             {
                 countdownOverlay.SetActive(true);
                 countdownTimer.color = Color.red;
-                countdownTimer.fontSize = 200;
-                countdownText.transform.position = new Vector3(1000f, 300f, 0f);
             }
 
             //Deactivates Final Countdown Overlay and Countdown
@@ -131,7 +127,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 else if (gameTimerStart)
                 {
                     countdownTimer.text = "GAME OVER";
-                    countdownTimer.fontSize = 50;
+                    countdownTimer.fontSize = 45;
                     transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
                 }
 
@@ -139,21 +135,22 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 startClock(); //J JERE
                 }
             }
-
-            if(pointsA.GetComponent<PointsADisplayScript>().points >= pointsNeeded && !win)
+            Debug.Log(pointsB.GetComponentInChildren<PointsADisplayScript>());
+            if(pointsA.GetComponentInChildren<PointsADisplayScript>().points >= pointsNeeded && !win)
             {
                 win = true;
                 winTeam = "A";
                 countdownTimer.text = "GAME OVER";
-                countdownTimer.fontSize = 50;
+                countdownTimer.fontSize = 45;
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
-            else if(pointsB.GetComponent<PointsADisplayScript>().points >= pointsNeeded && !win)
+            else if(pointsB.GetComponentInChildren<PointsADisplayScript>().points >= pointsNeeded && !win)
             {
+                Debug.Log("shart wins");
                 win = true;
                 winTeam = "B";
                 countdownTimer.text = "GAME OVER";
-                countdownTimer.fontSize = 50;
+                countdownTimer.fontSize = 45;
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
 
@@ -173,8 +170,6 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
         StartCountdown();
         countdownTimer.color = Color.white;
-        countdownTimer.fontSize = 55f;
-        countdownText.transform.position = new Vector3(958f, 540f, 0f);
     }
 
     //Starts Countdown/Game Timer
@@ -190,12 +185,12 @@ public class WaveStart : MonoBehaviourPunCallbacks
         
         //GetComponent<PlayerManager>().inputActions.Disable();
 
-            if (pointsA.GetComponent<PointsADisplayScript>().points > pointsB.GetComponent<PointsADisplayScript>().points || winTeam == "A")
+            if (pointsA.GetComponentInChildren<PointsADisplayScript>().points > pointsB.GetComponentInChildren<PointsADisplayScript>().points || winTeam == "A")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
                 Debug.Log("Team A Wins!");
             }
-            else if (pointsB.GetComponent<PointsADisplayScript>().points > pointsA.GetComponent<PointsADisplayScript>().points || winTeam == "B")
+            else if (pointsB.GetComponentInChildren<PointsADisplayScript>().points > pointsA.GetComponentInChildren<PointsADisplayScript>().points || winTeam == "B")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
                 Debug.Log("Team B Wins!");
