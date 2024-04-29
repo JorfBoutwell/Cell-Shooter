@@ -29,7 +29,11 @@ public class PointUpdateScript : MonoBehaviour
 
     //public PointCollectorScript pointCollectorScript;
 
-
+    private void Awake()
+    {
+        pointsTextA = GameObject.Find("PointA");
+        pointsTextB = GameObject.Find("PointB");
+    }
 
     // Start is called before the first frame update
 
@@ -49,13 +53,13 @@ public class PointUpdateScript : MonoBehaviour
                 {
                     pointsA += pointIncrement * playerManagerScript.buttonsPressed;
 
-                    pointsTextA.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsA;
+                    pointsTextA.GetComponent<PointContainer>().points += (int)pointsA;
                 }
                 else
                 {
                     pointsB += pointIncrement * playerManagerScript.buttonsPressed;
                    
-                    pointsTextB.GetComponentInChildren<PointsADisplayScript>().points += (int)pointsB;
+                    pointsTextB.GetComponent<PointContainer>().points += (int)pointsB;
                 }
             }
 
