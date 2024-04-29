@@ -81,7 +81,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
         killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
-        pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
+        //pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
 
         if (PhotonNetwork.IsMasterClient)
         {

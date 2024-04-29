@@ -28,7 +28,10 @@ public class SpawnPlayers : MonoBehaviour
         //player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(-240, 15, -370), Quaternion.identity);
         player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
 
-
+        if(player.GetComponent<PlayerManager>() != null)
+        {
+            player.GetComponent<PlayerManager>().enabled = true;
+        }
         //gets the UI element
         code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
         if (code != null) code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);

@@ -1249,6 +1249,7 @@ MonoBehaviour:
   pauseMenuScript: {fileID: 4870922641209532153}
   spawnScript: {fileID: 0}
   pointCollectorBarScript: {fileID: 0}
+  pointsCollectedIndexList: 
   playerRefs:
   - {fileID: 11400000, guid: e73759d25f92740ccb1aca2460ed3449, type: 2}
   - {fileID: 11400000, guid: 44b9635d20f6c4448885e55a1ae30b14, type: 2}
