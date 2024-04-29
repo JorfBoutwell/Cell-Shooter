@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GooberFunctionality : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class GooberFunctionality : MonoBehaviour
             atpClaimed = true;
 
             killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (collision.gameObject.GetComponent<PlayerManager>().username + " claimed the ATP!"));
+
+            
         }
     }
 
@@ -60,5 +63,10 @@ public class GooberFunctionality : MonoBehaviour
         transform.SetParent(currentPlayer.transform);
 
         team = currentPlayer.GetComponent<PlayerManager>().team;
+
+        foreach (GameObject a in currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
+        {
+            a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = true;
+        }
     }
 }
