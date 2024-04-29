@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
@@ -65,7 +66,7 @@ public class DeathScript : MonoBehaviour
         healthUIScript = healthUI.GetComponent<HealthUI>();
         cooldownScript = cooldowns.GetComponent<CooldownScript>();
         killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
-        pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
+        //pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
 
         originalAnimationScale = deathTimer.GetComponent<RectTransform>().localScale.x;
 
@@ -194,13 +195,17 @@ public class DeathScript : MonoBehaviour
         playerManagerScript.pointsCollectedIndexList.Clear();
         playerManagerScript.pointCollectors.Clear();
 
-        pointCollectorBarScript.updateBar(playerManagerScript.team, -1 * playerManagerScript.buttonsPressed);
+        //pointCollectorBarScript.updateBar(playerManagerScript.team, -1 * playerManagerScript.buttonsPressed);
         playerManagerScript.buttonsPressed = 0;
 
     }
 
     public void DropGoober()
     {
+        foreach(GameObject a in goober.GetComponent<GooberFunctionality>().currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
+        {
+            a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
+        }
         goober.GetComponent<GooberFunctionality>().dropped = 5.01f;
         goober.transform.SetParent(null);
         goober.transform.position += new Vector3(0, -1.5f, 0);
