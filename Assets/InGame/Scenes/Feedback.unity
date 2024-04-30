@@ -237,10 +237,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Feedback
       objectReference: {fileID: 0}
-    - target: {fileID: 1615604292388939760, guid: bac0c00cc2f2a4e8e9385dfb1bc7b08c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2532562373635947170, guid: bac0c00cc2f2a4e8e9385dfb1bc7b08c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

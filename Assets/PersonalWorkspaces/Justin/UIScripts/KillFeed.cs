@@ -30,8 +30,7 @@ public class KillFeed : MonoBehaviour
     [SerializeField]
     //private Ease animationType = Ease.Linear;
 
-    public PointContainer pointContainerA;
-    public PointContainer pointContainerB;
+    public PointUpdateScript pointUpdateScript;
     bool aHalfPoint = false;
     static bool bHalfPoint = false;
 
@@ -53,6 +52,7 @@ public class KillFeed : MonoBehaviour
     void Start()
     {
         trainScript = GameObject.Find("Train").GetComponent<Train>();
+        pointUpdateScript = GameObject.Find("PointObject").GetComponent<PointUpdateScript>();
         canvas1 = GameObject.Find("PlayerDataCanvas");
         //Sets Player Usernames
         for(int i = 0; i < 4; i++)
@@ -84,7 +84,7 @@ public class KillFeed : MonoBehaviour
             AlertFeedInstantiate(boxesCount, alertText);
         }
 
-        if((pointContainerA.points >= (pointsNeeded / 2) && !aHalfPoint) || (pointContainerB.points >= (pointsNeeded / 2) && !bHalfPoint))
+        if((pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !aHalfPoint) || (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2) && !bHalfPoint))
         {
             AlertFeedInstantiate(boxesCount,alertText);
             
@@ -161,12 +161,12 @@ public class KillFeed : MonoBehaviour
     //Sets Text in Alert Feed
     public void AlertText(int boxesCounts, string aText)
     {
-        if (pointContainerA.points >= (pointsNeeded/2) && !aHalfPoint) 
+        if (pointUpdateScript.pointsTextA.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded/2) && !aHalfPoint) 
         {
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team A is halfway there!";
             aHalfPoint = true;
         }
-        else if(!bHalfPoint && (pointContainerB.points >= (pointsNeeded / 2))) 
+        else if(!bHalfPoint && (pointUpdateScript.pointsTextB.GetComponentInChildren<PointsADisplayScript>().points >= (pointsNeeded / 2))) 
         {
             bHalfPoint = true;
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = "Team B is halfway there!";
