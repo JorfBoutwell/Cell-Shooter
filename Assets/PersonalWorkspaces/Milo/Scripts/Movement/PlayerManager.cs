@@ -130,6 +130,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (photonView.Owner.ActorNumber == player.ActorNumber)
             {
+                isDead = false;
                 username = player.NickName;
                 object teamA;
                 player.CustomProperties.TryGetValue(TeamPropKey, out teamA);
