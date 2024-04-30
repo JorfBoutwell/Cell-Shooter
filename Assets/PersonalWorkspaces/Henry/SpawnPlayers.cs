@@ -33,7 +33,7 @@ public class SpawnPlayers : MonoBehaviour
             player.GetComponent<PlayerManager>().enabled = true;
         }
         //gets the UI element
-        code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
+        if(GameObject.Find("GameCode")) code = GameObject.Find("GameCode").GetComponent<TMP_Text>();
         if (code != null) code.SetText("Code: " + PhotonNetwork.CurrentRoom.Name);
 
     }
