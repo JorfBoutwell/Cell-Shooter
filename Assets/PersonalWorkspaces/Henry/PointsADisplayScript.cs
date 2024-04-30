@@ -7,21 +7,18 @@ public class PointsADisplayScript : MonoBehaviour
 {
     public int points;
     public GameObject pointObject;
-    public PointContainer pointContainer;
+    public GameObject pointContainer;
     public string pointContainerName;
 
-    private void Start()
+    private void Awake()
     {
-        GameObject go = GameObject.Find(pointContainerName);
-        Debug.Log(go.GetComponent<PointContainer>());
-        pointContainer = go.GetComponent<PointContainer>();
-        Debug.Log(pointContainer);
+        pointContainer = GameObject.Find(pointContainerName);
     }
 
     // Update is called once per frame
     void Update()
     {
-        points = pointContainer.points;
+        points = pointContainer.GetComponent<PointContainer>().points;
         pointObject.GetComponentInChildren<TextMeshProUGUI>().text = Mathf.FloorToInt(points).ToString("0");
     }
 }
