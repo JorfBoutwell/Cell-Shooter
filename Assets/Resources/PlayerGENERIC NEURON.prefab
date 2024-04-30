@@ -1369,7 +1369,7 @@ MonoBehaviour:
   style: 0
   team: 
   character: 
-  isDead: 0
+  isDead: 1
   deathTimerOn: 0
   updatePoints: 
   buttonsPressed: 0
@@ -2042,7 +2042,7 @@ MonoBehaviour:
   points: 0
   pointObject: {fileID: 7589574724976194294}
   pointContainer: {fileID: 0}
-  pointContainerName: 
+  pointContainerName: PointA
 --- !u!1 &2485760326358173078
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,7 +3309,7 @@ MonoBehaviour:
   points: 0
   pointObject: {fileID: 4972926578466788618}
   pointContainer: {fileID: 0}
-  pointContainerName: 
+  pointContainerName: PointB
 --- !u!1 &4384377001741271952
 GameObject:
   m_ObjectHideFlags: 0

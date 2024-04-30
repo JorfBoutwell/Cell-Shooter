@@ -99,7 +99,7 @@ public class DeathScript : MonoBehaviour
             //Unclaims Points
             PointCollecterReset();
 
-            if (goober.GetComponent<GooberFunctionality>().atpClaimed)
+            if (goober != null && goober.GetComponent<GooberFunctionality>().atpClaimed)
             {
                 goober.GetComponent<GooberFunctionality>().atpClaimed = false;
                 //drop goober

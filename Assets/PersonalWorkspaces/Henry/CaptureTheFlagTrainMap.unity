@@ -453,7 +453,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 54754362}
-  - component: {fileID: 54754364}
   - component: {fileID: 54754363}
   m_Layer: 0
   m_Name: PointA
@@ -490,22 +489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 0
---- !u!114 &54754364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54754361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b635e0138714a42b393dd8a378a469fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  points: 0
-  pointObject: {fileID: 0}
-  pointContainer: {fileID: 0}
-  pointContainerName: 
 --- !u!1 &55958076
 GameObject:
   m_ObjectHideFlags: 0
@@ -5854,7 +5837,8 @@ MonoBehaviour:
   usernames: []
   transformPosition: {x: 0, y: 0}
   animationDuration: 5
-  pointUpdateScript: {fileID: 0}
+  pointsA: {fileID: 54754363}
+  pointsB: {fileID: 10198232}
   trainScript: {fileID: 0}
   boxesCount: 0
   player1: 

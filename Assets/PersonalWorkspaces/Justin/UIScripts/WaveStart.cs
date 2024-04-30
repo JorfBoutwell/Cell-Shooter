@@ -62,7 +62,7 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
         if (GameObject.Find("Goober"))
         {
-            pointsNeeded = 10;
+            pointsNeeded = 100;
         } 
         pointUpdateScript = gameObject.transform.root.GetComponentInChildren<PointUpdateScript>();
         currentTime = countdownTime;
