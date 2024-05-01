@@ -96,6 +96,9 @@ public class DeathScript : MonoBehaviour
     {
         if (initialDeathCode == false)
         {
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
             //Unclaims Points
             PointCollecterReset();
 
@@ -130,6 +133,9 @@ public class DeathScript : MonoBehaviour
 
         //REACTIVATE GOOBER GUIDANCE SYSTEM
         gooberGuide.SetActive(true);
+
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+        gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
         //Resets Death Timer to Default Count
         currentTime = 5f;
