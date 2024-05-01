@@ -328,11 +328,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             photonView.RPC("DropGoober", RpcTarget.All);
         }
-        //clears your custom properties
-        ExitGames.Client.Photon.Hashtable customProperties = photonView.Owner.CustomProperties;
-        customProperties.Clear();
-        //synchs the clearing
-        photonView.Owner.SetCustomProperties(customProperties);
         //leaves the room and loads the lobby
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel("Lobby");
