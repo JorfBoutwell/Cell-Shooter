@@ -352,6 +352,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (goober.GetComponent<GooberFunctionality>().currentPlayer.gameObject.GetComponent<PlayerManager>().username + " dropped the ATP!"));
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         goober.GetComponent<GooberFunctionality>().team = null;
+        Debug.Log("left game");
     }
 
 
