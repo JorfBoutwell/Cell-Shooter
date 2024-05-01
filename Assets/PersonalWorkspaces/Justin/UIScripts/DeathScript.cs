@@ -202,16 +202,24 @@ public class DeathScript : MonoBehaviour
 
     public void DropGoober()
     {
+        //change ui of abiities and stuff
         foreach(GameObject a in goober.GetComponent<GooberFunctionality>().currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
         {
             a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
         }
-        goober.GetComponent<GooberFunctionality>().dropped = 5.01f;
+        //drop timer is set to 5.2, can't be picked up until after the timer because of a stupid way death occurs
+        goober.GetComponent<GooberFunctionality>().dropped = 5.2f;
+        //set the parent to null
         goober.transform.SetParent(null);
+        //drop it
         goober.transform.position += new Vector3(0, -1.5f, 0);
+        //set new parent back to empty
         goober.transform.SetParent(GameObject.Find("Goobers").transform);
+        //turn on the collider
         goober.GetComponent<SphereCollider>().enabled = true;
+        //run kill feed
         killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (goober.GetComponent<GooberFunctionality>().currentPlayer.gameObject.GetComponent<PlayerManager>().username + " dropped the ATP!"));
+        //set current player and team to null
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         goober.GetComponent<GooberFunctionality>().team = null;
     }
