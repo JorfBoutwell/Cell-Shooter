@@ -338,22 +338,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LoadLevel("Lobby");
     }
 
-    public void DropGoober()
-    {
-        foreach (GameObject a in goober.GetComponent<GooberFunctionality>().currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
-        {
-            a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
-        }
-        goober.GetComponent<GooberFunctionality>().dropped = 5.01f;
-        goober.transform.SetParent(null);
-        goober.transform.position += new Vector3(0, -1.5f, 0);
-        goober.transform.SetParent(GameObject.Find("Goobers").transform);
-        goober.GetComponent<SphereCollider>().enabled = true;
-        killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (goober.GetComponent<GooberFunctionality>().currentPlayer.gameObject.GetComponent<PlayerManager>().username + " dropped the ATP!"));
-        goober.GetComponent<GooberFunctionality>().currentPlayer = null;
-        goober.GetComponent<GooberFunctionality>().team = null;
-        Debug.Log("left game");
-    }
+    
 
 
     //ran when a point collecter hits this gameobject
@@ -616,5 +601,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             PhotonNetwork.LoadLevel("Queue");
         }
         
+    }
+
+    [PunRPC]
+    public void DropGoober()
+    {
+        foreach (GameObject a in goober.GetComponent<GooberFunctionality>().currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
+        {
+            a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
+        }
+        goober.GetComponent<GooberFunctionality>().dropped = 5.01f;
+        goober.transform.SetParent(null);
+        goober.transform.position += new Vector3(0, -1.5f, 0);
+        goober.transform.SetParent(GameObject.Find("Goobers").transform);
+        goober.GetComponent<SphereCollider>().enabled = true;
+        killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (goober.GetComponent<GooberFunctionality>().currentPlayer.gameObject.GetComponent<PlayerManager>().username + " dropped the ATP!"));
+        goober.GetComponent<GooberFunctionality>().currentPlayer = null;
+        goober.GetComponent<GooberFunctionality>().team = null;
+        Debug.Log("left game");
     }
 }
