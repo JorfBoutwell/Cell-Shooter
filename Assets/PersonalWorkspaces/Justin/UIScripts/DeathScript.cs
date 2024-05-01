@@ -96,8 +96,7 @@ public class DeathScript : MonoBehaviour
     {
         if (initialDeathCode == false)
         {
-            gameObject.GetComponent<BoxCollider>().enabled = false;
-            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            
 
             //Unclaims Points
             PointCollecterReset();
@@ -114,6 +113,8 @@ public class DeathScript : MonoBehaviour
             DeathScreen(onoff);
 
             initialDeathCode = true;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
 
         //Activates Death Overlay UI
