@@ -135,6 +135,7 @@ public class DeathScript : MonoBehaviour
         //REACTIVATE GOOBER GUIDANCE SYSTEM
         gooberGuide.SetActive(true);
 
+        goober.GetComponent<SphereCollider>().enabled = true;
         gameObject.GetComponent<BoxCollider>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
