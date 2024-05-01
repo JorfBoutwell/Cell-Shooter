@@ -108,6 +108,9 @@ public class DeathScript : MonoBehaviour
                 DropGoober();
             }
 
+            //Respawns Player
+            SpawnPlayer();
+
             //Activates Death Overlay
             onoff = true;
             DeathScreen(onoff);
@@ -129,8 +132,7 @@ public class DeathScript : MonoBehaviour
         onoff = false;
         DeathScreen(onoff);
 
-        //Respawns Player
-        SpawnPlayer();
+        
 
         //REACTIVATE GOOBER GUIDANCE SYSTEM
         gooberGuide.SetActive(true);
