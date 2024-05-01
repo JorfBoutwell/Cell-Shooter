@@ -326,7 +326,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         Destroy(dictionary);
         if(goober.GetComponent<GooberFunctionality>().currentPlayer == this)
         {
-            DropGoober();
+            photonView.RPC("DropGoober", RpcTarget.All);
         }
         //clears your custom properties
         ExitGames.Client.Photon.Hashtable customProperties = photonView.Owner.CustomProperties;
