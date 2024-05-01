@@ -22,7 +22,7 @@ public class GooberGuidenceSystem : MonoBehaviour
     void Update()
     {
 
-        if(gameObject.activeSelf && goober.GetComponent<GooberFunctionality>().currentPlayer == null)
+        if(gameObject.activeSelf /*&& goober.GetComponent<GooberFunctionality>().currentPlayer == null*/)
         {
             // Calculate the direction from the player's camera to the goober
             Vector3 directionToObjective = (goober.transform.position - playerCamera.position).normalized;
