@@ -39,6 +39,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     static int spawnIncrementB = 0;
     public Vector3 spawn;
 
+    //variables I want to synch
+    public float synch = 0f;
+    public GameObject pointA;
+    public GameObject pointB;
+
     public float maxHealth = 100;
     public float health = 100;
     public int ammo;
@@ -122,6 +127,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         goober = GameObject.FindGameObjectWithTag("Goober");
         gooberStatusOverlay = GameObject.Find("CaptureTheFlagOverlay");
         gooberTargeter = GameObject.Find("GooberDirection");
+
+        pointA = GameObject.Find("PointA");
+        pointB = GameObject.Find("PointB");
     }
 
     private void Start()
@@ -247,6 +255,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         ChangeGooberText();
+
+        synch += Time.deltaTime;
+        if (synch > 2f && PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            synch = 0;
+            photonView.RPC("synchPoints", RpcTarget.All, pointA.GetComponent<PointContainer>().points, pointB.GetComponent<PointContainer>().points);
+        }
     }
 
     private GameObject[] orderGoobers(GameObject[] goobers)
@@ -614,5 +629,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         goober.GetComponent<GooberFunctionality>().team = null;
         Debug.Log("left game");
+    }
+
+    [PunRPC]
+    public void synchPoints(int A, int B)
+    {
+        pointA.GetComponent<PointContainer>().points = A;
+        pointB.GetComponent<PointContainer>().points = B;
     }
 }

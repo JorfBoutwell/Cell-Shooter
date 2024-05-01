@@ -218,7 +218,7 @@ public class DeathScript : MonoBehaviour
             a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
         }
         //drop timer is set to 5.2, can't be picked up until after the timer because of a stupid way death occurs
-        goober.GetComponent<GooberFunctionality>().dropped = 5.2f;
+        goober.GetComponent<GooberFunctionality>().dropped = 1f;
         //set the parent to null
         goober.transform.SetParent(null);
         //drop it
