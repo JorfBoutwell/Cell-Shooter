@@ -324,7 +324,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         //leaves the room and loads the lobby
         GameObject dictionary = GameObject.Find("CustomVariableStorage");
         Destroy(dictionary);
-        if(goober.GetComponent<GooberFunctionality>().currentPlayer == this)
+        if(goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject)
         {
             photonView.RPC("DropGoober", RpcTarget.All);
         }
