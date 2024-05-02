@@ -67,6 +67,7 @@ public class GooberFunctionality : MonoBehaviour
         foreach (GameObject a in currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
         {
             a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = true;
+            a.transform.GetChild(0).GetChild(1).GetComponent<Image>().enabled = false;
         }
     }
 }

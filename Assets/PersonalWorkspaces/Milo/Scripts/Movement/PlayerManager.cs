@@ -451,10 +451,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator AdrenalineEffect()
     {
-        m_player.walkSpeed = 14;
-        m_player.sprintSpeed = 28;
-        m_player.crouchSpeed = 8;
-        m_player.airSpeed = 20;
+        m_player.walkSpeed = 12;
+        m_player.sprintSpeed = 19;
+        m_player.crouchSpeed = 9;
+        m_player.airSpeed = 15;
         yield return new WaitForSeconds(5);
         m_player.walkSpeed = 7;
         m_player.sprintSpeed = 14;
@@ -621,6 +621,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         foreach (GameObject a in goober.GetComponent<GooberFunctionality>().currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
         {
             a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
+            a.transform.GetChild(0).GetChild(1).GetComponent<Image>().enabled = true;
         }
         goober.GetComponent<GooberFunctionality>().dropped = 5.01f;
         goober.transform.SetParent(null);

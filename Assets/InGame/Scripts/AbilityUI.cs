@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class AbilityUI : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class AbilityUI : MonoBehaviour
                 img.transform.SetParent(transform, false);
                 img.GetComponentInChildren<TextMeshProUGUI>().text = keys[i].ToString();
                 abilityObjects[i] = img;
+                img.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = abilities[i].iconImage;
             }
         }
     }

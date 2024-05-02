@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MiloRey/Ability Objects/RBC/Veindash")]
 public class Veindash : Ability
 {
-    public float dashPower;
+    public float dashPower = 10f;
     bool isAirDash;
 
     public override void StartAbility(GameObject parent)
@@ -16,8 +16,8 @@ public class Veindash : Ability
         RBCStats rbcStats = parent.GetComponent<RBCStats>();
         Vector3 forceToApply;
 
-        if(rbcStats.oxygen > 0)
-        {
+        //if(rbcStats.oxygen > 0)
+        //{
             rb.useGravity = false;
             player.isDashing = true;
 
@@ -33,8 +33,8 @@ public class Veindash : Ability
             }
 
             rb.AddForce(forceToApply, ForceMode.Impulse);
-            rbcStats.oxygen -= 20;
-        }
+            //rbcStats.oxygen -= 20;
+        //}
     }
 
     public override void StartCooldown(GameObject parent)

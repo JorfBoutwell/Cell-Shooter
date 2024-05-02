@@ -254,5 +254,11 @@ public class DeathScript : MonoBehaviour
         healthUIScript.healthBarShadow.GetComponent<RectTransform>().sizeDelta = new Vector2(healthUIScript.healthShadow, 90);
     }
 
+    private void AmmoReset()
+    {
+        WeaponManager w = player.GetComponent<WeaponManager>();
+        w.currentAmmo = w.currentWeapon.maxAmmo;
+    }
+
     //Resets Ability Cooldowns After Respawn
 }
