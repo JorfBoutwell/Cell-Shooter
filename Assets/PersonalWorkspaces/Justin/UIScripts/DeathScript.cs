@@ -122,8 +122,6 @@ public class DeathScript : MonoBehaviour
             gameObject.GetComponent<BoxCollider>().enabled = false;
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
-        //Death anim
-        player.transform.DORotate(new Vector3(90, 0, 0), 1f).SetEase(Ease.InExpo);
 
         //Activates Death Overlay UI
         deathTimer.text = currentTime.ToString("0");
@@ -138,8 +136,6 @@ public class DeathScript : MonoBehaviour
         DeathScreen(onoff);
 
         SpawnPlayer();
-
-        player.transform.rotation = Quaternion.identity;
 
         //REACTIVATE GOOBER GUIDANCE SYSTEM
         gooberGuide.SetActive(true);
