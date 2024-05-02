@@ -25,6 +25,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Image vignette;
     [SerializeField] GameObject FPDisplay;
     [SerializeField] Image charIcon;
+    [SerializeField] Image teamInd;
 
     public InputActions inputActions;
     public PauseMenu pauseMenuScript;
@@ -155,7 +156,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     transform.GetChild(0).gameObject.layer = 11;
                     gameObject.layer = 11;
                     gameObject.GetComponent<MeshRenderer>().material = materialA;
-
+                    teamInd.color = Color.blue;
 
                     Debug.Log("spawnteama");
                     spawn = spawnScript.spawnPointsA[spawnScript.spawnIncrementA].transform.position;
@@ -168,6 +169,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     transform.GetChild(0).gameObject.layer = 13;
                     gameObject.layer = 13;
                     gameObject.GetComponent<MeshRenderer>().material = materialB;
+                    teamInd.color = Color.red;
+
 
                     Debug.Log("spawnteamb");
                     spawn = spawnScript.spawnPointsB[spawnScript.spawnIncrementB].transform.position;

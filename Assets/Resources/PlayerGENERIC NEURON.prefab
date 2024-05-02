@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.31557965, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1352,6 +1352,7 @@ MonoBehaviour:
   vignette: {fileID: 392041615187883215}
   FPDisplay: {fileID: 666504165859887516}
   charIcon: {fileID: 4956758489218510550}
+  teamInd: {fileID: 2123406291504412125}
   pauseMenuScript: {fileID: 4870922641209532153}
   spawnScript: {fileID: 0}
   pointCollectorBarScript: {fileID: 0}
@@ -3913,7 +3914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5283019, g: 0.072267726, b: 0.072267726, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
