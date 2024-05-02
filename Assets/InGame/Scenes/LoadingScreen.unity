@@ -295,8 +295,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
-  m_sharedMaterial: {fileID: 2311974783251741327, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
+  m_sharedMaterial: {fileID: -7250233527140403093, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -385,13 +385,14 @@ MonoBehaviour:
   tips:
   - If you unwove all the DNA in just one cell, it would be taller than you.
   - Neurons generate electricity to communicate with each other.
-  - Run over points to collect them and get points for your team.
+  - Grab the ATP to earn points for your team!
   - Red Blood Cell is quick and hard to catch. Perfecting for collecting points!
-  - To stop the other team from earning points, you can either run over their points
-    or kill them!
+  - Hold shift to sprint!
   - Many of your new cells are born in the bone marrow!
   - Red blood cells carry oxygen throughout the body, but they also take carbon dioxide
     to the lungs to be exhaled!
+  - ATP is what powers your cells. They're like biological batteries!
+  - Osteoclasts can break down bones, and osteoblasts can build them up!
   loading: {fileID: 0}
   tip: {fileID: 731271097}
 --- !u!1 &816998406

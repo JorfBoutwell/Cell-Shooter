@@ -224,33 +224,33 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
             if(team)
             {
                 //if your choice is taken
-                if(OpUsed(characters[choice], team))
-                {
+                //if(OpUsed(characters[choice], team))
+                //{
                     //option wasn't there so don't change character
-                    if (character != "")
-                        return;
+                //    if (character != "")
+                //        return;
 
                     //recall this function but this time with default option (don't think this can happen but just in case)
-                    setCharacter(4);
-                } else
-                {
+                //    setCharacter(4);
+                //} else
+                //{
                     //you choice works so sets character 
                     character = characters[choice];
-                }
+                //}
             } else
             {
                 //same but team b
-                if (OpUsed(characters[choice], team))
-                {
-                    if (character != "")
-                        return;
+                //if (OpUsed(characters[choice], team))
+                //{
+                 //   if (character != "")
+                 //       return;
 
-                    setCharacter(4);
-                }
-                else
-                {
+                 //   setCharacter(4);
+                //}
+                //else
+                //{
                     character = characters[choice];
-                }
+                //}
             }
         }
 
@@ -277,7 +277,7 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
         }
         else
         {
-            if (ready == true) return;
+            if (ready == true && character == characters[index]) return;
             charPortrait.transform.gameObject.SetActive(true);
             charName.text = names[index];
             charPortrait.sprite = portraits[index];

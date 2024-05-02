@@ -436,8 +436,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
-  m_sharedMaterial: {fileID: 2311974783251741327, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
+  m_sharedMaterial: {fileID: 5951158573895521346, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -931,8 +931,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Give Feedback
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
-  m_sharedMaterial: {fileID: 2311974783251741327, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
+  m_sharedMaterial: {fileID: 5951158573895521346, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1173,8 +1173,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Multiplayer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
-  m_sharedMaterial: {fileID: 2311974783251741327, guid: 7c4dd37a450504b59a62b7c049f95e26, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
+  m_sharedMaterial: {fileID: 5951158573895521346, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

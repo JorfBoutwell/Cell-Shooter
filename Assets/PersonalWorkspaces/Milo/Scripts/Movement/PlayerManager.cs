@@ -84,6 +84,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        StartCoroutine(SetFullscreen(0f, false));
+        StartCoroutine(SetFullscreen(1f, true));
         spawnScript = GameObject.Find("SpawnPlayers").GetComponent<Spawn>();
         killFeedScript = GameObject.Find("KillFeed").GetComponent<KillFeed>();
         //pointCollectorBarScript = GameObject.Find("PointCollectorBar").GetComponent<PointCollectorBar>();
@@ -636,5 +638,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         pointA.GetComponent<PointContainer>().points = A;
         pointB.GetComponent<PointContainer>().points = B;
+    }
+
+    public IEnumerator SetFullscreen(float wait, bool full)
+    {
+        yield return new WaitForSeconds(wait);
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, full);
     }
 }
