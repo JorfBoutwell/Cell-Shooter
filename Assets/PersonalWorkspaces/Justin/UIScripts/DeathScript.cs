@@ -100,20 +100,23 @@ public class DeathScript : MonoBehaviour
 
             //Unclaims Points
             PointCollecterReset();
-
-            if (goober != null && goober.GetComponent<GooberFunctionality>().atpClaimed)
+            Debug.Log(goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject);
+            if (goober != null && goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject)
             {
                 goober.GetComponent<GooberFunctionality>().atpClaimed = false;
                 //drop goober
+                Debug.Log("entered if");
                 DropGoober();
             }
 
-            //Respawns Player
-            SpawnPlayer();
+            
 
             //Activates Death Overlay
             onoff = true;
             DeathScreen(onoff);
+
+            //Respawns Player
+            SpawnPlayer();
 
             initialDeathCode = true;
             gameObject.GetComponent<BoxCollider>().enabled = false;
@@ -137,7 +140,7 @@ public class DeathScript : MonoBehaviour
         //REACTIVATE GOOBER GUIDANCE SYSTEM
         gooberGuide.SetActive(true);
 
-        goober.GetComponent<SphereCollider>().enabled = true;
+        //goober.GetComponent<SphereCollider>().enabled = true;
         gameObject.GetComponent<BoxCollider>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
@@ -212,6 +215,7 @@ public class DeathScript : MonoBehaviour
 
     public void DropGoober()
     {
+        Debug.Log("dropped Goober");
         //change ui of abiities and stuff
         foreach(GameObject a in goober.GetComponent<GooberFunctionality>().currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
         {
@@ -222,7 +226,7 @@ public class DeathScript : MonoBehaviour
         //set the parent to null
         goober.transform.SetParent(null);
         //drop it
-        goober.transform.position += new Vector3(0, -1.5f, 0);
+        // goober.transform.position += new Vector3(0, -1.5f, 0);
         //set new parent back to empty
         goober.transform.SetParent(GameObject.Find("Goobers").transform);
         //turn on the collider
