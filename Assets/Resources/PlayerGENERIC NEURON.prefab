@@ -1363,6 +1363,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5dd6564950b784188b2932bf86164f04, type: 2}
   stats: []
   spawn: {x: 0, y: 0, z: 0}
+  synch: 0
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
   maxHealth: 100
   health: 100
   ammo: 0
@@ -1439,12 +1442,12 @@ MonoBehaviour:
   m_wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  m_wallRunForce: 70
+  m_wallRunForce: 65
   m_wallJumpUpForce: 7
   m_wallJumpSideForce: 15
   m_maxWallRunTime: 1.5
   m_exitWallTime: 0.5
-  m_wallCheckDistance: 0.7
+  m_wallCheckDistance: 1.2
   m_useGravity: 1
   m_gravityCounterForce: 2
   m_wallRunTimer: 1.5

@@ -89,6 +89,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
     private bool m_wallRight;
     public bool m_exitingWall;
     public float m_exitWallTimer;
+    Vector3 wallRunVelocity;
 
     PhotonView view;
     
