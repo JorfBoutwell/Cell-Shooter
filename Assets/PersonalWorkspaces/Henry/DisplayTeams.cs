@@ -41,23 +41,22 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if(PhotonNetwork.PlayerList.Length != prevCount)
+        
+        if (teamA.transform.childCount > 0)
         {
-            if (teamA.transform.childCount > 0)
+            foreach (Transform child in teamA.transform)
             {
-                foreach (Transform child in teamA.transform)
-                {
-                    child.gameObject.SetActive(false);
-                }
-            }
-            if (teamB.transform.childCount > 0)
-            {
-                foreach (Transform child in teamB.transform)
-                {
-                    child.gameObject.SetActive(false);
-                }
+                child.gameObject.SetActive(false);
             }
         }
+        if (teamB.transform.childCount > 0)
+        {
+            foreach (Transform child in teamB.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+        
         int blueCounter = 0;
         int redCounter = 0;
         int counter = 0;
