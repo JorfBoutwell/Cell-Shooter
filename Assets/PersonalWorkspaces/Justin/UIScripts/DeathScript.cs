@@ -140,7 +140,7 @@ public class DeathScript : MonoBehaviour
         onoff = false;
         DeathScreen(onoff);
 
-        SpawnPlayer();
+        //SpawnPlayer();
 
         //REACTIVATE GOOBER GUIDANCE SYSTEM
         gooberGuide.SetActive(true);
