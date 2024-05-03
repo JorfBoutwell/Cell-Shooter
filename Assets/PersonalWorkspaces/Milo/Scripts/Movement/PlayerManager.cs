@@ -231,12 +231,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(rigidbody.position);
             stream.SendNext(rigidbody.rotation);
             stream.SendNext(rigidbody.velocity);
+            stream.SendNext(isDead);
         }
         else
         {
             rigidbody.position = (Vector3)stream.ReceiveNext();
             rigidbody.rotation = (Quaternion)stream.ReceiveNext();
             rigidbody.velocity = (Vector3)stream.ReceiveNext();
+            isDead = (bool)stream.ReceiveNext();
 
             float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
             rigidbody.position += rigidbody.velocity * lag;
@@ -361,7 +363,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             photonView.RPC("DropGoober", RpcTarget.All);
         }
         //leaves the room and loads the lobby
-        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+        PhotonNetwork.Destroy(gameObject);
         SceneManager.LoadSceneAsync("MainMenu");
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
