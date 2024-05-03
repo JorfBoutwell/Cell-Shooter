@@ -458,7 +458,7 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
         //synchs the clearing
         photonView.Owner.SetCustomProperties(customProperties);
         //leaves the room and loads the lobby
-        PhotonNetwork.Destroy(gameObject);
+        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
         SceneManager.LoadSceneAsync("MainMenu");

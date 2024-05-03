@@ -361,10 +361,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             photonView.RPC("DropGoober", RpcTarget.All);
         }
         //leaves the room and loads the lobby
+        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
         SceneManager.LoadSceneAsync("MainMenu");
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
-        PhotonNetwork.Destroy(gameObject);
+        
     }
 
     
