@@ -7,6 +7,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 
 
@@ -458,7 +459,9 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
         photonView.Owner.SetCustomProperties(customProperties);
         //leaves the room and loads the lobby
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel("Lobby");
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadSceneAsync("MainMenu");
+        
     }
 
     void IInRoomCallbacks.OnMasterClientSwitched(Player newMasterClient)

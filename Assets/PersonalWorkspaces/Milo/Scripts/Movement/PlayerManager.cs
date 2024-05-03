@@ -78,6 +78,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] Material materialA;
     [SerializeField] Material materialB;
+    [SerializeField] Material materialDead;
 
     KillFeed killFeedScript;
     public string username;
@@ -259,6 +260,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             StartCoroutine("DeathTimer");
         }
 
+        if (isDead)
+        {
+            gameObject.GetComponent<MeshRenderer>().material = materialDead;
+        } else if (team == "A")
+        {
+            gameObject.GetComponent<MeshRenderer>().material = materialA;
+        } else if (team == "B")
+        {
+            gameObject.GetComponent<MeshRenderer>().material = materialB;
+        }
+
         ChangeGooberText();
 
         synch += Time.deltaTime;
@@ -349,8 +361,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             photonView.RPC("DropGoober", RpcTarget.All);
         }
         //leaves the room and loads the lobby
+        SceneManager.LoadSceneAsync("MainMenu");
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel("Lobby");
+        PhotonNetwork.Disconnect();
+        
     }
 
     

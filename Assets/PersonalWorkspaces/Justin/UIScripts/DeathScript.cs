@@ -214,12 +214,16 @@ public class DeathScript : MonoBehaviour
         playerManagerScript.pointCollectors.Clear();
 
         //pointCollectorBarScript.updateBar(playerManagerScript.team, -1 * playerManagerScript.buttonsPressed);
-        playerManagerScript.buttonsPressed = 0;
+        //playerManagerScript.buttonsPressed = 0;
 
     }
 
     public void DropGoober()
     {
+        if (playerManagerScript.buttonsPressed != 1)
+        {
+            return;
+        }
         Debug.Log("dropped Goober");
         //change ui of abiities and stuff
         foreach(GameObject a in goober.GetComponent<GooberFunctionality>().currentPlayer.GetComponent<WeaponManager>().abilityUI.abilityObjects)
@@ -241,6 +245,7 @@ public class DeathScript : MonoBehaviour
         //set current player and team to null
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         goober.GetComponent<GooberFunctionality>().team = null;
+        playerManagerScript.buttonsPressed = 0;
     }
 
     //Resets Health After Respawn
