@@ -461,6 +461,7 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
         SceneManager.LoadSceneAsync("MainMenu");
+        Destroy(gameObject);
         
     }
 
