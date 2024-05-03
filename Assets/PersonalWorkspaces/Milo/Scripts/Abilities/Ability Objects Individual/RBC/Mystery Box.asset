@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mystery Box
   m_EditorClassIdentifier: 
   abilityName: MysteryBox
-  iconImage: {fileID: 0}
+  iconImage: {fileID: 21300000, guid: 53455912b5ff246a19c765d0d6628e43, type: 3}
   abilityTime: 1
   animationFlag: 0
   cooldownTime: 1
