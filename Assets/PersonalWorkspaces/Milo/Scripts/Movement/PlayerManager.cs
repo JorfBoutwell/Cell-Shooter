@@ -364,7 +364,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         SceneManager.LoadSceneAsync("MainMenu");
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     
