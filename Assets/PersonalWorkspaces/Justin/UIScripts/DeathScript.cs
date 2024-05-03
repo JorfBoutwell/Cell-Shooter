@@ -88,19 +88,24 @@ public class DeathScript : MonoBehaviour
         if (playerManagerScript.isDead) {
             currentTime -= Time.deltaTime;
             StartCoroutine(Death());
+        } else
+        {
+            initialDeathCode = false;
+            currentTime = 5f;
         }
          
     }
 
     public IEnumerator Death()
     {
+        
         if (initialDeathCode == false)
         {
             
 
             //Unclaims Points
             PointCollecterReset();
-            Debug.Log(goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject);
+            Debug.Log((goober.GetComponent<GooberFunctionality>().gameObject.transform.parent.gameObject == gameObject) + "They match");
             if (goober != null && goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject)
             {
                 goober.GetComponent<GooberFunctionality>().atpClaimed = false;
@@ -108,8 +113,8 @@ public class DeathScript : MonoBehaviour
                 Debug.Log("entered if");
                 DropGoober();
             }
-
-            
+            DropGoober();
+            goober.GetComponent<GooberFunctionality>().atpClaimed = false;
 
             //Activates Death Overlay
             onoff = true;
