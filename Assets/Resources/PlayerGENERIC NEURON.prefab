@@ -1503,7 +1503,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 31552
   bulletTrail: {fileID: 1558605981893590399, guid: 0ff4fdde8dfe84cad8901a68f2d98b75, type: 3}
-  bulletSpeed: 75
+  bulletSpeed: 200
   bulletUI: {fileID: 6550541714398719811}
   currentAmmo: 0
   goober: {fileID: 0}
