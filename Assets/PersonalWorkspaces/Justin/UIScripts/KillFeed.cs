@@ -60,7 +60,7 @@ public class KillFeed : MonoBehaviour
     void Start()
     {
         trainScript = GameObject.Find("Train").GetComponent<Train>();
-        canvas1 = GameObject.Find("PlayerDataCanvas");
+        canvas1 = GameObject.Find("GameCanvas");
         //Sets Player Usernames
         for(int i = 0; i < 4; i++)
         {
