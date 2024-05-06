@@ -1385,6 +1385,10 @@ MonoBehaviour:
   goober: {fileID: 0}
   gooberStatusOverlay: {fileID: 0}
   gooberTargeter: {fileID: 0}
+  TimeUntilTrain: 20
+  NewTrain: 20
+  Train: {fileID: 0}
+  Train2: {fileID: 0}
   materialA: {fileID: 2100000, guid: d84fdac30cb524e1ca8fc82476fb1cf8, type: 2}
   materialB: {fileID: 2100000, guid: 69a2eff729fde4168a5b725355a515df, type: 2}
   materialDead: {fileID: 2100000, guid: c6a2b9daa698c40ebbf5e6c7c71c536e, type: 2}
