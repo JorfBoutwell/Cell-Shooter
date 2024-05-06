@@ -6139,6 +6139,8 @@ MonoBehaviour:
   pointsB: {fileID: 10198232}
   player1Image: {fileID: 1404647713}
   player2Image: {fileID: 2045289669}
+  player1Icon: {fileID: 1380404305}
+  player2Icon: {fileID: 1330238886}
   trainScript: {fileID: 0}
   boxesCount: 0
   player1: 

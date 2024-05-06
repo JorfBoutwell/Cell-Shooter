@@ -39,6 +39,9 @@ public class KillFeed : MonoBehaviour
     public Image player1Image;
     public Image player2Image;
 
+    public Image player1Icon;
+    public Image player2Icon;
+
     bool test = false;
     public Train trainScript;
 
