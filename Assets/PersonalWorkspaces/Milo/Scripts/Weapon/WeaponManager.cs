@@ -539,10 +539,29 @@ public class WeaponManager : MonoBehaviour
             Debug.Log(this.gameObject.GetComponentInChildren<KillFeed>().player1 + " killed " + player2);
             GameObject.Find("KillFeedObject").GetComponent<KillFeed>().KillFeedInstantiate(GameObject.Find("KillFeedObject").GetComponent<KillFeed>().boxesCount);
             */
+            if(targetPhotonView.GetComponent<PlayerManager>().team == "A")
+            {
+                killFeedScript.player2Image.GetComponent<Material>().color = Color.blue;
+            } else
+            {
+                killFeedScript.player2Image.GetComponent<Material>().color = Color.red;
+            }
 
+            if (playerManagerScript.team == "A")
+            {
+                killFeedScript.player1Image.GetComponent<Material>().color = Color.blue;
+            }
+            else
+            {
+                killFeedScript.player1Image.GetComponent<Material>().color = Color.red;
+            }
+
+            killFeedScript.player2Image.GetComponentInChildren<SpriteRenderer>().sprite = targetPhotonView.GetComponent<PlayerManager>().charIcon.sprite;
             killFeedScript.player2 = targetPhotonView.GetComponent<PlayerManager>().username;
-            //killFeedScript.player2 = player2;
+
+            killFeedScript.player1Image.GetComponentInChildren<SpriteRenderer>().sprite = playerManagerScript.charIcon.sprite;
             killFeedScript.player1 = playerManagerScript.username;
+
             Debug.Log(killFeedScript.player1 + " killed " + killFeedScript.player2);
             killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
 

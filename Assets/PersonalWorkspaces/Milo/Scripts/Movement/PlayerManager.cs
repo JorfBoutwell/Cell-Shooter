@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject damInd;
     [SerializeField] Image vignette;
     [SerializeField] GameObject FPDisplay;
-    [SerializeField] Image charIcon;
+    [SerializeField] public Image charIcon;
     [SerializeField] Image teamInd;
 
     public InputActions inputActions;

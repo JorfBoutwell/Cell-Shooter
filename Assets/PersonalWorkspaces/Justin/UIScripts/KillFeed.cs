@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class KillFeed : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class KillFeed : MonoBehaviour
     public PointContainer pointsB;
     bool aHalfPoint = false;
     static bool bHalfPoint = false;
+
+    public Image player1Image;
+    public Image player2Image;
 
     bool test = false;
     public Train trainScript;
