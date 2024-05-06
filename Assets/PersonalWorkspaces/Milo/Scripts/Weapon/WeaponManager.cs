@@ -548,25 +548,25 @@ public class WeaponManager : MonoBehaviour
             */
             if(targetPhotonView.GetComponent<PlayerManager>().team == "A")
             {
-                killFeedScript.player2Image.GetComponent<Material>().color = Color.blue;
+                killFeedScript.player2Image.color = Color.blue;
             } else
             {
-                killFeedScript.player2Image.GetComponent<Material>().color = Color.red;
+                killFeedScript.player2Image.color = Color.red;
             }
 
             if (playerManagerScript.team == "A")
             {
-                killFeedScript.player1Image.GetComponent<Material>().color = Color.blue;
+                killFeedScript.player1Image.color = Color.blue;
             }
             else
             {
-                killFeedScript.player1Image.GetComponent<Material>().color = Color.red;
+                killFeedScript.player1Image.color = Color.red;
             }
 
-            killFeedScript.player2Image.GetComponentInChildren<SpriteRenderer>().sprite = targetPhotonView.GetComponent<PlayerManager>().charIcon.sprite;
+            killFeedScript.player2Image.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = targetPhotonView.GetComponent<PlayerManager>().charIcon.sprite;
             killFeedScript.player2 = targetPhotonView.GetComponent<PlayerManager>().username;
 
-            killFeedScript.player1Image.GetComponentInChildren<SpriteRenderer>().sprite = playerManagerScript.charIcon.sprite;
+            killFeedScript.player1Image.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = playerManagerScript.charIcon.sprite;
             killFeedScript.player1 = playerManagerScript.username;
 
             Debug.Log(killFeedScript.player1 + " killed " + killFeedScript.player2);
