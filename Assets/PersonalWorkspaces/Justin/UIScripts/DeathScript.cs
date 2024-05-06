@@ -137,7 +137,6 @@ public class DeathScript : MonoBehaviour
 
         if (initialRespawnCode == false)
         {
-            Debug.Log("yahayahyah");
 
             foreach (GameObject a in player.GetComponent<WeaponManager>().abilityUI.abilityObjects)
             {
@@ -145,6 +144,7 @@ public class DeathScript : MonoBehaviour
                 a.transform.GetChild(0).GetChild(1).GetComponent<Image>().enabled = true;
             }
 
+            player.GetComponent<PlayerManager>().health = player.GetComponent<PlayerManager>().maxHealth;
             //Reset Health
             HealthReset();
 
