@@ -21,6 +21,7 @@ public class GooberFunctionality : MonoBehaviour
     {
         if(currentPlayer != null)
         {
+            Debug.Log(currentPlayer);
             transform.position = currentPlayer.transform.position + new Vector3(0, 1.5f, 0);
         }
         if (dropped > 0)

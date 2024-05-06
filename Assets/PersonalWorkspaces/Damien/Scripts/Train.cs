@@ -54,7 +54,7 @@ public class Train : MonoBehaviour
 
         Debug.Log("TRAIN HIT PLAYER" + other);
         playerManagerScript = other.GetComponent<PlayerManager>();
-        playerManagerScript.health -= 100;
+        playerManagerScript.health = 0;
         playerManagerScript.isDead = true;
 
         if (!killFeedScript.hitByTrain) {
