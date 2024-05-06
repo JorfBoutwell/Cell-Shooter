@@ -124,8 +124,8 @@ public class DeathScript : MonoBehaviour
             SpawnPlayer();
 
             initialDeathCode = true;
-            gameObject.GetComponentInParent<BoxCollider>().enabled = false;
-            gameObject.GetComponentInParent<CapsuleCollider>().enabled = false;
+            //gameObject.GetComponentInParent<BoxCollider>().enabled = false;
+            //gameObject.GetComponentInParent<CapsuleCollider>().enabled = false;
         }
 
         //Activates Death Overlay UI
@@ -152,8 +152,8 @@ public class DeathScript : MonoBehaviour
         gooberGuide.SetActive(true);
 
         //goober.GetComponent<SphereCollider>().enabled = true;
-        gameObject.GetComponentInParent<BoxCollider>().enabled = true;
-        gameObject.GetComponentInParent<CapsuleCollider>().enabled = true;
+        //gameObject.GetComponentInParent<BoxCollider>().enabled = true;
+        //gameObject.GetComponentInParent<CapsuleCollider>().enabled = true;
 
         //Resets Death Timer to Default Count
         currentTime = 5f;
