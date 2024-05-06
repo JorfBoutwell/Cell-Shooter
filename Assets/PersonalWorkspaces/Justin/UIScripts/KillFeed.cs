@@ -60,7 +60,8 @@ public class KillFeed : MonoBehaviour
     void Start()
     {
         trainScript = GameObject.Find("Train").GetComponent<Train>();
-        canvas1 = GameObject.Find("GameCanvas");
+        //canvas1 = GameObject.Find("GameCanvas");
+        StartCoroutine("findCanvas");
         //Sets Player Usernames
         for(int i = 0; i < 4; i++)
         {
@@ -192,6 +193,14 @@ public class KillFeed : MonoBehaviour
         else { 
             boxes[boxesCounts].GetComponentInChildren<TextMeshProUGUI>().text = aText;
         }
+    }
+
+    public IEnumerator findCanvas()
+    {
+        yield return new WaitForSeconds(5f);
+        Debug.Log("please work");
+        canvas1 = GameObject.Find("PlayerDataCanvas");
+
     }
 
 }
