@@ -269,7 +269,7 @@ public class DeathScript : MonoBehaviour
 
         playerManagerScript.health = 100; //Subject to change
 
-        healthUIScript.healthBarUI = playerManagerScript.health * 6.8f;
+        healthUIScript.healthBarUI = 100 * 6.8f;
         Debug.Log("e" + healthUIScript.healthBarUI);
         healthUIScript.healthShadow = healthUIScript.healthBarUI;
         Debug.Log("r" + healthUIScript.healthShadow);
