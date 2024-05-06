@@ -67,8 +67,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject gooberStatusOverlay;
     public GameObject gooberTargeter;
 
-    public float TimeUntilTrain = 30f;
-    public float NewTrain;
+    public float TimeUntilTrain = 20f;
+    public float NewTrain = 20;
     private float Delta;
     public GameObject Train;
     public GameObject Train2;
