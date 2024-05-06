@@ -161,8 +161,6 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
             start.GetComponent<Button>().interactable = false;
         }
 
-        UpdateMode();
-
     }
 
     //finds element of an array made of strings

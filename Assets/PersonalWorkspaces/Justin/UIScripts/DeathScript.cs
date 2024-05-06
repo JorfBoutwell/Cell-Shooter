@@ -124,14 +124,20 @@ public class DeathScript : MonoBehaviour
             SpawnPlayer();
 
             initialDeathCode = true;
-            gameObject.GetComponent<BoxCollider>().enabled = false;
-            gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            gameObject.GetComponentInParent<BoxCollider>().enabled = false;
+            gameObject.GetComponentInParent<CapsuleCollider>().enabled = false;
         }
 
         //Activates Death Overlay UI
         deathTimer.text = currentTime.ToString("0");
 
         yield return new WaitForSeconds(currentTime);
+
+        foreach (GameObject a in player.GetComponent<WeaponManager>().abilityUI.abilityObjects)
+        {
+            a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
+            a.transform.GetChild(0).GetChild(1).GetComponent<Image>().enabled = true;
+        }
 
         //Reset Health
         HealthReset();
@@ -146,8 +152,8 @@ public class DeathScript : MonoBehaviour
         gooberGuide.SetActive(true);
 
         //goober.GetComponent<SphereCollider>().enabled = true;
-        gameObject.GetComponent<BoxCollider>().enabled = true;
-        gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        gameObject.GetComponentInParent<BoxCollider>().enabled = true;
+        gameObject.GetComponentInParent<CapsuleCollider>().enabled = true;
 
         //Resets Death Timer to Default Count
         currentTime = 5f;
