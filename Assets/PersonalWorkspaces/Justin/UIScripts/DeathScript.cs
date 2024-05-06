@@ -41,6 +41,7 @@ public class DeathScript : MonoBehaviour
 
     //Floats and Bools
     bool initialDeathCode = false;
+    bool initialRespawnCode = false;
     float currentTime;
     bool onoff;
     float originalAnimationScale;
@@ -123,6 +124,7 @@ public class DeathScript : MonoBehaviour
             //Respawns Player
             SpawnPlayer();
 
+            initialRespawnCode = false;
             initialDeathCode = true;
             //gameObject.GetComponentInParent<BoxCollider>().enabled = false;
             //gameObject.GetComponentInParent<CapsuleCollider>().enabled = false;
@@ -133,32 +135,38 @@ public class DeathScript : MonoBehaviour
 
         yield return new WaitForSeconds(currentTime);
 
-        foreach (GameObject a in player.GetComponent<WeaponManager>().abilityUI.abilityObjects)
+        if (initialRespawnCode == false)
         {
-            a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
-            a.transform.GetChild(0).GetChild(1).GetComponent<Image>().enabled = true;
+            Debug.Log("yahayahyah");
+
+            foreach (GameObject a in player.GetComponent<WeaponManager>().abilityUI.abilityObjects)
+            {
+                a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
+                a.transform.GetChild(0).GetChild(1).GetComponent<Image>().enabled = true;
+            }
+
+            //Reset Health
+            HealthReset();
+
+            //Deactivate Death Overlay
+            onoff = false;
+            DeathScreen(onoff);
+
+            //SpawnPlayer();
+
+            //REACTIVATE GOOBER GUIDANCE SYSTEM
+            gooberGuide.SetActive(true);
+
+            //goober.GetComponent<SphereCollider>().enabled = true;
+            //gameObject.GetComponentInParent<BoxCollider>().enabled = true;
+            //gameObject.GetComponentInParent<CapsuleCollider>().enabled = true;
+
+            //Resets Death Timer to Default Count
+            currentTime = 5f;
+
+            initialDeathCode = false;
+            initialRespawnCode = true;
         }
-
-        //Reset Health
-        HealthReset();
-
-        //Deactivate Death Overlay
-        onoff = false;
-        DeathScreen(onoff);
-
-        //SpawnPlayer();
-
-        //REACTIVATE GOOBER GUIDANCE SYSTEM
-        gooberGuide.SetActive(true);
-
-        //goober.GetComponent<SphereCollider>().enabled = true;
-        //gameObject.GetComponentInParent<BoxCollider>().enabled = true;
-        //gameObject.GetComponentInParent<CapsuleCollider>().enabled = true;
-
-        //Resets Death Timer to Default Count
-        currentTime = 5f;
-
-        initialDeathCode = false;
     }
 
     //Activates Death Overlay
