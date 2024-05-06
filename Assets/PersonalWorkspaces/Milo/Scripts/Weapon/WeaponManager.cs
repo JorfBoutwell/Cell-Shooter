@@ -172,6 +172,7 @@ public class WeaponManager : MonoBehaviour
         }
         if (goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject)
         {
+            Debug.Log("goober is mine");
             return;
         }
         if (abilityState == AbilityState.active)
