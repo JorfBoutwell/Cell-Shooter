@@ -564,11 +564,11 @@ public class WeaponManager : MonoBehaviour
             }
 
             //killFeedScript.player2Image.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = targetPhotonView.GetComponent<PlayerManager>().charIcon.sprite;
-            killFeedScript.player2Icon.sprite = targetPhotonView.GetComponent<PlayerManager>().charIcon.sprite; 
+            //killFeedScript.player2Icon.sprite = targetPhotonView.GetComponent<PlayerManager>().charIcon.sprite; 
             killFeedScript.player2 = targetPhotonView.GetComponent<PlayerManager>().username;
 
             //killFeedScript.player1Image.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = playerManagerScript.charIcon.sprite;
-            killFeedScript.player1Icon.sprite = playerManagerScript.charIcon.sprite;
+            //killFeedScript.player1Icon.sprite = playerManagerScript.charIcon.sprite;
             killFeedScript.player1 = playerManagerScript.username;
 
             Debug.Log(killFeedScript.player1 + " killed " + killFeedScript.player2);
