@@ -67,7 +67,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject gooberStatusOverlay;
     public GameObject gooberTargeter;
 
-    public float TimeUntilTrain = 60f;
+    public float TimeUntilTrain = 30f;
     public float NewTrain;
     private float Delta;
     public GameObject Train;
@@ -477,7 +477,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if (NewTrain <= 0)
         {
-            NewTrain = TimeUntilTrain + UnityEngine.Random.Range(-10f, 10f);
+            NewTrain = TimeUntilTrain + UnityEngine.Random.Range(-10f, 0f);
             photonView.RPC("RPC_Trains", RpcTarget.All);
         }
     }
