@@ -25,7 +25,10 @@ public class GooberGuidenceSystem : MonoBehaviour
         if(gameObject.activeSelf /*&& goober.GetComponent<GooberFunctionality>().currentPlayer == null*/)
         {
             // Calculate the direction from the player's camera to the goober
-            Vector3 directionToObjective = (goober.transform.position - playerCamera.position).normalized;
+
+            Vector3 directionToObjective = new Vector3(0,0,0);
+
+            if (playerCamera && goober) directionToObjective = (goober.transform.position - playerCamera.position).normalized;
 
             // Project the direction onto the horizontal plane (ignoring vertical)
             Vector3 directionOnHorizontalPlane = Vector3.ProjectOnPlane(directionToObjective, Vector3.up).normalized;
