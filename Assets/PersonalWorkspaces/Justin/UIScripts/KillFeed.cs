@@ -104,11 +104,11 @@ public class KillFeed : MonoBehaviour
     {
         yPos = 125 * count;
         count++;
-        //boxes.Add(Instantiate(killFeedBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
-        boxes.Add(Instantiate(killFeedBox, new Vector3(4095f, 2120f - yPos, 0f), transform.rotation) as GameObject);
+        boxes.Add(Instantiate(killFeedBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
+        //boxes.Add(Instantiate(killFeedBox, new Vector3(4095f, 2120f - yPos, 0f), transform.rotation) as GameObject); //For monitor
 
-        //boxes[boxesCount].transform.DOMoveX(1695f, 0.1f);
-        boxes[boxesCount].transform.DOMoveX(3595f, 0.1f);
+        boxes[boxesCount].transform.DOMoveX(1695f, 0.1f);
+        //boxes[boxesCount].transform.DOMoveX(3595f, 0.1f); //For monitor
 
         boxes[boxesCount].transform.SetParent(canvas1.transform);
         KillFeedText(boxesCount);
@@ -125,8 +125,8 @@ public class KillFeed : MonoBehaviour
 
         for (int i = 0; i < boxes.Count; i++)
         {
-            //boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
-            boxes[i].transform.DOMoveY(2895f - (i * 125), animationDuration);
+            boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
+            //boxes[i].transform.DOMoveY(2895f - (i * 125), animationDuration); //For monitor
 
         }
 
@@ -147,11 +147,11 @@ public class KillFeed : MonoBehaviour
     {
         yPos = 125 * count;
         count++;
-        //boxes.Add(Instantiate(alertBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
-        boxes.Add(Instantiate(alertBox, new Vector3(4095f, 2120f - yPos, 0f), transform.rotation) as GameObject);
+        boxes.Add(Instantiate(alertBox, new Vector3(2195f, 1120f - yPos, 0f), transform.rotation) as GameObject);
+        //boxes.Add(Instantiate(alertBox, new Vector3(4095f, 2120f - yPos, 0f), transform.rotation) as GameObject); //For monitor
 
-        //boxes[boxesCounts].transform.DOMoveX(1695f, 0.1f);
-        boxes[boxesCounts].transform.DOMoveX(3595f, 0.1f);
+        boxes[boxesCounts].transform.DOMoveX(1695f, 0.1f);
+        //boxes[boxesCounts].transform.DOMoveX(3595f, 0.1f); //For monitor
 
 
         boxes[boxesCounts].transform.SetParent(canvas1.transform);
@@ -169,8 +169,8 @@ public class KillFeed : MonoBehaviour
 
         for (int i = 0; i < boxes.Count; i++)
         {
-            //boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
-            boxes[i].transform.DOMoveY(2895f - (i * 125), animationDuration);
+            boxes[i].transform.DOMoveY(995f - (i * 125), animationDuration);
+            //boxes[i].transform.DOMoveY(2895f - (i * 125), animationDuration); //For monitor
 
         }
 
@@ -198,7 +198,6 @@ public class KillFeed : MonoBehaviour
     public IEnumerator findCanvas()
     {
         yield return new WaitForSeconds(5f);
-        Debug.Log("please work");
         canvas1 = GameObject.Find("PlayerDataCanvas");
 
     }
