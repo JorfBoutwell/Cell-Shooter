@@ -7,7 +7,7 @@ public class Train : MonoBehaviour
     public float TimeUntilTrain = 60f;
     public bool Direction = false;
     private float NewTrain;
-    private float Moving = 0f;
+    public float Moving = 0f;
     private float Delta;
     private Vector3 StartPos;
     private BoxCollider Collider;
@@ -31,13 +31,7 @@ public class Train : MonoBehaviour
     void Update()
     {
         Delta = Time.deltaTime;
-        NewTrain -= Delta;
-
-        if (NewTrain <= 0)
-        {
-            NewTrain = TimeUntilTrain + Random.Range(-10f, 10f);
-            Moving = 3.2f;
-        }
+        
 
         if (Moving > 0)
         {

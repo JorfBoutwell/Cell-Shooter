@@ -67,6 +67,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject gooberStatusOverlay;
     public GameObject gooberTargeter;
 
+    public float TimeUntilTrain = 60f;
+    public float NewTrain;
+    private float Delta;
+    public GameObject Train;
+    public GameObject Train2;
+
     PhotonView view;
 
     //keys for teamA and teamB scores
@@ -134,6 +140,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
         pointA = GameObject.Find("PointA");
         pointB = GameObject.Find("PointB");
+
+        Train = GameObject.Find("Train");
+        Train2 = GameObject.Find("Train (1)");
     }
 
     private void Start()
@@ -280,6 +289,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             synch = 0;
             photonView.RPC("synchPoints", RpcTarget.All, pointA.GetComponent<PointContainer>().points, pointB.GetComponent<PointContainer>().points);
+        }
+        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Delta = Time.deltaTime;
+            NewTrain -= Delta;
+            Trains();
         }
     }
 
@@ -455,7 +471,16 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public void Trains()
+    {
+        
 
+        if (NewTrain <= 0)
+        {
+            NewTrain = TimeUntilTrain + UnityEngine.Random.Range(-10f, 10f);
+            photonView.RPC("RPC_Trains", RpcTarget.All);
+        }
+    }
 
     public void HandleEffects()
     {
@@ -516,7 +541,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         inputActions.Enable();
     }
 
-
+    [PunRPC]
+    public void RPC_Trains()
+    {
+        Train.GetComponent<Train>().Moving = 3.2f;
+        Train2.GetComponent<Train>().Moving = 3.2f;
+    }
 
     [PunRPC]
     public void RPC_UpdatePos(Vector3 pos)

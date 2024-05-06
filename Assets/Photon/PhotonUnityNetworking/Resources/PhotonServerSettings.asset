@@ -55,6 +55,7 @@ MonoBehaviour:
   - DropFlag
   - DropGoober
   - synchPoints
+  - RPC_Trains
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
