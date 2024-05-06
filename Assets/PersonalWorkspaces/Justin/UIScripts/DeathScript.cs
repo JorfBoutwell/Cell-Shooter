@@ -133,6 +133,12 @@ public class DeathScript : MonoBehaviour
 
         yield return new WaitForSeconds(currentTime);
 
+        foreach (GameObject a in player.GetComponent<WeaponManager>().abilityUI.abilityObjects)
+        {
+            a.transform.GetChild(3).gameObject.GetComponent<Image>().enabled = false;
+            a.transform.GetChild(0).GetChild(1).GetComponent<Image>().enabled = true;
+        }
+
         //Reset Health
         HealthReset();
 
