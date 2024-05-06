@@ -50,6 +50,7 @@ public class WeaponManager : MonoBehaviour
     public Ability currentAbility;
     public AbilityUI abilityUI;
     int ability = -1;
+    bool firstAbility = true;
 
     public enum AbilityState
     {
@@ -261,15 +262,21 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
 
-        currentAbility.StartAbility(gameObject);
+        if (firstAbility)
+        {
+            yield return new WaitForSeconds(currentAbility.animationFlag);
+            currentAbility.StartAbility(gameObject);
+            firstAbility = false;
+        }
 
-        yield return new WaitForSeconds(currentAbility.abilityTime);
+        yield return new WaitForSeconds(currentAbility.abilityTime - currentAbility.animationFlag);
 
         currentAbility.StartCooldown(gameObject);
 
         Debug.Log("done");
         abilityState = AbilityState.cooldown;
         State = WeaponState.idle;
+        firstAbility = true;
     }
 
     IEnumerator HandleCooldown(Ability currentAbility)

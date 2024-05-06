@@ -124,7 +124,7 @@ public class DeathScript : MonoBehaviour
             SpawnPlayer();
 
             initialDeathCode = true;
-            gameObject.GetComponent<BoxCollider>().enabled = false;
+            //gameObject.GetComponent<BoxCollider>().enabled = false;
             gameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
 
@@ -152,7 +152,7 @@ public class DeathScript : MonoBehaviour
         gooberGuide.SetActive(true);
 
         //goober.GetComponent<SphereCollider>().enabled = true;
-        gameObject.GetComponent<BoxCollider>().enabled = true;
+        //gameObject.GetComponent<BoxCollider>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
         //Resets Death Timer to Default Count
