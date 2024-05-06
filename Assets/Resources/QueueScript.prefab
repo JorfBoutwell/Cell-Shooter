@@ -1834,7 +1834,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: zxczxc
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
   m_sharedMaterial: {fileID: 5951158573895521346, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
@@ -2275,7 +2275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: osteogenesis
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8213537a4233b4010b4eb75266725941, type: 2}
   m_sharedMaterial: {fileID: 1786916550957191386, guid: 8213537a4233b4010b4eb75266725941, type: 2}
@@ -3154,7 +3154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Build a bone to use as a platform or a wall
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
   m_sharedMaterial: {fileID: 5951158573895521346, guid: 3ff927224f8954ad4a87fb8f6a420ac1, type: 2}
@@ -3936,12 +3936,12 @@ MonoBehaviour:
   - {fileID: 3223158042740788297}
   - {fileID: 714268616614775357}
   caption1:
-  - neuropulse
+  - swap
   - perfusion
   - osteogenesis
   - receptor
   desc1:
-  - Dash forward, damaging enemies in your path
+  - switch the neurotransmitter from a speed boost to healing.
   - Boost forward
   - Build a bone to use as a platform or wall
   - Grapple towards a marked enemy
@@ -3951,7 +3951,7 @@ MonoBehaviour:
   - elbow drop
   - cytotoxicity
   desc2:
-  - Fire hormones that speed up teammates that run through them
+  - Fire hormones that help your teammates that run through them.
   - Throw a package that has a random effect
   - Slam the ground, dealing damage that scales based on height
   - (Passive) Enemies hit with your weapon become marked
@@ -4806,7 +4806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: elbow drop
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8213537a4233b4010b4eb75266725941, type: 2}
   m_sharedMaterial: {fileID: 1786916550957191386, guid: 8213537a4233b4010b4eb75266725941, type: 2}
