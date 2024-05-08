@@ -263,12 +263,13 @@ public class QueueScene : MonoBehaviourPunCallbacks, IInRoomCallbacks
         if (index == -1 || index == 4)
         {
             if (ready == true) return;
-            charPortrait.transform.gameObject.SetActive(false);
+            charPortrait.sprite = portraits[4];
             charName.text = "???";
             foreach(TMP_Text text in captions)
             {
                 text.text = "";
             }
+            captions[0].text = "CHOOSE YOUR CHARACTER!";
             foreach(TMP_Text text in descriptions)
             {
                 text.text = "";

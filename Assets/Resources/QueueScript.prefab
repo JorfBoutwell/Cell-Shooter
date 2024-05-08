@@ -2275,7 +2275,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: SELECT YOUR CHARACTER!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8213537a4233b4010b4eb75266725941, type: 2}
   m_sharedMaterial: {fileID: 1786916550957191386, guid: 8213537a4233b4010b4eb75266725941, type: 2}
@@ -3921,6 +3921,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 29f0c399688514d088d77fa61b71fd43, type: 3}
   - {fileID: 21300000, guid: dcf16e7481efa48579f158cca5114c84, type: 3}
   - {fileID: 21300000, guid: 275feb8aa6ee0442080e0f3bf6228e35, type: 3}
+  - {fileID: 21300000, guid: 7f2e4fc78bda94343a9442c6d4d1e898, type: 3}
   charName: {fileID: 1607623668442468512}
   names:
   - NEURON
