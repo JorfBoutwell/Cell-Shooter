@@ -14,6 +14,7 @@ public class Ability : ScriptableObject
     public float animationFlag;
     public float cooldownTime;
     public bool isUsable;
+
     private void Awake()
     {
         isUsable = true;

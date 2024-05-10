@@ -1258,6 +1258,7 @@ GameObject:
   - component: {fileID: 7904016881856551529}
   - component: {fileID: 9182972780782173685}
   - component: {fileID: 8350681168350596030}
+  - component: {fileID: 3230579040204955830}
   m_Layer: 0
   m_Name: PlayerGENERIC NEURON
   m_TagString: Player
@@ -1654,6 +1655,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21df2903170134b498cbb95e91740125, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3230579040204955830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576989017386804971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a39cb30d0700401796f4a5f61b28895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1805873773983463728
