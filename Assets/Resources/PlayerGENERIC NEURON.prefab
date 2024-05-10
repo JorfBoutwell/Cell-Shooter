@@ -1410,7 +1410,7 @@ MonoBehaviour:
   state: 0
   animController: {fileID: 0}
   movementSpeed: 10
-  walkSpeed: 7
+  walkSpeed: 3
   sprintSpeed: 14
   crouchSpeed: 2
   airSpeed: 5
