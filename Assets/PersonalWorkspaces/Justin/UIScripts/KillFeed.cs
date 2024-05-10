@@ -66,7 +66,6 @@ public class KillFeed : MonoBehaviour
         for(int i = 0; i < 4; i++)
         {
             usernames.Add("killers" + i); //8 Character Limit and no CAPS based on UI Size
-            Debug.Log(usernames[i]);
             
         }
 

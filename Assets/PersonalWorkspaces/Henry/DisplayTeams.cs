@@ -29,7 +29,6 @@ public class DisplayTeams : MonoBehaviourPunCallbacks
     {
         if (!game)
         {
-            Debug.Log("character length is " + characters.Length);
             for (int i = 0; i < characters.Length; i++)
             {
                 sprite.Add(characters[i], sprites[i]);

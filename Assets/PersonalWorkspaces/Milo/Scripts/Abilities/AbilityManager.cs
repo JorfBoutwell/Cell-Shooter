@@ -40,7 +40,6 @@ public class AbilityManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log(currentAbility.abilityName + " still on Cooldown!");
                     currentAbility = null;
                     state = AbilityState.ready;
                 }

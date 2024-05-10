@@ -447,10 +447,19 @@ MonoBehaviour:
   usernames: []
   transformPosition: {x: 0, y: 0}
   animationDuration: 1
-  pointUpdateScript: {fileID: 0}
+  pointsA: {fileID: 0}
+  pointsB: {fileID: 0}
+  player1Image: {fileID: 0}
+  player2Image: {fileID: 0}
+  player1Icon: {fileID: 0}
+  player2Icon: {fileID: 0}
+  trainScript: {fileID: 0}
   boxesCount: 0
   player1: 
   player2: 
+  alertText: 
+  pointsNeeded: 1000
+  hitByTrain: 0
 --- !u!1 &584295055173621493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,7 +1372,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4339753138415753031}
-  - component: {fileID: 7464115181882105011}
   m_Layer: 0
   m_Name: CharacterPortraitObject
   m_TagString: Untagged
@@ -1386,23 +1394,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2076405219339629817}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7464115181882105011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837262148089129788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1ec0312360f1436babba4ffe33a9d5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentCharacterPortrait: {fileID: 1807997906353302175}
-  NeuronPFP: {fileID: 2800000, guid: 86ae9e00a176503459f98a6f079d4a3c, type: 3}
-  RedBloodCellPFP: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
-  playerManagerScript: {fileID: 0}
-  currentCharacter: 
 --- !u!1 &1865671552836607722
 GameObject:
   m_ObjectHideFlags: 0
@@ -3582,6 +3573,7 @@ MonoBehaviour:
   gameTimeMinutes: 0
   startCountdown: 0
   gameTimerStart: 0
+  timerPosition: {x: 0, y: 0, z: 0}
   queLoad: 0
   objectiveTextPrompts: []
   objectiveText: {fileID: 0}
@@ -3592,6 +3584,7 @@ MonoBehaviour:
   returnTimer: {fileID: 0}
   returnTime: 5
   winTeam: 
+  pointsNeeded: 1000
   pointsA: {fileID: 0}
   pointsB: {fileID: 0}
   dictionary: {fileID: 0}
@@ -5299,6 +5292,7 @@ MonoBehaviour:
   healthBar: {fileID: 3789566570170445340}
   healthBarShadow: {fileID: 8295044620268501850}
   healthBarUI: 680
+  maxWidth: 680
   healthShadow: 680
   lastHealth: 100
 --- !u!1 &6075055988066382408
@@ -7828,7 +7822,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownOverlay: {fileID: 0}
-  cooldownOverlayBar: {fileID: 0}
 --- !u!1 &8295044620268501850
 GameObject:
   m_ObjectHideFlags: 0
@@ -8574,13 +8567,20 @@ MonoBehaviour:
   player: {fileID: 0}
   playerTeam: 
   deathOverlay: {fileID: 9120549401669803886}
-  deathText: {fileID: 5752288924612249800}
   deathTimer: {fileID: 1406219618731391705}
+  deathMessage: {fileID: 0}
+  gooberGuide: {fileID: 0}
+  messages: []
+  fadeInDuration: 0
+  fadeOutDuration: 0
   healthUI: {fileID: 5667002440543675507}
   playerManagerScript: {fileID: 0}
   cooldowns: {fileID: 8281710828065144727}
   pointCollector: {fileID: 0}
   pointCollectorScript: {fileID: 0}
+  killFeedScript: {fileID: 0}
+  pointCollectorBarScript: {fileID: 0}
+  goober: {fileID: 0}
   transformPosition: {x: 0, y: 0}
   animationDuration: 5
   animationScale: 1.75

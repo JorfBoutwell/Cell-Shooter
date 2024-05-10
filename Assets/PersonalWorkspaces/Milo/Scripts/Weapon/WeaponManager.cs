@@ -129,7 +129,6 @@ public class WeaponManager : MonoBehaviour
         destination = Camera.main.transform;
         if (stateChange) //If state has changed this frame, play new anim
         {
-            Debug.Log("switch");
             animController.WeaponAnimationController(State);
             stateChange = false;
         }
@@ -172,7 +171,6 @@ public class WeaponManager : MonoBehaviour
         }
         if (goober.GetComponent<GooberFunctionality>().currentPlayer == gameObject)
         {
-            Debug.Log("goober is mine");
             return;
         }
         if (abilityState == AbilityState.active)
@@ -242,7 +240,6 @@ public class WeaponManager : MonoBehaviour
 
     IEnumerator HandleAbility(Ability currentAbility)
     {
-        Debug.Log("handle ability");
         switch (ability)
         {
             case 0:
@@ -274,7 +271,6 @@ public class WeaponManager : MonoBehaviour
 
         currentAbility.StartCooldown(gameObject);
 
-        Debug.Log("done");
         abilityState = AbilityState.cooldown;
         State = WeaponState.idle;
         firstAbility = true;
@@ -432,7 +428,6 @@ public class WeaponManager : MonoBehaviour
                     case 11: //teamA
                         if (team != "A")
                         {
-                            Debug.Log("Team A");
                             PhotonView targetPhotonViewA = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, targetPhotonViewA.ViewID);
                             StartCoroutine(ShowHitIndicator(0.4f));
@@ -441,7 +436,6 @@ public class WeaponManager : MonoBehaviour
                     case 13: //teamB
                         if (team != "B")
                         {
-                            Debug.Log("Team B");
                             PhotonView targetPhotonViewB = hit.transform.GetComponentInParent<PhotonView>();
                             view.RPC("RPC_TakeDamage", RpcTarget.All, currentWeapon.damage, targetPhotonViewB.ViewID);
                             StartCoroutine(ShowHitIndicator(0.4f));
@@ -468,7 +462,6 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("empty");
             isShooting = false;
             StartCoroutine(Reload());
             yield return null;
@@ -477,7 +470,6 @@ public class WeaponManager : MonoBehaviour
 
     public IEnumerator Reload()
     {
-        Debug.Log("rstart");
         if (abilityState == AbilityState.active || state != WeaponState.idle)
         {
             isReloading = false;
@@ -488,8 +480,6 @@ public class WeaponManager : MonoBehaviour
             isReloading = true;
 
             yield return new WaitForSeconds(currentWeapon.reloadTime);
-            Debug.Log(currentWeapon.reloadTime);
-            Debug.Log("rdone");
             currentAmmo = currentWeapon.maxAmmo;
             bulletUI.text = currentAmmo.ToString("0");
             isReloading = false;
@@ -497,7 +487,6 @@ public class WeaponManager : MonoBehaviour
         else
         {
             isReloading = false;
-            Debug.Log("Already at max ammo");
             yield return null;
         }
     }
@@ -573,7 +562,6 @@ public class WeaponManager : MonoBehaviour
             killFeedScript.player1Icon.sprite = playerManagerScript.charIcon.sprite;
             killFeedScript.player1 = playerManagerScript.username;
 
-            Debug.Log(killFeedScript.player1 + " killed " + killFeedScript.player2);
             killFeedScript.KillFeedInstantiate(killFeedScript.boxesCount);
 
         }

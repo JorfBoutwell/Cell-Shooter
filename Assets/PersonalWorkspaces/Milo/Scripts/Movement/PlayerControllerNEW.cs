@@ -411,7 +411,6 @@ public class PlayerControllerNEW : MonoBehaviourPun
             wallForward = -wallForward;
 
         m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
-        Debug.Log(wallForward * m_wallRunForce);
 
         if (!(m_wallLeft && moveInput.x > 0) && !(m_wallRight && moveInput.x < 0))
             m_rb.AddForce(-wallNormal * 100, ForceMode.Force);

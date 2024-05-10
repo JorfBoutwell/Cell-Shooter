@@ -168,7 +168,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     gameObject.GetComponent<MeshRenderer>().material = materialA;
                     teamInd.color = Color.blue;
 
-                    Debug.Log("spawnteama");
+
                     spawn = spawnScript.spawnPointsA[spawnScript.spawnIncrementA].transform.position;
                     this.gameObject.transform.position = spawn;
                     spawnScript.spawnIncrementA++;
@@ -182,7 +182,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     teamInd.color = Color.red;
 
 
-                    Debug.Log("spawnteamb");
                     spawn = spawnScript.spawnPointsB[spawnScript.spawnIncrementB].transform.position;
                     this.gameObject.transform.position = spawn;
                     spawnScript.spawnIncrementB++;
@@ -201,22 +200,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         switch(character)
         {
             case "Player1":
-                Debug.Log("Neuron");
                 refs = playerRefs[0];
                 gameObject.AddComponent<NeuronStats>();
                 break;
             case "Player2":
-                Debug.Log("RBC");
                 refs = playerRefs[1];
                 gameObject.AddComponent<RBCStats>();
                 break;
             case "Player3":
-                Debug.Log("Osteoclast");
                 refs = playerRefs[2];
 
                 break;
             case "PLayer4":
-                Debug.Log("TCell");
                 refs = playerRefs[3];
 
                 break;
@@ -397,7 +392,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             for(int i = 0; i < pointCollection.Length; i++)
             {
-                Debug.Log(pointCollection.Length);
                 if (pointCollection[i] == pointCollecter)
                 {
                     photonView.RPC("startPointer", RpcTarget.All, i);
@@ -412,7 +406,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         for (int i = 0; i < pointCollection.Length; i++)
         {
-            Debug.Log(pointCollection.Length);
             if (pointCollection[i] == pointCollecter)
             {
                 pointsCollectedIndexList.Remove(i);
@@ -534,7 +527,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     IEnumerator DeathTimer()
     {
         inputActions.Disable();
-        Debug.Log("WE");
         yield return new WaitForSeconds(5f);
 
         deathTimerOn = false;
@@ -553,7 +545,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         if(!photonView.IsMine)
         {
-            Debug.Log("hit button");
             transform.position = pos;
         }
     }
@@ -647,7 +638,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void endGame()
     {
-        Debug.Log("game over");
         WaveStart waveStartScript = gameObject.GetComponentInChildren<WaveStart>();
         waveStartScript.win = true;
         waveStartScript.WinCondition(waveStartScript.winTeam); //causes returnTimer to decrease faster
@@ -681,7 +671,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (goober.GetComponent<GooberFunctionality>().currentPlayer.gameObject.GetComponent<PlayerManager>().username + " dropped the ATP!"));
         goober.GetComponent<GooberFunctionality>().currentPlayer = null;
         goober.GetComponent<GooberFunctionality>().team = null;
-        Debug.Log("left game");
     }
 
     [PunRPC]

@@ -135,7 +135,6 @@ public class WaveStart : MonoBehaviourPunCallbacks
                 startClock(); //J JERE
                 }
             }
-            Debug.Log(pointsB.GetComponentInChildren<PointsADisplayScript>());
             if(pointsA.GetComponentInChildren<PointsADisplayScript>().points >= pointsNeeded && !win)
             {
                 win = true;
@@ -146,11 +145,9 @@ public class WaveStart : MonoBehaviourPunCallbacks
             }
             else if(pointsB.GetComponentInChildren<PointsADisplayScript>().points >= pointsNeeded && !win)
             {
-                Debug.Log("shart wins");
                 win = true;
                 winTeam = "B";
                 countdownTimer.text = "GAME OVER";
-                countdownTimer.fontSize = 45;
                 transform.root.gameObject.GetComponent<PhotonView>().RPC("endGame", RpcTarget.AllViaServer);
             }
 
@@ -188,12 +185,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
             if (pointsA.GetComponentInChildren<PointsADisplayScript>().points > pointsB.GetComponentInChildren<PointsADisplayScript>().points || winTeam == "A")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team A Wins!";
-                Debug.Log("Team A Wins!");
             }
             else if (pointsB.GetComponentInChildren<PointsADisplayScript>().points > pointsA.GetComponentInChildren<PointsADisplayScript>().points || winTeam == "B")
             {
                 winText.GetComponentInChildren<TextMeshProUGUI>().text = "Team B Wins!";
-                Debug.Log("Team B Wins!");
             }
 
             winOverlay.SetActive(true);
@@ -211,7 +206,6 @@ public class WaveStart : MonoBehaviourPunCallbacks
 
     public void startClock()
     {
-        Debug.Log("yeep");
         gameObject.transform.parent.GetComponentInChildren<PointUpdateScript>().time = 0;
         currentTime = 0f;
         countdownOverlay.SetActive(false);
