@@ -82,6 +82,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
     [SerializeField] float m_wallCheckDistance;
     [SerializeField] bool m_useGravity;
     [SerializeField] float m_gravityCounterForce;
+    [SerializeField] Vector3 m_maxWallRunVelocity;
     public float m_wallRunTimer;
     private RaycastHit m_leftWallHit;
     private RaycastHit m_rightWallHit;
@@ -390,7 +391,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
     private void StartWallRun()
     {
         isWallRunning = true;
-        m_rb.velocity = new Vector3(m_rb.velocity.x, 0f, m_rb.velocity.z);
+        m_rb.velocity = Vector3.zero;
 
        // DoFOV(90f);
         //if(m_wallLeft)
@@ -410,7 +411,10 @@ public class PlayerControllerNEW : MonoBehaviourPun
         if ((orientation.forward - wallForward).magnitude > (orientation.forward - -wallForward).magnitude)
             wallForward = -wallForward;
 
-        m_rb.AddForce(wallForward * m_wallRunForce, ForceMode.Force);
+        Vector3 forceToAdd = wallForward * m_wallRunForce;
+        forceToAdd = Vector3.Min(forceToAdd, m_maxWallRunVelocity);
+
+        m_rb.AddForce(forceToAdd, ForceMode.Force);
 
         if (!(m_wallLeft && moveInput.x > 0) && !(m_wallRight && moveInput.x < 0))
             m_rb.AddForce(-wallNormal * 100, ForceMode.Force);

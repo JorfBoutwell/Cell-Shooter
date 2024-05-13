@@ -1410,7 +1410,7 @@ MonoBehaviour:
   state: 0
   animController: {fileID: 0}
   movementSpeed: 10
-  walkSpeed: 3
+  walkSpeed: 10
   sprintSpeed: 14
   crouchSpeed: 2
   airSpeed: 5
@@ -1456,6 +1456,7 @@ MonoBehaviour:
   m_wallCheckDistance: 1.2
   m_useGravity: 1
   m_gravityCounterForce: 2
+  m_maxWallRunVelocity: {x: 65, y: 0, z: 65}
   m_wallRunTimer: 1.5
   m_exitingWall: 0
   m_exitWallTimer: 1.5
