@@ -142,17 +142,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8fccc09b-1762-4370-bc5a-5fd11703a4a9"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a35f46f5-c337-44ac-8d4e-a623122e1207"",
                     ""path"": ""<Gamepad>/leftStickPress"",
                     ""interactions"": """",
