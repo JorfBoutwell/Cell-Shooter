@@ -74,12 +74,18 @@ public class WaveStart : MonoBehaviourPunCallbacks
         objectiveTextLine.SetActive(false);
 
         //Objective Text Prompts
+        objectiveTextPrompts.Add("Use keys WASD to move and spacebar to jump");
+        objectiveTextPrompts.Add("Press down left click to shoot");
+        objectiveTextPrompts.Add("Jump on walls to move around the map");
+        objectiveTextPrompts.Add("Watch for trains!");
+        objectiveTextPrompts.Add("Follow the arrow to find the ATP");
+        objectiveTextPrompts.Add("Claim the ATP to recieve points for your team");
+        objectiveTextPrompts.Add("You can't shoot or use your abilities with the ATP");
+        objectiveTextPrompts.Add("If you die, you'll lose the ATP!");
         objectiveTextPrompts.Add("Your team needs to reach " + pointsNeeded + " points to win!");
-        objectiveTextPrompts.Add("Earn points by claiming buttons around the map!");
-        objectiveTextPrompts.Add("Simply touch a button to claim it!");
-        objectiveTextPrompts.Add("Enemy players can claim your buttons instantly!");
-        objectiveTextPrompts.Add("If you die, all your buttons will be unclaimed!");
-        objectiveTextPrompts.Add("You can't wall jump forever!");
+        
+        
+        
 
         //Finding WinCondition Objects
         winOverlay = GameObject.Find("WinOverlay");
@@ -227,9 +233,8 @@ public class WaveStart : MonoBehaviourPunCallbacks
     //Displays Objective Text
     IEnumerator ObjectiveEnter()
     {
-        if (!GameObject.Find("Goober"))
-        {
-            GameObject.Find("CaptureTheFlagOverlay").SetActive(false);
+        
+            //GameObject.Find("CaptureTheFlagOverlay").SetActive(false);
             objectiveText.GetComponentInChildren<TextMeshProUGUI>().DOFade(0, 1);
 
             objectiveText.SetActive(true);
@@ -251,10 +256,10 @@ public class WaveStart : MonoBehaviourPunCallbacks
                     objectiveTextLine.SetActive(false);
                 }
 
-                yield return new WaitForSeconds(2.75f);
+                yield return new WaitForSeconds(1.75f);
 
             }
-        }
+        
         
     }
 

@@ -40,9 +40,6 @@ public class GooberFunctionality : MonoBehaviour
             GetComponent<SphereCollider>().enabled = false;
 
             atpClaimed = true;
-
-            //killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (collision.gameObject.GetComponent<PlayerManager>().username + " claimed the ATP!"));
-
             
         }
     }
