@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Train : MonoBehaviour
 {
@@ -17,6 +19,10 @@ public class Train : MonoBehaviour
     KillFeed killFeedScript;
 
     PlayerManager playerManagerScript;
+
+    public Image[] warnings;
+    bool startWarning = true;
+    public float warningDuration = 8f;
 
   // Start is called before the first frame update
     void Start()
@@ -46,6 +52,19 @@ public class Train : MonoBehaviour
         } else
         {
             transform.position = StartPos;
+        }
+    }
+
+    public void FlashWarning(float duration)
+    {
+            foreach (Image warning in warnings)
+            {
+                Debug.Log("starttween");
+                warning.DOFade(1f, duration / 10).SetLoops(10, LoopType.Yoyo).SetEase(Ease.InOutSine)
+                .OnComplete(() =>
+                {
+                    warning.color = new Color(warning.color.r, warning.color.g, warning.color.b, 0f);
+                });
         }
     }
 
