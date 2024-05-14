@@ -58,6 +58,20 @@ public class Train : MonoBehaviour
         playerManagerScript.isDead = true;
 
         if (!killFeedScript.hitByTrain) {
+            if (playerManagerScript.team == "A")
+            {
+                killFeedScript.player2Image.color = Color.blue;
+            }
+            else
+            {
+                killFeedScript.player2Image.color = Color.red;
+            }
+
+            killFeedScript.player2Icon.sprite = playerManagerScript.charIcon.sprite;
+
+            killFeedScript.player1Image.color = Color.black;
+            killFeedScript.player1Icon.sprite = playerManagerScript.charIcon.sprite;
+
             killFeedScript.hitByTrain = true;
             killFeedScript.player2 = playerManagerScript.username;
             killFeedScript.player1 = "TRAIN";

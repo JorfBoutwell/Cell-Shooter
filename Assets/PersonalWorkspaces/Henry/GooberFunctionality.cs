@@ -41,7 +41,7 @@ public class GooberFunctionality : MonoBehaviour
 
             atpClaimed = true;
 
-            killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (collision.gameObject.GetComponent<PlayerManager>().username + " claimed the ATP!"));
+            //killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (collision.gameObject.GetComponent<PlayerManager>().username + " claimed the ATP!"));
 
             
         }
@@ -53,6 +53,8 @@ public class GooberFunctionality : MonoBehaviour
         
         PlayerManager playerManagerScript = currentPlayer.GetComponent<PlayerManager>();
         playerManagerScript.buttonsPressed += 1;
+
+        killFeedScript.AlertFeedInstantiate(killFeedScript.boxesCount, (playerManagerScript.username + " claimed the ATP!"));
 
         //Turnoff goober guidance
         GameObject gooberGuide = player.GetComponentInChildren<GooberGuidenceSystem>().transform.gameObject;
