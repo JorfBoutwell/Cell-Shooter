@@ -72,6 +72,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private float Delta;
     public GameObject Train;
     public GameObject Train2;
+    public float warningDuration = 5f;
+    bool startWarning = true;
 
     PhotonView view;
 
@@ -467,12 +469,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     public void Trains()
     {
         
-
+        if(NewTrain <= warningDuration && startWarning)
+        {
+            startWarning = false;
+            photonView.RPC("RPC_Warning", RpcTarget.All);
+        }
         if (NewTrain <= 0)
         {
             NewTrain = TimeUntilTrain + UnityEngine.Random.Range(-10f, 0f);
+            startWarning = true;
             photonView.RPC("RPC_Trains", RpcTarget.All);
         }
+
     }
 
     public void HandleEffects()
@@ -538,6 +546,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         Train.GetComponent<Train>().Moving = 3.2f;
         Train2.GetComponent<Train>().Moving = 3.2f;
+    }
+
+    [PunRPC]
+    public void RPC_Warning()
+    {
+        Train.GetComponent<Train>().FlashWarning(warningDuration);
     }
 
     [PunRPC]
