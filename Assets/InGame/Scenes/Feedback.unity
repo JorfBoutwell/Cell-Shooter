@@ -233,6 +233,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1239938945}
     m_Modifications:
+    - target: {fileID: 795092048645213557, guid: bac0c00cc2f2a4e8e9385dfb1bc7b08c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1615604292388939760, guid: bac0c00cc2f2a4e8e9385dfb1bc7b08c, type: 3}
       propertyPath: m_Name
       value: Feedback
@@ -304,6 +308,10 @@ PrefabInstance:
     - target: {fileID: 5427947302508235128, guid: bac0c00cc2f2a4e8e9385dfb1bc7b08c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6389047271367661803, guid: bac0c00cc2f2a4e8e9385dfb1bc7b08c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8328115618133865118, guid: bac0c00cc2f2a4e8e9385dfb1bc7b08c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -739,7 +747,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 18.349976, y: -19.960022}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1548769290
 MonoBehaviour:
@@ -981,8 +989,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4279764018
+  m_fontColor: {r: 0.19607845, g: 0.015686275, b: 0.09411766, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -999,13 +1007,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

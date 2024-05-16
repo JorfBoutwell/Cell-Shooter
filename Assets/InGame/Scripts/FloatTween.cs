@@ -14,10 +14,10 @@ public class FloatTween : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         sequence.Append(transform.DOLocalMove(pos2, speed).SetEase(Ease.InOutSine));
-        sequence.Append(transform.DOLocalMove(pos1, speed).SetEase(Ease.InOutSine));
+        //sequence.Append(transform.DOLocalMove(pos1, speed).SetEase(Ease.InOutSine));
 
 
-        sequence.SetLoops(-1);
+        sequence.SetLoops(-1, LoopType.Yoyo);
         sequence.Play();
     }
 }
