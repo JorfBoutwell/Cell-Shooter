@@ -182,12 +182,12 @@ public class PlayerControllerNEW : MonoBehaviourPun
 
         if (isGrounded && !OnSlope())
         {
-            m_rb.AddForce(m_moveDirection.normalized * movementSpeed, ForceMode.Acceleration);
+            m_rb.AddForce(m_moveDirection.normalized * movementSpeed * Time.deltaTime * 600, ForceMode.Acceleration);
             m_rb.useGravity = true;
         }
         else if (isGrounded && OnSlope())
         {
-            m_rb.AddForce(m_slopeMoveDirection.normalized * movementSpeed, ForceMode.Acceleration);
+            m_rb.AddForce(m_slopeMoveDirection.normalized * movementSpeed * Time.deltaTime * 600, ForceMode.Acceleration);
             m_rb.useGravity = false;
             if(m_moveDirection != Vector3.zero)
                 m_rb.AddForce(Vector3.down * m_slopeDownForce, ForceMode.Force);
@@ -195,7 +195,7 @@ public class PlayerControllerNEW : MonoBehaviourPun
         }
         else if (!isGrounded)
         {
-            m_rb.AddForce(m_moveDirection.normalized * movementSpeed, ForceMode.Acceleration);
+            m_rb.AddForce(m_moveDirection.normalized * movementSpeed * Time.deltaTime * 600, ForceMode.Acceleration);
             m_rb.useGravity = true;
         }
 
